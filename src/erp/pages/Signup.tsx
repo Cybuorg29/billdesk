@@ -6,7 +6,7 @@ import{ useState } from 'react'
 import Button from '@mui/joy/Button';
 import { Input } from '@mui/joy';
 import { userService } from '../../api/user/userService';
-import { registerArg } from '../Model/RegisterModel';
+import { registerArg } from '../Model/UserModel';
 import { register } from '../../api/user/user';
 import Top from '../components/signup/Top';
 

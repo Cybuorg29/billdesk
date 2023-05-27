@@ -15,3 +15,9 @@ export interface registerArg {
     adress :String ;
     inNo :Number ;
 }
+
+export interface loginArg{
+    username:string,
+    password:string
+    
+}
