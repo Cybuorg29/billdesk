@@ -20,7 +20,8 @@ module.exports = {
         "fivesix":"56.25rem"
       },
       fontSize:{
-        'us':"8px"
+        'us':"8px",
+        'table':'10px'
       }
     
       

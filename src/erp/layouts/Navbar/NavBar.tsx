@@ -33,7 +33,7 @@ const NavBar = (props: Props) => {
                     {/* <OptionBar scale={optionBarScale} close={()=>{setOptionBarScale(`w-0`)}}  /> */}
 
 
-        <div className=' scale-0  lg:scale-100 ' >
+        <div className=' relative col-span-1 bg-slate-900   hidden   lg:block ' >
 
 
             {/* navbar buttons */}
@@ -52,10 +52,13 @@ const NavBar = (props: Props) => {
 
             </div>
             <div className='absolute bottom-5 w-full grid justify-items-center gap-5 ' >
-                <NavButtons i={`Settings`} icon={<Settings/>} />
-                <div className=' text-white hover:bg-white/20  w-11/12 rounded-lg cursor-pointer flex items-center gap-5 p-2 text-sm ' onClick={()=>{logout()}} >
+            <div className=' text-white hover:bg-white/20  w-full rounded-lg cursor-pointer flex items-center gap-5 p-2 text-sm '  >
+                    <span className=''   >{<Settings/>}</span><div className=''>{`Settings`}</div>
+                </div>
+            <div className=' text-white hover:bg-white/20  w-full rounded-lg cursor-pointer flex items-center gap-5 p-2 text-sm ' onClick={()=>{logout()}} >
                     <span className=''   >{<Logout/>}</span><div className=''>{`Logout`}</div>
                 </div>
+
 
             </div>
 

@@ -1,14 +1,15 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 type Props = {i:string,icon:any}
 
 const  NavButtons=({i,icon}: Props)=> {
+    const {id} = useParams()
 
         return (
             <>
 
-                <Link className=' text-white hover:bg-white/20  w-11/12 rounded-lg cursor-pointer flex items-center gap-5 p-2 text-sm ' to={`${i}`} >
+                <Link className=' text-white hover:bg-white/20  w-11/12 rounded-lg cursor-pointer flex items-center gap-5 p-2 text-sm ' to={`${id}/${i}`} >
                     <span className='' >{icon}</span><div className=''>{i}</div>
                 </Link>
 

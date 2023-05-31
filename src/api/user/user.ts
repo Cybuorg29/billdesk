@@ -23,5 +23,12 @@ export const  reqLogin=(args:loginArg)=>{
 }
 
 
+export const verifyAndGetData=(token:string)=>{
+  return axios.get(`/api/user/verifyandresponce/${token}`)   
+    
+
+}
+
+
 
 

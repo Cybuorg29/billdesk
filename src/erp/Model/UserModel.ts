@@ -21,3 +21,26 @@ export interface loginArg{
     password:string
     
 }
+
+
+  
+ export interface userModel{
+    adress:string
+    building:string
+    cid:any[]
+    createdAt:string
+    email:string
+    gstin:string
+    inNo?:number
+    landmark:string
+    name:string
+    password:string
+    phone:string
+    pincode:string
+    state:string
+    token:string
+    updatedAt:string
+    username:string
+    __v:number
+    _id:string
+ }

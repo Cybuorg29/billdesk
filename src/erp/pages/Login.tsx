@@ -4,7 +4,6 @@ import Button from '@mui/joy/Button';
 import { TextField } from '@mui/material';
 import {  useNavigate } from 'react-router-dom';
 import { reqLogin } from '../../api/user/user';
-import {  toast } from 'react-toastify';
 import { loginArg } from '../Model/UserModel';
 
 type Props = {}
@@ -23,13 +22,12 @@ type Props = {}
      const login=async()=>{
       const result = await reqLogin(args)
         console.log(result)
-         toast.success(result.data.message)
         if (result.data.message===200){
            console.log(result.data.id)
           const token = result.data.token;
            sessionStorage.setItem('token',JSON.stringify(token))
-        //    alert('logined sucessfully ')
-            // navigate(`/erp/${result.data.id}/dashboard`)
+           alert('logined sucessfully ')
+            navigate(`/erp/${result.data.id}/dashboard`)
          }else{
           alert('invalid credentials')
           
