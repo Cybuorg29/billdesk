@@ -44,71 +44,64 @@ const ViewInvoiceTopSection: React.FC = () => {
    const [invoiceProducts,setInvoiceProducts]:any = useState([])
   const { invoiceid } = useParams();
 
-  const getBillClientData = async () => {
-    // if(data.bid===data.sid){
-    //     console.log('same')
-    //      console.log(data.bid)
-    //     const getClient =  await  getInvoiceClientData(data.bid)
-    //      console.log(getClient)
-    //       let client:any = getClient.data
-    //        client = client.data
-    //       console.log('client',client)
-    //     //  setBillData(getClient.data.data)
-    //     setBillData({...billData, bname:client?.name,badress:client?.adress,bstate:client.state,bpincode:client.pincode,bgstin:client.gstin,sname:client.name,sadress:client.adress,spincode:client.adress,sstate:client.adress,sgstin:client.gstin})
-    //      console.log('billdata',billData)
-    // }
-    let Invoices: any = sessionStorage.getItem("invoices");
+  // const getBillClientData = async () => {
 
-    if (!Invoices || Invoices === "null") {
-      console.log("!");
-      console.log("!inoivce", Invoices);
-    } else {
-      console.log("invoices Found ");
-      Invoices = JSON.parse(Invoices);
-      Invoices.map(async (index: invoiceModel) => {
-        if (invoiceid === index._id) {
-          console.log("invoice Found");
-          console.log(index);
-          setData(index);
-           setInvoiceProducts(index.products)
-            console.log('invoiceProducts ',invoiceProducts)
-          if (index.bid === index.sid) {
-            const getClient = await getInvoiceClientData(index.bid);
-            console.log(getClient);
-            let client: any = getClient.data;
-            client = client.data;
-            setBillData({
-              ...billData,
-              bname: client?.name,
-              badress: client?.adress,
-              bstate: client.state,
-              bpincode: client.pincode,
-              bgstin: client.gstin,
-              sname: client.name,
-              sadress: client.adress,
-              spincode: client.adress,
-              sstate: client.state,
-              sgstin: client.gstin,
-            });
-            setBillDetail({
-              ...billDetail,
-              inNo: index.inNo,
-              reverceCharge: index.reverseCharge,
-              state: index.state,
-              gstin: client.gstin,
-              transport: index.transport,
-              vehicalNo: index.vehicalNo,
-              date:index.date
-            });
+  //   let Invoices: any = sessionStorage.getItem("invoices");
+
+  //   if (!Invoices || Invoices === "null") {
+  //     console.log("!");
+  //     console.log("!inoivce", Invoices);
+  //   } else {
+  //     console.log("invoices Found ");
+  //     Invoices = JSON.parse(Invoices);
+  //     Invoices.map(async (index: invoiceModel) => {
+  //       if (invoiceid === index._id) {
+  //         console.log("invoice Found");
+  //         console.log(index);
+  //         setData(index);
+  //          setInvoiceProducts(index.products)
+  //           console.log('invoiceProducts ',invoiceProducts)
+  //         if (index.bid === index.sid) {
+  //           const getClient = await getInvoiceClientData(index.bid);
+  //           console.log(getClient);
+  //           let client: any = getClient.data;
+  //           client = client.data;
+  //           setBillData({
+  //             ...billData,
+  //             bname: client?.name,
+  //             badress: client?.adress,
+  //             bstate: client.state,
+  //             bpincode: client.pincode,
+  //             bgstin: client.gstin,
+  //             sname: client.name,
+  //             sadress: client.adress,
+  //             spincode: client.adress,
+  //             sstate: client.state,
+  //             sgstin: client.gstin,
+  //           });
+  //           setBillDetail({
+  //             ...billDetail,
+  //             inNo: index.inNo,
+  //             reverceCharge: index.reverseCharge,
+  //             state: index.state,
+  //             gstin: client.gstin,
+  //             transport: index.transport,
+  //             vehicalNo: index.vehicalNo,
+  //             date:index.date
+  //           });
             
-          }
-        }
-      });
+  //         }
+  //       }
+  //     });
 
-      console.log("data", data);
-      console.log("detail", billDetail);
-    }
-  };
+  //     console.log("data", data);
+  //     console.log("detail", billDetail);
+  //   }
+  // };
+
+   const  getBillClientData =()=>{
+    
+   }
 
   useEffect(() => {
     getBillClientData();
@@ -118,7 +111,7 @@ const ViewInvoiceTopSection: React.FC = () => {
   return (
     <div className="grid ">
       <div>
-        <TopNameDiv />
+        <TopNameDiv  />
         <TopDetails data={billDetail} />
       </div>
       <div className="grid grid-cols-2">

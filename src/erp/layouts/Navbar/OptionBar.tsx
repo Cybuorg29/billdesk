@@ -13,7 +13,7 @@ import StoreIcon from '@mui/icons-material/Store';
 type Props = {scale:string,close:any}
 
 const OptionBar = ({scale,close}: Props) => {
-     const id:string = 'asdasdasdsadad'
+     // const id:string = 'asdasdasdsadad'
    
 return (
 <div className={`fixed h-screen    bg-white shadow-xl right-0 z-50 flex flex-col ${scale} duration-300  text-xs text-gray-800`} >

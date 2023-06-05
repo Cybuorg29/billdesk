@@ -38,6 +38,7 @@ const NavBar = (props: Props) => {
 
             {/* navbar buttons */}
             <div className='grid   justify-items-center pt-5 gap-5 lg:scale-100 scale-0 ' >
+                <div className='text-white text-xl' >BillDesk</div>
                 <NavButtons icon={<DashboardIcon  />} i={`Dashboard`} />
                 <NavButtons icon={<TbFileInvoice size={25} />} i={`Invoice`} />
                 <NavButtons icon={<IoBookSharp size={25} />} i={`Accounts`} />

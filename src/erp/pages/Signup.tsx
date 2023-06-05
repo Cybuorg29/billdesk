@@ -9,9 +9,12 @@ import { userService } from '../../api/user/userService';
 import { registerArg } from '../Model/UserModel';
 import { register } from '../../api/user/user';
 import Top from '../components/signup/Top';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 
 const  Signup:React.FC = () => {
+   const navigate = useNavigate()
   const [name,setBusinessName] = useState<String>(``)
   const [activities,setActivities] = useState<String>(``)
   const [gstin,setGstin] = useState<String>(``)
@@ -46,15 +49,29 @@ const  Signup:React.FC = () => {
    }
 
   const submit =async()=>{
-      console.log(adress)
-       const {data} = await register(args)
-      // const {data} = await one
+     try{
+
+       console.log(adress)
+       const res = await register(args)
+        console.log('res',res)
+       if(res.status===200){
+         toast.success('registered sucessfully please login to continue')
+         navigate('/login')
+         
+         
+        }else{
+          toast.error('an error occured')
+        }
+      }catch(err:any){
+        toast.error(err.message)
+      }
+              // const {data} = await one
       //  console.log(data)
   }
 
-  useEffect(() => {
-    userService.register().then((res)=>console.log('console',res.data)).catch()
-  }, [])
+  // useEffect(() => {
+  //   userService.register().then((res)=>console.log('console',res.data)).catch()
+  // }, [])
   
   
   return (

@@ -23,10 +23,16 @@ export const  reqLogin=(args:loginArg)=>{
 }
 
 
-export const verifyAndGetData=(token:string)=>{
-  return axios.get(`/api/user/verifyandresponce/${token}`)   
+export const verify=(token:string)=>{
+  return axios.get(`/api/user/verify/${token}`)   
     
 
+}
+
+export const getUserName=()=>{
+      let token:any = sessionStorage.getItem('token')
+       token = JSON.parse(token);
+     return axios.get(`/api/user/getname/${token}`)
 }
 
 

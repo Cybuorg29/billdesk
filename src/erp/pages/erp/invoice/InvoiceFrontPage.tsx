@@ -38,6 +38,8 @@ interface invoiceArray{
 
 const InvoiceFrontPage = (props: Props) => {
   const {id} = useParams()
+  const [invoices,setInvoice]:any = useState([])
+
   
   const getData =async()=>{
     const {data} = await getInvoices()
@@ -49,11 +51,10 @@ const InvoiceFrontPage = (props: Props) => {
    const saveInvoice=(data:any[])=>{
       sessionStorage.setItem('invoices',JSON.stringify(data))
    }
-  const [invoices,setInvoice]:any = useState([])
 
     useEffect(() => {
       console.log('invoice1',invoices)
-      getData()
+      // getData()
   
     }, [])
     

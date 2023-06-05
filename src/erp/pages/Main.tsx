@@ -3,76 +3,63 @@ import NavBar from "../layouts/Navbar/NavBar";
 import TopBar from "../layouts/Navbar/TopBar";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { verifyAndGetData } from "../../api/user/user";
+import { verify} from "../../api/user/user";
+import { toast } from "react-toastify";
 
 type Props = {};
 
-
-
 const Main = (props: Props) => {
-  
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const [Data,setData] = useState({})
-  
-
+  const [Data, setData] = useState({});
 
   useEffect(() => {
+    get();
+  }, []);
 
-       get()
-       
-  }, [])
-  
-  
-  const  get = async() =>{
-     let token:any = sessionStorage.getItem('token')
-     if(!token){
-       navigate('/login')
-       
-      }else{
-        try{
-
-
-          token =  JSON.parse(token)
-          // const {data} = await getData(token)
-          const {data} =  await verifyAndGetData(token) 
-          if(data.message===201){
-            alert(`session Expired please login again  `)
+  const get = async () => {
+    let token: any = sessionStorage.getItem("token");
+    if (!token||token===undefined||token===null) {
+      toast.info('please login to continue')
+      navigate("/login");
+    } else {
+      try {
+        token = JSON.parse(token);
+        const { data } = await verify(token)
+          if(data.code ===400){
+            toast.error('Please login to continue')
             navigate('/login')
-          }
-          setData(data.data)
-          console.log ( 'set', data.data)
-          sessionStorage.data = JSON.stringify(data.data)
-          sessionStorage.id = JSON.stringify(data.data._id)
-        }catch(err:any){
-          console.log(err.message)
-        }
+
+            
+
+          } else{
+            
+
+          }    
+      } catch (err: any) {
+        toast.error('error');
+        console.log(err.message);
+        toast.error(err.message);
+        navigate("/login");
       }
- 
+    }
+  };
 
-   
-        
-  }
+  // const name = useSelector<dataSchema>((state)=>state.name)
+  // useEffect(() => {
+  //   alert(name)
+  // }, [])
 
-
-
-    // const name = useSelector<dataSchema>((state)=>state.name)  
-    // useEffect(() => {
-    //   alert(name)
-    // }, [])
-     
   return (
     <>
       <div className=" grid lg:grid-cols-8">
         <NavBar />
 
         <div className="h-screen col-span-7 bg-slate-50 overflow-auto gap-5  ">
-            <TopBar  />
-            <div className="p-5" >
-            <Outlet  />
-
-            </div>
-            
+          <TopBar />
+          <div className="p-5">
+            <Outlet />
+          </div>
         </div>
       </div>
     </>
