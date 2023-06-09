@@ -6,7 +6,6 @@ import {
   invocieCreationDetails,
   invoiceModel,
 } from "../../../Model/InvoiceModel";
-import { clientModel } from "../../../Model/ClientModel";
 import { getInvoiceClientData } from "../../../../api/invocie/invoiceService";
 import TopDetails from "../../../components/Invoice/viewinvoice/TopDetails";
 import { useParams } from "react-router-dom";

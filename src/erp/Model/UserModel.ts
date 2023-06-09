@@ -23,24 +23,29 @@ export interface loginArg{
 }
 
 
-  
- export interface userModel{
-    adress:string
-    building:string
-    cid:any[]
-    createdAt:string
-    email:string
-    gstin:string
-    inNo?:number
-    landmark:string
+export interface addUserModelInterface{
+    name:string,
+    gstin:string,
+    phone:string,
+    email:string,
+    building:string,
+    landmark:string,
+    district:string,
+    pincode:string,
+    state:string,
+    activities:string,
+    adress:string,
+    transport:string,
+    term:any[]
+}
+
+export interface storeUserInterface{
     name:string
-    password:string
+    gstin:string
+    email:string
+    adress:string
+    activities:string
     phone:string
-    pincode:string
-    state:string
-    token:string
-    updatedAt:string
-    username:string
-    __v:number
-    _id:string
- }
+    products:any[]
+
+}

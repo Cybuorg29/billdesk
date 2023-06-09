@@ -57,7 +57,7 @@ const Main = (props: Props) => {
 
         <div className="h-screen col-span-7 bg-slate-50 overflow-auto gap-5  ">
           <TopBar />
-          <div className="p-5">
+          <div className="p-5 border-2 bg-white rounded-xl lg:m-3 min-h-[90vh] ">
             <Outlet />
           </div>
         </div>

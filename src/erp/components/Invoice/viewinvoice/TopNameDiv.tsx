@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { userModel } from '../../../Model/UserModel'
+// import { userModel } from '../../../Model/UserModel'
 
 // type Props = {id:string}
 
 
 const TopNameDiv = () => {
-    const [details,setDetails] = useState<userModel>()
+    const [details,setDetails] = useState()
+    // const [details,setDetails] = useState<userModel>()
     const [loading,setLoading] = useState(`scale-0`)
     
     useEffect(() => {
@@ -57,7 +58,7 @@ const TopNameDiv = () => {
 
   return (
     <div className='relative' >
-        <div className={`absolute bg-white/70 w-full h-full grid justify-items-center items-center duration-100 ${loading} `} > 
+        {/* <div className={`absolute bg-white/70 w-full h-full grid justify-items-center items-center duration-100 ${loading} `} > 
         <div className='text-xl' >Getting Data........</div>
         </div>
         <div className='border-2 border-black ' >
@@ -67,7 +68,7 @@ const TopNameDiv = () => {
             <div className='text-center uppercase ' >{details?.adress}</div>
             <div className='text-center uppercase ' >{details?.state}{' - '}{details?.pincode}{', '}{`Contact - `}{details?.phone}</div>
             <div className='text-center uppercase ' >{'GSTIN - '}{details?.gstin}</div>
-        </div>
+        </div> */}
     </div>
   )
 }

@@ -1,56 +1,109 @@
 import React, { useState } from 'react'
-import DataFields, {  clientSchema } from '../../components/clients/pop/DataFields'
+import DataFields from '../../components/clients/pop/DataFields'
+import { Button } from '@mui/material'
+import { toast } from 'react-toastify'
+import { addClient } from '../../../api/user/user'
+import { addUserModelInterface} from '../../Model/UserModel'
+import { termAndConditionModel } from '../../Model/TermAndConditionsModel'
+import { useNavigate } from 'react-router-dom'
 
 type Props = {scale:string,close:()=>void}
 
-interface termSchema{
-  index:string
-}
+
+
 
 const AddClientsPop = ({close,scale}: Props) => {
-
-   const [client,setClient]:any = useState<clientSchema>({
+     const navigate = useNavigate()
+   const [client,setClient]:any = useState<addUserModelInterface>({
     name:'',
     gstin:'',
     phone:'',
-    state:'',
-    dist:'',
+    email:'',
+    building:'',
+    landmark:'',
+    district:'',
     pincode:'',
-    adress:'',
-    balance:0,
+    state:'',
+    activities:'',
     transport:'',
-     term:[]
+    adress:'',
+    term:[],
+
+
    })
+
+  //  const [term,setTerm] = useState([])
 
     const handleDataFieldsChange=(type:string,value:any)=>{
       switch(type){
         case 'name':
-          setClient((prev:clientSchema)=>{return {...prev,name:value}})
+          setClient((prev:addUserModelInterface)=>{return {...prev,name:value}})
           break;
           case 'gstin':
-             setClient((prev:clientSchema)=>{return {...prev,gstin:value}})
+             setClient((prev:addUserModelInterface)=>{return {...prev,gstin:value}})
              break;
              case 'phone':
-                 setClient((prev:clientSchema)=>{return {...prev,phone:value}})
+                 setClient((prev:addUserModelInterface)=>{return {...prev,phone:value}})
                    break;
                    case 'pincode':
-                 setClient((prev:clientSchema)=>{return {...prev,pincode:value}})
+                 setClient((prev:addUserModelInterface)=>{return {...prev,pincode:value}})
                     break;
                     case 'adress':
-                      setClient((prev:clientSchema)=>{return {...prev,adress:value}})
+                      setClient((prev:addUserModelInterface)=>{return {...prev,adress:value}})
                          break;
-                         case 'state':
-                          setClient((prev:clientSchema)=>{return {...prev,state:value}})
+                         case 'district':
+                          setClient((prev:addUserModelInterface)=>{return {...prev,district:value}})
                              break;
-                                 case 'balance':
+                         case 'state':
+                          setClient((prev:addUserModelInterface)=>{return {...prev,state:value}})
+                             break;
+                                 case 'email':
 
-                                  setClient((prev:clientSchema)=>{return {...prev,balance:value}})
+                                  setClient((prev:addUserModelInterface)=>{return {...prev,email:value}})
                                      break;                          
                                      case 'transport':
-                                       setClient((prev:clientSchema)=>{return {...prev,transport:value}})
-                                           break;                            
+                                       setClient((prev:addUserModelInterface)=>{return {...prev,transport:value}})
+                                           break; 
+                                            case 'activities':
+                                           setClient((prev:addUserModelInterface)=>{return {...prev,activities:value}})
+                                               break;
+                                               case 'building':
+                                                setClient((prev:addUserModelInterface)=>{return {...prev,building:value}})
+                                                    break;  
+                                                    case 'landmark':
+                                            setClient((prev:addUserModelInterface)=>{return {...prev,landmark:value}})
+                                                break;  
+                                                                          
       }
     
+    }
+
+    const submit=async()=>{
+       try{
+          let token:any = sessionStorage.getItem('token')
+          token = JSON.parse(token)
+         setClient((prev:addUserModelInterface)=>{return{...prev,token:token}})
+        const push = await addClient(client)
+          if(push?.data.code===200){
+            toast.success(push?.data?.message)
+             close()
+          }else if(push?.data?.code===100){
+            toast.info('user Already exists on the platform')
+            navigate(`/erp/${push.data.user}/view/profile`)
+            
+          }
+          
+          else{
+            toast.error(push?.data?.message)
+            
+          }
+
+        console.log(client)
+       }catch(err:any){
+         toast.error(err.message);
+       }
+
+
     }
 
 
@@ -59,28 +112,40 @@ const AddClientsPop = ({close,scale}: Props) => {
           console.log(value)
         let oldArray  =  client.term
            console.log('oldArray',oldArray)
-           let newArray = [...oldArray,value]
+           let newArray:any = [...oldArray,value]
             
            console.log('new array ',newArray)
-        setClient((prev:clientSchema)=>{return{...prev,term:newArray}})
+        setClient((prev:addUserModelInterface)=>{return{...prev,term:newArray}})
+        // setTerm(newArray)
       }
 
     }
 
     const handleTermDelete=(_term:string)=>{
        console.log('_term',_term)
-      // setClient((prev:clientSchema)=>{return prev.term.filter((index:string)=>index != _term)})
+      // setClient((prev:addUserModelInterface)=>{return prev.term.filter((index:'')=>index != _term)})
        const updateArray = client.term.filter((items:any)=>items!==_term)
         console.log(updateArray)
-        setClient((prev:clientSchema)=>{return{...prev,term:updateArray}})
+        setClient((prev:addUserModelInterface)=>{return{...prev,term:updateArray}})
+        // setTerm(updateArray);
+
     }
  
   return (
-    <div className={` p-5 w-full h-full absolute shadow-xl border rounded-xl bg-white z-50 min-h-[75vh] ${scale}  duration-200`} >
+    <div className={` p-5 w-full h-full absolute shadow-xl border rounded-xl bg-white z-50 min-h-[75vh] ${scale}  duration-200 overflow-auto`} >
       <Close_Button/>
       <div className='grid gap-4' >
+        <div className='flex gap-5 items-center '>
        <div className='text-4xl text-gray-600' >Add Clients</div>
-       <DataFields data={client}  handleChange={(type:string,value:any)=>handleDataFieldsChange(type,value)} handleTermChange={(action:boolean,value:any)=>{handleTermIo(action,value)}}  deleteTerm={(term:string)=>handleTermDelete(term)} />
+         <div>Or </div>
+         <Button  >Search for user already on platform</Button>
+        </div>
+       <DataFields data={client} term={client.term}  handleChange={(type:string,value:any)=>handleDataFieldsChange(type,value)} handleTermChange={(action:boolean,value:any)=>{handleTermIo(action,value)}}  deleteTerm={(term:string)=>handleTermDelete(term)} />
+      </div>
+      <div className=" grid justify-items-center w-full p-5  ">
+        <Button variant="outlined" className="w-6/12"  onClick={()=>submit()} >
+          Add Client
+        </Button>
       </div>
 
     </div>

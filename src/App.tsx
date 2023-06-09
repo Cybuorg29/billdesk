@@ -14,6 +14,7 @@ import { Counter } from './erp/store/sample';
 import 'react-toastify/dist/ReactToastify.css';
 import CreateInvoicePage from './erp/pages/erp/invoice/createInvoice/CreateInvoicePage';
 import ClientDashboard from './erp/pages/erp/client/ClientDashboard';
+import ViewProfile from './erp/pages/erp/profile/ViewProfile';
 function App() {
   return (
     <>
@@ -32,6 +33,7 @@ function App() {
           <Route path='/erp/invoice/:invoiceid/view invoice' element={<ViewInvoice/>} ></Route>
           <Route path='/erp/invoice/createinvoice' element={<CreateInvoicePage/>} ></Route>
           <Route path='/erp/Client' element={<ClientDashboard/>} ></Route>
+          <Route path='/erp/:name/view/profile' element={<ViewProfile/>} ></Route>
        
           </Route>
         </Routes>
