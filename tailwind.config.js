@@ -4,8 +4,7 @@ module.exports = {
    
     extend: {
       colors:{
-        'navbar':'#1E2640',
-        'navbar2':'#D9D9D9'
+        'navbar':'#0D1117',
       },
       fontFamily:{
         
