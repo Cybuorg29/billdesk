@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { bankDetails, userDetailSchema } from '../../models/userModel'
 import { Button } from '@mui/material'
 import DataFields from './components/DataFields'
@@ -6,6 +6,7 @@ import BankDetails from './components/BankDetails'
 import { useAppSelector } from '../../store/app/hooks'
 import { setUpProfile } from '../../api/userServices'
 import { toast } from 'react-toastify'
+import Update from './components/button/Update'
 
 type Props = {}
 
@@ -14,7 +15,12 @@ const Settings = (props: Props) => {
     const initData = useAppSelector(state=>state.userData)
      const bankdata  = useAppSelector(state=>state.bank)
       const {token} = useAppSelector(state=>state.auth)
+
   const [client,setClient]:any = useState<userDetailSchema>(initData)
+   useEffect(() => {
+  
+   }, [initData])
+   
 
    const [bank,setBank] = useState<bankDetails>(bankdata)
    const handleInputChange=(type:string,value:any)=>{
@@ -65,6 +71,7 @@ const Settings = (props: Props) => {
                   setBank({...bank,bank:value})
                   break;
                   case 'image':
+                      console.log('value',value)
                      setClient({...client,image:value})
                    
                   
@@ -78,6 +85,7 @@ const Settings = (props: Props) => {
          
         const res  = await   setUpProfile(client,bank,token)
        if(res.data.code===200){
+
         toast.success('profile Setup Complete')
        }else{
         toast.error(res.data.message)
@@ -91,16 +99,19 @@ const Settings = (props: Props) => {
 
 
   return (
-    <div  className={`  w-full h-full z-50 bg-white/50   duration-200 p-5`} >
+    <div  className={`  w-full h-full  bg-white/50   duration-200 `} >
         {/* <TopSection close={()=>close()} /> */}
          <div className='p-5 text-xl text-gray-600' >User Details</div>
            <DataFields client={client} handleInputChange={(type:string,value:any)=>handleInputChange(type,value)} />
             <BankDetails bank={bank} handleChange={(type:string,value:string)=>handleInputChange(type,value)} />
+
             
-      <div  className='p-5' ><Button variant='outlined' onClick={()=>updateUser()} color='info' >Update</Button></div>
+            <Update  name={client.name} updateUser={()=>updateUser()} />
       </div>
 
   )
+
+ 
 }
 
 export default Settings

@@ -9,7 +9,7 @@ export interface userDetailSchema{
     state:string
     activities:string
     pincode:string
-    image:string
+    image:any
 }
 
 export interface bankDetails{

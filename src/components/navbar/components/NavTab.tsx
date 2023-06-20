@@ -15,7 +15,7 @@ const NavTab = ({name,link,icon}: Props) => {
     //   </Link>
     
    return <div>
-       <Link to={`${link}`} className="value">
+       <Link to={`${link}`} className=" value">
         <div>{icon}</div>
       {name}
     </Link>

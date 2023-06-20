@@ -10,6 +10,7 @@ export const pushToken=(state:tokenSchema,action:PayloadAction<tokenSchema>)=>{
 
 }
 
+
 export const pullToken =(state:tokenSchema)=>{
       state.istoken = false
 }

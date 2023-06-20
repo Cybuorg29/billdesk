@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react'
-import NavBar from '../../navbar/NavBar'
 import { Outlet, useNavigate } from 'react-router-dom'
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 import ListRoundedIcon from '@mui/icons-material/ListRounded';
-import Topbar from '../../navbar/Topbar';
 import { useAppDispatch, useAppSelector } from '../../store/app/hooks';
 import { useDispatch } from 'react-redux';
 import { saveToken } from '../../store/features/auth/authSlice';
@@ -13,6 +11,9 @@ import { getUserData } from '../../api/userServices';
 import { initilise } from '../../store/features/user/userSlice';
 import { toast } from 'react-toastify';
 import { initliseBank } from '../../store/features/bank/bankSlice';
+import { UpdateUSer, initialiseUserData } from '../../store/actions/user/user';
+import Topbar from '../../components/navbar/Topbar';
+import NavBar from '../../components/navbar/NavBar';
 type Props = {}
 
 const Main = (props: Props) => {
@@ -20,63 +21,74 @@ const Main = (props: Props) => {
        const token = useAppSelector(state=>state.auth)
        const dispatch = useAppDispatch()
        const navigate= useNavigate()
+  // useEffect(() => {
+  //   // checking if the token is available
+  //      if(token.istoken===false){
+  //        navigate('/login ')
+  //           toast.info('please Login to continue')
+  //      }else{
+  //       toast.info('loggedin')
+  //       initialiseUserData()
+   
 
-   const initiliseData=async()=>{
-        // console.log(data)
-        try{
-          
-          dispatch(change())     
-          //  toast.success('khjh') 
-            const {data} = await getUserData(token.token)
-            if(data.code===200){
-              //  toast.success('sucess')
-              toast.success(data.user.name)
-              dispatch(initilise(data?.user))   
-              dispatch(initliseBank(data?.bank))           
-              dispatch(change())
-              if(data.user.name===''){
-                toast.info('please setup your profile')
-                navigate('/settings')
-              }
+  //      }
+  // }, []);
 
-            }
-          }catch(err:any){
-            toast.error(err.message)
-            dispatch(change())
-          }
-         
-   }
-   useEffect(()=>{
-       if(!token.istoken){
-        navigate('/login')
-       }else{
-         initiliseData()
-       }
 
-   },[token.istoken])
+  useEffect(() => {
+    console.log("change User ", user);
+    // if(user.name===''){
+    //   navigate('/settings')
+    // }
+     if(!token.istoken){
+      toast.info('please login to continue')
+      navigate('/login')
+     }else{
+        initialiseUserData()
+     }
+     
+  }, [token.istoken]);
 
-   useEffect(()=>{
-      console.log('change User ',user)
-   },[user])
+  useEffect(()=>{
+     console.log('change',user)
+  },[user])
+
 
   return  (
     <>
      <Loader/>
-    <div className='grid grid-cols-7  '>
-      <div className='grid col-span-1    ' >
-        <div className='bg-navbar  shadow-2xl  ' >
+    {/* <div className='grid    grid-cols-7 bg-whitesmoke h-screen  '>
+      <div className='grid col-span-1       ' >
+        <div className='   h-full  shadow-2xl  ' >
         <NavBar/>
 
         </div>
       </div>
-      <div className=' col-span-6  overflow-auto h-screen p-2 rounded-2xl  grid gap-5 ' >
-         <Topbar  name={'Diya Industries'} />
-        <div className='w-full h-[90vh] shadow-2xl border rounded-2xl ' >
+      <div className=' col-span-6  overflow-auto h-full  rounded-2xl  grid gap-3  ' >
+         <Topbar  name={user.name} />
+        <div className='w-full h-[90vh] shadow-2xl border rounded-2xl bg-white ' >
           <Outlet ></Outlet>
 
         </div>
  
       </div>
+    </div> */}
+    <div  className='grid grid-cols-7 bg-whitesmoke  h-screen' >
+      <div className='grid col-span-1 bg-black' >
+        <NavBar/>
+      </div>
+    <div className=' col-span-6   bg-whitesmoke ' >
+      <div  className='h-[8%]  p-4 ' >
+        <Topbar name={user.name} />
+      </div>
+      <div className='h-[92%]  grid justify-items-center items-center pl-5 pr-5 overflow-auto  ' >
+        <div className=' h-[95%] w-full bg-white p-5 rounded-xl border overflow-auto shadow-xl' >
+        <Outlet></Outlet>
+
+        </div>
+      </div>
+       
+    </div>
     </div>
     </>
   )

@@ -32,19 +32,30 @@ export const getUserData=(token:any)=>{
 }
 
 export const setUpProfile=(client:userDetailSchema,bank:bankInterface,token:any)=>{
+    console.log(client)
      let  bankDetail = {Accountname:'',no:'',isfc:'',bankName:'',branch:''}
        bankDetail.Accountname = bank.name;
        bankDetail.bankName = bank.bank;
        bankDetail.branch = bank.branch;
        bankDetail.isfc = bank.isfc;
        bankDetail.no = bank.no
-       const user = client
-       const image = client.image
-       console.log(image)
-    return axios.post(`/api/profile/setup`,{user,bankDetail,token,image},{
+       const file = client.image
+       const user:any = client;
+        delete user.image
+       console.log(file)
+    return axios.post(`/api/profile/setup`,{bankDetail,token,file,user},{
         headers:{
             "Content-Type":"multipart/form-data"
         }
     })
 
+}
+
+export const  updateProfileImage=(image:any,token:any)=>{
+    return axios.post(`/api/profile/update/photo`,{image,token},{
+        headers:{
+            "Content-Type":"multipart/form-data"
+        }
+    })
+    
 }

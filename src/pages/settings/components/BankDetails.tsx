@@ -1,13 +1,21 @@
 import { TextField } from "@mui/material"
 import { bankDetails } from "../../../models/userModel"
 import { useAppSelector } from "../../../store/app/hooks"
+import { useEffect } from "react"
 
 type Props = {bank:bankDetails,handleChange:(type:string,value:string)=>void}
 
 const BankDetails = ({bank,handleChange}: Props) => {
  
-   const user =  useAppSelector(state=>state.bank)
+   const user =  useAppSelector(state=>state.userData)
+    
+    useEffect(() => {
+    
+    }, [user])
+    
+   
     if(user.name===''){
+      console.log(user.name)
       return(
     
     <div className='p-5' >
@@ -23,6 +31,7 @@ const BankDetails = ({bank,handleChange}: Props) => {
 
       )
     }else{
+       console.log('block Bank')
       return (
         <div className='p-5' >
         <div className='text-xl text-gray-600 pb-5' >Bank Details</div>

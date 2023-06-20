@@ -2,14 +2,28 @@ import { MenuItem, Select, TextField } from '@mui/material'
 import { userDetailSchema } from '../../../models/userModel'
 import { ImageAspectRatio } from '@mui/icons-material'
 import { erpAssets } from '../../../images/ImageExport'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../store/app/hooks'
+import { updateProfileImage } from '../../../api/userServices'
+import { toast } from 'react-toastify'
+import { change } from '../../../store/features/loader/loaderSlice'
+import { UpdateUSer, updateImage } from '../../../store/actions/user/user'
 
 type Props = {client:userDetailSchema,handleInputChange:(type:string,value:any)=>void}
 
 const DataFields = ({client,handleInputChange}: Props) => {
   const user = useAppSelector(state=>state.userData)
+   const {token} = useAppSelector(state=>state.auth)
+    const dispatch = useAppDispatch()
   const [addImageScale,setAddImageScale] = useState('scale-0')
+
+  useEffect(() => {
+     console.log('change')
+  }, [user,user.image])
+  
+
+ 
+
  if(user.name ===''){
   return(
     <>
@@ -20,6 +34,7 @@ const DataFields = ({client,handleInputChange}: Props) => {
               <label htmlFor='upload-image' className=' text-center cursor-pointer text-white' >Upload Image +</label>
               <input  id='upload-image' type='file' hidden className='' onChange={(e)=>{
                 const image:any = e.target?.files?.[0]
+                console.log('asdasdas')
                 handleInputChange('image',image)
               }} accept='jpeg/png' ></input>
               </label>
@@ -53,10 +68,14 @@ const DataFields = ({client,handleInputChange}: Props) => {
         <div  className='flex gap-20' >
         <div className='w-64 h-64 bg-gray-100 col-span-2 relative border   ' onMouseOver={()=>setAddImageScale('scale-100')} onMouseLeave={()=>setAddImageScale('scale-0')} >
               <label htmlFor='upload-image'  className={`w-full h-full bg-black/50 absolute z-50 ${addImageScale} grid items-center cursor-pointer   `} >
-              <label htmlFor='upload-image' className=' text-center cursor-pointer' >Upload Image +</label>
-              <input  id='upload-image' type='file' hidden className='' accept='jpeg/png' ></input>
+              <label htmlFor='upload-image' className=' text-center cursor-pointer text-white' >Upload Image +</label>
+              <input  id='upload-image' type='file' hidden className='' onChange={(e)=>{
+                 const image:any = e.target?.files?.[0]
+                // changeProfile(image)
+                 updateImage(image)
+                }}  ></input>
               </label>
-            <img  src={erpAssets.defualtProfileImg} className='w-full h-full  rounded-lg' >
+            <img  src={`${client.image}`} className='w-full h-full  rounded-lg' >
            
             </img>
         </div>
