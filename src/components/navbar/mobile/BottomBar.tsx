@@ -38,7 +38,7 @@ const BottomBar = (props: Props) => {
      ]
 
   return (
-    <div  className={`h-16 bg-black lg:hidden grid    w-full bottom-0   grid-cols-5 p-2   `} >
+    <div  className={` h-full bg-black lg:hidden grid    w-full bottom-0   grid-cols-5    `} >
            <SideBar scale={sideBarScale} close={()=>setSideBarScale('scale-0')} />
     
         {
