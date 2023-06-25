@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ListIcon from '@mui/icons-material/List';
+import { useAppSelector } from '../../store/app/hooks';
 
-type props = {name:any}
-const Topbar = ({name}:props) => {
-
+type props = {}
+const Topbar = ({}:props) => {
+      const {name} =  useAppSelector(state=>state.userData)
      const [location,setLocation]= useState('')
       const [smallNavbarScale,setSmallNavbarScale] = useState(`w-0`)
      let changeLocation:any ;

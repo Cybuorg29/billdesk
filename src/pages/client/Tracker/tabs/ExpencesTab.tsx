@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react'
 import '../css/Expence.css'
 import CurrencyRupeeRoundedIcon from '@mui/icons-material/CurrencyRupeeRounded';
-type Props = {amount:number}
+import { useAppSelector } from '../../../../store/app/hooks';
+type Props = {}
 
-const ExpencesTab = ({amount}: Props) => {
-
+const ExpencesTab = ({}: Props) => {
+     const {totalExpences} = useAppSelector(state=>state.tracker)
+ 
     // useEffect(()=>{
     //      const div:any =document.getElementById('result1').innerHTML
          
@@ -26,7 +28,7 @@ const ExpencesTab = ({amount}: Props) => {
     <div className="data">
         <p id='result1' >
             {/* {amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} */}
-            {amount.toLocaleString('en-IN', {
+            {totalExpences.toLocaleString('en-IN', {
             maximumFractionDigits: 2,
             style: 'currency',
             currency: 'INR'

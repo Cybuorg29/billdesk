@@ -1,12 +1,14 @@
 import React from 'react'
 import '../css/Income.css'
 import CurrencyRupeeRoundedIcon from '@mui/icons-material/CurrencyRupeeRounded';
-type Props = {amount:number}
+import { useAppSelector } from '../../../../store/app/hooks';
+type Props = {}
 
-const IncomeTab = ({amount}: Props) => {
+const IncomeTab = ({}: Props) => {
+     const {totalIncome}  = useAppSelector(state=>state.tracker)
   return (
     <div>
-        
+
 <div className="card  cursor-pointer hover:scale-105 duration-200">
     <div className="title">
         <span>
@@ -19,7 +21,7 @@ const IncomeTab = ({amount}: Props) => {
     </div>
     <div className="data">
         <p>
-        {amount.toLocaleString('en-IN', {
+        {totalIncome.toLocaleString('en-IN', {
             maximumFractionDigits: 2,
             style: 'currency',
             currency: 'INR'

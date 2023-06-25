@@ -17,8 +17,8 @@ const TrackerDashboard = (props: Props) => {
     <div className='grid grid-cols-2 h-full gap-2 ' >
       <div  className=' h-full ' >
       <div  className='grid lg:grid-cols-2   h-[20%] p-4' >
-      <IncomeTab  amount={tracker.totalIncome} />
-      <ExpencesTab amount={tracker.totalExpences} />
+      <IncomeTab   />
+      <ExpencesTab />
       
       </div>
       <div  className='h-[80%] ' >

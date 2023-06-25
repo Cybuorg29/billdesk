@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import BottomBar from '../../../components/navbar/mobile/BottomBar'
+import SideBar from '../../../components/navbar/mobile/components/SideBar'
 import Topbar from '../../../components/navbar/Topbar'
 import { initialiseUserData } from '../../../store/actions/user/user'
 import { useAppDispatch, useAppSelector } from '../../../store/app/hooks'
@@ -12,16 +13,16 @@ const MobileMain = (props: Props) => {
 
   const user = useAppSelector(state=>state.userData)
   const token = useAppSelector(state=>state.auth)
-  const dispatch = useAppDispatch()
   const navigate= useNavigate()
 useEffect(() => {
   // checking if the token is available
      if(token.istoken===false){
        navigate('/login ')
-          toast.info('please Login to continue')
+          // toast.info('please Login to continue')
      }else{
-      toast.info('loggedin')
+      // toast.info('loggedin')
       initialiseUserData()
+
 
 
      }
@@ -30,14 +31,14 @@ useEffect(() => {
 
 useEffect(() => {
 console.log("change User ", user);
-// if(user.name===''){
-//   navigate('/settings')
-// }
+if(user.name===''){
+  navigate('/settings')
+}
 if(!token.istoken){
  toast.info('please login to continue')
  navigate('/login')
 }else{
-  //  initialiseUserData()
+   initialiseUserData()
 }
 
 }, [token.istoken]);
@@ -45,7 +46,9 @@ if(!token.istoken){
 useEffect(()=>{
 console.log('change',user)
 },[user])
+const [sideBarScale,setSideBarScale] = useState('w-0')
 
+ 
   return (
   //   <div style={{ width: '100vw' }}>
   //   <div style={{ backgroundColor: 'blue', height: '50px' }}>
@@ -60,14 +63,15 @@ console.log('change',user)
   // </div>
  
    <div  className='w-full h-screen  ' >
-     <div className='h-[7%] bg-white  rounded-xl p-2 ' >
-        <Topbar name={'asdasdasd'} />
+    <SideBar scale={sideBarScale}  close={()=>setSideBarScale('w-0')} />
+     <div className='h-[10%] bg-white  rounded-xl  ' >
+        <Topbar  />
      </div>
-     <div  className='h-[85%]  ' >
+     <div  className='h-[82%]  ' >
       <Outlet/>
      </div>
      <div  className='h-[8%] ' >
-      <BottomBar/>
+      <BottomBar  open={()=>setSideBarScale('w-[75vw]')} />
      </div>
 
 
