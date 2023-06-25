@@ -79,7 +79,7 @@ const Main = (props: Props) => {
       </div>
     <div className=' col-span-6   bg-whitesmoke ' >
       <div  className='h-[8%]  p-4 ' >
-        <Topbar name={user.name} />
+        <Topbar  />
       </div>
       <div className='h-[92%]  grid justify-items-center items-center pl-5 pr-5 overflow-auto  ' >
         <div className=' h-[95%] w-full bg-white p-5 rounded-xl border overflow-auto shadow-xl' >

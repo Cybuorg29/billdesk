@@ -6,9 +6,9 @@ import InventoryRoundedIcon from "@mui/icons-material/InventoryRounded";
 import AccountBalanceWalletRoundedIcon from '@mui/icons-material/AccountBalanceWalletRounded';
 import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
 import SideBar from './components/SideBar';
-type Props = {}
+type Props = {open:()=>void}
 
-const BottomBar = (props: Props) => {
+const BottomBar = ({open}: Props) => {
     const [sideBarScale,setSideBarScale] = useState('scale-0')
 
  
@@ -39,7 +39,6 @@ const BottomBar = (props: Props) => {
 
   return (
     <div  className={` h-full bg-black lg:hidden grid    w-full bottom-0   grid-cols-5    `} >
-           <SideBar scale={sideBarScale} close={()=>setSideBarScale('scale-0')} />
     
         {
             navLine.map((index)=>{
@@ -50,7 +49,7 @@ const BottomBar = (props: Props) => {
                 )
             })
         }
-        <div   className='grid justify-items-center   items-center text-white ' onClick={()=>{setSideBarScale('scale-100')}} >
+        <div   className='grid justify-items-center   items-center text-white ' onClick={()=>{open()}} >
         <div>{<MoreHorizRoundedIcon/>}</div>
         <div  className='text-xs'  >{'More'}</div>
     </div>

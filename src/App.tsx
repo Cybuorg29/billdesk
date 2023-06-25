@@ -15,6 +15,7 @@ import NotFound from './pages/NotFound/NotFound';
 import TrackerDashboard from './pages/client/Tracker/TrackerDashboard';
 import {isMobile} from 'react-device-detect'
 import MobileMain from './pages/mainlayout/mobile/MobileMain';
+import TrackerMobileDashboard from './pages/client/Tracker/mobile/TrackerMobileDashboard';
 function App() {
  
      if(isMobile){
@@ -24,16 +25,16 @@ function App() {
          <div className="">
              <BrowserRouter>
             <Routes>
-               <Route path='/login' element={<Login/>}/>
-               <Route path='/signup' element={<SignUp/>}/>
                <Route path='/' element={<MobileMain/>}>
+               <Route path='/*' element={<NotFound/>}></Route>
+               <Route path='/signup' element={<SignUp/>}/>
+               <Route path='/login' element={<Login/>}/>
+               <Route path='/tracker' element={<TrackerMobileDashboard/>}></Route>
                   
                </Route>
                {/* <Route path='/forgot/generate' element={<ForgotPassword/>}/>
                <Route path='/client' element={<ClientMain/>}></Route>
                <Route path='/settings' element={<Settings/>}></Route>
-               <Route path='/*' element={<NotFound/>}></Route>
-               <Route path='/tracker' element={<TrackerDashboard/>}></Route>
                </Route> */}
          
             </Routes>
@@ -63,29 +64,6 @@ function App() {
         </>
       );
      }
-
-    // return (
-    //       <>
-    //       <ToastContainer/>
-    //       <div className="">
-    //            <BrowserRouter>
-    //           <Routes>
-    //              <Route path='/login' element={<Login/>}/>
-    //              <Route path='/signup' element={<SignUp/>}/>
-    //              <Route path='/forgot/generate' element={<ForgotPassword/>}/>
-    //              <Route path='/' element={<Main/>}>
-    //              <Route path='/client' element={<ClientMain/>}></Route>
-    //              <Route path='/settings' element={<Settings/>}></Route>
-    //              <Route path='/*' element={<NotFound/>}></Route>
-    //              <Route path='/tracker' element={<TrackerDashboard/>}></Route>
-    //              </Route>
-    //              {/* <Route  path='/mobile/main' element={<MobileMain/>} ></Route> */}
-           
-    //           </Routes>
-    //            </BrowserRouter>
-    //       </div>
-    //       </>
-    //     );
    
 
 }
