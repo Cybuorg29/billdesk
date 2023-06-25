@@ -12,7 +12,7 @@ const TrackerMobileDashboard = (props: Props) => {
   const BalanceDiv = () => {
     if (balance >= 0) {
       return (
-        <><div className=' text-center ' >
+        <><div className=' text-center   ' >
           <div className='font-bold' >Balance</div>
           <div className='font-black'>{balance}</div>
         </div></>
