@@ -67,7 +67,7 @@ const [sideBarScale,setSideBarScale] = useState('w-0')
      <div className='h-[10%] bg-white  rounded-xl  ' >
         <Topbar  />
      </div>
-     <div  className='h-[82%]  ' >
+     <div  className='h-[82%]  overflow-auto ' >
       <Outlet/>
      </div>
      <div  className='h-[8%] ' >
