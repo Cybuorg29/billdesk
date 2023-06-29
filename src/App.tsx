@@ -12,10 +12,11 @@ import ClientView from './pages/client/view/ClientView';
 import ClientMain from './pages/client/main/ClientMain';
 import Settings from './pages/settings/Settings';
 import NotFound from './pages/NotFound/NotFound';
-import TrackerDashboard from './pages/client/Tracker/TrackerDashboard';
+import TrackerDashboard from './pages/Tracker/TrackerDashboard';
 import {isMobile} from 'react-device-detect'
 import MobileMain from './pages/mainlayout/mobile/MobileMain';
-import TrackerMobileDashboard from './pages/client/Tracker/mobile/TrackerMobileDashboard';
+import TrackerMobileDashboard from './pages/Tracker/mobile/TrackerMobileDashboard';
+import ViewIncome from './pages/viewIncome/ViewIncome';
 function App() {
  
      if(isMobile){
@@ -56,6 +57,7 @@ function App() {
                <Route path='/settings' element={<Settings/>}></Route>
                <Route path='/*' element={<NotFound/>}></Route>
                <Route path='/tracker' element={<TrackerDashboard/>}></Route>
+               <Route path='/view/income' element={<ViewIncome/>}></Route>
                </Route>
          
             </Routes>

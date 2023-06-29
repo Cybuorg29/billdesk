@@ -1,7 +1,7 @@
 import React from 'react'
 import '../css/Income.css'
 import CurrencyRupeeRoundedIcon from '@mui/icons-material/CurrencyRupeeRounded';
-import { useAppSelector } from '../../../../store/app/hooks';
+import { useAppSelector } from '../../../store/app/hooks';
 type Props = {}
 
 const IncomeTab = ({}: Props) => {

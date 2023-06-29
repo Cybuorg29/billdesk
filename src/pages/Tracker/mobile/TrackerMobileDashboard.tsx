@@ -1,9 +1,9 @@
 import React from 'react'
 import { Pie, PieChart, ResponsiveContainer } from 'recharts'
-import TrackerChart from '../../../../components/charts/tracker/TrackerChart'
-import ExpencesTable from '../../../../components/table/tracker/ExpencesTable'
-import IncomeTable from '../../../../components/table/tracker/IncomeTable'
-import { useAppSelector } from '../../../../store/app/hooks'
+import TrackerChart from '../../../components/charts/tracker/TrackerChart'
+import ExpencesTable from '../../../components/table/tracker/ExpencesTable'
+import IncomeTable from '../../../components/table/tracker/IncomeTable'
+import { useAppSelector } from '../../../store/app/hooks'
 import ExpencesTab from '../tabs/ExpencesTab'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 

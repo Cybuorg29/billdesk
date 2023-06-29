@@ -16,7 +16,8 @@ import { bankInterface } from '../store/features/bank/bankSlice';
 //         toast.error(err.message)
 //     }
 // }
- const baseUrl = 'https://billdesk-backend.vercel.app'
+//  const baseUrl = 'https://billdesk-backend.vercel.app'
+  const baseUrl = `http://localhost:5000`
 
 
 export const signup=(user:registerArgs)=>{

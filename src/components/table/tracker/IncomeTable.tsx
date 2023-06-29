@@ -3,11 +3,13 @@ import React from 'react'
 import { useAppSelector } from '../../../store/app/hooks'
 import TableRo from './components/TableRow'
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 type Props = {}
 
 const IncomeTable = (props: Props) => {
     const {income} = useAppSelector(state=>state.tracker)
+    const navigate = useNavigate()
   return (
     <div className='border  rounded-xl shadow-xl relative'>
         <div className='p-5 border-b font-bold text-lg'>Income</div>
@@ -35,7 +37,7 @@ const IncomeTable = (props: Props) => {
             }
           </TableBody>
         </Table>
-        <div className='h-8 bg-black hover:h-10 duration-150 absolute bottom-0 z-40 w-full text-end  text-white  text-sm grid justify-items-end items-center pr-10 rounded-b-xl cursor-pointer ' >
+        <div className='h-8 bg-black hover:h-10 duration-150 absolute bottom-0 z-40 w-full text-end  text-white  text-sm grid justify-items-end items-center pr-10 rounded-b-xl cursor-pointer '  >
             <div  className='hover:scale-105' >See all {`>`}</div>
         </div>
     </div>
