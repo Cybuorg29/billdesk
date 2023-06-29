@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import '../css/Expence.css'
 import CurrencyRupeeRoundedIcon from '@mui/icons-material/CurrencyRupeeRounded';
-import { useAppSelector } from '../../../../store/app/hooks';
+import { useAppSelector } from '../../../store/app/hooks';
 type Props = {}
 
 const ExpencesTab = ({}: Props) => {

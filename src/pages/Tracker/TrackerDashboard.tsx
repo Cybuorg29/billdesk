@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import ExpencesTab from './tabs/ExpencesTab'
 import IncomeTab from './tabs/IncomeTab'
-import { useAppSelector } from '../../../store/app/hooks'
-import ExpencesTable from '../../../components/table/tracker/ExpencesTable'
-import IncomeTable from '../../../components/table/tracker/IncomeTable'
-import AddExpences from '../../../components/cards/expences/AddExpences'
+import { useAppSelector } from '../../store/app/hooks'
+import ExpencesTable from '../../components/table/tracker/ExpencesTable'
+import IncomeTable from '../../components/table/tracker/IncomeTable'
+import AddExpences from '../../components/cards/expences/AddExpences'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import TrackerChart from '../../../components/charts/tracker/TrackerChart'
+import TrackerChart from '../../components/charts/tracker/TrackerChart'
 
 type Props = {}
 
