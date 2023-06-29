@@ -35,6 +35,7 @@ export const initialiseUserData =async()=>{
     try{
         
         toast.success('in initlise')
+        store.dispatch(change())
         const {auth} = store.getState()
         const {token} = auth;
     
@@ -67,6 +68,7 @@ export const initialiseUserData =async()=>{
         toast.error('an error occured please try again or refresh ')
         console.log(err.message)
     }
+    store.dispatch(change())
      
 }
 
