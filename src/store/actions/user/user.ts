@@ -94,3 +94,7 @@ export const initialiseUserData =async()=>{
 
 }
 
+export const getincome=()=>{
+    
+}
+

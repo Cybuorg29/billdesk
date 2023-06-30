@@ -15,7 +15,7 @@ const IncomeTab = ({}: Props) => {
             <CurrencyRupeeRoundedIcon/>
         </span>
         <p className="title-text">
-            Income
+            Income <label className='text-gray-500 text-sm' >(last 5)</label>
         </p>
       
     </div>

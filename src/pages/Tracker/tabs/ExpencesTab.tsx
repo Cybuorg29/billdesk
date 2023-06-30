@@ -21,7 +21,7 @@ const ExpencesTab = ({}: Props) => {
             <CurrencyRupeeRoundedIcon/>
         </span>
         <p className="title-text">
-            Expence
+            Expence <label className='text-gray-500 text-sm' >(last 5)</label>
         </p>
       
     </div>

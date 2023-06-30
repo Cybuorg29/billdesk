@@ -48,10 +48,10 @@ import { getUserData } from "../../api/userServices";
 
 }
 
-export const setData=(state:userDetailSchema,action:PayloadAction<load>)=>{
-  toast.success(action.payload.data.name)
+// export const setData=(state:userDetailSchema,action:PayloadAction<load>)=>{
+//   toast.success(action.payload.data.name)
 
-}
+// }
 
 // export const updateA = createAsyncThunk('user/getdata',async()=>{
 //   toast.success('in')
@@ -61,3 +61,5 @@ export const setData=(state:userDetailSchema,action:PayloadAction<load>)=>{
 //       console.log(user)
 
 // })
+
+

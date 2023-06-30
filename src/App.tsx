@@ -16,7 +16,7 @@ import TrackerDashboard from './pages/Tracker/TrackerDashboard';
 import {isMobile} from 'react-device-detect'
 import MobileMain from './pages/mainlayout/mobile/MobileMain';
 import TrackerMobileDashboard from './pages/Tracker/mobile/TrackerMobileDashboard';
-import ViewIncome from './pages/viewIncome/ViewIncome';
+import ViewIncome from './pages/incomeAndExpences/viewIncome/ViewIncome';
 function App() {
  
      if(isMobile){
@@ -46,7 +46,7 @@ function App() {
       return (
         <>
         <ToastContainer/>
-        <div className="">
+        <div className=" font-ubuntu">
              <BrowserRouter>
             <Routes>
                <Route path='/login' element={<Login/>}/>
@@ -57,7 +57,7 @@ function App() {
                <Route path='/settings' element={<Settings/>}></Route>
                <Route path='/*' element={<NotFound/>}></Route>
                <Route path='/tracker' element={<TrackerDashboard/>}></Route>
-               <Route path='/view/income' element={<ViewIncome/>}></Route>
+               <Route path='/view/:sort/income' element={<ViewIncome/>}></Route>
                </Route>
          
             </Routes>

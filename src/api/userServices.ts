@@ -17,7 +17,7 @@ import { bankInterface } from '../store/features/bank/bankSlice';
 //     }
 // }
 //  const baseUrl = 'https://billdesk-backend.vercel.app'
-  const baseUrl = `http://localhost:5000`
+ export  const baseUrl = `http://localhost:5000`
 
 
 export const signup=(user:registerArgs)=>{
@@ -30,7 +30,6 @@ export const login=(username:string,password:string)=>{
 
 export const getUserData=(token:any)=>{
     return axios.get(`${baseUrl}/api/user/getdata/${token}`)
-
 }
 
 export const setUpProfile=(client:userDetailSchema,bank:bankInterface,token:any)=>{

@@ -39,7 +39,7 @@ const NavBar = (props: Props) => {
       icon:<InventoryRoundedIcon />
     },
     {
-      name:'Tracker',
+      name:'Incomes & Expences',
       link:'/tracker',
       icon:<AccountBalanceWalletRoundedIcon/>
     },
