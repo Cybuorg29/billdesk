@@ -11,7 +11,7 @@ const TopTab = ({}: Props) => {
     <div className='flex  border p-4 rounded-xl  justify-between items-center  '>
   
       <div className='text-xl font-semibold'>Incomes</div>
-      <div className='flex items-center gap-4 '> <div>Sort</div>
+      <div className='flex items-center gap-4 '> <div>View</div>
         {/* <Select value={sortValue} className='' onChange={(e) => setSortValue(e.target.value)}>
           <MenuItem value='invoice'>invoices</MenuItem>
           <MenuItem value='other'>others</MenuItem>

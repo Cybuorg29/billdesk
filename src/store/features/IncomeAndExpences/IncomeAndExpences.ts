@@ -32,13 +32,13 @@ const ProfitAndLossSlice = createSlice({
      name: 'income',
     initialState,
     reducers:{
-        setIncome:changeIncomeAndExpencesState,
+        setIncomeAndExpence:changeIncomeAndExpencesState,
        
     }
 })
 
 // export const { switch } = loaderSlice.actions
-export const {setIncome} =  ProfitAndLossSlice.actions
+export const {setIncomeAndExpence} =  ProfitAndLossSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectCount = (state: RootState) => state.counter.value

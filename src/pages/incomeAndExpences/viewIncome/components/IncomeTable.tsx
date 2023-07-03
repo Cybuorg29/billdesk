@@ -16,106 +16,71 @@ const IncomeTable = ({ }: Props) => {
   }, [sort])
 
   return (
-    <div className=' border rounded-t-xl' >
-      {/* <Table>
-      <TableHead>
-        <TableRow>
-          <TableCell>#</TableCell>
-          <TableCell>Date</TableCell>
-          <TableCell>Category</TableCell>
-          <TableCell>Title</TableCell>
-          <TableCell>Amount</TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
+    <div className='  rounded-t-xl' >
 
-      {
-        income.map((index:incomeAndExpencesObjectSchema,i:number)=>{
-          if(index.category===sort||sort==='all'){ 
-            return(
-              <TableRow key={index.id} >
-                    <TableCell>{++i}</TableCell>
-                    <TableCell>{index.date}</TableCell>
-                    <TableCell>{index.category}</TableCell>
-                    <TableCell>{index.title}</TableCell>
-                    <TableCell>{index.amount}</TableCell>
-                  </TableRow>
-                )
-              }
-              
-              
-              
-            })
-          }
-          </TableBody>
-    </Table> */}
-   <div  className="flex flex-col" >
-    <div className="">
-      <div className="inline-block min-w-full ">
-        <div className="overflow-hidden">
-          <table className="min-w-full text-left text-sm font-light">
-            <thead className="border-b font-medium dark:border-neutral-500">
-            <tr className="border-b dark:border-neutral-500">
-                <th  scope="col"  className='px-6 py-4' >#</th>
-                <th  scope="col"  className='px-6 py-4' >Date</th>
-                <th  scope="col"  className='px-6 py-4' >Category</th>
-                <th  scope="col"  className='px-6 py-4' >Title</th>
-                <th  scope="col"  className='px-6 py-4' >Amount</th>
-           
-              </tr>
-            </thead>
-        <tbody>
-          {
-            income.map((index: incomeAndExpencesObjectSchema, i: number) => {
-              if (sort === index.category || sort === 'all') {
-                if (index.category === 'invoice') {
-                  return (
-                    <tr className='cursor-pointer hover:bg-slate-50' >
-                      {/* <th  className='p-2  border-b-2 font-ubuntu ' >{++i}</th>
-                  <th  className='p-2 border-b-2 font-ubuntu ' >{index.date}</th>
-                  <th  className='p-2 border-b-2 font-ubuntu ' >{index.category}</th>
-                  <th  className='p-2 border-b-2 font-ubuntu ' >{index.title}</th>
-                  <th  className='p-2 border-b-2 font-ubuntu ' >{index.amount}</th> */}
+      <div className="flex flex-col" >
+        <div className="">
+          <div className="inline-block min-w-full ">
+            <div className="overflow-hidden">
+              <table className="min-w-full text-left text-sm font-light">
+                <thead className="border-b font-medium dark:border-neutral-500 uppercase">
+                  <tr className="border-b dark:border-neutral-500">
+                    <th scope="col" className='px-6 py-4' >#</th>
+                    <th scope="col" className='px-6 py-4' >Date</th>
+                    <th scope="col" className='px-6 py-4' >Category</th>
+                    <th scope="col" className='px-6 py-4' >Title</th>
+                    <th scope="col" className='px-6 py-4' >Amount</th>
 
-                      <td className="whitespace-nowrap px-6 py-4 font-medium">{++i}</td>
-                      <td className="whitespace-nowrap px-6 py-4">{index.date}</td>
-                      <td className="whitespace-nowrap px-6 py-4">{index.category}</td>                      
-                      <td className="whitespace-nowrap px-6 py-4">{index.title}</td>
-                      <td className="whitespace-nowrap px-6 py-4">{index.amount}</td>
-                    </tr>
-                  )
-
-                }
-
-                else {
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    income.map((index: incomeAndExpencesObjectSchema, i: number) => {
+                      if (sort === index.category || sort === 'all') {
+                        if (index.category === 'invoice') {
+                          return (
+                            <tr className='cursor-pointer hover:bg-slate-50' >
 
 
-                  return (
-                      <tr className="border-b dark:border-neutral-500">
-                      {/* <th  className='p-2  border-b-2 font-ubuntu ' >{++i}</th>
+                              <td className="whitespace-nowrap px-6 py-4 font-medium">{++i}</td>
+                              <td className="whitespace-nowrap px-6 py-4">{index.date}</td>
+                              <td className="whitespace-nowrap px-6 py-4">{index.category}</td>
+                              <td className="whitespace-nowrap px-6 py-4">{index.title}</td>
+                              <td className="whitespace-nowrap px-6 py-4">{index.amount}</td>
+                            </tr>
+                          )
+
+                        }
+
+                        else {
+
+
+                          return (
+                            <tr className="border-b dark:border-neutral-500">
+                              {/* <th  className='p-2  border-b-2 font-ubuntu ' >{++i}</th>
                 <th  className='p-2 border-b-2 font-ubuntu ' >{index.date}</th>
                 <th  className='p-2 border-b-2 font-ubuntu ' >{index.category}</th>
                 <th  className='p-2 border-b-2 font-ubuntu ' >{index.title}</th>
                 <th  className='p-2 border-b-2 font-ubuntu ' >{index.amount}</th> */}
-                      <td className="whitespace-nowrap px-6 py-4 font-medium">{++i}</td>
-                      <td className="whitespace-nowrap px-6 py-4">{index.date}</td>
-                      <td className="whitespace-nowrap px-6 py-4">{index.category}</td>                      
-                      <td className="whitespace-nowrap px-6 py-4">{index.title}</td>
-                      <td className="whitespace-nowrap px-6 py-4">{index.amount}</td>
-                    </tr>
-                  )
-                }
-              }
-            })
-          }
-        </tbody>
+                              <td className="whitespace-nowrap px-6 py-4 font-medium">{++i}</td>
+                              <td className="whitespace-nowrap px-6 py-4">{index.date}</td>
+                              <td className="whitespace-nowrap px-6 py-4">{index.category}</td>
+                              <td className="whitespace-nowrap px-6 py-4">{index.title}</td>
+                              <td className="whitespace-nowrap px-6 py-4">{index.amount}</td>
+                            </tr>
+                          )
+                        }
+                      }
+                    })
+                  }
+                </tbody>
 
-      </table>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
-  </div>
-   </div>
- </div>
- </div>
+    </div>
   )
 }
 
