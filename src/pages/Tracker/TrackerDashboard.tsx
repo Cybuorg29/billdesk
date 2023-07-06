@@ -33,11 +33,11 @@ const TrackerDashboard = (props: Props) => {
             <div className='grid h-full grid-cols-2 gap-2' >
               <div className='grid h-full'>
                 {/* <AddExpences /> */}
-                <Link to={`/create/income`} className='h-full  rounded-lg bg-green-500 border   cursor-pointer hover:scale-105 duration-200  grid justify-items-center items-center  grid-flow-col text-white' >
+                <Link to={`/create/income`} className='h-full p-2  rounded-lg bg-green-500 border   cursor-pointer hover:scale-105 duration-200  grid justify-items-center items-center  grid-flow-col text-white' >
                   <div>Add Income  </div>
                   <div>{<ArrowForwardIosIcon />}</div>
                 </Link>
-                <Link to={`/create/expence`} className='h-full  rounded-lg bg-red-500 border   cursor-pointer hover:scale-105 duration-200  grid justify-items-center items-center  grid-flow-col text-white' >
+                <Link to={`/create/expence`} className='h-full p-2  rounded-lg bg-red-500 border   cursor-pointer hover:scale-105 duration-200  grid justify-items-center items-center  grid-flow-col text-white' >
                   <div>Add Expences  </div>
                   <div>{<ArrowForwardIosIcon />}</div>
                 </Link>
