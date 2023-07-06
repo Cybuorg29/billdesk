@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 type Props = {}
 
 const IncomeTable = (props: Props) => {
-  const { income } = useAppSelector(state => state.tracker)
+  const { income } = useAppSelector(state => state.incomeAndExpence)
   const navigate = useNavigate()
   return (
     <div className='border  rounded-xl shadow-xl relative'>

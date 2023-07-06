@@ -6,7 +6,7 @@ import { converToInrFormat } from '../../../utils/ConvertInrFormat';
 type Props = {}
 
 const IncomeTab = ({ }: Props) => {
-    const { totalIncome } = useAppSelector(state => state.tracker)
+    const { totalIncome } = useAppSelector(state => state.incomeAndExpence)
     const total = converToInrFormat(totalIncome)
     return (
         <div>

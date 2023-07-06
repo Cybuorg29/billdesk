@@ -10,6 +10,8 @@ import { initliseBank } from "../../features/bank/bankSlice";
 import { change } from "../../features/loader/loaderSlice";
 import { initliseTrackerState, trackerSchema } from "../../features/tracker/trackerSlice";
 import { trackerLoad } from "../../reducers/trackerReduces";
+import IncomeAndExpences, { setIncomeAndExpence } from "../../features/IncomeAndExpences/IncomeAndExpences";
+import { IncomeAndExpencespayload } from "../../reducers/incAndExpReducer";
 
 
 console.log(NAME)
@@ -52,15 +54,18 @@ export const initialiseUserData =async()=>{
              data.expences.map((index:any)=>{
                 totalExpences = totalExpences + index.amount
              })
-           const trackerPayload:trackerSchema = {
+           const Payload:IncomeAndExpencespayload = {
+            type:'initlise',
+            data:{
             totalExpences:totalExpences,
             totalIncome:totalIncome,
             expences:data?.expences,
             income:data.income
+            }
 
            }
                 
-             store.dispatch(initliseTrackerState(trackerPayload))
+             store.dispatch(setIncomeAndExpence(Payload))
         }else{
             throw new Error(data?.message)
         }   
@@ -93,8 +98,3 @@ export const initialiseUserData =async()=>{
     }
 
 }
-
-export const getincome=()=>{
-    
-}
-

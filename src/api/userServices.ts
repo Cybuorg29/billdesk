@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { useAppSelector } from '../store/app/hooks';
 import { userDetailSchema } from '../models/userModel';
 import { bankInterface } from '../store/features/bank/bankSlice';
+import { baseUrl } from './Url/ProdUrl';
 // export const geti=async()=>{
 //     try{
 //         const result =  await axios.get(`${baseUrl}/api/user/register`)
@@ -16,8 +17,7 @@ import { bankInterface } from '../store/features/bank/bankSlice';
 //         toast.error(err.message)
 //     }
 // }
-   export const baseUrl = 'https://billdesk-backend.vercel.app'
-//  export  const baseUrl = `http://localhost:5000`
+  
 
 
 export const signup=(user:registerArgs)=>{

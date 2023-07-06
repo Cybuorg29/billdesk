@@ -3,7 +3,7 @@ import { incomeArray } from "../features/IncomeAndExpences/IncomeAndExpences";
 
   export interface IncomeAndExpencespayload {
     type:string
-    data:any[]
+    data:any
 }
 
 
@@ -19,6 +19,17 @@ export const changeIncomeAndExpencesState=(state:incomeArray,action:PayloadActio
                 state.expences = data
                 state.isExpences = true
                 break;
+                case 'totalIncomes':
+                  state.totalIncome = data
+                  break;
+                  case 'totalExpences':
+                    state.totalExpences = data
+                    break; 
+                    case 'initlise':
+                      state.income = data.income;
+                      state.expences = data.expence;
+                      state.totalExpences = data.totalExpences;
+                      state.totalIncome = data.totalIncome
       }
 }
 

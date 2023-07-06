@@ -9,7 +9,7 @@ import { convertIncAndExpCode } from '../../../utils/ConverIncAndExpCode'
 type Props = {}
 
 const ExpencesTable = (props: Props) => {
-  const { expences } = useAppSelector(state => state.tracker)
+  const { expences } = useAppSelector(state => state.incomeAndExpence)
   const navigate = useNavigate()
   return (
     <div className='border  rounded-xl shadow-xl relative'>
@@ -29,7 +29,6 @@ const ExpencesTable = (props: Props) => {
             expences.map((index: any, i: number) => {
               if (i <= 4) {
                 const category = convertIncAndExpCode(index.category)
-
                 return (
                   <>
                     <TableRo amount={index?.amount} date={index?.date} i={++i} note={index.title} category={category} />
