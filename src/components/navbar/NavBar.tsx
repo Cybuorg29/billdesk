@@ -20,75 +20,75 @@ type Props = {};
 
 
 const NavBar = (props: Props) => {
- 
-   const navList = [
- 
-    {
-      name:"DashBoard",
-      link:"/dashboard",
-      icon:<GridViewRoundedIcon />
-    },
-    {
-      name:"Invoice",
-      link:"/invoices",
-      icon:<DescriptionRoundedIcon />
-    },
-    {
-      name:"Inventory"  ,  
-      link:"/Inventory"  ,
-      icon:<InventoryRoundedIcon />
-    },
-    {
-      name:'Incomes & Expences',
-      link:'/tracker',
-      icon:<AccountBalanceWalletRoundedIcon/>
-    },
-    {
-      name:'clients',
-      link:'/client',
-      icon:<DescriptionRoundedIcon/>
-    }
-    
-    
-   ]
 
-   const dispatch = useAppDispatch()
+  const navList = [
+
+    {
+      name: "DashBoard",
+      link: "/dashboard",
+      icon: <GridViewRoundedIcon />
+    },
+    {
+      name: "Invoice",
+      link: "/invoices",
+      icon: <DescriptionRoundedIcon />
+    },
+    {
+      name: "Inventory",
+      link: "/Inventory",
+      icon: <InventoryRoundedIcon />
+    },
+    {
+      name: 'Incomes & Expences',
+      link: '/dashboard/income and expence',
+      icon: <AccountBalanceWalletRoundedIcon />
+    },
+    {
+      name: 'clients',
+      link: '/client',
+      icon: <DescriptionRoundedIcon />
+    }
+
+
+  ]
+
+  const dispatch = useAppDispatch()
   return (
     <>
-     <div className="relative h-full bg-navbar text-white " >
+      <div className="relative h-full bg-navbar text-white " >
 
-      <div className="border-b ">
-        <div className="p-5 text-center text-2xl ">BillDesk</div>
-      </div>
- <div className="absolute bottom-5 grid w-full "  >
- <NavTab 
-          name="Settings"
-          link="/settings"
-          icon={<TuneRoundedIcon />}
+        <div className="border-b ">
+          <div className="p-5 text-center text-2xl ">BillDesk</div>
+        </div>
+        <div className="absolute bottom-5 grid w-full "  >
+          <NavTab
+            name="Settings"
+            link="/settings"
+            icon={<TuneRoundedIcon />}
           />
-          <div  className="flex p-2 hover:bg-slate-100/10 gap-2 cursor-pointer" onClick={()=>{dispatch(deleteToken());sessionStorage.removeItem('token');toast.info('Logout sucessfull')}} >
-        <div>{<LogoutRoundedIcon/>}</div>
-       {`Logout`}
-    </div>
- </div>
- 
-      
-      
-      <div className="input  ">
-      
-               {
-                navList.map((index)=>{
-                   return(
-                    <>
-                 <NavTab name={index.name} icon={index.icon} link={index.link}  key={index.name} />
-
-                    </>
-                   )
-                })
-               }
-
-      </div>
+          <div className="flex p-2 hover:bg-slate-100/10 gap-2 cursor-pointer" onClick={() => { dispatch(deleteToken()); sessionStorage.removeItem('token'); toast.info('Logout sucessfull') }} >
+            <div>{<LogoutRoundedIcon />}</div>
+            {`Logout`}
           </div>
+        </div>
+
+
+
+        <div className="input  ">
+
+          {
+            navList.map((index) => {
+              return (
+                <>
+                  <NavTab name={index.name} icon={index.icon} link={index.link} key={index.name} />
+
+                </>
+              )
+            })
+          }
+
+        </div>
+      </div>
     </>
   );
 };

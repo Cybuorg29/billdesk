@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../../../store/app/hooks";
 import {
-  Area,
-  AreaChart,
-  Bar,
-  BarChart,
+
   CartesianGrid,
   Legend,
   Line,
@@ -14,7 +11,8 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
+import { sortByDate } from "../../../utils/SortDates";
 
 type Props = {};
 
@@ -23,12 +21,10 @@ interface TrackerChartData {
   income: number;
   expences: number;
 }
-interface TrackerChartArray {
-  data: TrackerChartData[];
-}
+
 
 const TrackerChart = (props: Props) => {
-  const { expences, income } = useAppSelector((state) => state.tracker);
+  const { expences, income } = useAppSelector((state) => state.incomeAndExpence);
   const [data, setData]: any = useState([]);
 
   const setChartData = () => {
@@ -104,12 +100,18 @@ const TrackerChart = (props: Props) => {
       }
     });
 
-    console.log("array", array);
+    ;
+    let newArray = [];
+    array.map((index: any) => {
+
+    })
+    sortByDate(array)
+    array = array.slice(-5)
     setData(array);
   };
 
   useEffect(() => {
-    console.log("data", data);
+    ;
     setChartData();
   }, [expences, income]);
 
@@ -119,26 +121,6 @@ const TrackerChart = (props: Props) => {
       aspect={1.5}
       className={"grid items-center h-[100%]"}
     >
-      {/* <AreaChart data={data}>
-        <Area
-          type={"monotone"}
-          dataKey={"expences"}
-        //   strokeWidth={3}
-          stroke="red"
-        ></Area>
-        <Area
-          type={"monotone"}
-          stroke="green"
-          color="green"
-        //   strokeWidth={3}
-          dataKey={"income"}
-        ></Area>
-        <CartesianGrid  strokeDasharray={3 3} ></CartesianGrid>
-        <XAxis dataKey={"date"}></XAxis>
-        <YAxis />
-        <Tooltip />
-        <Legend />
-      </AreaChart> */}
       <LineChart width={730} height={250} data={data}
         margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
         <defs>
@@ -154,9 +136,10 @@ const TrackerChart = (props: Props) => {
         <XAxis dataKey="date" />
         <YAxis />
         <CartesianGrid strokeDasharray="3 3" />
-        <Tooltip key={'title'} />
-        <Line type="monotone" dataKey="income" stroke="#8884d8" strokeWidth={2} fillOpacity={1} fill="url(#colorUv)" />
-        <Line type="monotone" dataKey="expences" stroke="#82ca9d" strokeWidth={2} fillOpacity={1} fill="url(#colorPv)" />
+        <Tooltip />
+        <Legend />
+        <Line type="monotone" dataKey="income" stroke="#82ca9d" strokeWidth={2} fillOpacity={1} fill="url(#colorPv)" />
+        <Line type="monotone" dataKey="expences" stroke="rgb(255, 99, 132)" strokeWidth={2} fillOpacity={1} fill="url(#colorUv)" />
       </LineChart>
     </ResponsiveContainer>
   );

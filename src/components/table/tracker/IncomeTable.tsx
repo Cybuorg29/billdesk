@@ -26,7 +26,8 @@ const IncomeTable = (props: Props) => {
         <TableBody>
           {
             income.map((index: any, i: number) => {
-              if (i <= 3) {
+              if (i <= 4) {
+                index?.title.slice(-5)
                 return (
                   <>
                     <TableRo amount={index?.amount} date={index?.date} i={++i} note={index.title} category={index?.category} />

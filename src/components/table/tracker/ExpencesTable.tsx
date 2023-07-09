@@ -37,10 +37,9 @@ const ExpencesTable = (props: Props) => {
               }
             })
           }
-          <TableRow className='bg-black' ></TableRow>
         </TableBody>
       </Table>
-      <div className='h-8 bg-black  hover:h-10 duration-150 absolute bottom-0 z-40 w-full text-end  text-white  text-sm grid justify-items-end items-center pr-10 rounded-b-xl cursor-pointer ' onClick={() => navigate('/view/all/expences')}  >
+      <div className='h-8 bg-black  hover:h-10 duration-150 absolute bottom-0 z-40 w-full text-end  text-white  text-sm grid justify-items-end items-center pr-10 rounded-b-xl cursor-pointer ' onClick={() => navigate('/view/all/10/expences')}  >
         <div className='hover:scale-105' >See all {`>`}</div>
       </div>
     </div>

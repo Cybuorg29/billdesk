@@ -1,32 +1,172 @@
 import { Button } from '@mui/material'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { Chart, Doughnut } from 'react-chartjs-2'
 import { useNavigate, useParams } from 'react-router-dom'
-
+import { toast } from 'react-toastify'
+import { ResponsiveContainer } from 'recharts'
+import { useAppSelector } from '../../../../store/app/hooks'
+import { incomeAndExpencesObjectSchema } from '../../../../store/features/IncomeAndExpences/IncomeAndExpences'
 type Props = {}
+type infoTabProps = { name: string, amount: number, color: string }
 
 const TopTab = (props: Props) => {
     const { sort } = useParams()
     const navigate = useNavigate()
+    const { totalExpences, expences } = useAppSelector(state => state.incomeAndExpence)
+    const [total, setTotal]: any = useState({
+        provisions: 0,
+        purchaseOfGoods: 0,
+        salaries: 0,
+        purchase: 0,
+        tax: 0,
+        gst: 0,
+        others: 0
+    })
+    const [array, setArray]: any = useState({})
+    const colorArray = ["bg-[#878BB6]", "bg-[#4ACAB4]", "bg-[#FF8153]", "bg-[#FFEA88]", "bg-[#FF6384]", 'bg-[#884EA0] ', 'bg-[#EB984E]']
+
+    const init = async () => {
+        let tot = {
+            provisions: 0,
+            purchaseOfGoods: 0,
+            salaries: 0,
+            purchase: 0,
+            tax: 0,
+            gst: 0,
+            others: 0
+        }
+
+        expences.map((index: incomeAndExpencesObjectSchema, i) => {
+            let value = 0
+
+
+            switch (index.category) {
+                case '100': {
+                    value = tot.provisions + index.amount;
+                    setTotal((prev: any) => { return { ...prev, provisions: value } })
+                    tot.provisions = value
+                    break;
+                }
+                case '200':
+                    {
+                        value = tot.purchaseOfGoods + index.amount;
+                        setTotal((prev: any) => { return { ...prev, purchaseOfGoods: value } })
+                        tot.purchaseOfGoods = value
+                        break;
+                    }
+                case '300':
+                    {
+                        value = tot.purchase + index.amount;
+                        setTotal((prev: any) => { return { ...prev, purchase: value } })
+                        tot.purchase = value
+                        break;
+                    }
+                case '400':
+                    {
+                        value = tot.salaries + index.amount;
+                        setTotal({ ...total, salaries: value })
+                        tot.salaries = value
+                        break;
+                    }
+                case '500':
+                    {
+                        value = tot.others + index.amount;
+                        setTotal((prev: any) => { return { ...prev, others: value } })
+                        tot.others = value
+                        break;
+                    }
+                case '600':
+                    {
+                        value = total.tax + index.amount;
+
+                        tot.others = value;
+                        break;
+
+                    }
+                case '700':
+                    {
+                        value = tot.gst + index.amount
+                        tot.gst = value
+
+                    }
+
+            }
+
+        })
+
+        // setData(total)
+        setArray(tot)
+        let newObj: any = JSON.stringify(data)
+        newObj = JSON.parse(newObj)
+        newObj.datasets[0].data = [tot.provisions, tot.purchaseOfGoods, tot.salaries, tot.purchase, tot.tax, tot.gst, tot.others]
+
+        setData(newObj)
+    }
+
+    useEffect(() => {
+        init()
+
+    }, [expences, totalExpences])
+
+
+    const [data, setData] = useState({
+        labels: ['provisions', 'purchaseOfGoods', 'salaries', 'purchase', 'tax', 'gst', 'others'],
+        datasets: [{
+            label: 'Expence Tracker',
+            data: array,
+            backgroundColor: [
+                // 'green', 'blue', 'blue', , 'green', 'red', 'green'
+
+                "#878BB6", "#4ACAB4", "#FF8153", "#FFEA88", "#FF6384", '#884EA0 ', '#EB984E '
+
+            ],
+            hoverOffset: 4
+        }]
+    })
+
+    useEffect(() => {
+
+    }, [data])
+
+
+
     return (
-        <div>
-            <div className='flex  border p-4 rounded-xl  justify-between items-center  '>
-
-                <div className='text-xl font-semibold'>Expences</div>
-                <div className='flex items-center gap-4 '> <div>View</div>
-
-                    <select value={sort} onChange={(e) => { navigate(`/view/${e.target.value}/expences`) }}  >
-                        <option value='400'>Salaries Paid </option>
-                        <option value='500'>others</option>
-                        <option value='300'>Purchase </option>
-                        <option value='200'>Purchase of Goods</option>
-                        <option value='100'>Provision Paid</option>
-                        <option value='all'>All</option>
-                    </select>
+        <div className='border p-3 rounded-xl  h-full ' >
+            <div className='text-xl font-semibold p-3'>Expences</div>
+            <div className='flex  h-[25%]  p-4 rounded-xl   flex-wrap  gap-10 '>
+                {/* <div className='h-[25%] ' >
+                    <Doughnut data={data} />
+                </div> */}
+                <div className='h-[150px]' >
+                    <Doughnut className='h-[150px]' data={data} />
                 </div>
-                <div><Button color='error' variant='outlined' onClick={() => navigate(`/create/expence`)} >Add Expence</Button></div>
+
+                <div className='grid grid-cols-3 gap-2 flex-1 h-[80%]' >
+                    <InfoTab name='Provisions' amount={array?.provisions} color={'#878BB6'} />
+                    <InfoTab name='Purchase Of Goods' amount={array?.purchaseOfGoods} color={'#4ACAB4'} />
+                    <InfoTab name='Purchase' amount={array?.purchase} color={'#FFEA88'} />
+                    <InfoTab name='Salaries' amount={array?.salaries} color={'#FF8153'} />
+                    <InfoTab name='Tax Paid' amount={array?.tax} color={'#FF6384'} />
+                    <InfoTab name='GST Paid' amount={array?.gst} color={'#884EA0'} />
+                    <InfoTab name='Others' amount={array?.others} color={'#EB984E'} />
+                </div>
+
+
+
+                {/* <div><Button color='error' variant='outlined' onClick={() => navigate(`/create/expence`)} >Add Expence</Button></div> */}
             </div>
         </div>
     )
+
+    function InfoTab({ name, amount, color }: infoTabProps) {
+        return <div className=' grid place-items-center' >
+            <div className='flex gap-2 place-items-center'>
+                <div className={`h-2 w-2 rounded-full bg-[${color}]`}></div>
+                <div className='text-xs font-semibold uppercase text-gray-600 text-center'>{name}</div>
+            </div>
+            <div className='text-xl font-bold text-center'>{amount}</div>
+        </div>
+    }
 }
 
 export default TopTab
