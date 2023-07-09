@@ -16,6 +16,13 @@ export const convertIncAndExpCode=(value:any)=>{
                                                                 case '500':
                                                                     value = 'others';
                                                                     break;
+                                                                case '600':
+                                                                    value = 'Tax Filled';
+                                                                    break;
+                                                                    case '700':
+                                                                        value = 'Gst Filled';
+                                                                        break;
+
                                                            
                                                             }
                                                             return  value

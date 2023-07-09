@@ -12,106 +12,106 @@ type Props = {}
 
 const Settings = (props: Props) => {
 
-    const initData = useAppSelector(state=>state.userData)
-     const bankdata  = useAppSelector(state=>state.bank)
-      const {token} = useAppSelector(state=>state.auth)
+  const initData = useAppSelector(state => state.userData)
+  const bankdata = useAppSelector(state => state.bank)
+  const { token } = useAppSelector(state => state.auth)
 
-  const [client,setClient]:any = useState<userDetailSchema>(initData)
-   useEffect(() => {
-  
-   }, [initData])
-   
+  const [client, setClient]: any = useState<userDetailSchema>(initData)
+  useEffect(() => {
 
-   const [bank,setBank] = useState<bankDetails>(bankdata)
-   const handleInputChange=(type:string,value:any)=>{
-    switch(type){
+  }, [initData])
+
+
+  const [bank, setBank] = useState<bankDetails>(bankdata)
+  const handleInputChange = (type: string, value: any) => {
+    switch (type) {
       case 'name':
-        setClient({...client,name:value});
+        setClient({ ...client, name: value });
         break;
-        case 'gstin':
-          setClient({...client,gstin:value});
-          break;
-          case 'phone':
-        setClient({...client,phone:value});
+      case 'gstin':
+        setClient({ ...client, gstin: value });
         break;
-        case 'email':
-          setClient({...client,email:value});
-          break;
-          case 'building':
-        setClient({...client,building:value});
+      case 'phone':
+        setClient({ ...client, phone: value });
         break;
-        case 'city':
-          setClient({...client,city:value});
-          break;
-          case 'district':
-        setClient({...client,district:value});
+      case 'email':
+        setClient({ ...client, email: value });
         break;
-        case 'state':
-          setClient({...client,state:value});
-          break;
-          case 'pincode':
-            setClient({...client,pincode:value});
-            break;
-          case 'activities':
-        setClient({...client,activities:value});
+      case 'building':
+        setClient({ ...client, building: value });
         break;
-        case 'benName':
-          setBank({...bank,name:value})
-          break;
-          case 'branch':
-            setBank({...bank,branch:value})
-            break;
-            case 'isfc':
-              setBank({...bank,isfc:value})
-              break;
-              case 'no':
-                setBank({...bank,no:value})
-                break;
-                case 'bank':
-                  setBank({...bank,bank:value})
-                  break;
-                  case 'image':
-                      console.log('value',value)
-                     setClient({...client,image:value})
-                   
-                  
+      case 'city':
+        setClient({ ...client, city: value });
+        break;
+      case 'district':
+        setClient({ ...client, district: value });
+        break;
+      case 'state':
+        setClient({ ...client, state: value });
+        break;
+      case 'pincode':
+        setClient({ ...client, pincode: value });
+        break;
+      case 'activities':
+        setClient({ ...client, activities: value });
+        break;
+      case 'benName':
+        setBank({ ...bank, name: value })
+        break;
+      case 'branch':
+        setBank({ ...bank, branch: value })
+        break;
+      case 'isfc':
+        setBank({ ...bank, isfc: value })
+        break;
+      case 'no':
+        setBank({ ...bank, no: value })
+        break;
+      case 'bank':
+        setBank({ ...bank, bank: value })
+        break;
+      case 'image':
+
+        setClient({ ...client, image: value })
+
+
     }
-     
 
-   }
 
-   const updateUser = async()=>{
-     try{
-         
-        const res  = await   setUpProfile(client,bank,token)
-       if(res.data.code===200){
+  }
+
+  const updateUser = async () => {
+    try {
+
+      const res = await setUpProfile(client, bank, token)
+      if (res.data.code === 200) {
 
         toast.success('profile Setup Complete')
-       }else{
+      } else {
         toast.error(res.data.message)
-        
-       }
-      }catch(err:any){
-        toast.error(err.message)
+
       }
-    // console.log(client,bank)
-   }
+    } catch (err: any) {
+      toast.error(err.message)
+    }
+    // 
+  }
 
 
   return (
-    <div  className={`  w-full h-full  bg-white/50   duration-200 `} >
-        {/* <TopSection close={()=>close()} /> */}
-         <div className='p-5 text-xl text-gray-600' >User Details</div>
-           <DataFields client={client} handleInputChange={(type:string,value:any)=>handleInputChange(type,value)} />
-            <BankDetails bank={bank} handleChange={(type:string,value:string)=>handleInputChange(type,value)} />
+    <div className={`  w-full h-full  bg-white/50   duration-200 `} >
+      {/* <TopSection close={()=>close()} /> */}
+      <div className='p-5 text-xl text-gray-600' >User Details</div>
+      <DataFields client={client} handleInputChange={(type: string, value: any) => handleInputChange(type, value)} />
+      <BankDetails bank={bank} handleChange={(type: string, value: string) => handleInputChange(type, value)} />
 
-            
-            <Update  name={client.name} updateUser={()=>updateUser()} />
-      </div>
+
+      <Update name={client.name} updateUser={() => updateUser()} />
+    </div>
 
   )
 
- 
+
 }
 
 export default Settings

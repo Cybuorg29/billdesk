@@ -1,12 +1,10 @@
 import { Input } from '@mui/joy'
 import { Button, MenuItem, Select } from '@mui/material'
 import React, { useState } from 'react'
-import { toast } from 'react-toastify'
-import { addExpences } from '../../../api/dataServices'
-import { addExpence } from '../../../store/actions/data/DataActions'
-import { useAppDispatch, useAppSelector } from '../../../store/app/hooks'
-import { incomeAndExpencesObjectSchema } from '../../../store/features/IncomeAndExpences/IncomeAndExpences'
-import { change } from '../../../store/features/loader/loaderSlice'
+import { addExpence } from '../../../store/actions/data/IncomeAndExpence/ExpenceActions'
+
+import { useAppSelector } from '../../../store/app/hooks'
+
 import { createDate } from '../../../utils/CreateDate'
 import { removeZero } from '../../../utils/removeZeros'
 import { validateNumberInput } from '../../../utils/validateNumberInput'
@@ -14,7 +12,6 @@ import { validateNumberInput } from '../../../utils/validateNumberInput'
 type Props = {}
 
 const CreateExpence = (props: Props) => {
-    const dispatch = useAppDispatch()
     const { token } = useAppSelector(state => state.auth)
     const [Expence, setExpence] = useState({
         title: ``,
@@ -65,7 +62,7 @@ const CreateExpence = (props: Props) => {
 
                 </div>
                 <div>
-                    <Button color='info' variant='outlined' onClick={() => { console.log(Expence); addExpence(Expence) }} >Add Expence</Button>
+                    <Button color='info' variant='outlined' onClick={() => { ; addExpence(Expence) }} >Add Expence</Button>
                 </div>
             </div>
 

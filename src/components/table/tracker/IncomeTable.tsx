@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 type Props = {}
 
 const IncomeTable = (props: Props) => {
-  const { income } = useAppSelector(state => state.tracker)
+  const { income } = useAppSelector(state => state.incomeAndExpence)
   const navigate = useNavigate()
   return (
     <div className='border  rounded-xl shadow-xl relative'>
@@ -26,7 +26,8 @@ const IncomeTable = (props: Props) => {
         <TableBody>
           {
             income.map((index: any, i: number) => {
-              if (i <= 3) {
+              if (i <= 4) {
+                index?.title.slice(-5)
                 return (
                   <>
                     <TableRo amount={index?.amount} date={index?.date} i={++i} note={index.title} category={index?.category} />

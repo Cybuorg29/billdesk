@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify';
@@ -8,20 +7,23 @@ import SignUp from './pages/user/signup/signup';
 import 'react-toastify/dist/ReactToastify.css';
 import Main from './pages/mainlayout/Main';
 import ForgotPassword from './pages/user/forgot/ForgotPassword';
-import ClientView from './pages/client/view/ClientView';
 import ClientMain from './pages/client/main/ClientMain';
 import Settings from './pages/settings/Settings';
 import NotFound from './pages/NotFound/NotFound';
-import TrackerDashboard from './pages/Tracker/TrackerDashboard';
-import { isMobile } from 'react-device-detect'
+import TrackerDashboard from './pages/incomeAndExpences/Dashboard/IncAndExpDashboard';
+import { isBrowser } from 'react-device-detect'
 import MobileMain from './pages/mainlayout/mobile/MobileMain';
-import TrackerMobileDashboard from './pages/Tracker/mobile/TrackerMobileDashboard';
+import TrackerMobileDashboard from './pages/incomeAndExpences/Dashboard/mobile/TrackerMobileDashboard';
 import ViewIncome from './pages/incomeAndExpences/viewIncome/ViewIncome';
 import ViewExpences from './pages/incomeAndExpences/viewExpences/ViewExpences';
 import CreateExpence from './pages/incomeAndExpences/createExpence/CreateExpence';
+import Dashboard from './pages/Dashboard/Dashboard';
+import IncAndExpDashboard from './pages/incomeAndExpences/Dashboard/IncAndExpDashboard';
+import { sortByDate } from './utils/SortDates';
 function App() {
 
-  if (isMobile) {
+
+  if (!isBrowser) {
     return <>
 
       <ToastContainer />
@@ -35,10 +37,6 @@ function App() {
               <Route path='/tracker' element={<TrackerMobileDashboard />}></Route>
 
             </Route>
-            {/* <Route path='/forgot/generate' element={<ForgotPassword/>}/>
-               <Route path='/client' element={<ClientMain/>}></Route>
-               <Route path='/settings' element={<Settings/>}></Route>
-               </Route> */}
 
           </Routes>
         </BrowserRouter>
@@ -55,12 +53,14 @@ function App() {
               <Route path='/signup' element={<SignUp />} />
               <Route path='/forgot/generate' element={<ForgotPassword />} />
               <Route path='/' element={<Main />}>
+                <Route path='/' element={<Dashboard />}></Route>
+                <Route path='/dashboard' element={< Dashboard />}></Route>
                 <Route path='/client' element={<ClientMain />}></Route>
                 <Route path='/settings' element={<Settings />}></Route>
                 <Route path='/*' element={<NotFound />}></Route>
-                <Route path='/tracker' element={<TrackerDashboard />}></Route>
+                <Route path='/dashboard/income and expence' element={<IncAndExpDashboard />}></Route>
                 <Route path='/view/:sort/income' element={<ViewIncome />}></Route>
-                <Route path='/view/:sort/expences' element={<ViewExpences />}></Route>
+                <Route path='/view/:sort/:limit/expences' element={<ViewExpences />}></Route>
                 <Route path='/create/expence' element={<CreateExpence />}></Route>
               </Route>
 

@@ -15,6 +15,8 @@ import {  changeIncomeAndExpencesState} from "../../reducers/incAndExpReducer"
   export interface incomeArray{
    income:incomeAndExpencesObjectSchema[]
    expences:incomeAndExpencesObjectSchema[]
+   totalIncome:number
+   totalExpences:number
    isIncome:boolean
    isExpences:boolean
 }
@@ -23,7 +25,10 @@ const initialState:incomeArray={
     income:[],
     expences:[],
     isExpences:false,
-    isIncome:false
+    isIncome:false,
+    totalExpences:0,
+    totalIncome:0
+
     
 }
 

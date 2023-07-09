@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { registerArgs } from '../../../models/registerModels';
-import {  signup } from '../../../api/userServices';
+import { signup } from '../../../api/userServices';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
@@ -33,40 +33,40 @@ function Copyright(props: any) {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export  const  SignUp=()=> {
+export const SignUp = () => {
   const navigate = useNavigate()
-    const [user,setUser] = React.useState({
-        username:'',
-        password:'',
-        name:'',
-        email:'',
-        phone:''
-    })
+  const [user, setUser] = React.useState({
+    username: '',
+    password: '',
+    name: '',
+    email: '',
+    phone: ''
+  })
 
-  const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(user.username,user.password)
-    try{
-       console.log(user)
+
+    try {
+
       const res = await signup(user)
-      console.log(res)
-      if(res.data.code===200){
+
+      if (res.data.code === 200) {
         toast.success('user signup sucessfully')
         toast.info('please create your profile')
         navigate('/login')
-        
-      }else if(res.data.code===400){
+
+      } else if (res.data.code === 400) {
         toast.error(res.data.message)
-      }else{
+      } else {
         toast.error(res.data.message)
       }
-    }catch(err:any){
+    } catch (err: any) {
       toast.error(err?.message)
     }
-      
-  
+
+
   };
-   
+
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -88,7 +88,7 @@ export  const  SignUp=()=> {
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-            <Grid item xs={12}>
+              <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
@@ -97,13 +97,13 @@ export  const  SignUp=()=> {
                   name="Business Name"
                   autoComplete="Business Name"
                   value={user?.name}
-                  onChange={(e)=>{setUser({...user,name:e.target.value})}}
+                  onChange={(e) => { setUser({ ...user, name: e.target.value }) }}
                 />
               </Grid>
-           
-          
-            <Grid item xs={12}>
-                
+
+
+              <Grid item xs={12}>
+
                 <TextField
                   required
                   fullWidth
@@ -112,7 +112,7 @@ export  const  SignUp=()=> {
                   name="email"
                   autoComplete="email"
                   value={user?.email}
-                  onChange={(e)=>{setUser({...user,email:e.target.value})}}
+                  onChange={(e) => { setUser({ ...user, email: e.target.value }) }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -124,7 +124,7 @@ export  const  SignUp=()=> {
                   name="phone"
                   autoComplete="phone"
                   value={user?.phone}
-                  onChange={(e)=>{setUser({...user,phone:e.target.value})}}
+                  onChange={(e) => { setUser({ ...user, phone: e.target.value }) }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -136,7 +136,7 @@ export  const  SignUp=()=> {
                   name="username"
                   autoComplete="username"
                   value={user?.username}
-                  onChange={(e)=>{setUser({...user,username:e.target.value})}}
+                  onChange={(e) => { setUser({ ...user, username: e.target.value }) }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -149,10 +149,10 @@ export  const  SignUp=()=> {
                   id="password"
                   autoComplete="new-password"
                   value={user?.password}
-                  onChange={(e)=>{setUser({...user,password:e.target.value})}}
+                  onChange={(e) => { setUser({ ...user, password: e.target.value }) }}
                 />
               </Grid>
-         
+
             </Grid>
             <Button
               type="submit"
@@ -171,7 +171,7 @@ export  const  SignUp=()=> {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }}  />
+        <Copyright sx={{ mt: 5 }} />
 
       </Container>
     </ThemeProvider>

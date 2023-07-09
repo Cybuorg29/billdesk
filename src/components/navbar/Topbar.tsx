@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ListIcon from '@mui/icons-material/List';
 import { useAppSelector } from '../../store/app/hooks';
+import { capitalizeFirstLetter } from '../../utils/CapitalFirst';
 
 type props = {}
 const Topbar = ({ }: props) => {
@@ -12,7 +13,7 @@ const Topbar = ({ }: props) => {
   let changeLocation: any;
   const local = useLocation()
   useEffect(() => {
-    console.log('change')
+
     changeLocation = window.location.pathname
     changeLocation = changeLocation.split('/').pop()
     let change = '';
@@ -27,8 +28,10 @@ const Topbar = ({ }: props) => {
             //   }
           } else if (changeLocation[i + 1] === '0') {
           }
+          change = change + ' '
 
         } else {
+          change = capitalizeFirstLetter(change)
           change = change + changeLocation[i]
 
         }
