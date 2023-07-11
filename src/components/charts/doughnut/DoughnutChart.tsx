@@ -22,8 +22,8 @@ const DoughnutChart = ({ amount, color, datas, labels }: Props) => {
     return (
         <div className='rounded-xl bg-white border shadow-xl grid place-items-center hover:scale-105 cursor-pointer duration-150' >
             <div >
-                <div className='h-[100px]' >
-                    <Doughnut className='' data={data} />
+                <div className='' >
+                    <Doughnut className='' data={data} options={{maintainAspectRatio:false}} />
                 </div>
                 <div className='mt-2'>
                     <div className='text-center ' >Income</div>
