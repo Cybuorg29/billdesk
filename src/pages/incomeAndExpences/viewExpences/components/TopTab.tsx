@@ -131,17 +131,14 @@ const TopTab = (props: Props) => {
 
 
     return (
-        <div className='border p-3 rounded-xl  h-full ' >
+        <div className='border p-3 rounded-xl  grid h-full ' >
             <div className='text-xl font-semibold p-3'>Expences</div>
-            <div className='flex  h-[25%]  p-4 rounded-xl   flex-wrap  gap-10 '>
-                {/* <div className='h-[25%] ' >
-                    <Doughnut data={data} />
-                </div> */}
-                <div className='h-[150px]' >
-                    <Doughnut className='h-[150px]' data={data} />
+            <div className='flex   bg-red-900 rounded-xl   flex-wrap  gap-10 '>
+                <div className='h-full bg-black' >
+                    <Doughnut className='h-full' data={data}  options={{aspectRatio:1}}/>
                 </div>
 
-                <div className='grid grid-cols-3 gap-2 flex-1 h-[80%]' >
+                <div className='flex flex-wrap gap-5 flex-1 ' >
                     <InfoTab name='Provisions' amount={array?.provisions} color={'#878BB6'} />
                     <InfoTab name='Purchase Of Goods' amount={array?.purchaseOfGoods} color={'#4ACAB4'} />
                     <InfoTab name='Purchase' amount={array?.purchase} color={'#FFEA88'} />
@@ -159,12 +156,15 @@ const TopTab = (props: Props) => {
     )
 
     function InfoTab({ name, amount, color }: infoTabProps) {
-        return <div className=' grid place-items-center' >
+        return <div className=' grid  place-items-center' >
+            <div>
+
             <div className='flex gap-2 place-items-center'>
                 <div className={`h-2 w-2 rounded-full bg-[${color}]`}></div>
                 <div className='text-xs font-semibold uppercase text-gray-600 text-center'>{name}</div>
             </div>
             <div className='text-xl font-bold text-center'>{amount}</div>
+            </div>
         </div>
     }
 }

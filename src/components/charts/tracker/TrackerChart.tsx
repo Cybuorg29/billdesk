@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../../../store/app/hooks";
 import {
-
   CartesianGrid,
   Legend,
   Line,
@@ -22,16 +21,16 @@ interface TrackerChartData {
   expences: number;
 }
 
-
 const TrackerChart = (props: Props) => {
-  const { expences, income } = useAppSelector((state) => state.incomeAndExpence);
+  const { expences, income } = useAppSelector(
+    (state) => state.incomeAndExpence
+  );
   const [data, setData]: any = useState([]);
 
   const setChartData = () => {
     let array: any = [];
 
     income.map((index: any) => {
-
       if (array.length === 0) {
         // toast.error('empty')
         const obj: TrackerChartData = {
@@ -50,7 +49,6 @@ const TrackerChart = (props: Props) => {
             find = true;
           } else {
           }
-
         });
         if (find === false) {
           // toast.info(index.date)
@@ -100,29 +98,28 @@ const TrackerChart = (props: Props) => {
       }
     });
 
-    ;
     let newArray = [];
-    array.map((index: any) => {
-
-    })
-    sortByDate(array)
-    array = array.slice(-5)
+    array.map((index: any) => {});
+    sortByDate(array);
+    array = array.slice(-5);
     setData(array);
   };
 
   useEffect(() => {
-    ;
     setChartData();
   }, [expences, income]);
 
   return (
     <ResponsiveContainer
       width={"100%"}
-      aspect={1.5}
-      className={"grid items-center h-[100%]"}
+      height={"100%"}
+      aspect={2}
+      className={"grid items-center "}
     >
-      <LineChart width={730} height={250} data={data}
-        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+      <LineChart
+        data={data}
+        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+      >
         <defs>
           <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
             <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
@@ -135,11 +132,25 @@ const TrackerChart = (props: Props) => {
         </defs>
         <XAxis dataKey="date" />
         <YAxis />
-        <CartesianGrid strokeDasharray="3 3" />
+        <CartesianGrid />
         <Tooltip />
         <Legend />
-        <Line type="monotone" dataKey="income" stroke="#82ca9d" strokeWidth={2} fillOpacity={1} fill="url(#colorPv)" />
-        <Line type="monotone" dataKey="expences" stroke="rgb(255, 99, 132)" strokeWidth={2} fillOpacity={1} fill="url(#colorUv)" />
+        <Line
+          type="monotone"
+          dataKey="income"
+          stroke="#82ca9d"
+          strokeWidth={2}
+          fillOpacity={1}
+          fill="url(#colorPv)"
+        />
+        <Line
+          type="monotone"
+          dataKey="expences"
+          stroke="rgb(255, 99, 132)"
+          strokeWidth={2}
+          fillOpacity={1}
+          fill="url(#colorUv)"
+        />
       </LineChart>
     </ResponsiveContainer>
   );
