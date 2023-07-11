@@ -13,7 +13,7 @@ const ExpencesTable = (props: Props) => {
   const navigate = useNavigate()
   return (
     <div className='border  rounded-xl shadow-xl relative'>
-      <div className='p-3 border-b font-bold text-lg'>Expences</div>
+      <div className='p-3 border-b font-bold text-sm'>Expences</div>
       <Table className='' >
         <TableHead>
           <TableRow>

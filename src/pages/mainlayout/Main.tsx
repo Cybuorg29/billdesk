@@ -69,7 +69,7 @@ const Main = (props: Props) => {
         </div>
       </div>
       <div className=' col-span-6  overflow-auto h-full  rounded-2xl  grid gap-3  ' >
-         <Topbar  name={user.name} />
+       
         <div className='w-full h-[90vh] shadow-2xl border rounded-2xl bg-white ' >
           <Outlet ></Outlet>
 
@@ -78,20 +78,31 @@ const Main = (props: Props) => {
       </div>
     </div> */}
       <div className='grid grid-cols-7 bg-whitesmoke backdrop-blur-sm  h-screen ' >
-        <div className='grid col-span-1 bg-black' >
+        {/* <div className='grid col-span-1 bg-black h-full' >
           <NavBar />
         </div>
         <div className=' col-span-6   bg-whitesmoke h-screen ' >
           <div className='h-[8%]  p-4 ' >
-            <Topbar />
+      
           </div>
           <div className='h-[92%]   grid justify-items-center items-center pl-5 pr-5  overflow-auto   ' >
             <div className='  h-[95%] backdrop-blur-sm w-full  p-5 rounded-xl border overflow-auto bg-white shadow-xl' >
-              <Outlet></Outlet>
+             
 
             </div>
           </div>
 
+        </div> */}
+        <div className='grid col-span-1 bg-whitesmoke h-full' >
+          <NavBar />
+        </div>
+        <div className=' bg-whitesmoke w-full col-span-6  h-screen ' >
+          <div className=' bg-white border shadow-xl h-[8%]' >      <Topbar /></div>
+          <div className=' h-[88%] m-4 rounded-xl bg-white  border shadow-xl' >
+            <div className='p-4 h-full' >
+              <Outlet></Outlet>
+            </div>
+          </div>
         </div>
       </div>
     </>

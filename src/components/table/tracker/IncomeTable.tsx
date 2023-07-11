@@ -12,7 +12,7 @@ const IncomeTable = (props: Props) => {
   const navigate = useNavigate()
   return (
     <div className='border  rounded-xl shadow-xl relative'>
-      <div className='p-3 border-b font-bold text-lg'>Income</div>
+      <div className='p-3 border-b font-bold text-sm'>Income</div>
       <Table className='' >
         <TableHead>
           <TableRow>

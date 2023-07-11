@@ -21,10 +21,10 @@ const IncAndExpDashboard = (props: Props) => {
         </div>
         <div className='h-[8%]  mb-2  rounded-xl  p-2  grid grid-cols-2 place-items-center gap-3' >
 
-          <Link to={`/create/income`} className={'w-full border bg-green-600 rounded-xl text-white shadow-xl hover:scale-105 duration-150  uppercase text-center p-2'} >  Add Income
+          <Link to={`/create/income`} className={'w-full border bg-green-600 rounded-xl text-sm text-white shadow-xl hover:scale-105 duration-150  uppercase text-center p-2'} >  Add Income
 
           </Link>
-          <Link to={`/create/expence`} className={'w-full border  bg-[#FF6384] shadow-xl hover:scale-105 duration-150  text-white rounded-xl uppercase text-center p-2'} >  Add Expence
+          <Link to={`/create/expence`} className={'w-full border  bg-[#FF6384] shadow-xl text-sm hover:scale-105 duration-150  text-white rounded-xl uppercase text-center p-2'} >  Add Expence
 
           </Link>
         </div>

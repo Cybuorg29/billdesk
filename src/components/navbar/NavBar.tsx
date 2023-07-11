@@ -66,7 +66,7 @@ const NavBar = (props: Props) => {
             link="/settings"
             icon={<TuneRoundedIcon />}
           />
-          <div className="flex p-2 hover:bg-slate-100/10 gap-2 cursor-pointer" onClick={() => { dispatch(deleteToken()); sessionStorage.removeItem('token'); toast.info('Logout sucessfull') }} >
+          <div className="flex text-sm p-2 hover:bg-slate-100/10 gap-2 cursor-pointer" onClick={() => { dispatch(deleteToken()); sessionStorage.removeItem('token'); toast.info('Logout sucessfull') }} >
             <div>{<LogoutRoundedIcon />}</div>
             {`Logout`}
           </div>
