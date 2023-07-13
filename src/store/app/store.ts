@@ -6,13 +6,15 @@ import loaderSlice from '../features/loader/loaderSlice'
 import bankSlice from '../features/bank/bankSlice'
 import trackerSlice from '../features/tracker/trackerSlice'
 import incomeSlice from '../features/IncomeAndExpences/IncomeAndExpences'
+import employeeSlice from '../features/employee/employeeSlice'
 
- 
+
 
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,userData:userSlice,auth:authSlice,loader:loaderSlice,bank:bankSlice,tracker:trackerSlice,incomeAndExpence:incomeSlice
+    counter: counterReducer, userData: userSlice, auth: authSlice, loader: loaderSlice, bank: bankSlice, tracker: trackerSlice, incomeAndExpence: incomeSlice,
+     employee:employeeSlice
   },
 })
 
