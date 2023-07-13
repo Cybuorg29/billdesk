@@ -6,7 +6,7 @@ import { useAppSelector } from "../../store/app/hooks";
 import { capitalizeFirstLetter } from "../../utils/CapitalFirst";
 
 type props = {};
-const Topbar = ({}: props) => {
+const Topbar = ({ }: props) => {
   const { name } = useAppSelector((state) => state.userData);
   const [location, setLocation] = useState("");
   const [smallNavbarScale, setSmallNavbarScale] = useState(`w-0`);
@@ -66,7 +66,7 @@ const Topbar = ({}: props) => {
     //     </div>
     //   </div>
     // </>
-    <div className="w-full h-full bg-white shadow-xl border grid  grid-cols-12 items-center">
+    <div className=" h-full bg-white shadow-sm border grid  grid-cols-12 items-center">
       <div className=" grid items-center col-span-2 h-full">
         <div
           className="flex items-center  lg:pl-4 pl-2 lg:scale-105 lg:gap-2  "
@@ -90,6 +90,24 @@ const Topbar = ({}: props) => {
         /> */}
       </div>
     </div>
+    // <div className="w-full  grid items-center h-full " >
+    //   <div className="flex  place-items-end  place-content-between" >
+    //     <div>
+    //       <div className=" grid items-center col-span-2 h-full">
+    //         <div
+    //           className="flex items-center   pl-2 lg:scale-105 lg:gap-2  "
+    //           onClick={() => window.history.back()}
+    //         >
+    //           <ArrowBackIcon className="cursor-pointer" />
+    //           <div className=" lg:text-sm text-xs">{location}</div>
+    //         </div>
+    //       </div>
+    //     </div>
+    //     <div>{name}</div>
+    //     <div className="pr-4 " ><ListIcon />  </div>
+
+    //   </div>
+    // </div>
   );
 
   function close() {

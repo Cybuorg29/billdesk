@@ -1,6 +1,7 @@
 import { Input } from '@mui/joy'
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, Select } from '@mui/material'
 import React, { useState } from 'react'
+import { SolidButton } from '../../../components/ui/Buttons/solid/SolidButton'
 import { deleteExpence, editExpence } from '../../../store/actions/data/IncomeAndExpence/ExpenceActions'
 import { removeZero } from '../../../utils/removeZeros'
 import { validateNumberInput } from '../../../utils/validateNumberInput'
@@ -53,14 +54,15 @@ const ViewExpences = (props: Props) => {
   return (
     <div className=' h-full grid gap-5 grid-rows-6   '  >
       <ConfirmDialog />
-      <Dialog open={openEdit} >
+      {/* {newFunction()} */}
+      <Dialog open={openEdit}>
         <DialogTitle>Edit Expence</DialogTitle>
         <DialogContent>
-          <div className='grid gap-5' >
-            <div className='p-5 border rounded-xl ' >
+          <div className='grid gap-5'>
+            <div className='p-5 border rounded-xl '>
               <div className='grid gap-3 w-1/2'>
                 <label>Expence Type</label>
-                <Select value={Expence?.category} onChange={(e) => { setExpence((prev) => { return { ...prev, category: e.target.value } }) }} >
+                <Select value={Expence?.category} onChange={(e) => { setExpence((prev) => { return { ...prev, category: e.target.value } }) }}>
                   <MenuItem value='400'>Salaries Paid </MenuItem>
                   <MenuItem value='300'>Purchase </MenuItem>
                   <MenuItem value='200'>Purchase of Goods</MenuItem>
@@ -71,20 +73,20 @@ const ViewExpences = (props: Props) => {
 
                 </Select>
               </div>
-              <div className='flex flex-wrap my-5 gap-4  mt-4' >
-                <div className='grid gap-3 w-1/2 ' >
+              <div className='flex flex-wrap my-5 gap-4  mt-4'>
+                <div className='grid gap-3 w-1/2 '>
                   <label>Title (Note)</label>
                   <Input value={Expence?.title} onChange={(e) => { setExpence({ ...Expence, title: e.target.value }) }} />
                 </div>
-                <div className='grid gap-3 ' >
+                <div className='grid gap-3 '>
                   <label>Amount</label>
                   <Input type='number' value={Expence?.amount} onChange={(e) => { handleAmountInput(e) }} />
                 </div>
 
               </div>
               <div className='flex gap-2'>
-                <Button color='warning' variant='contained' onClick={() => { editExpence(Expence); setOpenEdit(false) }} >save </Button>
-                <Button color='info' variant='contained' onClick={() => { setOpenEdit(false) }} >Discard Changes</Button>
+                <SolidButton color='primary' innerText='Save' onClick={() => { editExpence(Expence); setOpenEdit(false) }} />
+                <SolidButton color='black' innerText='Discard Changes' onClick={() => { setOpenEdit(false) }} />
               </div>
             </div>
           </div>
@@ -92,7 +94,6 @@ const ViewExpences = (props: Props) => {
         </DialogContent>
 
       </Dialog>
-
       <div className=' row-span-2 '>
         <TopTab />
       </div>
@@ -104,13 +105,19 @@ const ViewExpences = (props: Props) => {
 
   )
 
+
   function ConfirmDialog() {
     return <Dialog open={open} className='bg-inherit'>
       <DialogTitle className='p-5'>Delete Expence</DialogTitle>
       <DialogContent>Do You really want to Delete this Expence</DialogContent>
       <DialogActions>
-        <Button color='info' variant='contained' onClick={() => { setOpen(false) }}>No</Button>
-        <Button color='error' variant='contained' id='asdkas' onClick={(e) => { deleteExpence(uid); setOpen(false) }}>Delete</Button>
+        <div className='flex gap-5 items-center' >
+          <SolidButton color='primary' innerText='NO' onClick={() => { setOpen(false) }} />
+          {/* <Button color='info' variant='contained' onClick={() => { setOpen(false) }}>No</Button> */}
+
+          {/* <Button color='error' variant='contained' id='asdkas' onClick={(e) => { deleteExpence(uid); setOpen(false) }}>Delete</Button> */}
+        </div>
+        <SolidButton color='red' innerText='DELETE' onClick={() => { deleteExpence(uid); setOpen(false) }} />
       </DialogActions>
     </Dialog>
   }

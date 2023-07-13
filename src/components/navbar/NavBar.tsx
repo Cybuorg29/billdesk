@@ -7,6 +7,7 @@ import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
 import TuneRoundedIcon from "@mui/icons-material/TuneRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
+import PersonIcon from '@mui/icons-material/Person';
 import "./Navbar.css";
 import NavTab from "./components/NavTab";
 
@@ -44,9 +45,9 @@ const NavBar = (props: Props) => {
       icon: <AccountBalanceWalletRoundedIcon />
     },
     {
-      name: 'clients',
-      link: '/client',
-      icon: <DescriptionRoundedIcon />
+      name: 'Employees',
+      link: '/employees',
+      icon: <PersonIcon />
     }
 
 

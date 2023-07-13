@@ -49,11 +49,10 @@ const Main = (props: Props) => {
     }
   }, [token.istoken]);
 
-  useEffect(() => {}, [user]);
+  useEffect(() => { }, [user]);
 
   return (
     <>
-      <Loader />
       <div className="grid grid-cols-7 bg-whitesmoke   h-screen ">
         <div className="grid col-span-1 bg-whitesmoke h-full">
           <NavBar />
@@ -64,7 +63,7 @@ const Main = (props: Props) => {
             <Topbar />
           </div>
           <div className=" h-[88%] m-4 rounded-xl   border shadow-xl">
-            <div className=" h-full p-2  overflow-auto ">
+            <div className=" h-full p-2  overflow-auto bg-white rounded-xl ">
               <Outlet></Outlet>
             </div>
           </div>

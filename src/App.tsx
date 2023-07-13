@@ -20,6 +20,7 @@ import CreateExpence from './pages/incomeAndExpences/createExpence/CreateExpence
 import Dashboard from './pages/Dashboard/Dashboard';
 import IncAndExpDashboard from './pages/incomeAndExpences/Dashboard/IncAndExpDashboard';
 import { sortByDate } from './utils/SortDates';
+import Loader from './Loaders/Loader';
 function App() {
 
 
@@ -27,7 +28,7 @@ function App() {
     return <>
 
       <ToastContainer />
-      <div className="">
+      <div className=" ">
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<MobileMain />}>
@@ -46,7 +47,8 @@ function App() {
     return (
       <>
         <ToastContainer />
-        <div className=" font-ubuntu ">
+        <Loader />
+        <div className=" font-ubuntu scrollbar ">
           <BrowserRouter>
             <Routes>
               <Route path='/login' element={<Login />} />

@@ -131,14 +131,35 @@ const TopTab = (props: Props) => {
 
 
     return (
-        <div className='border p-3 rounded-xl  grid h-full ' >
-            <div className='text-xl font-semibold p-3'>Expences</div>
-            <div className='flex   bg-red-900 rounded-xl   flex-wrap  gap-10 '>
-                <div className='h-full bg-black' >
-                    <Doughnut className='h-full' data={data}  options={{aspectRatio:1}}/>
-                </div>
+        // <div className='border p-3 rounded-xl  grid h-full ' >
+        //     <div className='text-xl font-semibold p-3'>Expences</div>
+        //     <div className='flex   bg-red-900 rounded-xl   flex-wrap  gap-10 '>
+        //         <div className='h-full bg-black' >
+        //             <Doughnut className='h-full' data={data}  options={{aspectRatio:1}}/>
+        //         </div>
 
-                <div className='flex flex-wrap gap-5 flex-1 ' >
+        //         <div className='flex flex-wrap gap-5 flex-1 ' >
+        //             <InfoTab name='Provisions' amount={array?.provisions} color={'#878BB6'} />
+        //             <InfoTab name='Purchase Of Goods' amount={array?.purchaseOfGoods} color={'#4ACAB4'} />
+        //             <InfoTab name='Purchase' amount={array?.purchase} color={'#FFEA88'} />
+        //             <InfoTab name='Salaries' amount={array?.salaries} color={'#FF8153'} />
+        //             <InfoTab name='Tax Paid' amount={array?.tax} color={'#FF6384'} />
+        //             <InfoTab name='GST Paid' amount={array?.gst} color={'#884EA0'} />
+        //             <InfoTab name='Others' amount={array?.others} color={'#EB984E'} />
+        //         </div>
+
+
+
+        //         {/* <div><Button color='error' variant='outlined' onClick={() => navigate(`/create/expence`)} >Add Expence</Button></div> */}
+        //     </div>
+        // </div>
+        <div className='border p-3  rounded-xl  h-full' >
+            <div className='text-xl font-semibold h-[10%]' >Expences</div>
+            <div className='flex h-[90%]  ' >
+                <div className=' h-full  flex place-items-center w-[20%] p-2 ' >
+                    <Doughnut data={data} />
+                </div>
+                <div className='grid flex-1 gap-5 md:grid-cols-4 lg:grid-cols-5 '>
                     <InfoTab name='Provisions' amount={array?.provisions} color={'#878BB6'} />
                     <InfoTab name='Purchase Of Goods' amount={array?.purchaseOfGoods} color={'#4ACAB4'} />
                     <InfoTab name='Purchase' amount={array?.purchase} color={'#FFEA88'} />
@@ -148,22 +169,19 @@ const TopTab = (props: Props) => {
                     <InfoTab name='Others' amount={array?.others} color={'#EB984E'} />
                 </div>
 
-
-
-                {/* <div><Button color='error' variant='outlined' onClick={() => navigate(`/create/expence`)} >Add Expence</Button></div> */}
             </div>
+
         </div>
     )
 
     function InfoTab({ name, amount, color }: infoTabProps) {
-        return <div className=' grid  place-items-center' >
+        return <div className=' grid w-fit h-fit place-items-center' >
             <div>
-
-            <div className='flex gap-2 place-items-center'>
-                <div className={`h-2 w-2 rounded-full bg-[${color}]`}></div>
-                <div className='text-xs font-semibold uppercase text-gray-600 text-center'>{name}</div>
-            </div>
-            <div className='text-xl font-bold text-center'>{amount}</div>
+                <div className='flex gap-2 place-items-center'>
+                    <div className={`h-2 w-2 rounded-full bg-[${color}]`}></div>
+                    <div className='text-xs font-semibold uppercase text-gray-600 text-center'>{name}</div>
+                </div>
+                <div className='text-xl font-bold text-center'>{amount}</div>
             </div>
         </div>
     }
