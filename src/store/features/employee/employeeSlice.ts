@@ -20,7 +20,7 @@ const initialState:employeeArray={
 
 
 const employeeSlice= createSlice({
-    name:'employee',
+    name:'employees',
     initialState,
     reducers:{
         setEmployee:initEmployee

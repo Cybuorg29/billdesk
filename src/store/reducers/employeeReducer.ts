@@ -18,6 +18,7 @@ export const  initEmployee=(state:employeeArray,action:PayloadAction<actionPaylo
     switch (type) {
         case operatons.set:
              state.employee = data;
+             state.isEmployee = true;
             break;
 
         case operatons.add:

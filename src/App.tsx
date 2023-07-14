@@ -22,6 +22,7 @@ import IncAndExpDashboard from './pages/incomeAndExpences/Dashboard/IncAndExpDas
 import { sortByDate } from './utils/SortDates';
 import Loader from './Loaders/Loader';
 import EmployeeDashboard from './pages/employee/Dashboard/EmployeeDashboard';
+import AddEmployee from './pages/employee/crud/AddEmployee';
 function App() {
 
 
@@ -66,6 +67,7 @@ function App() {
                 <Route path='/view/:sort/:limit/expences' element={<ViewExpences />}></Route>
                 <Route path='/create/expence' element={<CreateExpence />}></Route>
                 <Route path='/dashboard/employees' element={<EmployeeDashboard />}></Route>
+                <Route path='/create/employee' element={<AddEmployee />}></Route>
               </Route>
 
             </Routes>

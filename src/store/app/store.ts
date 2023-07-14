@@ -14,7 +14,7 @@ import employeeSlice from '../features/employee/employeeSlice'
 export const store = configureStore({
   reducer: {
     counter: counterReducer, userData: userSlice, auth: authSlice, loader: loaderSlice, bank: bankSlice, tracker: trackerSlice, incomeAndExpence: incomeSlice,
-     employee:employeeSlice
+     employees:employeeSlice
   },
 })
 
