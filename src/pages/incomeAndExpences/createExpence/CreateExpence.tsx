@@ -1,6 +1,6 @@
 import { Input } from '@mui/joy'
 import { Button, MenuItem, Select } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { SolidButton } from '../../../components/ui/Buttons/solid/SolidButton'
 import { addExpence } from '../../../store/actions/data/IncomeAndExpence/ExpenceActions'
 
@@ -9,6 +9,7 @@ import { useAppSelector } from '../../../store/app/hooks'
 import { createDate } from '../../../utils/CreateDate'
 import { removeZero } from '../../../utils/removeZeros'
 import { validateNumberInput } from '../../../utils/validateNumberInput'
+import ExtraInput from './components/ExtraInput'
 
 type Props = {}
 
@@ -33,6 +34,11 @@ const CreateExpence = (props: Props) => {
         setExpence({ ...Expence, amount: amt })
 
     }
+
+    useEffect(() => {
+  
+    }, [Expence.category])
+    
 
     return (
         <div className='grid gap-5 bg-white p-5' >
@@ -62,6 +68,10 @@ const CreateExpence = (props: Props) => {
                     </div>
 
                 </div>
+                    <div className='m-5' >
+                    <ExtraInput  code={Expence.category} />
+
+                    </div>
                 <div>
                     {/* <Button color='info' variant='outlined' onClick={() => { ; addExpence(Expence) }} >Add Expence</Button> */}
                     <SolidButton color='' innerText='Add Expence' onClick={() => { addExpence(Expence) }} />

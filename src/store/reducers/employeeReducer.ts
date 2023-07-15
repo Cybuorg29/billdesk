@@ -22,7 +22,7 @@ export const  initEmployee=(state:employeeArray,action:PayloadAction<actionPaylo
             break;
 
         case operatons.add:
-               state.employee = [...state.employee,data];
+               state.employee.push(data)
             break;
             case operatons.delete:
               const newArray =    state.employee.map((index:any)=>{

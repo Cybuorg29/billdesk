@@ -3,6 +3,7 @@ import { employeeObject } from '../../../store/features/employee/employeeSlice'
 import { Input } from '@mui/joy';
 import { MenuItem, Select } from '@mui/material';
 import { SolidButton } from '../../../components/ui/Buttons/solid/SolidButton';
+import { ADDEmployee } from '../../../store/actions/data/employee/Post';
 
 type Props = {}
 
@@ -35,11 +36,6 @@ const AddEmployee = (props: Props) => {
                   const img:any  =   URL.createObjectURL(file)
                     document.getElementById('InImage')?.setAttribute('src',img)
          }
-
-         const handleDetailsInput=(e:React.ChangeEvent)=>{
-
-         }
-      
   return (
     <div className="w-full h-full p-5  flex flex-col gap-5">
       <div className="text-xl">Add Employee</div>
@@ -92,7 +88,8 @@ const AddEmployee = (props: Props) => {
             </div>
           </div>  
           <div>
-            <SolidButton color='' innerText='Add Employee' onClick={()=>{}}  />
+            <SolidButton color='' innerText='Add Employee' onClick={()=>{ADDEmployee(employee)}}  />
+            {/* <button  onClick={()=>{AddEmployee(employee)}}  >add Employee</button> */}
           </div>
         </div>
       </div>
