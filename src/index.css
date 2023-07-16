@@ -14,9 +14,6 @@ code {
 }
 
 
-::-webkit-scrollbar-thumb {
-
-  color: aqua;
-  background: #000;
-
-}
+/* ::-webkit-scrollbar:hover{
+  width: 15px;
+} */

@@ -3,9 +3,31 @@
 @import 'tailwindcss/utilities';
 
 
-::-webkit-scrollbar-thumb{
-  
-    color: aqua;
-    background: #000;
-
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
 }
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    /* background: gray; */
+    background-color: gray;
+    /* background: ; */
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+     width: 10px;
+    background: black;
+}
+::-webkit-scrollbar:hover{
+    width: 15px;
+    background: black;
+}
+

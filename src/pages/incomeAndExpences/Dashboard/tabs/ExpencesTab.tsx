@@ -5,11 +5,11 @@ import { useAppSelector } from "../../../../store/app/hooks";
 import { converToInrFormat } from "../../../../utils/ConvertInrFormat";
 import { Doughnut } from "react-chartjs-2";
 import { Link } from "react-router-dom";
+import { ResponsiveContainer } from "recharts";
 type Props = {};
 
-const IncomeTab = ({}: Props) => {
+const IncomeTab = ({ }: Props) => {
   const { totalExpences } = useAppSelector((state) => state.incomeAndExpence);
-  const total = converToInrFormat(totalExpences);
   const data = {
     labels: ["Expence"],
     datasets: [
@@ -46,20 +46,16 @@ const IncomeTab = ({}: Props) => {
 
     // </div>
 
-    <Link
-      to={"/view/all/10/expences"}
-      className="rounded-xl w-1/3 bg-white border shadow-xl grid place-items-center  hover:scale-105 cursor-pointer duration-150"
-    >
-      <div>
-        <div className="h-[100px]">
-          <Doughnut className="" data={data} />
-        </div>
-        <div className="mt-2">
-          <div className="text-center ">Expences</div>
-          <div className="text-center font-semibold text-lg ">{total}</div>
-        </div>
+    <div className="h-full border shadow-lg duration-150 rounded-xl w-1/3 bg-white hover:scale-105  cursor-pointer p-4" >
+      <ResponsiveContainer className={'h-[60%]  grid place-items-center  p-3'} height={'70%'}  >
+        <Doughnut data={data} options={{ maintainAspectRatio: false }} />
+      </ResponsiveContainer>
+      <div className="h-[30%]" >
+        <div className="text-center ">Expences</div>
+        <div className="text-center font-semibold text-lg ">{converToInrFormat(totalExpences)}</div>
       </div>
-    </Link>
+
+    </div>
   );
 };
 

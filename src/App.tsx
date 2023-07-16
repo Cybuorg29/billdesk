@@ -20,6 +20,9 @@ import CreateExpence from './pages/incomeAndExpences/createExpence/CreateExpence
 import Dashboard from './pages/Dashboard/Dashboard';
 import IncAndExpDashboard from './pages/incomeAndExpences/Dashboard/IncAndExpDashboard';
 import { sortByDate } from './utils/SortDates';
+import Loader from './Loaders/Loader';
+import EmployeeDashboard from './pages/employee/Dashboard/EmployeeDashboard';
+import AddEmployee from './pages/employee/crud/AddEmployee';
 function App() {
 
 
@@ -27,7 +30,7 @@ function App() {
     return <>
 
       <ToastContainer />
-      <div className="">
+      <div className=" ">
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<MobileMain />}>
@@ -46,7 +49,8 @@ function App() {
     return (
       <>
         <ToastContainer />
-        <div className=" font-ubuntu ">
+        <Loader />
+        <div className=" font-ubuntu scrollbar ">
           <BrowserRouter>
             <Routes>
               <Route path='/login' element={<Login />} />
@@ -62,6 +66,8 @@ function App() {
                 <Route path='/view/:sort/income' element={<ViewIncome />}></Route>
                 <Route path='/view/:sort/:limit/expences' element={<ViewExpences />}></Route>
                 <Route path='/create/expence' element={<CreateExpence />}></Route>
+                <Route path='/dashboard/employees' element={<EmployeeDashboard />}></Route>
+                <Route path='/create/employee' element={<AddEmployee />}></Route>
               </Route>
 
             </Routes>

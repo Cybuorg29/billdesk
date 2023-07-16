@@ -105,7 +105,6 @@ const Settings = (props: Props) => {
       <DataFields client={client} handleInputChange={(type: string, value: any) => handleInputChange(type, value)} />
       <BankDetails bank={bank} handleChange={(type: string, value: string) => handleInputChange(type, value)} />
 
-
       <Update name={client.name} updateUser={() => updateUser()} />
     </div>
 

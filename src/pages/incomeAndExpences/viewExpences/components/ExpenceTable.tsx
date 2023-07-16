@@ -7,6 +7,9 @@ import { incomeAndExpencesObjectSchema } from '../../../../store/features/Income
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { convertIncAndExpCode } from '../../../../utils/ConverIncAndExpCode'
+import { SolidButton } from '../../../../components/ui/Buttons/solid/SolidButton'
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
+
 type Props = { setUid: (value: string) => void, openEdit: (value: any) => void }
 
 const ExpenceTable = ({ setUid, openEdit }: Props) => {
@@ -19,8 +22,9 @@ const ExpenceTable = ({ setUid, openEdit }: Props) => {
     return (
         <div className=''>
             <div className='mt-5 overflow-auto w' >
-                <div className='grid  grid-flow-col  place-items-center w-full border-b border-black p-2' >
-                    <div className='flex items-center gap-4 '> <div>Show</div>
+                <div className='grid  grid-flow-col  place-items-center w-full border-b border-black p-2 ' >
+                    <div className='flex items-center gap-4 bg-white border  px-4 p-2 rounded-xl '>
+                        <div>Show</div>
 
                         <select value={limit} onChange={(e) => { navigate(`/view/${sort}/${e.target.value}/expences`) }}  >
                             <option value='10'>10</option>
@@ -29,7 +33,7 @@ const ExpenceTable = ({ setUid, openEdit }: Props) => {
                             <option value='500'>all</option>
                         </select>
                     </div>
-                    <div className='flex items-center gap-4 '> <div>View</div>
+                    <div className='flex items-center gap-4 border px-4 p-2 rounded-xl '> <div>View</div>
 
                         <select value={sort} onChange={(e) => { navigate(`/view/${e.target.value}/${limit}/expences`) }}  >
                             <option value='400'>Salaries Paid </option>
@@ -41,7 +45,10 @@ const ExpenceTable = ({ setUid, openEdit }: Props) => {
                         </select>
                     </div>
 
-                    <div className='w-full grid place-items-end' ><Button variant='outlined' color='error' className='w-1/2 px-5 py-5 uppercase' onClick={() => navigate(`/create/expence`)} >ADD Expence</Button></div>
+                    <div className='w-full grid place-items-end ' >
+                        {/* <Button variant='outlined' color='error' className='w-1/2 px-5 py-5 uppercase'  >ADD Expence</Button> */}
+                        <SolidButton color='black' innerText='Add Expence' onClick={() => navigate(`/create/expence`)} />
+                    </div>
 
                 </div>
 
@@ -83,12 +90,12 @@ const ExpenceTable = ({ setUid, openEdit }: Props) => {
                                                                         <div className='flex gap-2' aria-label='asdfasdas ' >
                                                                             <Tooltip title="Delete Expence " >
                                                                                 <IconButton onClick={() => setUid(index._id)} >
-                                                                                    <DeleteIcon color='error' className='cursor-pointer' />
+                                                                                    <DeleteRoundedIcon />
                                                                                 </IconButton>
                                                                             </Tooltip>
                                                                             <Tooltip title="Edit Expence">
                                                                                 <IconButton onClick={() => { openEdit(index) }}>
-                                                                                    <EditIcon color='info' className='cursor-pointer' />
+                                                                                    <EditIcon color='primary' className='cursor-pointer' />
                                                                                 </IconButton>
                                                                             </Tooltip>
                                                                         </div>
