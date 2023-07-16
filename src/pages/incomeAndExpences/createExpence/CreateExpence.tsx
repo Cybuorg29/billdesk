@@ -10,26 +10,29 @@ import { createDate } from '../../../utils/CreateDate'
 import { removeZero } from '../../../utils/removeZeros'
 import { validateNumberInput } from '../../../utils/validateNumberInput'
 import ExtraInput from './components/ExtraInput'
+import { useParams } from 'react-router-dom'
 
 type Props = {}
 
 const CreateExpence = (props: Props) => {
     const { token } = useAppSelector(state => state.auth)
+      const {type}  = useParams()
     const [Expence, setExpence] = useState({
         title: ``,
         category: '500',
         amount: 0,
         date: createDate(),
         Emp_id: '',
-        token: token
+        token: token,
+        uid:''
 
 
     })
 
 
+    // handle the amount input value to not get zero 
     const handleAmountInput = (e: any) => {
         let amt = validateNumberInput(e.target.value)
-        // let amt = parseFloat(e.target.value);
         amt = removeZero(amt);
         setExpence({ ...Expence, amount: amt })
 
@@ -69,7 +72,7 @@ const CreateExpence = (props: Props) => {
 
                 </div>
                     <div className='m-5' >
-                    <ExtraInput  code={Expence.category} />
+                    <ExtraInput   value={Expence.uid} code={Expence.category} handleIdChange={(value:any)=>{setExpence((prev:any)=>{return{...prev,uid:value}});console.log('value',value)}} />
 
                     </div>
                 <div>
