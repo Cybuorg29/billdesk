@@ -4,6 +4,7 @@ import { Input } from '@mui/joy';
 import { MenuItem, Select } from '@mui/material';
 import { SolidButton } from '../../../components/ui/Buttons/solid/SolidButton';
 import { ADDEmployee } from '../../../store/actions/data/employee/Post';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {}
 
@@ -21,6 +22,7 @@ interface employeeobj {
 const AddEmployee = (props: Props) => {
      const [employee,setEmployee]:any = useState<employeeobj>()
       const [imageScale,setImageScale] = useState('scale-0')
+       const navigate = useNavigate()
       const handleImageHover=()=>{
          if(imageScale==='scale-100'){
             setImageScale('scale-0')
@@ -37,7 +39,7 @@ const AddEmployee = (props: Props) => {
                     document.getElementById('InImage')?.setAttribute('src',img)
          }
   return (
-    <div className="w-full h-full p-5  flex flex-col gap-5">
+    <div className="w-full h-full p-5  flex flex-col gap-5 bg-component rounded-xl">
       <div className="text-xl">Add Employee</div>
 
       <div className=" flex  h-[80%] p-4">
@@ -88,7 +90,7 @@ const AddEmployee = (props: Props) => {
             </div>
           </div>  
           <div>
-            <SolidButton color='' innerText='Add Employee' onClick={()=>{ADDEmployee(employee)}}  />
+            <SolidButton color='' innerText='Add Employee' onClick={()=>{ADDEmployee(employee);navigate(`/dashboard/employees   `)}}  />
             {/* <button  onClick={()=>{AddEmployee(employee)}}  >add Employee</button> */}
           </div>
         </div>

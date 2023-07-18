@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../../../store/app/hooks";
 import {
+  Area,
+  AreaChart,
   CartesianGrid,
   Legend,
   Line,
@@ -115,7 +117,7 @@ const TrackerChart = (props: Props) => {
       height={"100%"}
       className={"grid items-center  "}
     >
-      <LineChart
+      <AreaChart
         data={data}
         margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
       >
@@ -129,28 +131,25 @@ const TrackerChart = (props: Props) => {
             <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
           </linearGradient>
         </defs>
-        <XAxis dataKey="date" />
-        <YAxis />
-        <CartesianGrid />
+        {/* <XAxis dataKey="date" /> */}
+        {/* <YAxis /> */}
+        {/* <CartesianGrid /> */}
         <Tooltip />
         <Legend />
-        <Line
+        <Area
           type="monotone"
           dataKey="income"
           stroke="#82ca9d"
-          strokeWidth={2}
-          fillOpacity={1}
+       
           fill="url(#colorPv)"
         />
-        <Line
+        <Area
           type="monotone"
           dataKey="expences"
-          stroke="rgb(255, 99, 132)"
-          strokeWidth={2}
           fillOpacity={1}
           fill="url(#colorUv)"
         />
-      </LineChart>
+      </AreaChart>
     </ResponsiveContainer>
   );
 };

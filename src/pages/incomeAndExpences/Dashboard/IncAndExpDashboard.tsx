@@ -1,63 +1,82 @@
-import React from "react";
-import ExpencesTab from "./tabs/ExpencesTab";
-import IncomeTab from "./tabs/IncomeTab";
-import ExpencesTable from "../../../components/table/tracker/ExpencesTable";
-import IncomeTable from "../../../components/table/tracker/IncomeTable";
-import TrackerChart from "../../../components/charts/tracker/TrackerChart";
-import { Link } from "react-router-dom";
-import BalanceTab from "./tabs/BalanceTab";
-import { useAppSelector } from "../../../store/app/hooks";
-import { converToInrFormat } from "../../../utils/ConvertInrFormat";
-import RoundedTabs from "../../../components/ui/tabs/RoundedTabs";
-type Props = {};
+import React from 'react'
+import { SolidButton } from '../../../components/ui/Buttons/solid/SolidButton';
+import { useNavigate } from 'react-router-dom';
+import exp from 'constants';
+import { expIcon } from '../../../icons/exportIcons';
+import { useAppSelector } from '../../../store/app/hooks';
+import { converToInrFormat } from '../../../utils/ConvertInrFormat';
+import SouthWestIcon from "@mui/icons-material/SouthWest";
+import NorthEastIcon from "@mui/icons-material/NorthEast";
+import ExploreRoundedIcon from "@mui/icons-material/ExploreRounded";
+import TrackerChart from '../../../components/charts/tracker/TrackerChart';
+import Table from './components/Table';
+type Props = {}
+type tabProps={
+  name:string
+  amount:string
+  image:any
+  link:string
+}
 
 const IncAndExpDashboard = (props: Props) => {
-   const {totalIncome,totalExpences} = useAppSelector(state=>state.incomeAndExpence)
-  return (
-    <div className="grid grid-cols-2 h-full gap-2 ">
-      <div className=" h-[100%] ">
-        <div className=" h-[40%]  flex  p-4 gap-2  ">
-          <IncomeTab />
-          {/* <RoundedTabs name="Expence" value={converToInrFormat(totalIncome )} color="border-[#007300]" /> */}
-          <ExpencesTab />
-          <BalanceTab />
-        </div>
-        <div className="h-[10%]  mb-2  rounded-xl  p-2  grid grid-cols-2 place-items-center gap-3">
-          <Link
-            to={`/create/income`}
-            className={
-              "w-full border bg-black rounded-xl text-sm text-white shadow-xl hover:scale-105 duration-150  uppercase text-center h-full grid place-items-center  "
-            }
-          >
-            {" "}
-            Add Income
-          </Link>
-          <Link
-            to={`/create/expence`}
-            className={
-              "w-full border  bg-black shadow-xl text-sm hover:scale-105 duration-150  text-white rounded-xl uppercase text-center h-full grid place-items-center"
-            }
-          >
-            {" "}
-            Add Expence
-          </Link>
-        </div>
-        <div className="  h-[50%]  ">
-          <div className="p-1 border shadow-xl rounded-xl grid items-centers  h-[95%] ">
-            <TrackerChart />
-          </div>
-        </div>
-      </div>
-      <div className=" grid grid-rows-2 gap-2 h-[100%] overflow-hidden ">
-        <div className=" ">
-          <IncomeTable />
-        </div>
-        <div className="    ">
-          <ExpencesTable />
-        </div>
+   const {totalExpences,totalIncome,expences,income} = useAppSelector(state=>state.incomeAndExpence)
+    const navigate = useNavigate()
+    const tabArray:tabProps[]=[
+      {
+          name:'Total Income',
+          image:<SouthWestIcon/>,
+          amount:converToInrFormat(totalIncome),
+          link:'/'
+      },
+      {
+        name:'Total Expences',
+        amount:converToInrFormat(totalExpences),
+        image:<NorthEastIcon/>,
+        link:'/'
+      },
+      {
+        name:'Balance',
+        amount:converToInrFormat(totalIncome-totalExpences),
+        image:'=',
+        link:'/'
+      }
+    ]
+
+
+  const Tabs =({amount,image,link,name}:tabProps)=> {
+     return <div className="p-2 place-items-center  bg-component rounded-xl flex hover:scale-105 cursor-pointer duration-150 w-full gap-5" onClick={()=>navigate(`${link}`)}>
+    <div className=' w-16 h-16 rounded-full bg-whitesmoke  grid items-center justify-items-center'><div className='scale-150'>{image}</div></div>
+    <div className='flex place-items-center '>
+      <div>
+        <div className='text-gray-600 '>{name} </div>
+        <div className='text-2xl font-semibold w-full'>{amount}</div>
       </div>
     </div>
-  );
-};
+  </div>;
+}
+  return (
+    <div className="p-4 h-full ">
+      <div className="text-2xl font-semibold  flex place-content-between  h-[8%]  text-grayFont">
+        {" "}
+        <div>Income And Expence</div> 
+        <div className='flex gap-3'>
+          <SolidButton color='black'innerText='Add Expence' onClick={()=>{navigate(`/create/400/expence`)}} />
+          <SolidButton color='black'innerText='Add Income' onClick={()=>{navigate(`/create/income`)}} />
+          </div>{" "}
+      </div>
+      <div className="  flex lg:grid grid-cols-3 gap-5 w-full h-[16%]  m-2">
+        {
+          tabArray.map((index:tabProps)=>{
+            return <Tabs name={index.name} image={index.image} amount={index.amount} link={index.link}/>
+          })
+        }     
+     
+      </div> 
+      
+  
 
-export default IncAndExpDashboard;
+    </div>
+  );
+}
+
+export default IncAndExpDashboard

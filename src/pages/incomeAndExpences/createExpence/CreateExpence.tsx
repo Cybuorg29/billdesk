@@ -10,23 +10,25 @@ import { createDate } from '../../../utils/CreateDate'
 import { removeZero } from '../../../utils/removeZeros'
 import { validateNumberInput } from '../../../utils/validateNumberInput'
 import ExtraInput from './components/ExtraInput'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { ExpenceCreateObj } from '../../../models/incomeAndExp/expenceInterface'
 
 type Props = {}
 
 const CreateExpence = (props: Props) => {
     const { token } = useAppSelector(state => state.auth)
-      const {type}  = useParams()
-    const [Expence, setExpence] = useState({
+         const {type} = useParams();
+     const navigate = useNavigate();
+       
+    const [Expence, setExpence] = useState<ExpenceCreateObj>({  
         title: ``,
+        // category consist of codes 
         category: '500',
         amount: 0,
         date: createDate(),
         Emp_id: '',
         token: token,
         uid:''
-
-
     })
 
 
@@ -39,8 +41,10 @@ const CreateExpence = (props: Props) => {
     }
 
     useEffect(() => {
+         console.log(type)
+        setExpence((prev:any)=>{return{...prev,category:type}})
   
-    }, [Expence.category])
+    }, [type])
     
 
     return (
@@ -49,7 +53,7 @@ const CreateExpence = (props: Props) => {
             <div className='p-5 border rounded-xl ' >
                 <div className='grid gap-3 w-1/2'>
                     <label>Expence Type</label>
-                    <Select value={Expence.category} onChange={(e) => { setExpence((prev) => { return { ...prev, category: e.target.value } }) }} >
+                    <Select value={Expence.category} onChange={(e) => {navigate(`/create/${e.target.value}/expence`)}} >
                         <MenuItem value='400'>Salaries Paid </MenuItem>
                         <MenuItem value='300'>Purchase </MenuItem>
                         <MenuItem value='200'>Purchase of Goods</MenuItem>
