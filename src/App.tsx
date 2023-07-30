@@ -23,6 +23,10 @@ import { sortByDate } from './utils/SortDates';
 import Loader from './Loaders/Loader';
 import EmployeeDashboard from './pages/employee/Dashboard/EmployeeDashboard';
 import AddEmployee from './pages/employee/crud/AddEmployee';
+import SpreadSheet from './pages/spreadsheet/SpreadSheet';
+import {registerLicense} from '@syncfusion/ej2-base'
+import EditEmployee from './pages/employee/crud/EditEmployee';
+registerLicense("Ngo9BigBOggjHTQxAR8/V1NGaF5cXmdCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdgWXhfeHVUQ2hfWUJ0VkE=");
 function App() {
 
 
@@ -65,9 +69,11 @@ function App() {
                 <Route path='/dashboard/income and expence' element={<IncAndExpDashboard />}></Route>
                 <Route path='/view/:sort/income' element={<ViewIncome />}></Route>
                 <Route path='/view/:sort/:limit/expences' element={<ViewExpences />}></Route>
-                <Route path='/create/expence' element={<CreateExpence />}></Route>
+                <Route path='/create/:type/expence' element={<CreateExpence />}></Route>
                 <Route path='/dashboard/employees' element={<EmployeeDashboard />}></Route>
                 <Route path='/create/employee' element={<AddEmployee />}></Route>
+                <Route path='/edit/:id/employee' element={<EditEmployee />}></Route>
+                <Route path='/spreadsheet' element={<SpreadSheet/>} ></Route>
               </Route>
 
             </Routes>

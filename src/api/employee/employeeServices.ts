@@ -18,3 +18,7 @@ export const postEmployee=(data:any,token:string)=>{
     });
      
 }   
+
+export  const  deleteEmployeeById=(id:string,token:string)=>{
+    return axios.get(`${baseUrl}/api/delete/employee/${token}/${id}`)
+}

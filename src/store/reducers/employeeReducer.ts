@@ -20,18 +20,19 @@ export const  initEmployee=(state:employeeArray,action:PayloadAction<actionPaylo
              state.employee = data;
              state.isEmployee = true;
             break;
-
         case operatons.add:
                state.employee.push(data)
             break;
             case operatons.delete:
-              const newArray =    state.employee.map((index:any)=>{
+              const newArray:any[] = []
+                 state.employee.map((index:any)=>{
                       if(index._id===data){
-                        
+
                       }else{
-                        return index
+                         newArray.push(index)
                       }
                 })
+                console.log('newArray',newArray)
                 state.employee = newArray
             break;
 

@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../../../store/app/hooks";
 import {
+  Area,
+  AreaChart,
+  Bar,
+  BarChart,
   CartesianGrid,
   Legend,
   Line,
@@ -101,7 +105,7 @@ const TrackerChart = (props: Props) => {
     let newArray = [];
     array.map((index: any) => { });
     sortByDate(array);
-    array = array.slice(-5);
+    // array = array.slice(-5);
     setData(array);
   };
 
@@ -110,12 +114,13 @@ const TrackerChart = (props: Props) => {
   }, [expences, income]);
 
   return (
+    <>
     <ResponsiveContainer
       width={"100%"}
       height={"100%"}
       className={"grid items-center  "}
     >
-      <LineChart
+      <BarChart
         data={data}
         margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
       >
@@ -130,28 +135,27 @@ const TrackerChart = (props: Props) => {
           </linearGradient>
         </defs>
         <XAxis dataKey="date" />
-        <YAxis />
-        <CartesianGrid />
+        {/* <YAxis /> */}
+        {/* <CartesianGrid /> */}
         <Tooltip />
         <Legend />
-        <Line
+        <Bar
           type="monotone"
           dataKey="income"
           stroke="#82ca9d"
-          strokeWidth={2}
-          fillOpacity={1}
+       
           fill="url(#colorPv)"
         />
-        <Line
+        <Bar
           type="monotone"
           dataKey="expences"
-          stroke="rgb(255, 99, 132)"
-          strokeWidth={2}
           fillOpacity={1}
           fill="url(#colorUv)"
         />
-      </LineChart>
+      </BarChart>
     </ResponsiveContainer>
+    </>
+
   );
 };
 

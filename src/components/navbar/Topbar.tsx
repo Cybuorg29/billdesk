@@ -66,7 +66,7 @@ const Topbar = ({ }: props) => {
     //     </div>
     //   </div>
     // </>
-    <div className=" h-full bg-white shadow-sm border grid  grid-cols-12 items-center">
+    <div className=" h-full  shadow-sm  grid  grid-cols-12 items-center">
       <div className=" grid items-center col-span-2 h-full">
         <div
           className="flex items-center  lg:pl-4 pl-2 lg:scale-105 lg:gap-2  "

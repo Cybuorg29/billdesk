@@ -15,7 +15,7 @@ import { toast } from "react-toastify";
 import AccountBalanceWalletRoundedIcon from '@mui/icons-material/AccountBalanceWalletRounded';
 import { useAppDispatch } from "../../store/app/hooks";
 import { deleteToken } from "../../store/features/auth/authSlice";
-
+import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 type Props = {};
 
 
@@ -48,6 +48,11 @@ const NavBar = (props: Props) => {
       name: 'Employees',
       link: 'dashboard/employees',
       icon: <PersonIcon />
+    },
+    {
+      name:'SpreadSheet',
+      link:'/spreadsheet',
+      icon:<FormatListNumberedIcon/>
     }
 
 

@@ -58,12 +58,12 @@ const Main = (props: Props) => {
           <NavBar />
         </div>
         <div className=" bg-whitesmoke w-full col-span-6  h-screen ">
-          <div className=" bg-white border shadow-xl h-[8%]">
+          <div className="  bg-white border  h-[8%]">
             {" "}
             <Topbar />
           </div>
-          <div className=" h-[88%] m-4 rounded-xl   border shadow-xl">
-            <div className=" h-full p-2  overflow-auto bg-white rounded-xl ">
+          <div className=" h-[92%]   ">
+            <div className=" h-full p-2  overflow-auto bg-whitesmoke rounded-xl ">
               <Outlet></Outlet>
             </div>
           </div>

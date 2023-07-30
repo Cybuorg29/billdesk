@@ -23,7 +23,7 @@ export const SolidButton = ({ innerText, color, onClick }: Props) => {
         },
         {
             name: 'red',
-            color: 'bg-[#C62828]',
+            color: 'bg-red-700',
             text: 'text-white'
         }
 
@@ -48,7 +48,7 @@ export const SolidButton = ({ innerText, color, onClick }: Props) => {
 
     return (
         <div>
-            <button type="button" className={`${varient?.text} ${varient?.color}  focus:ring-4  font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2  focus:outline-none  `} onClick={() => { onClick() }}   >{innerText}</button>
+            <button type="button" className={`${varient?.text} ${varient?.color}  focus:ring-4  font-medium rounded-lg text-sm px-4 py-2 mr-2 mb-2  focus:outline-none  `} onClick={() => { onClick() }}   >{innerText}</button>
         </div>
     )
 }

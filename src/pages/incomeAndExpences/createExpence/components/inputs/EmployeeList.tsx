@@ -27,7 +27,7 @@ const EmployeeList = ({handleChange,value}: Props) => {
                 })
 
             }
-            <MenuItem  onClick={()=>{naviagate('/create/employee')}}    ><div  className='font-bold' >Add Employee</div></MenuItem>
+            <MenuItem  onClick={()=>{naviagate(`/create/employee`)}} className='bg-slate-100'   ><div  className='text-blue-600 text-center w-full border' >Add Employee</div></MenuItem>
         </Select>
     </div>
   )

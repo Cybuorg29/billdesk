@@ -36,25 +36,21 @@ export const initialiseUserData = async () => {
       store.dispatch(initliseBank(data.bank));
       let totalIncome = 0;
       let totalExpences = 0;
-      data.income.map((index: any) => {
-        totalIncome = totalIncome + index.amount;
-        return 0;
-      });
-      data.expences.map((index: any) => {
-        totalExpences = totalExpences + index.amount;
-        return 0;
-      });
+    
 
       let expence = data?.expences;
       expence = expence.reverse();
+       const d = new Date()
+        const month = d.getMonth() +1
+       
 
       const Payload: IncomeAndExpencespayload = {
         type: "initlise",
         data: {
-          totalExpences: totalExpences,
-          totalIncome: totalIncome,
+   
           expences: data?.expences,
           income: data?.income.reverse(),
+          month:month
         },
       };
 
@@ -63,6 +59,7 @@ export const initialiseUserData = async () => {
       throw new Error(data?.message);
     }
   } catch (err: any) {
+     console.log(err.message)
     toast.error("an error occured please try again or refresh ");
   }
   store.dispatch(change());

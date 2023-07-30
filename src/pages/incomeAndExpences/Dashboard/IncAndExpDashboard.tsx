@@ -1,61 +1,130 @@
-import React from "react";
-import ExpencesTab from "./tabs/ExpencesTab";
-import IncomeTab from "./tabs/IncomeTab";
-import ExpencesTable from "../../../components/table/tracker/ExpencesTable";
-import IncomeTable from "../../../components/table/tracker/IncomeTable";
-import TrackerChart from "../../../components/charts/tracker/TrackerChart";
-import { Link } from "react-router-dom";
-import BalanceTab from "./tabs/BalanceTab";
+import React, { useEffect, useState } from "react";
+import { SolidButton } from "../../../components/ui/Buttons/solid/SolidButton";
+import { useNavigate } from "react-router-dom";
+import exp from "constants";
+import { expIcon } from "../../../icons/exportIcons";
 import { useAppSelector } from "../../../store/app/hooks";
 import { converToInrFormat } from "../../../utils/ConvertInrFormat";
-import RoundedTabs from "../../../components/ui/tabs/RoundedTabs";
+import SouthWestIcon from "@mui/icons-material/SouthWest";
+import NorthEastIcon from "@mui/icons-material/NorthEast";
+import ExploreRoundedIcon from "@mui/icons-material/ExploreRounded";
+import TrackerChart from "../../../components/charts/tracker/TrackerChart";
+import Table from "./components/Table";
+import { incomeAndExpencesObjectSchema } from "../../../store/features/IncomeAndExpences/IncomeAndExpences";
+import Tabs from "../../../components/ui/tabs/Tabs";
+import { getMonthName } from "../../../utils/getMonthName";
+import { changeIncomeAndExpenceByMonth } from "../../../store/actions/data/IncomeAndExpence";
+import IncomeAndExpenceSelect from "../../../components/Select/IncomeAndExpenceSelect";
+import PageHeading from "../../../components/ui/Page Heading/PageHeading";
 type Props = {};
+type tabProps = {
+  name: string;
+  amount: string;
+  image: any;
+  link: string;
+};
+
+interface monthObj{
+  name:string
+  value:number
+}
+interface monthobjArray {
+  months:monthObj[]
+}
 
 const IncAndExpDashboard = (props: Props) => {
-   const {totalIncome,totalExpences} = useAppSelector(state=>state.incomeAndExpence)
+  const { totalExpences, totalIncome, expences, income } = useAppSelector(
+    (state) => state.incomeAndExpence
+  );
+   const {month} = useAppSelector(state=>state.incomeAndExpence)
+  const [monthArray,setMonthArray] = useState<monthObj[]>()
+  const navigate = useNavigate();
+  const tabArray: tabProps[] = [
+    {
+      name: "Total Income",
+      image: '',
+      amount: converToInrFormat(totalIncome),
+      link: "/view/all/income",
+    },
+    {
+      name: "Total Expences",
+      amount: converToInrFormat(totalExpences),
+      image: '',
+      link: "/view/all/10/expences",
+    },
+    {
+      name: "Balance",
+      amount: converToInrFormat(totalIncome - totalExpences),
+      image: "",
+      link: "/",
+    },
+  ];
+
+
+ 
+  
+
+
   return (
-    <div className="grid grid-cols-2 h-full gap-2 ">
-      <div className=" h-[100%] ">
-        <div className=" h-[40%]  flex  p-4 gap-2  ">
-          <IncomeTab />
-          {/* <RoundedTabs name="Expence" value={converToInrFormat(totalIncome )} color="border-[#007300]" /> */}
-          <ExpencesTab />
-          <BalanceTab />
+    <div className=" h-full p-4 ">
+      <div className="text-2xl font-semibold  flex place-content-between  h-[8%]  text-grayFont">
+        {" "}
+        <div className="flex gap-5 place-items-center">
+         <PageHeading name="Income And Expence Dashboard"/>
+        <IncomeAndExpenceSelect/>
+      
+
         </div>
-        <div className="h-[10%]  mb-2  rounded-xl  p-2  grid grid-cols-2 place-items-center gap-3">
-          <Link
-            to={`/create/income`}
-            className={
-              "w-full border bg-black rounded-xl text-sm text-white shadow-xl hover:scale-105 duration-150  uppercase text-center h-full grid place-items-center  "
-            }
-          >
-            {" "}
-            Add Income
-          </Link>
-          <Link
-            to={`/create/expence`}
-            className={
-              "w-full border  bg-black shadow-xl text-sm hover:scale-105 duration-150  text-white rounded-xl uppercase text-center h-full grid place-items-center"
-            }
-          >
-            {" "}
-            Add Expence
-          </Link>
+        <div className="flex gap-3 text-sm font-black place-items-start">
+          
+          <SolidButton
+            color="black"
+            innerText="Add Expence"
+            onClick={() => {
+              navigate(`/create/500/expence`);
+            }}
+          />
+          <SolidButton
+            color="black"
+            innerText="Add Income"
+            onClick={() => {
+              navigate(`/create/income`);
+            }}
+          />
+        </div>{" "}
+      </div>
+      <div className="  flex lg:grid grid-cols-3 gap-5 w-full h-[14%]  mb-4">
+        {tabArray.map((index: tabProps) => {
+          return (
+            <Tabs
+              name={index.name}
+              image={index.image}
+              amount={index.amount}
+              link={index.link}
+            />
+          );
+        })}
+      </div>
+      <div className="grid grid-cols-2  gap-3 h-[76%]  ">
+        <div className="bg-component">
+          <TrackerChart/>
         </div>
-        <div className="  h-[50%]  ">
-          <div className="p-1 border shadow-xl rounded-xl grid items-centers  h-[95%] ">
-            <TrackerChart />
+        <div className="grid grid-cols-2 gap-2" >
+          <div>
+            <Table array={income}   name="Income"  color="text-green-600" link="/view/all/income" />
           </div>
+          <div>
+            <Table array={expences} name="Expences" color="text-red-600"  link="/view/all/10/expences" />
+          </div>
+
         </div>
+   
       </div>
-      <div className=" grid grid-rows-2 gap-2 h-[100%] overflow-hidden ">
-        <div className=" ">
-          <IncomeTable />
-        </div>
-        <div className="    ">
-          <ExpencesTable />
-        </div>
-      </div>
+    {/* <div  className="text-3xl font-poopins text-grayFont p-4" >Chart</div>
+      <div className="h-[100%] bg-component m-2 p-2" >
+        <TrackerChart/>
+
+      </div> */}
     </div>
   );
 };
