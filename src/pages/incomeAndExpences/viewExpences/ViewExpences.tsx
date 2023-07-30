@@ -7,6 +7,11 @@ import { removeZero } from '../../../utils/removeZeros'
 import { validateNumberInput } from '../../../utils/validateNumberInput'
 import ExpenceTable from './components/ExpenceTable'
 import TopTab from './components/TopTab'
+import EditDialod from './components/dialog/EditDialod'
+import { useNavigate, useParams } from 'react-router-dom'
+import PageHeading from '../../../components/ui/Page Heading/PageHeading'
+import IncomeAndExpenceSelect from '../../../components/Select/IncomeAndExpenceSelect'
+import ExpenceChart from '../../../components/charts/expences/ExpenceChart'
 // import './components/css/Expences.css'
 
 type Props = {}
@@ -25,7 +30,9 @@ const ViewExpences = (props: Props) => {
   const [open, setOpen] = useState(false)
   const [openEdit, setOpenEdit] = useState(false)
   const [uid, setUid] = useState('')
-  const [updateObj, setUpdateObj]: any = useState<ExpenceObj>()
+  const { sort, limit } = useParams()
+  const navigate = useNavigate()
+
 
 
   const [Expence, setExpence] = useState({
@@ -49,60 +56,51 @@ const ViewExpences = (props: Props) => {
     setExpence({ ...Expence, amount: amt })
 
   }
+  const handleOpenEditDialog = () => {
+    if (!openEdit) {
+      setOpenEdit(true);
+    } else {
+      setOpenEdit(false)
+    }
+  }
 
 
   return (
-    <div className=' h-full grid gap-5 grid-rows-6   '  >
+    <>
       <ConfirmDialog />
-      {/* {newFunction()} */}
-      <Dialog open={openEdit}>
-        <DialogTitle>Edit Expence</DialogTitle>
-        <DialogContent>
-          <div className='grid gap-5'>
-            <div className='p-5 border rounded-xl '>
-              <div className='grid gap-3 w-1/2'>
-                <label>Expence Type</label>
-                <Select value={Expence?.category} onChange={(e) => { setExpence((prev) => { return { ...prev, category: e.target.value } }) }}>
-                  <MenuItem value='400'>Salaries Paid </MenuItem>
-                  <MenuItem value='300'>Purchase </MenuItem>
-                  <MenuItem value='200'>Purchase of Goods</MenuItem>
-                  <MenuItem value='100'>Provision Paid</MenuItem>
-                  <MenuItem value='600'>Tax Filled (other)</MenuItem>
-                  <MenuItem value='700'>GST Filled</MenuItem>
-                  <MenuItem value='500'>others</MenuItem>
+      <EditDialod Expence={Expence} handleAmountInput={(e: any) => { handleAmountInput(e) }} openEdit={openEdit} setExpence={(value: any) => setExpence((prev: any) => { return { ...prev, category: value } })} setOpenEdit={() => handleOpenEditDialog()} />
+      <div className=' h-[150%]  '  >
 
-                </Select>
-              </div>
-              <div className='flex flex-wrap my-5 gap-4  mt-4'>
-                <div className='grid gap-3 w-1/2 '>
-                  <label>Title (Note)</label>
-                  <Input value={Expence?.title} onChange={(e) => { setExpence({ ...Expence, title: e.target.value }) }} />
-                </div>
-                <div className='grid gap-3 '>
-                  <label>Amount</label>
-                  <Input type='number' value={Expence?.amount} onChange={(e) => { handleAmountInput(e) }} />
-                </div>
+        <div className='h-[6%]  rounded-xl'>
+          <div className=' grid grid-cols-3  gap-5 items-center w-full  p-2 ' >
+            <PageHeading name='Expences' />
+            <IncomeAndExpenceSelect />
 
-              </div>
-              <div className='flex gap-2'>
-                <SolidButton color='primary' innerText='Save' onClick={() => { editExpence(Expence); setOpenEdit(false) }} />
-                <SolidButton color='black' innerText='Discard Changes' onClick={() => { setOpenEdit(false) }} />
-              </div>
+
+            <div className='w-full grid place-items-end ' >
+              {/* <Button variant='outlined' color='error' className='w-1/2 px-5 py-5 uppercase'  >ADD Expence</Button> */}
+              <SolidButton color='black' innerText='Add Expence' onClick={() => navigate(`/create/500/expence`)} />
             </div>
+
           </div>
+        </div>
 
-        </DialogContent>
+        <div className=' h-[20%]  rounded-xl m-2 '>
+          <TopTab />
+        </div>
+        <div className='border rounded-xl  h-[66%]  m-2 overflow-auto  bg-component'>
+          <ExpenceTable setUid={(value: string) => { setUid(value); setOpen(true) }} openEdit={(value: any) => { setObj(value) }} />
+        </div>
 
-      </Dialog>
-      <div className=' row-span-2 '>
-        <TopTab />
       </div>
-      <div className='border rounded-xl  row-span-4  overflow-auto '>
-        <ExpenceTable setUid={(value: string) => { setUid(value); setOpen(true) }} openEdit={(value: any) => { setObj(value) }} />
+      <div className='h-[100%] m-4' >
+        <PageHeading name='Expence Chart'/>
+        <div className='bg-component p-2 h-[100%] m-2  rounded-xl'>
+          <ExpenceChart/>
+        </div>
       </div>
 
-    </div>
-
+    </>
   )
 
 

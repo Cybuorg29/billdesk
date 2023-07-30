@@ -48,9 +48,10 @@ const CreateExpence = (props: Props) => {
     
 
     return (
-        <div className='grid gap-5 bg-white p-5' >
-            <div className='font-semibold text-xl' >Create Expence</div>
-            <div className='p-5 border rounded-xl ' >
+        <>
+            <div className='font-semibold text-2xl text-grayFont p-5 ' >Create Expence</div>
+        <div className='grid gap-5  rounded-xl p-5' >
+            <div className='p-5 border rounded-xl bg-component ' >
                 <div className='grid gap-3 w-1/2'>
                     <label>Expence Type</label>
                     <Select value={Expence.category} onChange={(e) => {navigate(`/create/${e.target.value}/expence`)}} >
@@ -89,6 +90,8 @@ const CreateExpence = (props: Props) => {
 
 
         </div>
+        </>
+
     )
 }
 

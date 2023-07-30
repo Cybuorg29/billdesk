@@ -1,5 +1,6 @@
 
 export const converToInrFormat=(value:any)=>{
+    
 
    value  =  value.toLocaleString('en-IN', {
             maximumFractionDigits: 2,

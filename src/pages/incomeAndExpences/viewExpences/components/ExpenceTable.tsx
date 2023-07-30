@@ -20,37 +20,32 @@ const ExpenceTable = ({ setUid, openEdit }: Props) => {
 
     useEffect(() => { }, [sort, token])
     return (
-        <div className=''>
+        <div className='h-full w-full'>
+            <div className='flex  p-4 gap-5 border-b border-black'>
+
+                 <div className='flex items-center gap-4   px-4 p-2 rounded-xl '>
+            <div>Show</div>
+
+            <select title='Sort' value={limit} onChange={(e) => { navigate(`/view/${sort}/${e.target.value}/expences`) }}  >
+              <option value='10'>10</option>
+              <option value='25'>25</option>
+              <option value='50'>50 </option>
+              <option value='500'>all</option>
+            </select>
+          </div>
+          <div className='flex items-center gap-4  px-4 p-2 rounded-xl '> <div>View</div>
+
+            <select title='Type' value={sort} onChange={(e) => { navigate(`/view/${e.target.value}/${limit}/expences`) }}  >
+              <option value='400'>Salaries Paid </option>
+              <option value='500'>others</option>
+              <option value='300'>Purchase </option>
+              <option value='200'>Purchase of Goods</option>
+              <option value='100'>Provision Paid</option>
+              <option value='all'>All</option>
+            </select>
+          </div>
+            </div>
             <div className='mt-5 overflow-auto w' >
-                <div className='grid  grid-flow-col  place-items-center w-full border-b border-black p-2 ' >
-                    <div className='flex items-center gap-4 bg-white border  px-4 p-2 rounded-xl '>
-                        <div>Show</div>
-
-                        <select value={limit} onChange={(e) => { navigate(`/view/${sort}/${e.target.value}/expences`) }}  >
-                            <option value='10'>10</option>
-                            <option value='25'>25</option>
-                            <option value='50'>50 </option>
-                            <option value='500'>all</option>
-                        </select>
-                    </div>
-                    <div className='flex items-center gap-4 border px-4 p-2 rounded-xl '> <div>View</div>
-
-                        <select value={sort} onChange={(e) => { navigate(`/view/${e.target.value}/${limit}/expences`) }}  >
-                            <option value='400'>Salaries Paid </option>
-                            <option value='500'>others</option>
-                            <option value='300'>Purchase </option>
-                            <option value='200'>Purchase of Goods</option>
-                            <option value='100'>Provision Paid</option>
-                            <option value='all'>All</option>
-                        </select>
-                    </div>
-
-                    <div className='w-full grid place-items-end ' >
-                        {/* <Button variant='outlined' color='error' className='w-1/2 px-5 py-5 uppercase'  >ADD Expence</Button> */}
-                        <SolidButton color='black' innerText='Add Expence' onClick={() => navigate(`/create/expence`)} />
-                    </div>
-
-                </div>
 
                 <div>
                     <div className="flex flex-col" >

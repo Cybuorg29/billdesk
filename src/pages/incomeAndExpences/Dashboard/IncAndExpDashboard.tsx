@@ -1,82 +1,132 @@
-import React from 'react'
-import { SolidButton } from '../../../components/ui/Buttons/solid/SolidButton';
-import { useNavigate } from 'react-router-dom';
-import exp from 'constants';
-import { expIcon } from '../../../icons/exportIcons';
-import { useAppSelector } from '../../../store/app/hooks';
-import { converToInrFormat } from '../../../utils/ConvertInrFormat';
+import React, { useEffect, useState } from "react";
+import { SolidButton } from "../../../components/ui/Buttons/solid/SolidButton";
+import { useNavigate } from "react-router-dom";
+import exp from "constants";
+import { expIcon } from "../../../icons/exportIcons";
+import { useAppSelector } from "../../../store/app/hooks";
+import { converToInrFormat } from "../../../utils/ConvertInrFormat";
 import SouthWestIcon from "@mui/icons-material/SouthWest";
 import NorthEastIcon from "@mui/icons-material/NorthEast";
 import ExploreRoundedIcon from "@mui/icons-material/ExploreRounded";
-import TrackerChart from '../../../components/charts/tracker/TrackerChart';
-import Table from './components/Table';
-type Props = {}
-type tabProps={
+import TrackerChart from "../../../components/charts/tracker/TrackerChart";
+import Table from "./components/Table";
+import { incomeAndExpencesObjectSchema } from "../../../store/features/IncomeAndExpences/IncomeAndExpences";
+import Tabs from "../../../components/ui/tabs/Tabs";
+import { getMonthName } from "../../../utils/getMonthName";
+import { changeIncomeAndExpenceByMonth } from "../../../store/actions/data/IncomeAndExpence";
+import IncomeAndExpenceSelect from "../../../components/Select/IncomeAndExpenceSelect";
+import PageHeading from "../../../components/ui/Page Heading/PageHeading";
+type Props = {};
+type tabProps = {
+  name: string;
+  amount: string;
+  image: any;
+  link: string;
+};
+
+interface monthObj{
   name:string
-  amount:string
-  image:any
-  link:string
+  value:number
+}
+interface monthobjArray {
+  months:monthObj[]
 }
 
 const IncAndExpDashboard = (props: Props) => {
-   const {totalExpences,totalIncome,expences,income} = useAppSelector(state=>state.incomeAndExpence)
-    const navigate = useNavigate()
-    const tabArray:tabProps[]=[
-      {
-          name:'Total Income',
-          image:<SouthWestIcon/>,
-          amount:converToInrFormat(totalIncome),
-          link:'/'
-      },
-      {
-        name:'Total Expences',
-        amount:converToInrFormat(totalExpences),
-        image:<NorthEastIcon/>,
-        link:'/'
-      },
-      {
-        name:'Balance',
-        amount:converToInrFormat(totalIncome-totalExpences),
-        image:'=',
-        link:'/'
-      }
-    ]
+  const { totalExpences, totalIncome, expences, income } = useAppSelector(
+    (state) => state.incomeAndExpence
+  );
+   const {month} = useAppSelector(state=>state.incomeAndExpence)
+  const [monthArray,setMonthArray] = useState<monthObj[]>()
+  const navigate = useNavigate();
+  const tabArray: tabProps[] = [
+    {
+      name: "Total Income",
+      image: '',
+      amount: converToInrFormat(totalIncome),
+      link: "/view/all/income",
+    },
+    {
+      name: "Total Expences",
+      amount: converToInrFormat(totalExpences),
+      image: '',
+      link: "/view/all/10/expences",
+    },
+    {
+      name: "Balance",
+      amount: converToInrFormat(totalIncome - totalExpences),
+      image: "",
+      link: "/",
+    },
+  ];
 
 
-  const Tabs =({amount,image,link,name}:tabProps)=> {
-     return <div className="p-2 place-items-center  bg-component rounded-xl flex hover:scale-105 cursor-pointer duration-150 w-full gap-5" onClick={()=>navigate(`${link}`)}>
-    <div className=' w-16 h-16 rounded-full bg-whitesmoke  grid items-center justify-items-center'><div className='scale-150'>{image}</div></div>
-    <div className='flex place-items-center '>
-      <div>
-        <div className='text-gray-600 '>{name} </div>
-        <div className='text-2xl font-semibold w-full'>{amount}</div>
-      </div>
-    </div>
-  </div>;
-}
-  return (
-    <div className="p-4 h-full ">
-      <div className="text-2xl font-semibold  flex place-content-between  h-[8%]  text-grayFont">
-        {" "}
-        <div>Income And Expence</div> 
-        <div className='flex gap-3'>
-          <SolidButton color='black'innerText='Add Expence' onClick={()=>{navigate(`/create/400/expence`)}} />
-          <SolidButton color='black'innerText='Add Income' onClick={()=>{navigate(`/create/income`)}} />
-          </div>{" "}
-      </div>
-      <div className="  flex lg:grid grid-cols-3 gap-5 w-full h-[16%]  m-2">
-        {
-          tabArray.map((index:tabProps)=>{
-            return <Tabs name={index.name} image={index.image} amount={index.amount} link={index.link}/>
-          })
-        }     
-     
-      </div> 
-      
+ 
   
 
+
+  return (
+    <div className=" h-full p-4 ">
+      <div className="text-2xl font-semibold  flex place-content-between  h-[8%]  text-grayFont">
+        {" "}
+        <div className="flex gap-5 place-items-center">
+         <PageHeading name="Income And Expence Dashboard"/>
+        <IncomeAndExpenceSelect/>
+      
+
+        </div>
+        <div className="flex gap-3 text-sm font-black place-items-start">
+          
+          <SolidButton
+            color="black"
+            innerText="Add Expence"
+            onClick={() => {
+              navigate(`/create/500/expence`);
+            }}
+          />
+          <SolidButton
+            color="black"
+            innerText="Add Income"
+            onClick={() => {
+              navigate(`/create/income`);
+            }}
+          />
+        </div>{" "}
+      </div>
+      <div className="  flex lg:grid grid-cols-3 gap-5 w-full h-[14%]  mb-4">
+        {tabArray.map((index: tabProps) => {
+          return (
+            <Tabs
+              name={index.name}
+              image={index.image}
+              amount={index.amount}
+              link={index.link}
+            />
+          );
+        })}
+      </div>
+      <div className="grid grid-cols-2  gap-3 h-[76%]  ">
+        <div className="bg-component">
+          <TrackerChart/>
+        </div>
+        <div className="grid grid-cols-2 gap-2" >
+          <div>
+            <Table array={income}   name="Income"  color="text-green-600" link="/view/all/income" />
+          </div>
+          <div>
+            <Table array={expences} name="Expences" color="text-red-600"  link="/view/all/10/expences" />
+          </div>
+
+        </div>
+   
+      </div>
+    {/* <div  className="text-3xl font-poopins text-grayFont p-4" >Chart</div>
+      <div className="h-[100%] bg-component m-2 p-2" >
+        <TrackerChart/>
+
+      </div> */}
     </div>
   );
-}
+};
 
-export default IncAndExpDashboard
+export default IncAndExpDashboard;

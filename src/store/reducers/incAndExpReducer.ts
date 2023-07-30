@@ -28,12 +28,25 @@ export const changeIncomeAndExpencesState = (
       state.totalExpences = data;
       break;
     case "initlise":
+         let totalIncome = 0;
+         let totalExpences = 0;
+
+         data.income.map((index:any)=>{
+            totalIncome  = totalIncome + index.amount;
+          return 0;
+         })
+         data.expences.map((index:any)=>{
+          
+          totalExpences = totalExpences + index.amount;
+          return 0;  
+         })
       state.income = data.income;
       state.expences = data.expences;
-      state.totalExpences = data.totalExpences;
-      state.totalIncome = data.totalIncome;
+      state.totalExpences = totalExpences;
+      state.totalIncome = totalIncome;
       state.isExpences = true;
       state.isIncome = true;
+      state.month = parseInt(data.month);
       break;
   }
 };

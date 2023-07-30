@@ -39,8 +39,9 @@ const AddEmployee = (props: Props) => {
                     document.getElementById('InImage')?.setAttribute('src',img)
          }
   return (
-    <div className="w-full h-full p-5  flex flex-col gap-5 bg-component rounded-xl">
-      <div className="text-xl">Add Employee</div>
+    <>
+      <div className="text-xl p-4 h-[10%] text-grayFont font-poopins ">Add Employee</div>
+    <div className="w-full h-[90%] p-5  flex flex-col gap-5 bg-component rounded-xl">
 
       <div className=" flex  h-[80%] p-4">
         <div className=" grid flex-wrap gap-5  w-full h-fit  ">
@@ -96,6 +97,8 @@ const AddEmployee = (props: Props) => {
         </div>
       </div>
     </div>
+    </>
+
   );
 }
 

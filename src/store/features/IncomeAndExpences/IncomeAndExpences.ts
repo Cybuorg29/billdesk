@@ -19,6 +19,7 @@ import {  changeIncomeAndExpencesState} from "../../reducers/incAndExpReducer"
    totalExpences:number
    isIncome:boolean
    isExpences:boolean
+   month:number
 }
 
 const initialState:incomeArray={
@@ -27,7 +28,8 @@ const initialState:incomeArray={
     isExpences:false,
     isIncome:false,
     totalExpences:0,
-    totalIncome:0
+    totalIncome:0,
+    month:13
 
     
 }

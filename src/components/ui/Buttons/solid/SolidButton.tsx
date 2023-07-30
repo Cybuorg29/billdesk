@@ -23,7 +23,7 @@ export const SolidButton = ({ innerText, color, onClick }: Props) => {
         },
         {
             name: 'red',
-            color: 'bg-[#C62828]',
+            color: 'bg-red-700',
             text: 'text-white'
         }
 
