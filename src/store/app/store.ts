@@ -7,6 +7,7 @@ import bankSlice from '../features/bank/bankSlice'
 import trackerSlice from '../features/tracker/trackerSlice'
 import incomeSlice from '../features/IncomeAndExpences/IncomeAndExpences'
 import employeeSlice from '../features/employee/employeeSlice'
+import { productSlice } from '../features/inventory/inventorySlice'
 
 
 
