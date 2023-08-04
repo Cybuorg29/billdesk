@@ -12,7 +12,7 @@ const  initialState:productArray={
     Product:[] 
 }
  
-export   const productSlice= createSlice({
+export  const productSlice= createSlice({
     name:'product',
     initialState,
     reducers:{}
