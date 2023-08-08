@@ -26,6 +26,8 @@ import AddEmployee from './pages/employee/crud/AddEmployee';
 import SpreadSheet from './pages/spreadsheet/SpreadSheet';
 import {registerLicense} from '@syncfusion/ej2-base'
 import EditEmployee from './pages/employee/crud/EditEmployee';
+import InventoryDashboard from './pages/inventory/InventoryDashboard';
+import AddProducts from './pages/inventory/view/AddProducts';
 registerLicense("Ngo9BigBOggjHTQxAR8/V1NGaF5cXmdCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdgWXhfeHVUQ2hfWUJ0VkE=");
 function App() {
 
@@ -74,6 +76,8 @@ function App() {
                 <Route path='/create/employee' element={<AddEmployee />}></Route>
                 <Route path='/edit/:id/employee' element={<EditEmployee />}></Route>
                 <Route path='/spreadsheet' element={<SpreadSheet/>} ></Route>
+                <Route path='/dashboard/inventory'  element={<InventoryDashboard/>}   />
+                <Route path='/create/product'  element={<AddProducts/>}   />
               </Route>
 
             </Routes>

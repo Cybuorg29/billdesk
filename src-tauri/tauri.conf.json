@@ -3,7 +3,7 @@
   "build": {
     "beforeBuildCommand": "",
     "beforeDevCommand": "npm run start",
-    "devPath": "https://billdesk.vercel.app",
+    "devPath": "http://localhost:3000/",
     "distDir": "https://billdesk.vercel.app"
   },
   "package": {

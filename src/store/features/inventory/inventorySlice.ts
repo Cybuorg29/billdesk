@@ -1,24 +1,25 @@
+import { changeProduct } from './../../reducers/inventory/index';
 import { createSlice } from '@reduxjs/toolkit';
-import { ProductObj } from './../../../models/inventory/productModel';
+import { ProductObj, productArray } from './../../../models/inventory/productModel';
 import { RootState } from '../../app/store';
 
 
 
-interface productArray{
-    Product:ProductObj[]
-}
 
 const  initialState:productArray={
-    Product:[] 
+    products:[],
+    isProducts:false
 }
  
 export  const productSlice= createSlice({
-    name:'product',
+    name:'products',
     initialState,
-    reducers:{}
+    reducers:{
+        setProducts:changeProduct
+    }
 })
 
-export const {} =  productSlice.actions
+export const {setProducts} =  productSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectCount = (state: RootState) => state.counter.value

@@ -22,6 +22,7 @@ import { useNavigate } from 'react-router-dom';
 import { SolidButton } from '../../../components/ui/Buttons/solid/SolidButton';
 import { baseUrl } from '../../../api/Url/ProdUrl';
 import { change } from '../../../store/features/loader/loaderSlice';
+import { actionPayload } from '../../../store/payload/payloadModel';
 
 function Copyright(props: any) {
   return (
@@ -54,7 +55,14 @@ export default function SignIn() {
       const { data } = await login(user.username, user.password)
       if (data.code === 200) {
         toast.success(data.message)
-        dispatch(saveToken({ istoken: true, token: data.token }))
+        const payload:actionPayload={
+          type:'',
+          data:{
+            token:data?.token,
+            istoken:true
+          }
+        }
+      dispatch(saveToken(payload))
 
         navigate('/')
         dispatch(change())
@@ -77,7 +85,14 @@ export default function SignIn() {
 
     } else {
       token = JSON.parse(token)
-      dispatch(saveToken({ istoken: true, token: token }))
+        const payload:actionPayload={
+          type:'',
+          data:{
+            token:token,
+            istoken:true
+          }
+        }
+      dispatch(saveToken(payload))
       navigate('/')
     }
   }

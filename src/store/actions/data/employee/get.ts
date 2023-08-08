@@ -3,7 +3,7 @@ import { getEmployees } from "../../../../api/employee/employeeServices"
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 import { store } from "../../../app/store"
 import { change } from "../../../features/loader/loaderSlice"
-import { payloadAction } from "../../../payload/payloadModel"
+import { actionPayload } from "../../../payload/payloadModel"
 import { setEmployee } from "../../../features/employee/employeeSlice"
 
 
@@ -26,7 +26,7 @@ export const EmployeeData = async () => {
                 toast.error('an error occured ')
                 store.dispatch(change())
             } else {
-                const payload: payloadAction = {
+                const payload: actionPayload = {
                     type: 'set',
                     data: data?.message
                 }

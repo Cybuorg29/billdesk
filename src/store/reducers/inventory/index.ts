@@ -1,5 +1,6 @@
-import { ProductObj } from "../../../models/inventory/productModel";
-import { payloadAction } from '../../payload/payloadModel';
+import { PayloadAction } from "@reduxjs/toolkit";
+import { ProductObj, productArray } from "../../../models/inventory/productModel";
+import { actionPayload } from "../../payload/payloadModel";
 
 
 const operations={
@@ -8,18 +9,23 @@ const operations={
      push:"push"
 }
 
-export const setProducts=(state:ProductObj[],action:payloadAction)=>{
-    const data = action.data;
-    const type = action.type;
-     switch (action.type) {
+interface array {
+    product:ProductObj[]
+}
+
+export const changeProduct=(state:productArray,action:PayloadAction<actionPayload>)=>{
+    const data = action.payload.data;
+    const type = action.payload.type;
+     switch (type) {
         case operations.set:
-            state = data
+            state.products = data
+             state.isProducts = true
             break;
             case operations.delete:
-                  state.filter((index:ProductObj)=>index._id!==data);
+                  state.products.filter((index:ProductObj)=>index._id!==data);
             break;
             case operations.push :
-              state.push(data)
+              state.products.push(data)
               break
         default:
             break;

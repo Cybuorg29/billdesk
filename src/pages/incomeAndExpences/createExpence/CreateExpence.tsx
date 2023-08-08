@@ -82,7 +82,7 @@ const CreateExpence = (props: Props) => {
                     </div>
                 <div>
                     {/* <Button color='info' variant='outlined' onClick={() => { ; addExpence(Expence) }} >Add Expence</Button> */}
-                    <SolidButton color='' innerText='Add Expence' onClick={() => { addExpence(Expence) }} />
+                    <SolidButton color='black' innerText='Add Expence' onClick={() => { addExpence(Expence) }} />
                 </div>
             </div>
 

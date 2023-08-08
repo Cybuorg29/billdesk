@@ -5,7 +5,7 @@ export interface createProductObj{
     code:string
     image:any
     rate:number
-    category:string
+    category: 'Raw material'  | 'Finished Goods' 
     limit:number
     stock:number
 }
@@ -24,5 +24,11 @@ export interface ProductObj{
     createdAt:any
     updatedAt:any
     _id:string
+}
+
+
+export interface productArray {
+    products:ProductObj[]
+    isProducts:boolean
 }
 

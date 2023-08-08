@@ -20,7 +20,6 @@ const loaderSlice = createSlice({
 
 // export const { switch } = loaderSlice.actions
 export const { change } = loaderSlice.actions
-
 // Other code such as selectors can use the imported `RootState` type
 export const selectCount = (state: RootState) => state.counter.value
 

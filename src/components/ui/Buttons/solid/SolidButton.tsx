@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 // import { colorArray } from '../ColorArray'
 
-type Props = { color: string, innerText: string, onClick: any }
+type Props = { color: 'primary'| 'black'|'error', innerText: string, onClick: any }
 
 
 export const SolidButton = ({ innerText, color, onClick }: Props) => {
@@ -22,7 +22,7 @@ export const SolidButton = ({ innerText, color, onClick }: Props) => {
             text: 'text-white'
         },
         {
-            name: 'red',
+            name: 'error',
             color: 'bg-red-700',
             text: 'text-white'
         }
