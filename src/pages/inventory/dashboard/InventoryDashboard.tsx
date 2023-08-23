@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import PageHeading from '../../components/ui/Page Heading/PageHeading'
-import { SolidButton } from '../../components/ui/Buttons/solid/SolidButton'
+import PageHeading from '../../../components/ui/Page Heading/PageHeading'
+import { SolidButton } from '../../../components/ui/Buttons/solid/SolidButton'
 import { useNavigate } from 'react-router-dom'
-import { getProducts } from '../../store/actions/products'
-import {  useAppSelector } from '../../store/app/hooks'
-import { ProductObj } from '../../models/inventory/productModel'
+import { getProducts } from '../../../store/actions/products'
+import {  useAppSelector } from '../../../store/app/hooks'
+import { ProductObj } from '../../../models/inventory/productModel'
+import { DeleteIcon } from '../../../components/ui/icons/DeleteIcon'
+import { EditIcons } from '../../../components/ui/icons/EditIcon'
+import ViewIcon from '../../../components/ui/icons/ViewIcon'
+import { toast } from 'react-toastify'
 
 type Props = {}
 
@@ -19,7 +23,7 @@ const InventoryDashboard = (props: Props) => {
 
 
   return (
-    <div className='h-full overflow-auto p-5' >
+    <div className='h-full w-full overflow-auto p-5' >
       <TopSection />
       <div className='h-[82%] bg-component rounded-xl p-3' >
         <div className='flex  place-content-between ' >
@@ -33,7 +37,9 @@ const InventoryDashboard = (props: Props) => {
             </select>
           </div>
         </div>
+         <div  className='w-full h-full' >
         <ProductTable/>
+         </div>
       
 
 
@@ -48,14 +54,14 @@ function TopSection() {
     <div className='h-[15%] flex place-content-between' >
       <PageHeading name='Inventory ' key={'inventory '} />
       <div>
-        <SolidButton color='black' innerText='Add Product' onClick={() => { }} key={'Add Product'} />
+        <SolidButton color='black' innerText='Add Product' onClick={() => {navigate('/create/product') }} key={'Add Product'} />
       </div>
     </div>
   </>
 }
 
 function ProductTable(){
-  return <div className='border-t mt-2' >
+  return <div className='border-t mt-2  w-full h-full overflow-auto' >
   <div className="flex flex-col" >
     <div className="">
       <div className="inline-block min-w-full ">
@@ -83,7 +89,13 @@ function ProductTable(){
                 <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{index.stock}</th>
                 <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{index.rate}</th>
                 <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' > {index.limit}</th>
-                <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{}</th>
+                <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >
+                  <div  className='flex gap-1' >
+                  <DeleteIcon  color='black' onclick={()=>{}} key={'adas'}   />
+                  <EditIcons  color='blue' onclick={()=>{}} key={'asda'} />
+                  <ViewIcon  color='black' onclick={()=>{navigate(`/view/${index._id}/product`)}} key={index._id} />
+                  </div>
+                </th>
               </tr>
                   </>
                 })                        

@@ -2,7 +2,7 @@ import React from 'react'
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import { JsxAttribute, JsxElement } from 'typescript';
 
-type Props = { onclick: any; color: string };
+type Props = { onclick: any; color: 'black' | 'blue' };
 export  const DeleteIcon =({onclick,color}:Props)=>{
           let obj:any;
          if(color==='black'){

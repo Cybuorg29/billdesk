@@ -55,7 +55,7 @@ const AddProducts = (props: Props) => {
           newArray.push(index)
          }
 
-         return
+         return  
         })
         setProduct((prev: createProductObj) => { return { ...prev, tax: newArray } })
 
@@ -66,7 +66,7 @@ const AddProducts = (props: Props) => {
 
       const amount = parseFloat(pushTax.amount)
       if (pushTax?.type === '') toast.error('Please Select the Tax Type')
-      else if (pushTax?.amount === 0) {
+      else if (pushTax?.amount <= 0) {
         toast.error('Cannot add Tax with value 0 ')
       }else {
            const type = pushTax.type
@@ -130,14 +130,15 @@ const AddProducts = (props: Props) => {
             <div>
 
             </div>
-            <div className='grid gap-5' >
+            {/* tax */}
+            <section className='grid gap-5' >
               <div className=' flex gap-5'>
                 {
                   product.tax.map((index: any) => {
                     return <>
                       <div className='flex items-center gap-3  border rounded-lg p-2' >
                         <div>{index.type}</div>
-                        <div>{index.amount}</div>
+                        <div>{index.amount}{'%'}</div>
                         <div className='text-gray-700 cursor-pointer '  onClick={()=>{handleTaxOperations('delete',index)}} > X</div>
                       </div>
                     </>
@@ -147,7 +148,7 @@ const AddProducts = (props: Props) => {
                   <SolidButton color='error' innerText='Add Tax' onClick={() => { setDialog(true) }} key={'asd'} />
                 </div>
               </div>
-            </div>
+            </section>
 
 
 

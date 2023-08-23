@@ -22,7 +22,6 @@ export const getProducts=async()=>{
 
          const {data} = await  getProductsByToken(token);
           const res:responceObj = data;
-          toast.info(res.code)
           console.log(res)
         
          if(res.code===500||res.code===400){
