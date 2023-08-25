@@ -1,5 +1,4 @@
 import React from 'react'
-import { Chart, LineSeries, Category } from '@syncfusion/ej2-charts';
 import { useAppSelector } from '../../../store/app/hooks';
 import { Area, Bar, BarChart, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 type Props = {}

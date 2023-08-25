@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import DescriptionRoundedIcon from "@mui/icons-material/DescriptionRounded";
 import InventoryRoundedIcon from "@mui/icons-material/InventoryRounded";
@@ -59,6 +59,7 @@ const NavBar = (props: Props) => {
   ]
 
   const dispatch = useAppDispatch()
+   const navigate = useNavigate()
   return (
     <>
       <div className="relative h-full bg-navbar text-white " >
@@ -72,7 +73,7 @@ const NavBar = (props: Props) => {
             link="/settings"
             icon={<TuneRoundedIcon />}
           />
-          <div className="flex text-sm p-2 hover:bg-slate-100/10 gap-2 cursor-pointer" onClick={() => { dispatch(deleteToken()); sessionStorage.removeItem('token'); toast.info('Logout sucessfull') }} >
+          <div className="flex text-sm p-2 hover:bg-slate-100/10 gap-2 cursor-pointer" onClick={() => { dispatch(deleteToken()); sessionStorage.removeItem('token'); toast.info('Logout sucessfull') ;navigate('/login') }} >
             <div>{<LogoutRoundedIcon />}</div>
             {`Logout`}
           </div>

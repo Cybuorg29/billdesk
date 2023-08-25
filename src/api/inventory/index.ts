@@ -15,3 +15,10 @@ export const  pushProduct=(token:string,product:createProductObj)=>{
         }
     })
 }
+
+export const delProduct=(token:string,_id:string)=>{
+    return axios.get(`${baseUrl}/api/delete/product/${token}/${_id}`);
+
+}
+
+export const AddStockApi=(value:any,price:any,total:any,token:any,_id:any,date:any)=> axios.post(`${baseUrl}/api/add/stock`,{value,price,total,token,_id,date})

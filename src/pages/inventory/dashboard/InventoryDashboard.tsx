@@ -9,6 +9,10 @@ import { DeleteIcon } from '../../../components/ui/icons/DeleteIcon'
 import { EditIcons } from '../../../components/ui/icons/EditIcon'
 import ViewIcon from '../../../components/ui/icons/ViewIcon'
 import { toast } from 'react-toastify'
+import { deleteProduct } from '../../../store/actions/products/delete/deleteProduct'
+import AddIcon from '../../../components/ui/icons/AddIcon'
+import MinusIcon from '../../../components/ui/icons/MinusIcon'
+import AddProductDialog from '../Add/AddProductDialog'
 
 type Props = {}
 
@@ -17,13 +21,21 @@ const InventoryDashboard = (props: Props) => {
   const [view, setView] = useState<string | number>(10)
   const { istoken } = useAppSelector(state => state.auth)
    const {products} =  useAppSelector(state=>state.product)
+    const [AddDialog,setAddDialog] = useState<boolean>(false)
+     const [_id,setId] = useState<string>('')
   useEffect(() => {
     getProducts()
   }, [istoken])
 
+  useEffect(() => {
+   
+  }, [products])
+  
+
 
   return (
     <div className='h-full w-full overflow-auto p-5' >
+      <AddProductDialog open={AddDialog} id={_id} close={()=>setAddDialog(false)}  />
       <TopSection />
       <div className='h-[82%] bg-component rounded-xl p-3' >
         <div className='flex  place-content-between ' >
@@ -51,6 +63,7 @@ const InventoryDashboard = (props: Props) => {
 
 function TopSection() {
   return <>
+
     <div className='h-[15%] flex place-content-between' >
       <PageHeading name='Inventory ' key={'inventory '} />
       <div>
@@ -89,11 +102,14 @@ function ProductTable(){
                 <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{index.stock}</th>
                 <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{index.rate}</th>
                 <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' > {index.limit}</th>
-                <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >
-                  <div  className='flex gap-1' >
-                  <DeleteIcon  color='black' onclick={()=>{}} key={'adas'}   />
+                <th scope="col" className='whitespace-nowrap font-medium   sticky ' >
+                  <div  className='flex ' >
+                  <DeleteIcon  color='black' onclick={()=>{deleteProduct(index._id)}} key={'adas'}   />
                   <EditIcons  color='blue' onclick={()=>{}} key={'asda'} />
                   <ViewIcon  color='black' onclick={()=>{navigate(`/view/${index._id}/product`)}} key={index._id} />
+                  <AddIcon  color='blue' onclick={()=>{setAddDialog(true); setId(index._id) }} key={index._id}  />
+                  <MinusIcon  color='black' onclick={()=>{navigate(`/view/${index._id}/product`)}} key={index._id}  />
+
                   </div>
                 </th>
               </tr>

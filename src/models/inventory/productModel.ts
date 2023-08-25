@@ -15,7 +15,7 @@ export interface ProductObj{
     tax:[],
     description:string
     code:string
-    image:any
+    image:string
     rate:number
     category:string
     limit:number
