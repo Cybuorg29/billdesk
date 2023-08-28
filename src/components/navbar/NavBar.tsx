@@ -45,6 +45,11 @@ const NavBar = (props: Props) => {
       icon: <AccountBalanceWalletRoundedIcon />
     },
     {
+      name:'Clients',
+      link:'/dashboard/client',
+      icon:<PersonIcon/>
+    },
+    {
       name: 'Employees',
       link: 'dashboard/employees',
       icon: <PersonIcon />
@@ -53,7 +58,7 @@ const NavBar = (props: Props) => {
       name:'SpreadSheet',
       link:'/spreadsheet',
       icon:<FormatListNumberedIcon/>
-    }
+    },
 
 
   ]

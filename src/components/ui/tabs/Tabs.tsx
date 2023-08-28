@@ -2,19 +2,21 @@ import React from 'react'
 import { colorArray } from '../Buttons/ColorArray';
 import { useNavigate } from 'react-router-dom';
 
-type tabProps = {
+ export type tabProps = {
   name: string;
   amount: string;
   image: any;
   link: string;
 };
 
+
+
 export const Tabs = ({ name, amount,image,link }: tabProps) => {
    const navigate = useNavigate()
      return(
 
       <div
-      className="p-2 place-items-center  bg-component rounded-xl flex  cursor-pointer duration-150 w-full gap-5"
+      className="p-2 place-items-center  bg-component rounded-xl flex  cursor-pointer duration-150 w-full h-full gap-5"
       onClick={() => navigate(`${link}`)}
     >
      {

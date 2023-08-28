@@ -48,5 +48,8 @@ export const changeIncomeAndExpencesState = (
       state.isIncome = true;
       state.month = parseInt(data.month);
       break;
+      case 'pushExpence':
+         state.expences.push(data);
+        break
   }
 };

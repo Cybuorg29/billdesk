@@ -31,10 +31,11 @@ function sucess(price:number,quantity:number,expence:object){
     store.dispatch(updateStock(stockPayload));
     const expencePayload:actionPayload={
         data:expence,
-        type:'push'
+        type:'pushExpences'
     }
     store.dispatch(setIncomeAndExpence(expencePayload))
      toast.success('Stock updated Sucessfully');
+     toast.success('Purchase Added sucessfully');
     //  store.dispatch(change())
 }
 catch(err:any){
@@ -62,7 +63,7 @@ export async function addStock({_id,price,quantity,total}:addStock){
         const  {data} = await AddStockApi(quantity,price,total,token,_id,date)
            const res:responceObj = data;
 
-        {(res.code===200)?sucess(price,quantity,res.package):error(res.error,res.message)}
+        {(res.code===200)?sucess(res.package?.avgPrice,quantity,res.package):error(res.error,res.message)}
 
 
     }catch(err:any){

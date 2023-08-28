@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import Inputs from '../create/components/Inputs'
 import { SolidButton } from '../../../components/ui/Buttons/solid/SolidButton'
 import { addStock } from '../../../store/actions/products/update/addStock'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 interface Props {
     open:any
@@ -11,7 +11,7 @@ interface Props {
     close:()=>void
 }
 
-const AddProductDialog = ({open,close,id}: Props) => {
+const AddStockDialog = ({open,close,id}: Props) => {
 
      const [update,setUpdate] = useState({
         value:0,
@@ -34,7 +34,9 @@ const AddProductDialog = ({open,close,id}: Props) => {
         </DialogContent>
         <DialogActions>
             <div className='flex gap-3' >
+              <Link to={'/dashboard/inventory'} >
                 <SolidButton color='black' innerText='Add Quantity' onClick={()=>{addStock({_id:id,price:update.price,quantity:update.value,total:update.total});console.log('asdasd',id);close()}} key={'ad'}/>
+              </Link>
                 <SolidButton color='error' innerText='Cancel' onClick={()=>{close();setUpdate({value:0,price:0,total:0});}} key={'adqd'}/>
             </div>
         </DialogActions>
@@ -54,4 +56,4 @@ const AddProductDialog = ({open,close,id}: Props) => {
   }
 }
 
-export default AddProductDialog
+export default AddStockDialog

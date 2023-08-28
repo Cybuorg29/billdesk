@@ -12,6 +12,7 @@ import { validateNumberInput } from '../../../utils/validateNumberInput'
 import ExtraInput from './components/ExtraInput'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ExpenceCreateObj } from '../../../models/incomeAndExp/expenceInterface'
+import AddStockDialog from '../../inventory/Add/AddStockDialog'
 
 type Props = {}
 
@@ -19,7 +20,7 @@ const CreateExpence = (props: Props) => {
     const { token } = useAppSelector(state => state.auth)
          const {type} = useParams();
      const navigate = useNavigate();
-       
+     const [isPurchaseGoods,setIsPurchasedGoods] = useState(false)
     const [Expence, setExpence] = useState<ExpenceCreateObj>({  
         title: ``,
         // category consist of codes 
@@ -32,6 +33,8 @@ const CreateExpence = (props: Props) => {
     })
 
 
+
+
     // handle the amount input value to not get zero 
     const handleAmountInput = (e: any) => {
         let amt = validateNumberInput(e.target.value)
@@ -39,6 +42,9 @@ const CreateExpence = (props: Props) => {
         setExpence({ ...Expence, amount: amt })
 
     }
+
+
+    
 
     useEffect(() => {
          console.log(type)
@@ -57,7 +63,7 @@ const CreateExpence = (props: Props) => {
                     <Select value={Expence.category} onChange={(e) => {navigate(`/create/${e.target.value}/expence`)}} >
                         <MenuItem value='400'>Salaries Paid </MenuItem>
                         <MenuItem value='300'>Purchase </MenuItem>
-                        <MenuItem value='200'>Purchase of Goods</MenuItem>
+                        <MenuItem value='200'   >Purchase of Goods</MenuItem>
                         <MenuItem value='100'>Provision Paid</MenuItem>
                         <MenuItem value='600'>Tax Filled (other)</MenuItem>
                         <MenuItem value='700'>GST Filled</MenuItem>
@@ -77,7 +83,8 @@ const CreateExpence = (props: Props) => {
 
                 </div>
                     <div className='m-5' >
-                    <ExtraInput   value={Expence.uid} code={Expence.category} handleIdChange={(value:any)=>{setExpence((prev:any)=>{return{...prev,uid:value}});console.log('value',value)}} />
+                    <AddStockDialog close={()=>{setIsPurchasedGoods(false)}} id={Expence.uid} open={isPurchaseGoods} key={'sdasd'} />
+                    <ExtraInput   value={Expence.uid} code={Expence.category} handleIdChange={(value:any)=>{handleExtraInput(value)}} />
 
                     </div>
                 <div>
@@ -93,6 +100,16 @@ const CreateExpence = (props: Props) => {
         </>
 
     )
+
+     async function handleExtraInput(value:any) {
+         
+        setExpence((prev:any)=>{return{...prev,uid:value}});console.log('value',value)
+         switch(Expence.category){
+            case '200':
+                setIsPurchasedGoods(true);
+                
+         }        
+    }
 }
 
 export default CreateExpence

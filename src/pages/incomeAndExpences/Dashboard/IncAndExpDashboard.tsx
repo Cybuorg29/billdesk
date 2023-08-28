@@ -11,18 +11,13 @@ import ExploreRoundedIcon from "@mui/icons-material/ExploreRounded";
 import TrackerChart from "../../../components/charts/tracker/TrackerChart";
 import Table from "./components/Table";
 import { incomeAndExpencesObjectSchema } from "../../../store/features/IncomeAndExpences/IncomeAndExpences";
-import Tabs from "../../../components/ui/tabs/Tabs";
+import Tabs, { tabProps } from "../../../components/ui/tabs/Tabs";
 import { getMonthName } from "../../../utils/getMonthName";
 import { changeIncomeAndExpenceByMonth } from "../../../store/actions/data/IncomeAndExpence";
 import IncomeAndExpenceSelect from "../../../components/Select/IncomeAndExpenceSelect";
 import PageHeading from "../../../components/ui/Page Heading/PageHeading";
 type Props = {};
-type tabProps = {
-  name: string;
-  amount: string;
-  image: any;
-  link: string;
-};
+
 
 interface monthObj{
   name:string
