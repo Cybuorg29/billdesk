@@ -11,7 +11,7 @@ export  interface createClientObj{
     state:string
     activities:string
     pincode:string
-    type:'200' | '100'
+    type:0 | 1
 }
 
 export interface clientModelObj{
@@ -29,7 +29,5 @@ export interface clientModelObj{
     state:string
     activities:string
     pincode:string
-    type:'200' | '100'
-
-
+    type: 1 |0
 }

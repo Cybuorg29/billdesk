@@ -66,7 +66,7 @@ const TopTabs = ({product,onclick}: Props) => {
 
     // function to calculate total , finished goods and raw material ;
      const initData=()=>{
-           setTabArray(emptyArray)
+       toast.info('asdasd')
           const array = [...tabArray];
           products.map((index:ProductObj)=>{
               array[0].amount = array[0].amount +1
@@ -81,8 +81,9 @@ const TopTabs = ({product,onclick}: Props) => {
 
    
     useEffect(() => { 
+      setTabArray(emptyArray)
         initData()
-    }, [product])
+    }, [])
 
       
  

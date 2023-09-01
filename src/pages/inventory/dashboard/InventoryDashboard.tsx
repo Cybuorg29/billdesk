@@ -29,6 +29,10 @@ const InventoryDashboard = (props: Props) => {
   const [confirmDelete, setConfirmDelete] = useState(false)
   const [type, setType]: any = useState('Total Products')
 
+
+
+
+  
   useEffect(() => {
     getProducts()
   }, [istoken])

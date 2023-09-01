@@ -26,7 +26,7 @@ import InventoryDashboard from './pages/inventory/dashboard/InventoryDashboard';
 import AddProducts from './pages/inventory/create/AddProducts';
 import ViewProduct from './pages/inventory/view/ViewProduct';
 import ClientDashboard from './pages/Client/Dashboard/ClientDashboard';
-import AddClient from './pages/Client/Add/AddClient';
+import AddBusiness from './pages/Client/Add/AddBusiness';
 registerLicense("Ngo9BigBOggjHTQxAR8/V1NGaF5cXmdCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdgWXhfeHVUQ2hfWUJ0VkE=");
 function App() {
 
@@ -78,7 +78,7 @@ function App() {
                 <Route path='/create/product'  element={<AddProducts/>}   />
                 <Route path='/view/:id/product'  element={<ViewProduct/>}   />
                 <Route path='/dashboard/client'  element={<ClientDashboard/>}   />
-                <Route path='/create/client'  element={<AddClient/>}   />c
+                <Route path='/create/client'  element={<AddBusiness/>}   />c
               </Route>
 
             </Routes>
