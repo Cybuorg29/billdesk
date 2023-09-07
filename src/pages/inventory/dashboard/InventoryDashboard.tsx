@@ -36,20 +36,15 @@ const InventoryDashboard = (props: Props) => {
   useEffect(() => {
     getProducts()
   }, [istoken])
+  useEffect(()=>{
 
-
-
-
-
-
-
-
+  },[products])
   return (
     <div className='h-full w-full overflow-auto p-5' >
       <AddStockDialog open={AddDialog} id={_id} close={() => setAddDialog(false)} />
       <ConfirmDeleteProductDialog close={() => setConfirmDelete(false)} id={_id} open={confirmDelete} key={'confirmDeleteProductDialog'} />
       <TopSection />
-      <TopTabs product={products} onclick={(type: any) => { setType(type) }} />
+      <TopTabs  onclick={(type: any) => { setType(type) }} />
       <div className='h-[69%] bg-component rounded-xl p-3' >
         <div className='flex  place-content-between ' >
           <div className='text-xl'>Products</div>

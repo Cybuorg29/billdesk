@@ -4,10 +4,10 @@ import { toast } from 'react-toastify'
 import { ProductObj } from '../../../../models/inventory/productModel'
 import { useAppSelector } from '../../../../store/app/hooks'
 
-type Props = {product:any[],onclick:(type:any)=>void}
+type Props = {onclick:(type:any)=>void}
 
-const TopTabs = ({product,onclick}: Props) => {
-   const {products} = useAppSelector(state=>state.product);
+const TopTabs = ({onclick}: Props) => {
+   const {products,isProducts} = useAppSelector(state=>state.product);
 
     const [tabArray,setTabArray] =useState([
         {
@@ -62,28 +62,28 @@ const TopTabs = ({product,onclick}: Props) => {
         }
       ]
 
+   
+
       
 
     // function to calculate total , finished goods and raw material ;
      const initData=()=>{
-       toast.info('asdasd')
+      setTabArray(emptyArray);
           const array = [...tabArray];
           products.map((index:ProductObj)=>{
               array[0].amount = array[0].amount +1
               if(index.category==='Finished Goods')array[1].amount = array[1].amount + 1;
               if(index.category==='Raw Material')array[2].amount = array[2].amount + 1;
               if(index.stock<=index.limit) array[3].amount = array[3].amount +1
-
           })
-           setTabArray(array) 
-
+           setTabArray(array) ;
      }
 
    
     useEffect(() => { 
-      setTabArray(emptyArray)
+        
         initData()
-    }, [])
+    }, [isProducts])
 
       
  

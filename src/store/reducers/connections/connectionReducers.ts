@@ -1,5 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { ConnectionModel } from "../../../models/Client/Connection/ConnectionsModel"
+import { ConnectionModel, connectionSchema } from "../../../models/Client/Connection/ConnectionsModel"
 import { actionPayload } from "../../payload/payloadModel"
 
 
@@ -8,7 +8,6 @@ import { actionPayload } from "../../payload/payloadModel"
     delete:'delete',
     add:'add',
     set:'set',
-    connections:'connections'
 }
 
 export  const changeConnection=(state:ConnectionModel,action:PayloadAction<actionPayload>)=>{
@@ -16,17 +15,26 @@ export  const changeConnection=(state:ConnectionModel,action:PayloadAction<actio
       const data = action.payload.data;
 
        switch (type) {
-        case  ConnectionsActionObj.set:
-             state.isConnection = true;
-              state.clients = data?.clients;
-               state.suppliers = data?.suppliers;
-            break;
-            case ConnectionsActionObj.connections:
+            case ConnectionsActionObj.set:
                 state.connections = data;
                 break;
                 case ConnectionsActionObj.add:
-                    (data?.type==='supplier')?state.suppliers = [...state.suppliers,data.connection]:state.clients = [...state.clients,data?.connection];
+                   const newArray  = [...state.connections,data];
+                   state.connections = newArray;
                 break
+                case ConnectionsActionObj.delete:
+                      const array:any = []
+                      
+                       state.connections.map((index:any)=>{
+                           if(index?._id){
+
+                           }else{
+                            array.push(index);
+                           }
+                       })
+                       state.connections = array;
+
+                      break;
         default:
             break;
        }

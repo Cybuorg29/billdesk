@@ -2,15 +2,15 @@ import { clientModelObj } from "../ClientModel"
 
 
 
-interface connectionSchema{
+ export interface connectionSchema{
     sid:String
     cid:String
-    status:'approved'|'Pending'
+    status:boolean
+    type:0|1
 }
 
 export interface  ConnectionModel  {
    isConnection:boolean
-   connections:connectionSchema[]
-    suppliers:connectionSchema[]
-     clients:clientModelObj[]  
-}
+   connections: any[]
+
+} 
