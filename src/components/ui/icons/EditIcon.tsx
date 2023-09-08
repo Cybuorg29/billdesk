@@ -1,6 +1,6 @@
 import EditIcon from '@mui/icons-material/Edit';
 
-type props  = {onclick:any,color:string}
+type props  = {onclick:any,color:'black'|'blue'}
 export const EditIcons=({onclick,color}:props)=> {
       let  obj:any ;
      if(color==='black'){

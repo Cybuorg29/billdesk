@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import EmployeeList from './inputs/EmployeeList';
+import ProductList from './inputs/ProductList';
 
 type Props = {code:string,handleIdChange:any,value:string}
 
@@ -18,6 +19,8 @@ const ExtraInput = ({code,handleIdChange,value}: Props) => {
        let obj:any = '';
      if(code==='400'){
         obj =  <EmployeeList handleChange={(id:any)=>{handleIdChange(id)}}  value={value}/>;
+     }else if(code==='200'){
+         obj = <ProductList handleChange={(id:any)=>{handleIdChange(id)}} value='' key={value} />
      }
      return obj
     

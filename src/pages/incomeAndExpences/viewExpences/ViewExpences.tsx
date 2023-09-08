@@ -93,7 +93,7 @@ const ViewExpences = (props: Props) => {
         </div>
 
       </div>
-      <div className='h-[100%] m-4' >
+      <div className='h-[100%]  ' >
         <PageHeading name='Expence Chart'/>
         <div className='bg-component p-2 h-[100%] m-2  rounded-xl'>
           <ExpenceChart/>
@@ -115,7 +115,7 @@ const ViewExpences = (props: Props) => {
 
           {/* <Button color='error' variant='contained' id='asdkas' onClick={(e) => { deleteExpence(uid); setOpen(false) }}>Delete</Button> */}
         </div>
-        <SolidButton color='red' innerText='DELETE' onClick={() => { deleteExpence(uid); setOpen(false) }} />
+        <SolidButton color='error' innerText='DELETE' onClick={() => { deleteExpence(uid); setOpen(false) }} />
       </DialogActions>
     </Dialog>
   }

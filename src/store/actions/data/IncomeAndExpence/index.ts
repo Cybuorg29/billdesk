@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import { store } from "../../../app/store";
 import { change } from "../../../features/loader/loaderSlice";
 import { getIncAndExpByMonth } from "../../../../api/incomeAndExpences";
-import { payloadAction } from "../../../payload/payloadModel";
+import { actionPayload } from "../../../payload/payloadModel";
 import { setIncomeAndExpence } from "../../../features/IncomeAndExpences/IncomeAndExpences";
 
 
@@ -20,7 +20,7 @@ export const  changeIncomeAndExpenceByMonth=async(month:number)=>{
 
                
             
-               const  payload:payloadAction = {
+               const  payload:actionPayload = {
                 type:'initlise',
                 data:{
                     income:data?.income,

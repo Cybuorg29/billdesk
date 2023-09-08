@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import { deleteEmployeeById } from "../../../../api/employee/employeeServices";
 import { store } from "../../../app/store"
 import { change } from "../../../features/loader/loaderSlice";
-import { payloadAction } from "../../../payload/payloadModel";
+import { actionPayload } from "../../../payload/payloadModel";
 import { setEmployee } from "../../../features/employee/employeeSlice";
 
 
@@ -21,7 +21,7 @@ export const deleteEmployee=async(_id:string)=>{
               store.dispatch(change())
           }else if(data?.code===200){
 
-             const payload:payloadAction={
+             const payload:actionPayload={
                data:_id,
                type:'delete'
              }

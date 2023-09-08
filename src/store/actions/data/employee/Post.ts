@@ -1,7 +1,7 @@
+import { actionPayload } from './../../../payload/payloadModel';
 import { toast } from "react-toastify"
 import { store } from "../../../app/store"
 import { postEmployee } from "../../../../api/employee/employeeServices"
-import { actionPayload } from "../../../reducers/employeeReducer"
 import { change } from "../../../features/loader/loaderSlice"
 import { setEmployee } from "../../../features/employee/employeeSlice"
 

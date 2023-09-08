@@ -1,10 +1,8 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { employeeArray, employeeObject } from "../features/employee/employeeSlice";
+import { actionPayload } from "../payload/payloadModel";
 
-export interface actionPayload{
-    type:string,
-    data:any
-}
+
 
 const  operatons =  {
      set:"set",

@@ -9,7 +9,7 @@ export interface userDetailSchema{
     state:string
     activities:string
     pincode:string
-    image:any
+    image:any,
 }
 
 export interface bankDetails{
@@ -19,3 +19,18 @@ export interface bankDetails{
     branch:string
     bank:string
 }
+
+ export interface createUserModel{
+    name:string
+    gstin:string
+    phone:string
+    email:string
+    building:string
+    city:string
+    district:string
+    state:string
+    activities:string
+    pincode:string
+    image:any,
+     type:0|1
+ }

@@ -1,4 +1,6 @@
-export interface payloadAction{
+
+
+export interface actionPayload{
     type:string
     data:any
 }

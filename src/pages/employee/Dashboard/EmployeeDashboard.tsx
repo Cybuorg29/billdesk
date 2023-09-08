@@ -93,7 +93,7 @@ const EmployeeDashboard = (props: Props) => {
               <DialogContentText>Do you really want to delete this employee</DialogContentText>
             </DialogContent>
             <DialogActions >
-              <SolidButton color="red" innerText="Delete" onClick={()=>{deleteEmployee(id)}} />
+              <SolidButton color="error" innerText="Delete" onClick={()=>{deleteEmployee(id)}} />
               <SolidButton color="black" innerText="Cancel" onClick={()=>{setOpenDelete(false)}}  />
             </DialogActions>
 
@@ -148,7 +148,7 @@ const EmployeeDashboard = (props: Props) => {
                  const Balance = converToInrFormat(index?.balance)
                 return (
                   <>
-                    <TableRow>
+                    <TableRow >
                       <TableCell>{++i}</TableCell>
                       <TableCell>{index?.name}</TableCell>
                       <TableCell>{type}</TableCell>

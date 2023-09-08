@@ -11,7 +11,7 @@ import { getUserData } from "../../api/userServices";
 import { initilise } from "../../store/features/user/userSlice";
 import { toast } from "react-toastify";
 import { initliseBank } from "../../store/features/bank/bankSlice";
-import { UpdateUSer, initialiseUserData } from "../../store/actions/user/user";
+import { UpdateUSer, checkUserLogin, initialiseUserData } from "../../store/actions/user/user";
 import Topbar from "../../components/navbar/Topbar";
 import NavBar from "../../components/navbar/NavBar";
 import { Colors, Chart, ArcElement } from "chart.js";
@@ -25,31 +25,13 @@ const Main = (props: Props) => {
   const token = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   // checking if the token is available
-  //      if(token.istoken===false){
-  //        navigate('/login ')
-  //           toast.info('please Login to continue')
-  //      }else{
-  //       toast.info('loggedin')
-  //       initialiseUserData()
-
-  //      }
-  // }, []);
-
   useEffect(() => {
-    // if(user.name===''){
-    //   navigate('/settings')
-    // }
-    if (!token.istoken) {
-      toast.info("please login to continue");
-      navigate("/login");
-    } else {
-      initialiseUserData();
-    }
-  }, [token.istoken]);
+  
 
-  useEffect(() => { }, [user]);
+       checkUserLogin()
+  }, []);
+
+  // useEffect(() => { }, [user]);
 
   return (
     <>

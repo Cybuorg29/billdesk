@@ -30,6 +30,12 @@ export const getUserData = (token: any) => {
   return axios.get(`${baseUrl}/api/user/getdata/${token}`);
 };
 
+export const  verifyLogin=(token:string)=>{
+  
+  return axios.get(`${baseUrl}/api/user/verify/${token}`)
+
+}
+
 export const setUpProfile = (
   client: userDetailSchema,
   bank: bankInterface,
