@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
  export type tabProps = {
   name: string;
-  amount: string;
+  amount: any;
   image: any;
   link: string;
 };

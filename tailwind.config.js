@@ -15,7 +15,8 @@ module.exports = {
         "s1":"@import url('https://fonts.googleapis.com/css2?family=Dongle&display=swap')",
         "ubuntu":'Ubuntu, sans-serif',
         "rubik": 'font-family: Rubik, sans-serif;',
-        "poopins":'font-family: Poppins, sans-serif'
+        "poopins":'font-family: Poppins, sans-serif',
+        "inclusive":'font-family: Inclusive Sans, sans-serif'
       },
       aspectRatio:{
         '10/3':'10/3'

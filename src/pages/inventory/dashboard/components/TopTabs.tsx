@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import Tabs from '../../../../components/ui/tabs/Tabs'
-import { toast } from 'react-toastify'
 import { ProductObj } from '../../../../models/inventory/productModel'
 import { useAppSelector } from '../../../../store/app/hooks'
 

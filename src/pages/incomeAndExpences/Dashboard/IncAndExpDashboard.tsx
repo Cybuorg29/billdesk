@@ -100,8 +100,8 @@ const IncAndExpDashboard = (props: Props) => {
           );
         })}
       </div>
-      <div className="grid grid-cols-2  gap-3 h-[76%]  ">
-        <div className="bg-component">
+      <div className="grid grid-cols-2  gap-3 h-[76%]  rounded-xl">
+        <div className="bg-component  rounded-xl">
           <TrackerChart/>
         </div>
         <div className="grid grid-cols-2 gap-2" >

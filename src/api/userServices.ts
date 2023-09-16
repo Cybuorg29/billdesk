@@ -5,18 +5,7 @@ import { useAppSelector } from "../store/app/hooks";
 import { userDetailSchema } from "../models/userModel";
 import { bankInterface } from "../store/features/bank/bankSlice";
 import { baseUrl } from "./Url/ProdUrl";
-// export const geti=async()=>{
-//     try{
-//         const result =  await axios.get(`${baseUrl}/api/user/register`)
-//          if(result.status === 200){
-//             toast.success('sucess')
-//             // return result.data
-//          }
-//           toast.error('an error occured')
-//     }catch(err:any){
-//         toast.error(err.message)
-//     }
-// }
+
 
 export const signup = (user: registerArgs) => {
   return axios.post(`${baseUrl}/api/user/signup`, { user });
@@ -79,3 +68,11 @@ export const updateProfileImage = (image: any, token: any) => {
     }
   );
 };
+
+export const profileData = (id:string)=>{
+   return axios.get(`${baseUrl}/api/get/profile/${id}`);
+}
+
+export const getUserProducts=(id:string)=>{
+  return axios.get(`${baseUrl}/api/get/products/${id}`);
+}

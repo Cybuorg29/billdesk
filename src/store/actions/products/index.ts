@@ -29,7 +29,7 @@ export const getProducts=async()=>{
          }else if(res.code===200){
             const payload:actionPayload={
                 type:'set',
-                data:res.package?.products
+                data:res.package
             }
             store.dispatch(setProducts(payload));
              store.dispatch(change())

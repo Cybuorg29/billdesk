@@ -1,4 +1,4 @@
-import { PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { PayloadAction } from "@reduxjs/toolkit";
 import { userDetailSchema } from "../../models/userModel";
 
 import { toast } from "react-toastify";
@@ -25,6 +25,7 @@ export const InitialiseData = (
   state.pincode = action.payload.pincode;
   state.activities = action.payload.activities;
   state.image = action.payload.image;
+  state._id = action.payload._id
 };
 
 export const updateUser = (

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useId } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import ListRoundedIcon from "@mui/icons-material/ListRounded";
@@ -25,10 +25,14 @@ const Main = (props: Props) => {
   const token = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  useEffect(() => {
-  
+  const navKey = useId();
+  const TopbarKey = useId();
+  const outletKey = useId();
 
-       checkUserLogin()
+  useEffect(() => {
+
+
+    checkUserLogin()
   }, []);
 
   // useEffect(() => { }, [user]);
@@ -37,16 +41,16 @@ const Main = (props: Props) => {
     <>
       <div className="grid grid-cols-7 bg-whitesmoke   h-screen ">
         <div className="grid col-span-1 bg-whitesmoke h-full">
-          <NavBar />
+          <NavBar key={navKey} />
         </div>
         <div className=" bg-whitesmoke w-full col-span-6  h-screen ">
           <div className="  bg-white border  h-[8%]">
             {" "}
-            <Topbar />
+            <Topbar  key={TopbarKey}/>
           </div>
           <div className=" h-[92%]   ">
             <div className=" h-full p-2  overflow-auto bg-whitesmoke rounded-xl ">
-              <Outlet></Outlet>
+              <Outlet key={outletKey}></Outlet>
             </div>
           </div>
         </div>

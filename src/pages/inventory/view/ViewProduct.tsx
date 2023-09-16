@@ -25,7 +25,11 @@ const ViewProduct = (props: Props) => {
         rate:0,
         stock:0,
         tax:[],
-        updatedAt:''
+        updatedAt:'',
+        specifications:[],
+        unit:0,
+        weight:0
+
       })
        const {products,isProducts} = useAppSelector(state=>state.product)
 

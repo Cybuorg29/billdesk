@@ -156,7 +156,7 @@ const EmployeeDashboard = (props: Props) => {
                       <TableCell>{Balance}</TableCell>
                       <TableCell>
                         <div className="flex gap-5" >
-                          <div>{<DeleteIcon  color="black" onclick={()=>{setId(index?._id);setOpenDelete(true)}}  />}</div>
+                          <div>{<DeleteIcon  color="black" onclick={()=>{setId(index?._id);setOpenDelete(true)}} tooltip="Delete Employee"  />}</div>
                           <div>{<EditIcons color="blue" onclick={()=>{navigate(`/edit/${index._id}/employee`)}} />}</div>
                         </div>
                       </TableCell>

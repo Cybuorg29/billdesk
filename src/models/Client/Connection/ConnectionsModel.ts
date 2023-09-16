@@ -11,6 +11,9 @@ import { clientModelObj } from "../ClientModel"
 
 export interface  ConnectionModel  {
    isConnection:boolean
-   connections: any[]
+   connections: {
+      client :any[]
+      supplier:any[]
+   }
 
 } 
