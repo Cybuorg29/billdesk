@@ -8,10 +8,12 @@ import { bankDetails, createUserModel, userDetailSchema } from '../../../models/
 import { createConnection } from '../../../store/actions/connections/Create';
 import GeneralInputs from './Components/GeneralInputs';
 import BankInputs from './Components/BankInputs';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {}
 
 const AddBusiness = (props: Props) => {
+  const navigate = useNavigate()
   const [client, setClient]: any = useState<createUserModel>({
     name: '',
     building: '',
@@ -47,12 +49,11 @@ const AddBusiness = (props: Props) => {
 
         }
         <div>
-          <SolidButton color='black' innerText='Search Online' onClick={()=>{}} key={'SwitcSearch'} />
+          <SolidButton color='black' innerText='Search Online' onClick={()=>{navigate(`/search/user`)}} key={'SwitcSearch'} />
         </div>
       </div>
       <div className='bg-component shadow-md rounded-xl mt-4 p-5  grid gap-5 '>
-        <GeneralInputs client={client} type={client?.type}  handleClientInput={(e:any)=>{handleClientInput(e)}} keys={keys} key={'asd'}   />
-        
+        <GeneralInputs client={client} type={client?.type}  handleClientInput={(e:any)=>{handleClientInput(e)}} keys={keys} key={'asd'}   />  
         <BankInputs bankDetails={bankDetails} Keys={bankKeys} handleBankInput={(e:any)=>{handleBankInput(e)}}  />
         <div className='mt-3' >
           <SolidButton color='black' innerText={`Add `} onClick={() => {createConnection(client,bankDetails)}} key={'AddBusinessButton'} />

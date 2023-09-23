@@ -65,7 +65,7 @@ const IncAndExpDashboard = (props: Props) => {
       <div className="text-2xl font-semibold  flex place-content-between  h-[8%]  text-grayFont">
         {" "}
         <div className="flex gap-5 place-items-center">
-         <PageHeading name="Income And Expence Dashboard"/>
+         <PageHeading name="Transactions"/>
         <IncomeAndExpenceSelect/>
       
 

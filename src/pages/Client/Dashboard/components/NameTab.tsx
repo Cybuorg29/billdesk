@@ -14,7 +14,7 @@ const NameTab = (props: Props) => {
     <div>
           <div className='flex  place-content-between  h-full  ' >
                 <PageHeading name='Clients' key={headingId} />
-                <div className='' >
+                <div className='flex gap-3' >
                   <SolidButton  color='black' innerText='Add Clients' onClick={()=>{navigate('/create/connection')}} key={button1Id} />
                 </div>
             </div>

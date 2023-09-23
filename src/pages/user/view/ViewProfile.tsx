@@ -47,16 +47,19 @@ const ViewProfile = (props: Props) => {
                 <div className='grid grid-cols-9 h-[70%]  gap-3' >
                     <div className='col-span-6   h-[100%] border shadow-lg rounded-lg bg-component  overflow-auto ' >
                          <div className='text-xl text-grayFont font-bold h-[10%] p-2 '>Products</div>
-                         <div className='grid grid-cols-3 gap-3 w-full h-[90%]  p-3  '>
                          {
-                            product.map((index:ProductObj)=>{
+                              (product.length===0)?<div className='h-full w-full place-content-center flex' ><span>This user do not offers any product</span></div>:<div className='grid grid-cols-3 gap-3 w-full h-[90%]  p-3  '>
+                            {
+                          product.map((index:ProductObj)=>{
                                 return<>
                                 <ProductCard product={index}  />          
                                 </>
                             })
                         }
                          </div>
+                         }
                     </div>
+                    
                     <div className='col-span-3  border h-full bg-component overflow-hidden rounded-lg shadow-xl' >
                         <ContactSection data={data} key={contactKey} />
                     </div>

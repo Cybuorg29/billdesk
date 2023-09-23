@@ -14,8 +14,8 @@ import { DeleteIcon } from '../../../components/ui/icons/DeleteIcon';
 import ViewIcon from '../../../components/ui/icons/ViewIcon';
 import { EditIcons } from '../../../components/ui/icons/EditIcon';
 import ArrowIconForward from '../../../components/ui/icons/ArrowIconForward';
-import { deleteConnection } from '../../../store/actions/connections/Delete';
 import { useNavigate } from 'react-router-dom';
+import { deleteConnection } from '../../../store/actions/connections/Delete';
 
 type Props = {}
 

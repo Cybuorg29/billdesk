@@ -21,10 +21,6 @@ Chart.register(Colors);
 type Props = {};
 
 const Main = (props: Props) => {
-  const user = useAppSelector((state) => state.userData);
-  const token = useAppSelector((state) => state.auth);
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const navKey = useId();
   const TopbarKey = useId();
   const outletKey = useId();

@@ -69,7 +69,7 @@ function App() {
                 <Route path='/dashboard' element={< Dashboard />}></Route>
                 <Route path='/settings' element={<Settings />}></Route>
                 <Route path='/*' element={<NotFound />}></Route>
-                <Route path='/dashboard/income and expence' element={<IncAndExpDashboard />}></Route>
+                <Route path='/dashboard/Transactions' element={<IncAndExpDashboard />}></Route>
                 <Route path='/view/:sort/income' element={<ViewIncome />}></Route>
                 <Route path='/view/:sort/:limit/expences' element={<ViewExpences />}></Route>
                 <Route path='/create/:type/expence' element={<CreateExpence />}></Route>
@@ -79,7 +79,7 @@ function App() {
                 <Route path='/spreadsheet' element={<SpreadSheet/>} ></Route>
                 <Route path='/dashboard/inventory'  element={<InventoryDashboard/>}   />
                 <Route path='/create/product'  element={<AddProducts/>}   />
-                <Route path='/view/:id/product'  element={<ViewProduct/>}   />
+                <Route path='/user/view/:id/product'  element={<ViewProduct/>}   />
                 <Route path='/dashboard/client'  element={<ClientDashboard/>}   />
                 <Route path='/create/connection'  element={<AddBusiness/>}   />
                 <Route path='/view/:id/profile'  element={<ViewProfile />}   />

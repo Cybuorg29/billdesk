@@ -18,3 +18,10 @@ export async function deleteConnectionApi(token:string,id:string,role:number) {
     return await axios.get(`${baseUrl}/api/user/delete/connection/${token}/${id}/${role}`);
 }
 
+
+
+export async function CreateRequest(_id:string,id:string,type:Number) {
+
+    return axios.post(`${baseUrl}/api//user/create/connection/request`,{_id,id,type});
+    
+}

@@ -40,8 +40,8 @@ const NavBar = (props: Props) => {
       icon: <InventoryRoundedIcon />
     },
     {
-      name: 'Incomes & Expences',
-      link: '/dashboard/income and expence',
+      name: 'Transactions',
+      link: '/dashboard/Transactions',
       icon: <AccountBalanceWalletRoundedIcon />
     },
     {
@@ -92,7 +92,7 @@ const NavBar = (props: Props) => {
             navList.map((index) => {
               return (
                 <>
-                  <NavTab name={index.name} icon={index.icon} link={index.link} key={index.name} />
+                  <NavTab  name={index.name} icon={index.icon} link={index.link} key={index.name}  />
 
                 </>
               )
