@@ -33,7 +33,6 @@ const ViewProfile = (props: Props) => {
 
     useEffect(() => {
         fetchData()
-        console.log(data)
     }, [])
 
 
@@ -91,7 +90,6 @@ const ViewProfile = (props: Props) => {
         try{
             const {data} = await getProducts(_id)
               const res:responceObj = data;
-              console.log(res)
                if(res.code===200){
                 setProduct(res.package);
                }else{

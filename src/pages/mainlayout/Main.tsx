@@ -15,23 +15,25 @@ import { UpdateUSer, checkUserLogin, initialiseUserData } from "../../store/acti
 import Topbar from "../../components/navbar/Topbar";
 import NavBar from "../../components/navbar/NavBar";
 import { Colors, Chart, ArcElement } from "chart.js";
+import getUpdate from "../../store/actions/notifications.actoion";
 Chart.register(ArcElement);
 Chart.register(Colors);
 
 type Props = {};
 
 const Main = (props: Props) => {
+   const {istoken} = useAppSelector(state=>state.auth);
+
   const navKey = useId();
   const TopbarKey = useId();
   const outletKey = useId();
 
   useEffect(() => {
-
-
     checkUserLogin()
-  }, []);
+  }, [istoken]);
 
-  // useEffect(() => { }, [user]);
+
+
 
   return (
     <>

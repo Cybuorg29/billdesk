@@ -7,18 +7,30 @@ import { setConnections } from "../../features/Connections/ConnectionsSlide";
 import { change } from "../../features/loader/loaderSlice";
 import { userDetailSchema } from "../../../models/userModel";
 
-export async function   getConnection(){
+export async function getConnection() {
+    toast.promise(Connection(),{
+      pending:'Loading Data',
+      error:'Failed',
+      success:'Sucessfull'
+    },{
+      position:'top-center'
+    })
+   
+}
+
+async function   Connection(){
      try{
         
-        const {auth,connections} = store.getState();
+        const {auth,connections,userData} = store.getState();
         const {isConnection} = connections
-        const {istoken,token} = auth
-         if(isConnection||!istoken){
+        const {istoken} = auth
+       
+         if(!istoken){
                  
          }else{
 
             store.dispatch(change())
-            const  {data} = await getConnectionsData(token);
+            const  {data} = await getConnectionsData(userData._id);
             console.log(data)
             const res:responceObj = data;
             if(res.code===200){
@@ -29,11 +41,14 @@ export async function   getConnection(){
             }
             store.dispatch(change());
          }
+         toast.done('')
 
      }catch(err:any){
         console.log(err?.message);
           toast.error("an error occured please try again")
           store.dispatch(change());
+           toast.error('')
+
 
      }
 

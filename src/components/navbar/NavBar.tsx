@@ -31,7 +31,7 @@ const NavBar = (props: Props) => {
     },
     {
       name: "Invoice",
-      link: "dashboard/invoices",
+      link: "dashboard/invoice",
       icon: <DescriptionRoundedIcon />
     },
     {
@@ -47,6 +47,11 @@ const NavBar = (props: Props) => {
     {
       name:'Clients',
       link:'/dashboard/client',
+      icon:<PersonIcon/>
+    },
+    {
+      name:'supplier',
+      link:'/dashboard/supplier',
       icon:<PersonIcon/>
     },
     {

@@ -118,7 +118,7 @@ const TrackerChart = (props: Props) => {
     <ResponsiveContainer
       width={"100%"}
       height={"100%"}
-      className={"grid items-center  bg-component roundeed-xl "}
+      className={"grid items-center  bg-component roundeed-r-xl  w-full h-full overflow-auto "}
     >
       <BarChart
         data={data}

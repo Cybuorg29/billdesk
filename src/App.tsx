@@ -30,6 +30,9 @@ import ViewProfile from './pages/user/view/ViewProfile';
 import SearchUserPage from './pages/user/search/SearchUserPage';
 import {registerLicense} from '@syncfusion/ej2-base'
 import InsertDummyData from './pages/dummyData/Insert';
+import SupplierDashboard from './pages/supplier/dashboard/page';
+import InvoiceDashboard from './pages/invoice/dashboard/page';
+import CreateInvoice from './pages/invoice/create/Page';
 registerLicense("Ngo9BigBOggjHTQxAR8/V1NGaF5cXmdCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdgWXhfeHVUQ2hfWUJ0VkE=");
 function App() {
 
@@ -85,6 +88,9 @@ function App() {
                 <Route path='/view/:id/profile'  element={<ViewProfile />}   />
                 <Route path='/search/user'  element={<SearchUserPage/>}   />
                 <Route path='/insert/dummy' element={<InsertDummyData/>}/>
+                <Route path='/dashboard/supplier' element={<SupplierDashboard/>}/>
+                <Route path='/dashboard/invoice' element={<InvoiceDashboard/>}/>
+                <Route path='/create/invoice' element={<CreateInvoice/>}/>
               </Route>
 
             </Routes>

@@ -91,8 +91,7 @@ const AddEmployee = (props: Props) => {
             </div>
           </div>  
           <div>
-            <SolidButton color='black' innerText='Add Employee' onClick={()=>{ADDEmployee(employee);navigate(`/dashboard/employees   `)}}  />
-            {/* <button  onClick={()=>{AddEmployee(employee)}}  >add Employee</button> */}
+            <SolidButton color='black' innerText='Add Employee' onClick={()=>{ADDEmployee(employee)}}  />
           </div>
         </div>
       </div>

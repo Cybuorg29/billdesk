@@ -10,46 +10,52 @@ const Table = ({ array, name, color, link }: Props) => {
   const navigate = useNavigate()
   const colorArray = ['text-green-600', 'text-red-600'];
   return (
-    <div className="h-full w-full bg-component rounded-xl  ">
-    { 
-      (array.length===0)?<div className='w-full h-full grid place-items-center text-grayFont' >No Recorded {name} for this month </div>:
+    <div className="h-[100%] w-full bg-component rounded-xl  relative border ">
+      <div className="text-xl font-poopins text-grayFont pl-5 pr-5 p-2 border-b  h-[8%]">{name}</div>
+      <div className='h-[84%]'>
+      {
+        (array.length === 0) ?
+         <div className='w-full h-full grid place-items-center text-grayFont' >No Recorded {name} for this month </div> :
+          <>
+            <div className="  overflow-auto flex flex-col h-full" >
+              {array.map((index: any, i: number) => {
+                const category = convertIncAndExpCode(index?.category)
+                return (
+                  <>
+                    <div className='border-b flex w-full ' >
+                      <div className='p-2  flex grid-cols-3 place-content-between w-full' >
+                        <div className='col-span-2' >
+                          <div className=' text-grayFont font-bold' >{category}</div>
+                          <div className=' text-black  text-sm' >{index?.title}</div>
+                          <div className=' text-gray-500 text-sm' >{index?.date}</div>
+                        </div>
+                        <div className='col-span-1 ' >
+                          <div className={`${color} text-end w-full`}>
+                            {converToInrFormat(index?.amount)}
+                          </div>
+                        </div>
 
-    <>
-     <div className="flex p-2 h-[10%] place-content-between  ">
-        <div className="text-xl font-poopins text-grayFont">{name}</div>
-      </div>
-      <div className="h-[80%]  overflow-hidden grid grid-rows-6">
-        {array.map((index: any, i: number) => {
-          const category = convertIncAndExpCode(index?.category)
-          if (i <= 5) {
-            return (
-              <>
-                <div className="border border-l-0 border-r-0 p-2 flex">
-                  <div className="w-[70%]">
-                    <div className=" flex gap-1"><div className='font-semibold text-grayFont text-sm' >{category}</div><div className='text-gray-600 text-sm ' >{`(${index?.date})`}</div></div>
-                    <div className="text-gray-500 text-xs">
-                      {" "}
-                      {index?.title}
+
+                      </div>
+
                     </div>
-                  </div>
-                  <div>
-                    <div className={`${color}`}>
-                      {converToInrFormat(index?.amount)}
-                    </div>
-                  </div>
-                </div>
-              </>
-            );
-          }
-        })}
-      </div>
-      <Link to={link} className="text-blue-500 h-[10%] flex place-content-center items-center " >
-        View All
-      </Link>
-    </>
+                  </>
+                );
+
+              })}
+            </div>
+
+         
+           
+          </>
+          
       }
-    </div>
+      </div>
+      <Link to={link} className="text-blue-500  border  w-full rounded-b-xl h-[8%] flex place-content-center items-center  z-50" >
+              View All
+            </Link>
 
+    </div>
   )
 }
 

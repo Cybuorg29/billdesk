@@ -19,11 +19,6 @@ interface employeeobj {
 
 export const ADDEmployee=async(employee:employeeobj)=>{
     try{
-            console.log('iamge',employee?.image)
-          if(employee?.image=== undefined||employee?.image=== null){
-            toast.error('please add Image')
-          }else{    
-
               store.dispatch(change())
               const {auth} = store.getState()
               const {token} = auth ;
@@ -45,7 +40,7 @@ export const ADDEmployee=async(employee:employeeobj)=>{
                  store.dispatch(change())
                  toast.success('employee added sucessfully')
                 }
-        }
+        
     }catch(err:any){
         console.log(err.message)
         console.log(err)

@@ -1,4 +1,4 @@
-import  React,{useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
@@ -9,10 +9,14 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import { toast } from 'react-toastify';
-export  interface  updateInterface{
-  title:string
-  id:string
-  type:string
+import getUpdate from '../../../store/actions/notifications.actoion';
+import { useAppSelector } from '../../../store/app/hooks';
+import { notificationModel } from '../../../store/reducers/notifications/notification.model';
+
+export interface updateInterface {
+  title: string;
+  id: string;
+  type: string;
 }
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -24,27 +28,25 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-type Props = {scale:{set:any,value:boolean}}
+type Props = { scale: { set: any; value: boolean } };
 
-const NotificationDialog = ({scale}: Props) => {
- const [updates,setUpdates]:any = useState<updateInterface[]>([]);
+const NotificationDialog = ({ scale }: Props) => {
+   const updates = useAppSelector(state=>state.Notification)
 
-
-
- useEffect(()=>{
-  
-    const req =  setTimeout(function(){
-     console.log('request')
-    },300)
-
-     return ()=> clearInterval(req)
-  })
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     getUpdate();
+  //   }, 7000);
+  //   return () => {
+  //     clearInterval(timer); // Clear the interval on component unmount
+  //   };
+  // }, []);
 
   return (
     <div>
       <BootstrapDialog
-      fullWidth={true}
-        onClose={()=>scale.set(false)}
+        fullWidth={true}
+        onClose={() => scale.set(false)}
         aria-labelledby="customized-dialog-title"
         open={scale.value}
       >
@@ -53,7 +55,7 @@ const NotificationDialog = ({scale}: Props) => {
         </DialogTitle>
         <IconButton
           aria-label="close"
-          onClick={()=>scale.set(false)}
+          onClick={() => scale.set(false)}
           sx={{
             position: 'absolute',
             right: 8,
@@ -63,31 +65,23 @@ const NotificationDialog = ({scale}: Props) => {
         >
           <CloseIcon />
         </IconButton>
-        <DialogContent   dividers>
-            {
-                (updates.length===0)? <Typography className='text-center' gutterBottom>No Updates to show
-                </Typography>:  updates.map((index:updateInterface)=>{
-                    return  <Typography gutterBottom>
-                      {index.title}
-                  </Typography>
-                })
-            }
-          <Typography gutterBottom>
-          </Typography>
+        <DialogContent dividers>
+          {updates.notification.length === 0 ? (
+            <Typography className="text-center" gutterBottom>
+              No Updates to show
+            </Typography>
+          ) : (
+            updates.notification.map((index:notificationModel)=>{
+              return<>
+               <div className='p-3 hover:bg-slate-200/50 cursor-pointer rounded-md '>{index.title}</div>
+              </>
+            })
+          )}
+          <Typography gutterBottom></Typography>
         </DialogContent>
       </BootstrapDialog>
     </div>
   );
-}
+};
 
-
-
-
-
-
-
-
-
-
-
-export default NotificationDialog
+export default NotificationDialog;

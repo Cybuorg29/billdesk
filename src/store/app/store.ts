@@ -9,6 +9,7 @@ import incomeSlice from '../features/IncomeAndExpences/IncomeAndExpences'
 import employeeSlice from '../features/employee/employeeSlice'
 import  productSlice  from '../features/inventory/inventorySlice'
 import  ConnectionSlice  from '../features/Connections/ConnectionsSlide'
+import notificationsSlice from '../features/notifications/notificationsSlice'
 
 
 
@@ -16,7 +17,7 @@ import  ConnectionSlice  from '../features/Connections/ConnectionsSlide'
 export const store = configureStore({
   reducer: {
     counter: counterReducer, userData: userSlice, auth: authSlice, loader: loaderSlice, bank: bankSlice, tracker: trackerSlice, incomeAndExpence: incomeSlice,
-     employees:employeeSlice,product:productSlice,connections:ConnectionSlice
+     employees:employeeSlice,product:productSlice,connections:ConnectionSlice,Notification:notificationsSlice
   },
 })
 
