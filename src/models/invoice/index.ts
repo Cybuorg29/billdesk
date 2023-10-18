@@ -1,4 +1,4 @@
-import { ProductObj } from "../inventory/productModel"
+import { IInvoiceProduct, ProductObj } from "../inventory/productModel"
 
 export interface IcreateInvoice{
    shipped_To:{
@@ -31,11 +31,12 @@ export interface IcreateInvoice{
    vehical_No:string
    date_of_supply:string
    place_of_supply:string
-   products:ProductObj[]
-    Grand_total:number
+   products:IInvoiceProduct[]
+    grand_Total:number
    total_Tax:number
    discount:number
    gst_On_Reverce_Charge:number
+   state_Code:number
    
 
 }

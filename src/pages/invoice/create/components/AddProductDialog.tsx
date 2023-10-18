@@ -1,0 +1,104 @@
+import { Dialog, DialogActions, DialogContent, DialogContentText } from '@mui/material'
+import React, { useEffect } from 'react'
+import { useAppSelector } from '../../../../store/app/hooks'
+import { ProductObj } from '../../../../models/inventory/productModel'
+import { IcreateInvoice } from '../../../../models/invoice'
+import { getProducts } from '../../../../store/actions/products'
+import { toast } from 'react-toastify'
+
+type Props = {scale:boolean,setScale:any,setInvoice:any}
+
+interface IProductTab {
+    name:string
+    value:any
+}
+
+  
+
+const AddProductDialog = ({scale,setScale,setInvoice}: Props) => {
+    const blue = 'text-blue-800'
+    const { products,isProducts } = useAppSelector(state => state.product)
+
+    class PRODUCT{
+         
+        name=''
+        description=''
+        code=''
+        qty=0
+        rate=0
+        unit=''
+        discount=0
+        total=0
+        amount=0
+        taxable_Value=0
+        tax=[]
+        constructor(name:string,description:string,code:string,rate:number,unit:string,tax:any){
+            this.name = name;
+            this.description = description 
+            this.code =  code
+            this.rate = rate
+            this.unit = unit
+            this.tax = tax
+        }
+    }
+
+    useEffect(() => {
+         if(!isProducts) toast.promise(getProducts(),{
+            pending:'getting products',
+            error:'an error occured',
+            success:'sucessfull'
+         })
+    }, [products])
+
+    const ProductTab = ({name,value}:IProductTab) => {
+         if(name==='Rate'){
+            return <>
+             <div className='flex grid-cols-2 gap-2' >
+                <div>{name}{':'}</div>
+                <div className='text-blue-800'>{(value.length>10)?value.slice(0,20 )+".....":value}</div>
+
+            </div>
+            </>
+         }
+        return <>
+            <div className='flex grid-cols-2 gap-2' >
+                <div>{name}{':'}</div>
+                <div className='text-gray-500'>{(value.length>10)?value.slice(0,20 )+".....":value}</div>
+
+            </div>
+        </>
+    }
+
+    return (
+        <Dialog open={scale} fullWidth >
+            <div className='p-3'>
+                <DialogContentText>
+                    <div className='flex place-content-between'>
+                        <div className='h-fit' >Click on the product to add</div>
+                        <div className='text-xl cursor-pointer' onClick={()=>setScale(false)}>X</div>
+
+                    </div>
+                </DialogContentText>
+                <DialogContent> 
+                    {
+                        products.map((index: ProductObj) => {
+                            return <>
+                                <div className='grid   grid-rows-2 border gap-3    rounded-lg cursor-pointer hover:bg-gray-200 ' onClick={(e:any)=>{setInvoice((prev:IcreateInvoice)=>{return{...prev,products:[...prev.products,new PRODUCT(index.name,index.description,index.code,index.rate,index.unit,index.tax)]}});setScale(false)}} >
+                                    <div className='flex gap-5 border-b pl-2 pt-2'>
+                                    <ProductTab  name='Name' value={index.name} />
+                                    <ProductTab  name='Rate' value={index.rate} />
+                                    </div>
+                                    <div className='pl-2 '>
+                                    <ProductTab  name='stock' value={index.stock} />
+                                    </div>
+                                </div>
+                            </>
+                        })
+                    }
+                </DialogContent>
+            </div>
+        </Dialog>
+    )
+}
+
+export default AddProductDialog

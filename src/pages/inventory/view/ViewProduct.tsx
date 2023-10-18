@@ -27,7 +27,7 @@ const ViewProduct = (props: Props) => {
         tax:[],
         updatedAt:'',
         specifications:[],
-        unit:0,
+        unit:'',
         weight:0
 
       })

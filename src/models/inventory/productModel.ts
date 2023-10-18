@@ -28,7 +28,7 @@ export interface ProductObj{
     category:string
     limit:number
     stock:number
-    unit:number
+    unit:string
     weight:number
     specifications:spec[]
     __v:number
@@ -44,3 +44,17 @@ export interface productArray {
     isProducts:boolean
 }
 
+
+export interface IInvoiceProduct{
+    name:string
+    tax:[],
+    description:string
+    code:string
+    qty:number
+    rate:number
+    unit:number
+    discount:number  
+    total:number
+    amount:number     
+    taxable_Value:number
+}

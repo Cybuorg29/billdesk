@@ -7,12 +7,19 @@ import SelectNameTab from './components/SelectNameTab';
 import { useAppSelector } from '../../../store/app/hooks';
 import { getConnection } from '../../../store/actions/connections/set';
 import { toast } from 'react-toastify';
+import InputInfo from './layouts/InputInfo';
+import { getStateCode } from '../../../utils/getStateCode';
+import { createDate } from '../../../utils/CreateDate';
+import ProductTable from './layouts/ProductTable';
+import { convertNumToWord } from '../../../utils/convertNumToWord';
 import SelectInfo from './layouts/SelectInfo';
+import { converToInrFormat } from '../../../utils/ConvertInrFormat';
 
 type Props = {}
 
 const CreateInvoice = (props: Props) => {
     const { connections, isConnection } = useAppSelector(state => state.connections)
+    const { state } = useAppSelector(state => state.userData)
     const [invoice, setInvoice] = useState<IcreateInvoice>({
         billed_From: {
             name: "",
@@ -36,61 +43,80 @@ const CreateInvoice = (props: Props) => {
             state: '',
             state_Code: 0,
         },
-        date_of_supply: '',
-        discount: 0,
-        Grand_total: 0,
-        gst_On_Reverce_Charge: 0,
-        invoice_Date: '',
         invoice_No: '',
-        place_of_supply: '',
-        products: [],
-        reverce_Charge: false,
-        state: '',
-        total_Tax: 0,
         transport_Mode: '',
-        vehical_No: ''
+        invoice_Date: '',
+        vehical_No: '',
+        reverce_Charge: false,
+        date_of_supply: '',
+        state: '',
+        place_of_supply: '',
+        discount: 0,
+        grand_Total: 0,
+        gst_On_Reverce_Charge: 0,
+        products: [],
+        total_Tax: 0,
+        state_Code: 0
     })
 
-    const pageHeadingKey = useId();
     const selectInfoKey = useId();
-    const viewInvoiceButtonId  = useId();
+    const inputInfoId = useId();
+    const productTableKey = useId();
 
 
 
     useEffect(() => {
         if (!isConnection) {
-            toast('getting')
             getConnection();
         }
-    }, [])
+    }, [connections]);
 
     useEffect(() => {
+        setInvoice((prev) => { return { ...prev, state: state } })
+        setInvoice((prev) => { return { ...prev, state_Code: getStateCode(state) } })
+        setInvoice((prev) => { return { ...prev, invoice_Date: createDate() } })
+    }, [])
 
-    }, [connections])
+
+
+
 
 
 
 
     return (
         <div className='w-full h-full p-5' >
-            <div className='h-[8%] flex place-content-between overflow-hidden'>
-                <PageHeading name='Create Invoice' key={pageHeadingKey} />
-                <div>
-                    <SolidButton color='black' innerText='view invoices' onClick={() => { }} key={viewInvoiceButtonId} />
+
+            <div className='bg-component  h-[100%] rounded-xl'>
+                <div className='text-center items-center grid h-[5%]'>
+                    <div className='font-black text-grayFont'>Tax Invoice</div>
                 </div>
-            </div>
-            <div className='bg-component  h-[90%] rounded-xl'>
- 
-                  {/* set General info component/layout */}
 
-
-
-
+                {/* set General info component/layout */}
+                <div className='h-[15%]' >
+                    <InputInfo invoice={invoice} setInvoice={setInvoice} key={inputInfoId} />
+                </div>
                 {/* select billed to or shipped to  compoenent */}
-                <div className='flex border h-[25%]' >
+                <div className='flex border h-[18%]' >
                     <SelectInfo invoice={invoice} setInvoice={setInvoice} key={selectInfoKey} />
                 </div>
-                
+                <div className='h-[45%]  border border-t-0' >
+                    <ProductTable invoice={invoice} setInvoice={setInvoice} key={productTableKey} />
+                </div>
+
+                <div className=' h-[5%] flex place-content-between pl-2 pr-3 '>
+                    <div className='text-lg text-grayFont'> Grand Total</div>
+                    <div className=''>{converToInrFormat(invoice.grand_Total)}</div>
+
+                </div>
+            <div className='border h-[12%] rounded-b-xl grid grid-cols-2 pl-2'>
+                <div className='border-r'>Terms And Conditions</div>
+                <div className='pl-2'>Bank Details</div>
+
+            </div>
+            </div>
+            <div>
+                <button onClick={() => console.log(invoice)} >view</button>
             </div>
 
         </div>

@@ -26,18 +26,27 @@ const SelectNameTab = ({ keysArray, name, selectArray, valueArray, onSelect }: P
             <div className={`absolute bg-black/20 h-full w-full ${scale} flex place-content-center items-center text-white cursor-pointer`} onClick={() => { setOpenDialog(true);setScale('scale-0') }} >
                 <div className='h-[40%] w-[60%] border-2 border-dashed border-white flex place-content-center items-center text-white '>+</div>
             </div>
-                <div className='border-b pl-2 text-lg text-grayFont h-[20%]'>{name}</div>
+                <div className='border-b pl-2 text-md text-grayFont h-[20%] '>{name}</div>
             <div className='grid  grid-rows-4 h-[80%]'>
                 {
                     keysArray.map((index) => {
-                        if(index==='state_Code') return  <div className='flex border-b pl-2 gap-4'>
-                        <div className=''>{`Code : `}</div>
-                        <div className='text-gray-600'>{valueArray[index]}</div>
+                         if(index==='state_Code') return null; //dot not display state_code;
+                        //  state column is a 2 grid which includes both state and state code;
+                        if(index==='state') return  <div className='grid grid-cols-2     border-b pl-2 gap-4 text-sm'>
+                            <div  className='grid grid-cols-2'>
+                            <div className=''>{index} : </div>
+                                <div className='text-gray-600 text-sm'>{valueArray['state']}</div>
+                            </div>
+                            <div className='grid grid-cols-2'>
+                        <div className=''>{`code : `}</div>
+                        <div className='text-gray-600'>{valueArray.state_Code}</div>
+                            </div>
                     </div>
+                    // returns every other field 
                             return <>
-                            <div className='flex border-b pl-2 gap-4' >
+                            <div className='flex border-b pl-2 gap-4  text-sm ' >
                                 <div className=''>{index} : </div>
-                                <div className='text-gray-600'>{valueArray[index]}</div>
+                                <div className='text-gray-600 '>{valueArray[index]}</div>
                             </div>
                         </>
                         
