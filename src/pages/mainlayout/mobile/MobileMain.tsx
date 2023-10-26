@@ -5,7 +5,7 @@ import BottomBar from '../../../components/navbar/mobile/BottomBar'
 import SideBar from '../../../components/navbar/mobile/components/SideBar'
 import Topbar from '../../../components/navbar/Topbar'
 import { initialiseUserData } from '../../../store/actions/user/user'
-import { useAppDispatch, useAppSelector } from '../../../store/app/hooks'
+import { useAppSelector } from '../../../store/app/hooks'
 
 type Props = {}
 
@@ -30,8 +30,7 @@ const MobileMain = (props: Props) => {
 
 
   useEffect(() => {
-    ;
-    if (user.name === '') {
+      if (user.name === '') {
       navigate('/settings')
     }
     if (!token.istoken) {
@@ -50,18 +49,6 @@ const MobileMain = (props: Props) => {
 
 
   return (
-    //   <div style={{ width: '100vw' }}>
-    //   <div style={{ backgroundColor: 'blue', height: '50px' }}>
-    //     {/* Top Bar */}
-    //   </div>
-    //   <div style={{ backgroundColor: 'gray', minHeight: 'calc(100vh - 100px)' }}>
-    //     {/* Content */}
-    //   </div>
-    //   <div style={{ backgroundColor: 'green', height: '50px' }}>
-    //     {/* Bottom Navbar */}
-    //   </div>
-    // </div>
-
     <div className='w-full h-screen  ' >
       <SideBar scale={sideBarScale} close={() => setSideBarScale('w-0')} />
       <div className='h-[10%] bg-white  rounded-xl  ' >

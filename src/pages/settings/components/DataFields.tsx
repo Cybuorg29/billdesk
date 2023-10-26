@@ -2,7 +2,7 @@ import { MenuItem, Select, TextField } from '@mui/material'
 import { userDetailSchema } from '../../../models/userModel'
 import { ImageAspectRatio } from '@mui/icons-material'
 import { erpAssets } from '../../../images/ImageExport'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useId, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../store/app/hooks'
 import { updateProfileImage } from '../../../api/userServices'
 import { toast } from 'react-toastify'
@@ -15,6 +15,7 @@ const DataFields = ({ client, handleInputChange }: Props) => {
   const user = useAppSelector(state => state.userData)
   const { token } = useAppSelector(state => state.auth)
   const dispatch = useAppDispatch()
+   const inputId = useId();
   const [addImageScale, setAddImageScale] = useState('scale-0')
 
   useEffect(() => {
@@ -31,8 +32,8 @@ const DataFields = ({ client, handleInputChange }: Props) => {
         <div className='flex gap-20' >
           <div className='w-64 h-64 bg-gray-100 col-span-2 relative border   ' onMouseOver={() => setAddImageScale('scale-100')} onMouseLeave={() => setAddImageScale('scale-0')} >
             <label htmlFor='upload-image' className={`w-full h-full bg-black/50 absolute z-50 ${addImageScale} grid items-center cursor-pointer   `} >
-              <label htmlFor='upload-image' className=' text-center cursor-pointer text-white border ' >Upload Image +</label>
-              <input id='upload-image' type='file' hidden className='' onChange={(e) => {
+              <label htmlFor={inputId} className=' text-center cursor-pointer text-white border ' >Upload Image +</label>
+              <input id={inputId} type='file' hidden className='' onChange={(e) => {
                 const image: any = e.target?.files?.[0]
 
                 handleInputChange('image', image)

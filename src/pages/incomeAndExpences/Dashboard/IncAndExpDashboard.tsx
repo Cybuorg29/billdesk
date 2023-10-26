@@ -65,7 +65,7 @@ const IncAndExpDashboard = (props: Props) => {
       <div className="text-2xl font-semibold  flex place-content-between  h-[8%]  text-grayFont">
         {" "}
         <div className="flex gap-5 place-items-center">
-         <PageHeading name="Income And Expence Dashboard"/>
+         <PageHeading name="Transactions"/>
         <IncomeAndExpenceSelect/>
       
 
@@ -89,6 +89,7 @@ const IncAndExpDashboard = (props: Props) => {
         </div>{" "}
       </div>
       <div className="  flex lg:grid grid-cols-3 gap-5 w-full h-[14%]  mb-4">
+        {/* top tabs  */}
         {tabArray.map((index: tabProps) => {
           return (
             <Tabs
@@ -100,26 +101,22 @@ const IncAndExpDashboard = (props: Props) => {
           );
         })}
       </div>
-      <div className="grid grid-cols-2  gap-3 h-[76%]  ">
-        <div className="bg-component">
-          <TrackerChart/>
+      <div className="flex   gap-3 h-[75%]     rounded-xl ">
+        <div className=" w-1/2  rounded-xl pb-1 bg-component h-full" >
+      <TrackerChart/>
         </div>
-        <div className="grid grid-cols-2 gap-2" >
-          <div>
-            <Table array={income}   name="Income"  color="text-green-600" link="/view/all/income" />
+        <div className=" flex  gap-2 h-full w-1/2" >
+          <div className="h-full w-1/2 " >
+        <Table array={income}   name="Income"  color="text-green-600" link="/view/all/income" />
           </div>
-          <div>
-            <Table array={expences} name="Expences" color="text-red-600"  link="/view/all/10/expences" />
-          </div>
+          <div className="h-full  w-1/2 " >
+        <Table array={expences} name="Expences" color="text-red-600"  link="/view/all/10/expences" />
 
+          </div>
         </div>
    
       </div>
-    {/* <div  className="text-3xl font-poopins text-grayFont p-4" >Chart</div>
-      <div className="h-[100%] bg-component m-2 p-2" >
-        <TrackerChart/>
 
-      </div> */}
     </div>
   );
 };

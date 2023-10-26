@@ -17,6 +17,8 @@ const initialState:userDetailSchema={
     activities:'',
     pincode:'',
     image:'',
+    _id:'',
+    type:''
 }
 
 export const UserSlice = createSlice({

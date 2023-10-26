@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useId } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import DescriptionRoundedIcon from "@mui/icons-material/DescriptionRounded";
@@ -31,7 +31,7 @@ const NavBar = (props: Props) => {
     },
     {
       name: "Invoice",
-      link: "dashboard/invoices",
+      link: "dashboard/invoice",
       icon: <DescriptionRoundedIcon />
     },
     {
@@ -40,13 +40,18 @@ const NavBar = (props: Props) => {
       icon: <InventoryRoundedIcon />
     },
     {
-      name: 'Incomes & Expences',
-      link: '/dashboard/income and expence',
+      name: 'Transactions',
+      link: '/dashboard/Transactions',
       icon: <AccountBalanceWalletRoundedIcon />
     },
     {
       name:'Clients',
       link:'/dashboard/client',
+      icon:<PersonIcon/>
+    },
+    {
+      name:'supplier',
+      link:'/dashboard/supplier',
       icon:<PersonIcon/>
     },
     {
@@ -65,6 +70,8 @@ const NavBar = (props: Props) => {
 
   const dispatch = useAppDispatch()
    const navigate = useNavigate()
+    const LogoutIconKey = useId();
+     const tuneIconKey = useId();
   return (
     <>
       <div className="relative h-full bg-navbar text-white " >
@@ -76,10 +83,10 @@ const NavBar = (props: Props) => {
           <NavTab
             name="Settings"
             link="/settings"
-            icon={<TuneRoundedIcon />}
+            icon={<TuneRoundedIcon key={tuneIconKey} />}
           />
           <div className="flex text-sm p-2 hover:bg-slate-100/10 gap-2 cursor-pointer" onClick={() => { dispatch(deleteToken()); sessionStorage.removeItem('token'); toast.info('Logout sucessfull') ;navigate('/login') }} >
-            <div>{<LogoutRoundedIcon />}</div>
+            <div>{<LogoutRoundedIcon key={LogoutIconKey} />}</div>
             {`Logout`}
           </div>
         </div>
@@ -92,7 +99,7 @@ const NavBar = (props: Props) => {
             navList.map((index) => {
               return (
                 <>
-                  <NavTab name={index.name} icon={index.icon} link={index.link} key={index.name} />
+                  <NavTab  name={index.name} icon={index.icon} link={index.link} key={index.name}  />
 
                 </>
               )

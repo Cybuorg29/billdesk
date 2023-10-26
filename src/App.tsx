@@ -20,13 +20,19 @@ import Loader from './Loaders/Loader';
 import EmployeeDashboard from './pages/employee/Dashboard/EmployeeDashboard';
 import AddEmployee from './pages/employee/crud/AddEmployee';
 import SpreadSheet from './pages/spreadsheet/SpreadSheet';
-import {registerLicense} from '@syncfusion/ej2-base'
 import EditEmployee from './pages/employee/crud/EditEmployee';
 import InventoryDashboard from './pages/inventory/dashboard/InventoryDashboard';
 import AddProducts from './pages/inventory/create/AddProducts';
 import ViewProduct from './pages/inventory/view/ViewProduct';
 import ClientDashboard from './pages/Client/Dashboard/ClientDashboard';
 import AddBusiness from './pages/Client/Add/AddBusiness';
+import ViewProfile from './pages/user/view/ViewProfile';
+import SearchUserPage from './pages/user/search/SearchUserPage';
+import {registerLicense} from '@syncfusion/ej2-base'
+import InsertDummyData from './pages/dummyData/Insert';
+import SupplierDashboard from './pages/supplier/dashboard/page';
+import InvoiceDashboard from './pages/invoice/dashboard/page';
+import CreateInvoice from './pages/invoice/create/Page';
 registerLicense("Ngo9BigBOggjHTQxAR8/V1NGaF5cXmdCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdgWXhfeHVUQ2hfWUJ0VkE=");
 function App() {
 
@@ -55,7 +61,7 @@ function App() {
       <>
         <ToastContainer />
         <Loader />
-        <div className=" font-ubuntu scrollbar ">
+        <div className=" font-rubik scrollbar ">
           <BrowserRouter>
             <Routes>
               <Route path='/login' element={<Login />} />
@@ -66,7 +72,7 @@ function App() {
                 <Route path='/dashboard' element={< Dashboard />}></Route>
                 <Route path='/settings' element={<Settings />}></Route>
                 <Route path='/*' element={<NotFound />}></Route>
-                <Route path='/dashboard/income and expence' element={<IncAndExpDashboard />}></Route>
+                <Route path='/dashboard/Transactions' element={<IncAndExpDashboard />}></Route>
                 <Route path='/view/:sort/income' element={<ViewIncome />}></Route>
                 <Route path='/view/:sort/:limit/expences' element={<ViewExpences />}></Route>
                 <Route path='/create/:type/expence' element={<CreateExpence />}></Route>
@@ -76,9 +82,15 @@ function App() {
                 <Route path='/spreadsheet' element={<SpreadSheet/>} ></Route>
                 <Route path='/dashboard/inventory'  element={<InventoryDashboard/>}   />
                 <Route path='/create/product'  element={<AddProducts/>}   />
-                <Route path='/view/:id/product'  element={<ViewProduct/>}   />
+                <Route path='/user/view/:id/product'  element={<ViewProduct/>}   />
                 <Route path='/dashboard/client'  element={<ClientDashboard/>}   />
-                <Route path='/create/client'  element={<AddBusiness/>}   />c
+                <Route path='/create/connection'  element={<AddBusiness/>}   />
+                <Route path='/view/:id/profile'  element={<ViewProfile />}   />
+                <Route path='/search/user'  element={<SearchUserPage/>}   />
+                <Route path='/insert/dummy' element={<InsertDummyData/>}/>
+                <Route path='/dashboard/supplier' element={<SupplierDashboard/>}/>
+                <Route path='/dashboard/invoice' element={<InvoiceDashboard/>}/>
+                <Route path='/create/invoice' element={<CreateInvoice/>}/>
               </Route>
 
             </Routes>

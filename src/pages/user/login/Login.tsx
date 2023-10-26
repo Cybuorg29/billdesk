@@ -72,7 +72,8 @@ export default function SignIn() {
       }
 
     } catch (err: any) {
-      toast.error(err.message)
+      console.log(err.message)
+      toast.error('an error occured please try again')
       dispatch(change())
     }
 

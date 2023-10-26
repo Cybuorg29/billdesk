@@ -7,7 +7,10 @@ import { changeConnection } from "../../reducers/connections/connectionReducers"
 
 const initialState:ConnectionModel={
     isConnection:false,
-    connections:[],
+    connections:{
+        client:[],
+        supplier:[]
+    },
 }
 
 export const ConnectionSlice= createSlice({

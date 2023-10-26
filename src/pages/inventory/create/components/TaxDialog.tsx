@@ -24,9 +24,8 @@ const TaxDialog = ({dialog,handleTaxOperations,pushTax,setDialog,setPushTax}: Pr
             </div>
             <Inputs value={pushTax.amount} name='tax(%)' type={'Number'} onchange={(e: React.ChangeEvent<HTMLInputElement>) => { setPushTax('amount',e.target.value) }}  ></Inputs>
             <div className='flex gap-5' >
-              <SolidButton color='black' innerText='ADD' onClick={() => { handleTaxOperations('push') }} key={'add'} />
-              <SolidButton color='primary' innerText='Cancel' onClick={() => { setDialog(false) }} key={'add'} />
-
+              <SolidButton color='black' innerText='ADD' onClick={() => { handleTaxOperations('push') }} key={'addTax'} />
+              <SolidButton color='primary' innerText='Cancel' onClick={() => { setDialog(false) }} key={'TaxCancel'} />
             </div>
           </div>
           <div>

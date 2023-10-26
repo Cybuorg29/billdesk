@@ -6,7 +6,8 @@ import { actionPayload } from "../../payload/payloadModel"
 
  export const ConnectionsActionObj={
     delete:'delete',
-    add:'add',
+    addClient:'addClient',
+     addSupplier:'addSupplier',
     set:'set',
 }
 
@@ -16,16 +17,21 @@ export  const changeConnection=(state:ConnectionModel,action:PayloadAction<actio
 
        switch (type) {
             case ConnectionsActionObj.set:
+                state.isConnection = true
                 state.connections = data;
                 break;
-                case ConnectionsActionObj.add:
-                   const newArray  = [...state.connections,data];
-                   state.connections = newArray;
+                case ConnectionsActionObj.addSupplier:
+                   const newArray  = [...state.connections.supplier,data];
+                   state.connections.supplier = newArray;
                 break
+                case ConnectionsActionObj.addClient:
+                    const newArra  = [...state.connections.client,data];
+                    state.connections.client = newArra;
+                 break
                 case ConnectionsActionObj.delete:
                       const array:any = []
                       
-                       state.connections.map((index:any)=>{
+                       state.connections.client.map((index:any)=>{
                            if(index?._id){
 
                            }else{

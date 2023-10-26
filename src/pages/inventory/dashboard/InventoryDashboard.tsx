@@ -16,6 +16,8 @@ import AddStockDialog from '../Add/AddStockDialog'
 import Tabs from '../../../components/ui/tabs/Tabs'
 import TopTabs from './components/TopTabs'
 import ConfirmDeleteProductDialog from './components/ConfirmDeleteProductDialog'
+import { converToInrFormat } from '../../../utils/ConvertInrFormat'
+import ArrowIconForward from '../../../components/ui/icons/ArrowIconForward'
 
 type Props = {}
 
@@ -101,35 +103,34 @@ const InventoryDashboard = (props: Props) => {
                     <th scope="col" className='px-6 py-4  sticky text-grayFont  ' >#</th>
                     <th scope="col" className='px-6 py-4  sticky text-grayFont  ' >Name</th>
                     <th scope="col" className='px-6 py-4  sticky text-grayFont  ' >Description</th>
+                    <th scope="col" className='px-6 py-4  sticky text-grayFont  ' >Unit</th>
                     <th scope="col" className='px-6 py-4  sticky text-grayFont  ' >Rate</th>
                     <th scope="col" className='px-6 py-4  sticky text-grayFont  ' >Stock</th>
-                    <th scope="col" className='px-6 py-4  sticky text-grayFont  ' >Min Limit</th>
+                    <th scope="col" className='px-6 py-4  sticky text-grayFont  ' >Min Stock</th>
                     <th scope="col" className='px-6 py-4  sticky text-grayFont  ' >Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   {
                     products.map((index: ProductObj, i: number) => {
-
-
                       if (i < view || view === 'all') {
 
                         if (type === index.category || type === 'Total Products' || type==='Low Stock' &&index.stock<=index.limit) return <>
-
-                          <tr className="border-b border-neutral-300 font-light">
+                          <tr className="border-b border-neutral-300 font-light cursor-pointer hover:bg-gray-200" id={index._id} >
                             <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{++i}</th>
                             <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{index.name}</th>
-                            <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{index.description}</th>
-                            <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{index.rate}</th>
+                            <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' title={index.description} >{(index.description.length>10)?index.description.slice(0,15)+".....":index.description}</th>
+                            <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{index?.unit}</th>
+                            <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{converToInrFormat(index?.rate)}</th>
                             <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{index.stock}</th>
                             <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' > {index.limit}</th>
                             <th scope="col" className='whitespace-nowrap font-medium   sticky ' >
                               <div className='flex ' >
-                                <DeleteIcon color='black' onclick={() => { setConfirmDelete(true); setId(index._id) }} key={'adas'} />
+                                <DeleteIcon color='black' onclick={() => { setConfirmDelete(true); setId(index._id) }} key={'adas'} tooltip='Delete Product' />
                                 <EditIcons color='blue' onclick={() => { }} key={'asda'} />
-                                <ViewIcon color='black' onclick={() => { navigate(`/view/${index._id}/product`) }} key={index._id} />
-                                <AddIcon color='blue' onclick={() => { setAddDialog(true); setId(index._id) }} key={index._id} />
-                                <MinusIcon color='black' onclick={() => { navigate(`/view/${index._id}/product`) }} key={index._id} />
+                                <AddIcon color='blue' onclick={() => { setAddDialog(true); setId(index._id) }} key={index._id + 'a'} />
+                                <MinusIcon color='black' onclick={() => { navigate(`/user/view/${index._id}/product`) }} key={index._id + 'M'} />
+                                <ArrowIconForward  onclick={()=>{navigate(`/user/view/${index._id}/product`) }} tooltip='View Product' key={index.name +'v' }/>
 
                               </div>
                             </th>

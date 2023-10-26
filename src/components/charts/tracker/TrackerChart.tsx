@@ -118,12 +118,14 @@ const TrackerChart = (props: Props) => {
     <ResponsiveContainer
       width={"100%"}
       height={"100%"}
-      className={"grid items-center  "}
+      className={"grid items-center  bg-component rounded-xl    w-full h-full overflow-auto "}
     >
+      
       <BarChart
         data={data}
         margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
       >
+         <Legend />
         <defs>
           <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
             <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
@@ -138,7 +140,7 @@ const TrackerChart = (props: Props) => {
         {/* <YAxis /> */}
         {/* <CartesianGrid /> */}
         <Tooltip />
-        <Legend />
+       
         <Bar
           type="monotone"
           dataKey="income"

@@ -3,7 +3,7 @@ import { clientModelObj } from "../../../models/Client/ClientModel";
 import { bankDetails } from "../../../models/userModel";
 import { store } from "../../app/store";
 import { change } from "../../features/loader/loaderSlice";
-import { postConnection } from "../../../api/connections/ConnectionSerives";
+import { postConnection } from "../../../api/connections/ConnectionServices";
 import { responceObj } from "../../../models/responce";
 import { actionPayload } from "../../payload/payloadModel";
 import { ConnectionsActionObj } from "../../reducers/connections/connectionReducers";
@@ -31,7 +31,7 @@ export const createConnection = async (generalInfo: clientModelObj, bankInfo: ba
 async function sucess(generalInfo: any, bankInfo: any) {
    const type = generalInfo?.type;
   const payload:actionPayload={
-    type:ConnectionsActionObj.add,
+    type:ConnectionsActionObj.addClient,
     data:{
       generalInfo,bankInfo,type:type
     }
@@ -42,8 +42,14 @@ async function sucess(generalInfo: any, bankInfo: any) {
 }
 
 function failure(res:responceObj){
-   console.log(res.message)
-    toast.error('an error occured please try again');
+    if(res.code!==200){
+
+      console.log(res?.error)
+      toast.error(res.message);
+      store.dispatch(change())
+    }
+
+
    
 }
 
