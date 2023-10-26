@@ -1,6 +1,6 @@
 import { MenuItem, Select } from '@mui/material'
 import React from 'react'
-import { IcreateInvoice } from '../../../../models/invoice'
+import { IcreateInvoice } from '../../../../models/invoice/invoice.model'
 
 type Props = {value:any,setValue:any,options:any[],name:string}
 

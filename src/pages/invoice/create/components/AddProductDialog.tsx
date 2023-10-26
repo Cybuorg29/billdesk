@@ -2,7 +2,7 @@ import { Dialog, DialogActions, DialogContent, DialogContentText } from '@mui/ma
 import React, { useEffect } from 'react'
 import { useAppSelector } from '../../../../store/app/hooks'
 import { ProductObj } from '../../../../models/inventory/productModel'
-import { IcreateInvoice } from '../../../../models/invoice'
+import { IcreateInvoice } from '../../../../models/invoice/invoice.model'
 import { getProducts } from '../../../../store/actions/products'
 import { toast } from 'react-toastify'
 
@@ -43,11 +43,8 @@ const AddProductDialog = ({scale,setScale,setInvoice}: Props) => {
     }
 
     useEffect(() => {
-         if(!isProducts) toast.promise(getProducts(),{
-            pending:'getting products',
-            error:'an error occured',
-            success:'sucessfull'
-         })
+       getProducts()
+          
     }, [products])
 
     const ProductTab = ({name,value}:IProductTab) => {
@@ -80,21 +77,44 @@ const AddProductDialog = ({scale,setScale,setInvoice}: Props) => {
                     </div>
                 </DialogContentText>
                 <DialogContent> 
+                    <div className='min-h-[60%] overflow-auto flex flex-col gap-5  '>
+                    <div className="flex flex-col" >
+            <div className="">
+              <div className="inline-block min-w-full ">
+                <div className="overflow-hidden">
+                  <table className="min-w-full text-left  ">
+                    <thead className="border-b  text-sm border-neutral-500 uppercase sticky top-0">
+                      <tr className="border-b border-neutral-500">
+                        <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >#</th>
+                        <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >Name</th>
+                        <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >Rate</th>
+                        <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >Stock</th>
+                      </tr>
+                    </thead>
+                    <tbody>
                     {
-                        products.map((index: ProductObj) => {
-                            return <>
-                                <div className='grid   grid-rows-2 border gap-3    rounded-lg cursor-pointer hover:bg-gray-200 ' onClick={(e:any)=>{setInvoice((prev:IcreateInvoice)=>{return{...prev,products:[...prev.products,new PRODUCT(index.name,index.description,index.code,index.rate,index.unit,index.tax)]}});setScale(false)}} >
-                                    <div className='flex gap-5 border-b pl-2 pt-2'>
-                                    <ProductTab  name='Name' value={index.name} />
-                                    <ProductTab  name='Rate' value={index.rate} />
-                                    </div>
-                                    <div className='pl-2 '>
-                                    <ProductTab  name='stock' value={index.stock} />
-                                    </div>
-                                </div>
-                            </>
+                        products.map((index: ProductObj,i:number) => {
+                            return<tr className="border-b border-gray-400 text-sm font-source2 cursor-pointer hover:bg-black/20 hover:text-white" key={`index.name${i}`}   onClick={(e:any)=>{setInvoice((prev:IcreateInvoice)=>{return{...prev,products:[...prev.products,new PRODUCT(index.name,index.description,index.code,index.rate,index.unit,index.tax)]}});setScale(false)}} >
+                                <th scope="col" className='px-1 py-2  sticky text-black ' >{++i}</th>
+                                <th scope="col" className='px-1 py-2  sticky text-black ' >{index.name}</th>
+                                <th scope="col" className='px-1 py-2  sticky text-gray-500 ' >{index.rate}</th>
+                                <th scope="col" className='px-1 py-2  sticky text-gray-500 ' >{index.stock}</th>
+                            </tr>
+
+                             
+                            
                         })
                     }
+                    </tbody>
+                    </table>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+
+                 
+                    </div>
+
                 </DialogContent>
             </div>
         </Dialog>

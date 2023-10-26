@@ -32,6 +32,6 @@ const trackerSlice = createSlice({
 export const { initliseTrackerState} = trackerSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectCount = (state: RootState) => state.counter.value
+// export const selectCount = (state: RootState) => state.
 
 export default trackerSlice.reducer

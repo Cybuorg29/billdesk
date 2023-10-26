@@ -37,7 +37,7 @@ const Main = (props: Props) => {
 
   return (
     <>
-      <div className="grid grid-cols-7 bg-whitesmoke   h-screen ">
+      <div className="grid grid-cols-7 bg-whitesmoke   h-screen  ">
         <div className="grid col-span-1 bg-whitesmoke h-full">
           <NavBar key={navKey} />
         </div>

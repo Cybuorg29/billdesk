@@ -7,13 +7,16 @@ import { userDetailSchema } from "../../../models/userModel";
 import { actionPayload } from "../../payload/payloadModel";
 import { ConnectionsActionObj } from "../../reducers/connections/connectionReducers";
 import { setConnections } from "../../features/Connections/ConnectionsSlide";
+import { getConnection } from "./set";
 
 export async function deleteConnection(user:any,role:number) {
     try{
+        const {_id} = store.getState().userData
         store.dispatch(change());
         const {token} = store.getState().auth
-        const  {data} = await deleteConnectionApi(token,user.id,role);
+        const  {data} = await deleteConnectionApi(_id,user._id,role);
         const res:responceObj = data;
+        console.log(res)
         if(res.code===200) {
             sucess(res,user.id,role)
         }else failure(res)
@@ -28,13 +31,7 @@ export async function deleteConnection(user:any,role:number) {
 
 function sucess(res:responceObj,id:string,role:number){
     toast.success(res.message);
-    if(!role){
-        const payload:actionPayload={
-            type:'deleteClient',
-            data:id
-        }   
-        store.dispatch(setConnections(payload)) ;    
-    }
+      getConnection();
 
 
 }

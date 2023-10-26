@@ -102,7 +102,7 @@ const IncAndExpDashboard = (props: Props) => {
         })}
       </div>
       <div className="flex   gap-3 h-[75%]     rounded-xl ">
-        <div className=" w-1/2  rounded-r-l bg-component h-full" >
+        <div className=" w-1/2  rounded-xl pb-1 bg-component h-full" >
       <TrackerChart/>
         </div>
         <div className=" flex  gap-2 h-full w-1/2" >

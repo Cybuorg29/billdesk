@@ -61,7 +61,7 @@ function App() {
       <>
         <ToastContainer />
         <Loader />
-        <div className=" font-ubuntu scrollbar ">
+        <div className=" font-rubik scrollbar ">
           <BrowserRouter>
             <Routes>
               <Route path='/login' element={<Login />} />

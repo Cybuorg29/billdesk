@@ -1,5 +1,5 @@
 import React, { useEffect, useId, useState } from 'react'
-import { IcreateInvoice } from '../../../../models/invoice'
+import { IcreateInvoice } from '../../../../models/invoice/invoice.model'
 import AddProductDialog from '../components/AddProductDialog'
 import { IInvoiceProduct, ProductObj } from '../../../../models/inventory/productModel'
 import { toast } from 'react-toastify'
@@ -32,42 +32,44 @@ const ProductTable = ({ invoice, setInvoice }: Props) => {
 
   const handleQtyRateAndDiscountChange = (value: number, type: 'qty' | 'rate' | 'discount', i: number) => {
     let newArray = invoice.products;
-    //  console.log('newArray',newArray[0].rate)
 
     let index = newArray[i];
 
-    console.log('index', index)
     if (type === 'qty') {
       // add stock validator -- pending 
       index.qty = value;
     }
     if (type === 'rate') index.rate = value;
     if (type === 'discount') index.discount = value;
-    index.amount = index.rate * index.qty;
+    index.amount = (index.rate * index.qty) ;
+    index.amount = parseFloat(index.amount.toFixed(2));
     index.taxable_Value = index.amount - index.discount;
     let taxAmount: number = 0;
     index.tax.map((item: any) => {
       taxAmount = taxAmount + calculateTaxAmount(item.amount, index.amount)
+      taxAmount = parseFloat(taxAmount.toFixed(2));
     })
-    index.total = taxAmount;
-    // index.total = index.taxable_Value + 
+    index.total = taxAmount + index.taxable_Value;
     newArray[i] = index;
-        const total =   calculateGrandTotal()
+    const total = calculateGrandTotal()
 
-    setInvoice(() => { return { ...invoice, products: newArray,grand_Total:total } })
+    setInvoice(() => { return { ...invoice, products: newArray, grand_Total: total } })
   }
 
   function removeProduct(num: number) {
     let newArray: any[] = [];
+    let total = 0;
     invoice.products.map((index: any, i: number) => {
       if (num === i) {
 
       }
-      else newArray.push(index)
+      else {
+        newArray.push(index); total = total + index.total;
+      }
     })
-    console.log(newArray)
 
-    setInvoice((prev: any) => { return { ...prev, products: newArray } });
+
+    setInvoice((prev: any) => { return { ...prev, products: newArray, grand_Total: total } });
   }
 
   function calculateGrandTotal() {
@@ -88,17 +90,17 @@ const ProductTable = ({ invoice, setInvoice }: Props) => {
   return (
     <>
       <AddProductDialog scale={selectProductOpen} setScale={setSelectProductOpen} setInvoice={setInvoice} key={addProductDialogKey} />
-      <div className='h-full w-full relative'>
+      <div className='h-full w-full  relative'>
 
-        <div className='border-t   w-full h-full overflow-auto text-sm relative' >
+        <div className='border-t    w-full h-[90%] overflow-auto text-sm relative' >
           <div className="flex flex-col" >
             <div className="">
               <div className="inline-block min-w-full ">
                 <div className="overflow-hidden">
-                  <table className="min-w-full text-left text-sm font-light">
-                    <thead className="border-b font-medium border-neutral-500 uppercase sticky top-0">
+                  <table className="min-w-full text-left  ">
+                    <thead className="border-b  text-table border-neutral-500 uppercase sticky top-0">
                       <tr className="border-b border-neutral-500">
-                        <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >X</th>
+                        <th scope="col" className='px-1 py-2  sticky text-grayFont  ' ></th>
                         <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >#</th>
                         <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >Description</th>
                         <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >HSN code</th>
@@ -116,23 +118,23 @@ const ProductTable = ({ invoice, setInvoice }: Props) => {
                       {
                         invoice.products.map((index: IInvoiceProduct, i: number) => {
                           let k = i;
-                          return <tr className="border-b border-neutral-500 text-sm" key={`index.name${i}`}>
+                          return <tr className="border-b border-gray-400 text-table font-source2" key={`index.name${i}`}>
 
-                            <th scope="col" className=' sticky text-black  text-center cursor-pointer' onClick={() => removeProduct(i)} >X</th>
-                            <th scope="col" className=' sticky text-black border border-black text-center' >{++k}</th>
-                            <th scope="col" className=' sticky text-black  text-sm ' >
-                              <div className='flex flex-col'>
-                                <div>{index.name}</div>
-                                <div>{index.description}</div>
+                            <th scope="col" className=' sticky text-gray-700  text-center cursor-pointer' onClick={() => removeProduct(i)} >X</th>
+                            <th scope="col" className=' sticky text-gray-700 border border-gray-400  text-center' >{++k}</th>
+                            <th scope="col" className=' sticky text-gray-700  text-sm ' >
+                              <div className='flex flex-col text-table'>
+                                <div className='text-sm'>{index.name}</div>
+                                <div className='text-gray-400'>{index.description}</div>
                               </div>
                             </th>
-                            <th scope="col" className=' sticky text-black border border-black ' >{index.code}</th>
+                            <th scope="col" className=' sticky text-gray-700 border border-gray-400 ' >{index.code}</th>
                             <TableInputs value={index.qty} onChange={(e: any) => { handleQtyRateAndDiscountChange(e.target.value, 'qty', i) }} type={'number'} key={`qty${i}`} />
                             <TableInputs value={index.rate} onChange={(e: any) => { handleQtyRateAndDiscountChange(e.target.value, 'rate', i) }} type={'number'} key={`rate${i}`} />
-                            <th scope="col" className=' sticky text-black border border-black text-center' >{converToInrFormat(index.amount)}</th>
+                            <th scope="col" className=' sticky text-gray-700 border border-gray-400 text-center' >{converToInrFormat(index.amount)}</th>
                             <TableInputs onChange={(e: any) => { handleQtyRateAndDiscountChange(e.target.value, 'discount', i) }} type={'number'} value={index.discount} key={`discount${i}`} />
-                            <th scope="col" className=' sticky text-black border border-black text-center' >{index.taxable_Value}</th>
-                            <th scope="col" className=' sticky text-black border border-black text-center' >
+                            <th scope="col" className=' sticky text-gray-700 border border-gray-400 text-center' >{index.taxable_Value}</th>
+                            <th scope="col" className=' sticky text-gray-700 border border-gray-400 text-center' >
                               {/* tax  */}
                               <div className='flex flex-col'>
 
@@ -146,7 +148,7 @@ const ProductTable = ({ invoice, setInvoice }: Props) => {
                                   }
 
                                 </div>
-                                <div className='grid grid-cols-2 border-t text-table text-sm' >
+                                <div className='grid grid-cols-2 border-t text-table ' >
                                   <div className='border-r'>rate</div>
                                   <div className=''>amount</div>
 
@@ -155,9 +157,9 @@ const ProductTable = ({ invoice, setInvoice }: Props) => {
                                   {
                                     index.tax.map((item: any) => {
                                       return <>
-                                        <div className='grid grid-cols-2 '>
-                                          <div className='text-sm border flex grow'>{item.amount + '%'}</div>
-                                          <div className='text-sm border flex grow overflow-auto'>{calculateTaxAmount(item.amount, index.taxable_Value)}</div>
+                                        <div className='grid grid-cols-2 text-table '>
+                                          <div className='text-sm border flex grow text-table'>{item.amount + '%'}</div>
+                                          <div className='text-sm border flex grow overflow-auto text-table '>{parseFloat(calculateTaxAmount(item.amount, index.taxable_Value).toFixed(2))}</div>
 
                                         </div>
                                       </>
@@ -169,7 +171,7 @@ const ProductTable = ({ invoice, setInvoice }: Props) => {
                               </div>
 
                             </th>
-                            <th scope="col" className=' sticky text-black border border-black text-center' >{converToInrFormat(index.total)}</th>
+                            <th scope="col" className=' sticky  border border-gray-400 text-center text-blue-800' >{converToInrFormat(index.total)}</th>
 
                           </tr>
                         })
@@ -181,8 +183,10 @@ const ProductTable = ({ invoice, setInvoice }: Props) => {
             </div>
           </div>
         </div>
-        <div className='w-full h-[10%] bg-blue-100 border border-blue-500 text-center cursor-pointer absolute bottom-0 ' onClick={() => setSelectProductOpen(true)}>
-          Add Product
+        <div className='w-full h-[10%] bg-blue-100 border  border-blue-500 text-center cursor-pointer absolute bottom-0 rounded-b-lg grid items-center place-content-center' onClick={() => setSelectProductOpen(true)} >
+          <div className='h-fit' >
+            Add Product
+          </div>
         </div>
       </div>
 

@@ -8,9 +8,9 @@ type Props = {
 
 const TableInputs = ({ onChange, value, type }: Props) => {
     return <>
-      <th scope="" className='  text-black border border-black ' >
+      <th scope="" className='w-fit  text-black border border-gray-400 ' >
         <div className='flex place-content-center'>
-          <input value={value} type={type} title='quantity' onChange={(e:any)=>onChange(e)} className='w-[60px] border rounded-md [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ' />
+          <input value={value} type={type} title={''} onChange={(e:any)=>onChange(e)} className='w-[60px] border rounded-md [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ' />
         </div>
       </th>
     </>

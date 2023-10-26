@@ -1,9 +1,10 @@
 import axios from "axios"
 import { baseUrl } from "../Url/ProdUrl"
 import { createProductObj } from "../../models/inventory/productModel"
+import { toast } from "react-toastify"
 
 export const getProductsByToken = (token: any) => {
-    return axios.get(`${baseUrl}/api/get/user/products/${token}`)
+    return  toast.promise( axios.get(`${baseUrl}/api/get/user/products/${token}`),{pending:'getting Products'})
 }
 
 export const pushProduct = (token: string, product: createProductObj) => {

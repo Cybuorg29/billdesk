@@ -1,6 +1,7 @@
 import React from 'react'
 import { OptionTabsModel } from '../../models/Navbar/OptionBarTabs'
 import OptionTabs from './components/optionBar/OptionTabs'
+import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 
 type Props = {scale:{value:string,set:any}}
 
@@ -9,7 +10,7 @@ const OptionBar = ({scale}: Props) => {
     {
         name:'Search User',
         navigate:'/Search/user',
-        icon:'',
+        icon:<ManageSearchIcon/>,
         action:()=>{scale.set('w-0')}
     },
 ]

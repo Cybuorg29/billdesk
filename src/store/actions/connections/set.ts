@@ -8,27 +8,15 @@ import { change } from "../../features/loader/loaderSlice";
 import { userDetailSchema } from "../../../models/userModel";
 
 export async function getConnection() {
-    toast.promise(Connection(),{
-      pending:'Loading Data',
-      error:'Failed',
-      success:'Sucessfull'
-    },{
-      position:'top-center'
-    })
-   
-}
-
-async function   Connection(){
      try{
-        
+                   
         const {auth,connections,userData} = store.getState();
         const {isConnection} = connections
-        const {istoken} = auth
-       
-         if(!istoken){
+        const {istoken,token} = auth
+        if(!istoken||!token||userData._id===''){
+         toast.info('verifing login')
                  
          }else{
-
             store.dispatch(change())
             const  {data} = await getConnectionsData(userData._id);
             console.log(data)

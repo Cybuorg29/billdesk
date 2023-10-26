@@ -15,7 +15,7 @@ export async function getConnectionsData(id:string) {
 }
 
 export async function deleteConnectionApi(token:string,id:string,role:number) {
-    return await axios.get(`${baseUrl}/api/user/delete/connection/${token}/${id}/${role}`);
+    return await axios.get(`${v2Url}/api/user/delete/connection/${token}/${id}/${role}`);
 }
 
 

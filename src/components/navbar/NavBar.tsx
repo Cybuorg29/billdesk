@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useId } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import DescriptionRoundedIcon from "@mui/icons-material/DescriptionRounded";
@@ -70,6 +70,8 @@ const NavBar = (props: Props) => {
 
   const dispatch = useAppDispatch()
    const navigate = useNavigate()
+    const LogoutIconKey = useId();
+     const tuneIconKey = useId();
   return (
     <>
       <div className="relative h-full bg-navbar text-white " >
@@ -81,10 +83,10 @@ const NavBar = (props: Props) => {
           <NavTab
             name="Settings"
             link="/settings"
-            icon={<TuneRoundedIcon />}
+            icon={<TuneRoundedIcon key={tuneIconKey} />}
           />
           <div className="flex text-sm p-2 hover:bg-slate-100/10 gap-2 cursor-pointer" onClick={() => { dispatch(deleteToken()); sessionStorage.removeItem('token'); toast.info('Logout sucessfull') ;navigate('/login') }} >
-            <div>{<LogoutRoundedIcon />}</div>
+            <div>{<LogoutRoundedIcon key={LogoutIconKey} />}</div>
             {`Logout`}
           </div>
         </div>
