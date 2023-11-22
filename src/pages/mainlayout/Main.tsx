@@ -1,14 +1,8 @@
-import React, { useEffect, useId } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import React, { useEffect, useId, useState } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import ListRoundedIcon from "@mui/icons-material/ListRounded";
 import { useAppDispatch, useAppSelector } from "../../store/app/hooks";
-import { useDispatch } from "react-redux";
-import { saveToken } from "../../store/features/auth/authSlice";
-import Loader from "../../Loaders/Loader";
-import { change } from "../../store/features/loader/loaderSlice";
-import { getUserData } from "../../api/userServices";
-import { initilise } from "../../store/features/user/userSlice";
 import { toast } from "react-toastify";
 import { initliseBank } from "../../store/features/bank/bankSlice";
 import { UpdateUSer, checkUserLogin, initialiseUserData } from "../../store/actions/user/user";
@@ -22,15 +16,39 @@ Chart.register(Colors);
 type Props = {};
 
 const Main = (props: Props) => {
-   const {istoken} = useAppSelector(state=>state.auth);
+  const { istoken } = useAppSelector(state => state.auth);
+  const { name, gstin } = useAppSelector(state => state.userData)
+  const { isIncome,isExpences} = useAppSelector(state => state.incomeAndExpence)
+  const location = useLocation();
+  const pathname = location.pathname;
+  const partsAfterSlash = pathname.split('/').filter(part => part !== '');
+   const [path,setPath] = useState<any>(location)
+  const navigate = useNavigate();
 
   const navKey = useId();
   const TopbarKey = useId();
   const outletKey = useId();
 
+
+ 
+
   useEffect(() => {
     checkUserLogin()
+
   }, [istoken]);
+
+  useEffect(() => {
+      if(isExpences||isIncome){ 
+        if (name === '' || gstin === '') {
+          navigate('/settings')
+          toast.info('please setup you profile to continue')
+        } else {
+          navigate(`/${partsAfterSlash}`)
+        }
+      }
+  }, [name])
+
+
 
 
 
@@ -44,7 +62,7 @@ const Main = (props: Props) => {
         <div className=" bg-whitesmoke w-full col-span-6  h-screen ">
           <div className="  bg-white border  h-[8%]">
             {" "}
-            <Topbar  key={TopbarKey}/>
+            <Topbar key={TopbarKey} />
           </div>
           <div className=" h-[92%]   ">
             <div className=" h-full p-2  overflow-auto bg-whitesmoke rounded-xl ">

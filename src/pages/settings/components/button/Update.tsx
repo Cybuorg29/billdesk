@@ -10,7 +10,7 @@ const Update = ({name,updateUser}: Props) => {
     return (
         <>
 
-         <SolidButton  color='black' innerText='REQUEST UPDATE' onClick={()=>updateUser()} key={'button1'}/>
+         <SolidButton  color='black' innerText='Insert Data' onClick={()=>updateUser()} key={'button1'}/>
         </>
     )
 }else{

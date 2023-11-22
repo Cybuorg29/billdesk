@@ -70,8 +70,7 @@ const SelectNameTab = ({ keysArray, name, selectArray, valueArray, onSelect }: P
                     <div className='cursor-pointer' onClick={() => { setOpenDialog(false); setScale('scale-0') }}>X</div>
                 </div>
             </DialogContentText>
-            <DialogContent>
-                <div className="w-full ">
+                <div className="w-full p-2">
                     <div className="inline-block min-w-full ">
                         <div className="overflow-hidden">
                             <table className="min-w-full text-left  ">
@@ -88,11 +87,11 @@ const SelectNameTab = ({ keysArray, name, selectArray, valueArray, onSelect }: P
                                         (selectArray.length===0)?<div>no  clients to display . <span className='text-blue-700' >add</span> </div>:
                                         selectArray.map((index: userDetailSchema, i: number) => {
                                             return <>
-                                                <tr className='hover:bg-black/20 cursor-pointer p-2 rounded-lg border' onClick={() => { onSelect({ adress: `${index.building + ',' + index.city + ',' + index.district + ',' + index.state + ' - ' + index.pincode}`, gstin: index.gstin, name: index.name, state: index.state, state_Code: getStateCode(index.state) }); setOpenDialog(false); setScale('scale-0') }}>
-                                                    <th scope="col" className='px-1 py-2  sticky text-gray-500 text-small  ' >{++i}</th>
-                                                    <th scope="col" className='px-1 py-2  sticky text-gray-500 text-small  ' >{index.name}</th>
-                                                    <th scope="col" className='px-1 py-2  sticky text-gray-500 text-small  ' >{index.gstin}</th>
-                                                    <th scope="col" className='px-1 py-2  sticky text-gray-500 text-small  ' >{index.building+' ,'+index.city+' ,'+index.district+' ,'+index.state+' - '+index.pincode }</th>
+                                                <tr className='hover:bg-black/20 cursor-pointer p-2 rounded-lg border-b' onClick={() => { onSelect({ adress: `${index.building + ',' + index.city + ',' + index.district + ',' + index.state + ' - ' + index.pincode}`, gstin: index.gstin, name: index.name, state: index.state, state_Code: getStateCode(index.state) }); setOpenDialog(false); setScale('scale-0') }}>
+                                                    <th scope="col" className='px-3 py-4 font-source2 sticky text-gray-500 text-small  ' >{++i}</th>
+                                                    <th scope="col" className='px-3 py-4 font-source2 sticky text-black text-small  ' >{index.name}</th>
+                                                    <th scope="col" className='px-3 py-4 font-source2 sticky text-gray-500 text-small  ' >{index.gstin}</th>
+                                                    <th scope="col" className='px-3 py-4 font-source2 sticky text-gray-500 text-small  ' >{index.building+' ,'+index.city+' ,'+index.district+' ,'+index.state+' - '+index.pincode }</th>
 
                                                 </tr>
                                             </>
@@ -103,7 +102,6 @@ const SelectNameTab = ({ keysArray, name, selectArray, valueArray, onSelect }: P
                         </div>
                     </div>
                 </div>
-            </DialogContent>
 
 
         </Dialog>

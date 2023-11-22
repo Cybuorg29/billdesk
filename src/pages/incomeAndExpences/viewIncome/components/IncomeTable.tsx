@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { useAppSelector } from '../../../../store/app/hooks'
 import { incomeAndExpencesObjectSchema } from '../../../../store/features/IncomeAndExpences/IncomeAndExpences'
+import { IIncome } from '../../../../models/incomeAndExp/incomeInterface'
+import convertIsoDate from '../../../../utils/convertIsoDates'
 
 type Props = {}
 
@@ -16,7 +18,7 @@ const IncomeTable = ({ }: Props) => {
   }, [sort])
 
   return (
-    <div className='  rounded-t-xl' >
+    <div className='  rounded-t-xl ' >
 
       <div className="flex flex-col" >
         <div className="">
@@ -35,16 +37,14 @@ const IncomeTable = ({ }: Props) => {
                 </thead>
                 <tbody>
                   {
-                    income.map((index: incomeAndExpencesObjectSchema, i: number) => {
-                      if (sort === index.category || sort === 'all') {
-                        if (index.category === 'invoice') {
+                    income.map((index:IIncome, i: number) => {
+                      if (sort === index.type || sort === 'all') {
+                        if (index.type === 'invoice') {
                           return (
                             <tr className='cursor-pointer hover:bg-slate-50' >
-
-
                               <td className="whitespace-nowrap px-6 py-4 font-medium">{++i}</td>
-                              <td className="whitespace-nowrap px-6 py-4">{index.date}</td>
-                              <td className="whitespace-nowrap px-6 py-4">{index.category}</td>
+                              <td className="whitespace-nowrap px-6 py-4">{convertIsoDate(index.createdAt)}</td>
+                              <td className="whitespace-nowrap px-6 py-4">{index.type}</td>
                               <td className="whitespace-nowrap px-6 py-4">{index.title}</td>
                               <td className="whitespace-nowrap px-6 py-4">{index.amount}</td>
                             </tr>
@@ -57,14 +57,9 @@ const IncomeTable = ({ }: Props) => {
 
                           return (
                             <tr className="border-b dark:border-neutral-500">
-                              {/* <th  className='p-2  border-b-2 font-ubuntu ' >{++i}</th>
-                <th  className='p-2 border-b-2 font-ubuntu ' >{index.date}</th>
-                <th  className='p-2 border-b-2 font-ubuntu ' >{index.category}</th>
-                <th  className='p-2 border-b-2 font-ubuntu ' >{index.title}</th>
-                <th  className='p-2 border-b-2 font-ubuntu ' >{index.amount}</th> */}
                               <td className="whitespace-nowrap px-6 py-4 font-medium">{++i}</td>
-                              <td className="whitespace-nowrap px-6 py-4">{index.date}</td>
-                              <td className="whitespace-nowrap px-6 py-4">{index.category}</td>
+                              <td className="whitespace-nowrap px-6 py-4">{index.createdAt}</td>
+                              <td className="whitespace-nowrap px-6 py-4">{index.type}</td>
                               <td className="whitespace-nowrap px-6 py-4">{index.title}</td>
                               <td className="whitespace-nowrap px-6 py-4">{index.amount}</td>
                             </tr>

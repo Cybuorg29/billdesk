@@ -33,6 +33,8 @@ import InsertDummyData from './pages/dummyData/Insert';
 import SupplierDashboard from './pages/supplier/dashboard/page';
 import InvoiceDashboard from './pages/invoice/dashboard/page';
 import CreateInvoice from './pages/invoice/create/Page';
+import CreateIncome from './pages/income/create/page';
+import ViewInvoice from './pages/invoice/view/Page';
 registerLicense("Ngo9BigBOggjHTQxAR8/V1NGaF5cXmdCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdgWXhfeHVUQ2hfWUJ0VkE=");
 function App() {
 
@@ -91,6 +93,9 @@ function App() {
                 <Route path='/dashboard/supplier' element={<SupplierDashboard/>}/>
                 <Route path='/dashboard/invoice' element={<InvoiceDashboard/>}/>
                 <Route path='/create/invoice' element={<CreateInvoice/>}/>
+                <Route path='/create/income' element={<CreateIncome/>}/>
+                <Route path='/create/:type/income' element={<CreateIncome/>}/>
+                <Route path='/view/:id/invoice' element={<ViewInvoice/>}/>
               </Route>
 
             </Routes>

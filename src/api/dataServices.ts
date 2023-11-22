@@ -1,16 +1,12 @@
 import axios from "axios";
-import { baseUrl } from "./Url/ProdUrl";
+import { baseUrl, v2Url } from "./Url/ProdUrl";
 
 export const getIncomeByToken = (token: string) => {
   return axios.get(`${baseUrl}/api/income/getall/${token}`);
 };
 
-export const getExpencesbyToken = (token: string) => {
-  return axios.get(`${baseUrl}/api/expence/getall/${token}`);
-};
-
-export const addExpences = (data: any) => {
-  return axios.post(`${baseUrl}/api/create/expence`, { data });
+export const addExpences = (data: any,token:string) => {
+  return axios.post(`${v2Url}/api/user/create/expence`, {...data,id:token });
 };
 
 export const deleteExpenceByToken = (token: string, uid: string) => {

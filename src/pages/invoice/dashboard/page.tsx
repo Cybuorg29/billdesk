@@ -14,18 +14,21 @@ type Props = {}
 
 const InvoiceDashboard = (props: Props) => {
 
- 
+   const [type,setType] = useState('Total Invoice');
+   const topSectionKey = useId();
+   const topTabsKey = useId();
+   const tableKey = useId();
 
   return (
-    <div className='w-full h-full p-5 flex gap-3 flex-col' >
+    <div className='w-full h-full p-5 flex gap-5 flex-col' >
       <div className='w-full h-[5%]'>
-        <TopSection />
+        <TopSection key={topSectionKey} />
       </div>
       <div className='h-[15%] flex gap-5' >
-         <TopTabs/>
+         <TopTabs set={setType}  type={type} key={topTabsKey} />
       </div>
        <div className='h-[80%] bg-component rounded-lg '> 
-         <Table/>
+         <Table set={setType} type={type} key={tableKey}/>
        </div>
 
     </div>

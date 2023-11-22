@@ -14,7 +14,6 @@ type Props = { client: userDetailSchema, handleInputChange: (type: string, value
 const DataFields = ({ client, handleInputChange }: Props) => {
   const user = useAppSelector(state => state.userData)
   const { token } = useAppSelector(state => state.auth)
-  const dispatch = useAppDispatch()
    const inputId = useId();
   const [addImageScale, setAddImageScale] = useState('scale-0')
 
@@ -49,6 +48,7 @@ const DataFields = ({ client, handleInputChange }: Props) => {
             <TextField label='Phone' id='phone' value={client?.phone} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
             <TextField label='Email' id='email' value={client?.email} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
             <TextField label='Building' id='building' value={client?.building} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
+            <TextField label='Landmark' id='landmark' value={client?.landmark} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
             <TextField label='City' id='city' value={client?.city} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
             <TextField label='District' id='district' value={client?.district} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
             <TextField label='State' id='state' value={client?.state} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
@@ -86,6 +86,7 @@ const DataFields = ({ client, handleInputChange }: Props) => {
             <TextField disabled label='Phone' id='phone' value={client?.phone} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
             <TextField disabled label='Email' id='email' value={client?.email} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
             <TextField disabled label='Building' id='building' value={client?.building} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
+            <TextField disabled  label='landmark' id='landmark' value={client?.landmark} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
             <TextField disabled label='City' id='city' value={client?.city} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
             <TextField disabled label='District' id='district' value={client?.district} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
             <TextField disabled label='State' id='state' value={client?.state} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>

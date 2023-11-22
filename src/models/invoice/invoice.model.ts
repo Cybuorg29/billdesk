@@ -77,7 +77,7 @@ export interface Iinvoice{
      date_of_supply:string
      place_of_supply:string
      products:IInvoiceProduct[]
-      grand_Total:number
+     grand_Total:number
      total_Tax:number
      discount:number
      gst_On_Reverce_Charge:number

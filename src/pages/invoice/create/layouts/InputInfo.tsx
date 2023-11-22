@@ -20,7 +20,7 @@ const InputInfo = ({ invoice, setInvoice }: Props) => {
     <div className='grid grid-cols-2 grid-rows-4 border border-b-0 h-full text-small'>
       {
         invoiceKeys.map((index) => {
-          if (index === 'total_Tax' || index === 'products' || index === 'gst_On_Reverce_Charge' || index === 'billed_To' || index === 'billed_From' || index === 'shipped_To' || index === 'discount' || index === 'grand_Total' || index === 'state_Code'||index ==='terms_And_Conditions'||index==='bank'||index==='id'||index==='ispaid') return
+          if (index === 'total_Tax' || index === 'products' || index === 'gst_On_Reverce_Charge' || index === 'billed_To' || index === 'billed_From' || index === 'shipped_To' || index === 'discount' || index === 'grand_Total' || index === 'state_Code'||index ==='terms_And_Conditions'||index==='bank'||index==='id'||index==='isPaid') return
           if (index === 'state') return <>
             <div className='grid grid-cols-2 border gap-2'>
               <InputLabel type={typeof invoice[index]} name={index} setValue={setInvoice} value={invoice[index]} key={index} />

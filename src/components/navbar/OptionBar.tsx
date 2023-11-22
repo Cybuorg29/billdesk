@@ -18,8 +18,8 @@ const OptionBar = ({scale}: Props) => {
     <div  className={`absolute  z-50  h-[99%]  ${scale.value} bg-white shadow-xl  border  duration-500 overflow-hidden  right-0`} >
         <div className='text-gray-500 p-4 text-xl' ><span className='cursor-pointer' onClick={()=>scale.set('w-0 h-0')} >X</span></div>
          {
-            OptionTabArray.map((index:OptionTabsModel)=>{
-                return <OptionTabs navigate={index.navigate} action={index.action} icon={index.icon} name={index.name}  />
+            OptionTabArray.map((index:OptionTabsModel,i:number)=>{
+                return <OptionTabs navigate={index.navigate} action={index.action} icon={index.icon} name={index.name} key={`${index.name}+$  {i}`}  />
             })
          }
     </div>

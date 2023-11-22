@@ -10,11 +10,12 @@ import { setIncomeAndExpence } from "../../features/IncomeAndExpences/IncomeAndE
 import { IncomeAndExpencespayload } from "../../reducers/incAndExpReducer";
 import { responceObj } from "../../../models/responce";
 import { actionPayload } from "../../payload/payloadModel";
+import { changeIncomeAndExpenceByMonth } from '../data/IncomeAndExpence';
+import { createBrowserRouter } from 'react-router-dom';
 
 export const UpdateUSer = async (type: string, data: any) => {
   try {
     let payload: load = { type: "", data: "" };
-
     payload = {
       type: "name",
       data: data,
@@ -27,48 +28,35 @@ export const UpdateUSer = async (type: string, data: any) => {
 
 export const initialiseUserData = async () => {
   try {
-      
-    toast.success("in initlise");
+
     store.dispatch(change());
     const { auth } = store.getState();
-    const { token , istoken } = auth;
-      if(!istoken){
-         checkUserLogin();
-      }else{
-
-
-    const { data } = await getUserData(token);
-
-    if (data.code === 200) {
-      store.dispatch(initilise(data.user));
-      store.dispatch(initliseBank(data.bank));
-      let totalIncome = 0;
-      let totalExpences = 0;
-    
-
-      let expence = data?.expences;
-      expence = expence.reverse();
-       const d = new Date()
-        const month = d.getMonth() +1
-       
-
-      const Payload: IncomeAndExpencespayload = {
-        type: "initlise",
-        data: {
-   
-          expences: data?.expences,
-          income: data?.income.reverse(),
-          month:month
-        },
-      };
-
-      store.dispatch(setIncomeAndExpence(Payload));
+    const { token, istoken } = auth;
+    if (!istoken) {
+      checkUserLogin();
     } else {
-      throw new Error(data?.message);
+
+
+      const { data } = await getUserData(token);
+          
+      if (data.code === 200) {
+        store.dispatch(initilise(data.user));
+        store.dispatch(initliseBank(data.bank));
+        // if(data.user.name===''){
+        //    toast('in init');
+        //    window.location.href = '/settings'
+        //  }
+        
+
+        const d = new Date()
+        const month = d.getMonth() + 1;
+        changeIncomeAndExpenceByMonth(month)
+      } else {
+        throw new Error(data?.message);
+      }
     }
-  }
   } catch (err: any) {
-     console.log(err.message)
+    console.log(err.message)
     toast.error("an error occured please try again or refresh ");
   }
   store.dispatch(change());
@@ -93,64 +81,64 @@ export const updateImage = async (image: any) => {
 };
 
 
-export  const checkUserLogin=async()=>{
-  try{
+export const checkUserLogin = async () => {
+  try {
 
-    
-    const {auth} = store.getState()
 
-    const {istoken} = auth 
-    if(istoken){
-      const {token} = auth
-      const {data} =  await verifyLogin(token);
-      let res:responceObj = data
-      
-      if(res.code===200){
-        toast.success('logined sucessfully')
-        const payload:actionPayload ={
-          type:'',
-          data:<tokenSchema>{token:token,istoken:true}
+    const { auth } = store.getState()
+
+    const { istoken } = auth
+    if (istoken) {
+      const { token } = auth
+      const { data } = await verifyLogin(token);
+      let res: responceObj = data
+
+      if (res.code === 200) {
+        toast.success('login sucessfull')
+        const payload: actionPayload = {
+          type: '',
+          data: <tokenSchema>{ token: token, istoken: true }
         }
-       store.dispatch(saveToken(payload)) 
-        initialiseUserData()                   
-      }else{
+        store.dispatch(saveToken(payload))
+        initialiseUserData()
+      } else {
         verifyBySessionId()
       }
-    }else{
+    } else {
       verifyBySessionId()
     }
-  }catch(err:any){
+  } catch (err: any) {
     console.log(err.message)
-     toast.error('an error occured')
+    toast.error('an error occured')
   }
-    
+
+}
+
+async function verifyBySessionId() {
+  try {
+
+    let token: any = sessionStorage.getItem('token')
+    token = JSON.parse(token);
+    const { data } = await verifyLogin(token);
+    const res: responceObj = data
+    if (res.code !== 200) {
+      toast.info('please login ')
+      window.location.href = `${window.location.protocol}//${window.location.host}/login`
+    } else {
+      toast.success('logined sucessfully ')
+      const payload: actionPayload = {
+        type: '',
+        data: <tokenSchema>{ token: token, istoken: true }
+      }
+      store.dispatch(saveToken(payload))
+      initialiseUserData()
+    }
   }
-  
-  async  function verifyBySessionId(){
-    try{
+  catch (err: any) {
+    console.log(err.message);
+    toast.error('an error occured ')
+    window.location.href = `${window.location.protocol}//${window.location.host}/login`
 
-      let   token:any =     sessionStorage.getItem('token')
-      token = JSON.parse(token);
-        const {data} = await verifyLogin(token);
-         const res:responceObj = data
-         if(res.code!==200){
-           toast.info('please login ')
-           window.location.href = `${window.location.protocol}//${window.location.host}/login`
-          }else{
-            toast.success('logined sucessfully ')
-            const payload:actionPayload ={
-              type:'',
-                data:<tokenSchema>{token:token,istoken:true}
-              }
-              store.dispatch(saveToken(payload)) 
-              initialiseUserData()
-            }
-          }
-          catch(err:any){
-            console.log(err.message);
-             toast.error('an error occured ')
-           window.location.href = `${window.location.protocol}//${window.location.host}/login`
 
-              
-          }
-        }
+  }
+}

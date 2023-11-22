@@ -26,7 +26,8 @@ const AddBusiness = (props: Props) => {
     state: '',
     activities: '',
     type: 0,
-    image:''
+    image:'',
+    landmark:''
   })
   const [bankDetails, setBankDetails]: any = useState<bankDetails>({
     name: '',

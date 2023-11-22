@@ -36,12 +36,11 @@ export const changeIncomeAndExpencesState = (
           return 0;
          })
          data.expences.map((index:any)=>{
-          
           totalExpences = totalExpences + index.amount;
           return 0;  
          })
-      state.income = data.income;
-      state.expences = data.expences;
+      state.income = data.income.reverse();
+      state.expences = data.expences.reverse();
       state.totalExpences = totalExpences;
       state.totalIncome = totalIncome;
       state.isExpences = true;
@@ -51,5 +50,8 @@ export const changeIncomeAndExpencesState = (
       case 'pushExpence':
          state.expences.push(data);
         break
+        case 'pushIncome':
+          state.income.push(data);
+          break;
   }
 };

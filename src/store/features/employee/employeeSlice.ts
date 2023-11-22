@@ -3,8 +3,7 @@ import { initEmployee } from "../../reducers/employeeReducer"
 import { RootState } from "../../app/store"
 
  export interface employeeObject{
-  
-    
+   
 }
 
 export interface employeeArray{

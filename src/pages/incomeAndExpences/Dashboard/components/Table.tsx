@@ -2,6 +2,7 @@ import React from 'react'
 import { converToInrFormat } from '../../../../utils/ConvertInrFormat'
 import { Link, useNavigate } from 'react-router-dom'
 import { convertIncAndExpCode } from '../../../../utils/ConverIncAndExpCode'
+import convertIsoDate from '../../../../utils/convertIsoDates'
 
 type Props = { array: any[], name: string, color: string, link: string }
 
@@ -27,7 +28,7 @@ const Table = ({ array, name, color, link }: Props) => {
                         <div className='col-span-2' >
                           <div className=' text-grayFont font-bold' >{category}</div>
                           <div className=' text-black  text-sm' >{index?.title}</div>
-                          <div className=' text-gray-500 text-sm' >{index?.date}</div>
+                          <div className=' text-gray-500 text-sm' >{convertIsoDate(index?.createdAt)}</div>
                         </div>
                         <div className='col-span-1 ' >
                           <div className={`${color} text-end w-full`}>

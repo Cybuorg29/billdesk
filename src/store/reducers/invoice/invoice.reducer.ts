@@ -3,7 +3,8 @@ import { IinvoiceStore } from "../../features/invoice/invoiceSlice";
 import { PayloadAction } from '@reduxjs/toolkit';
 
 export const invoiceActions={
-    set:'set'
+    set:'set',
+    delete:'delete'
 }
 
 export const setInovicesReducer=(state:IinvoiceStore,action:PayloadAction<actionPayload>)=>{
@@ -15,6 +16,7 @@ export const setInovicesReducer=(state:IinvoiceStore,action:PayloadAction<action
             state.invoices = data;
             state.isLoaded = true
         break;
+        
     }
 
     
