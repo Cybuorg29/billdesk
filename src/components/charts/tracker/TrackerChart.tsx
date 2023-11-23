@@ -16,6 +16,8 @@ import {
 } from "recharts";
 import { toast } from "react-toastify";
 import { sortByDate } from "../../../utils/SortDates";
+import { IIncome } from "../../../models/incomeAndExp/incomeInterface";
+import convertIsoDate from "../../../utils/convertIsoDates";
 
 type Props = {};
 
@@ -34,11 +36,11 @@ const TrackerChart = (props: Props) => {
   const setChartData = () => {
     let array: any = [];
 
-    income.map((index: any) => {
+    income.map((index: IIncome) => {
       if (array.length === 0) {
         // toast.error('empty')
         const obj: TrackerChartData = {
-          date: index.date,
+          date:convertIsoDate(index.createdAt),
           expences: 0,
           income: index.amount,
         };
@@ -47,7 +49,7 @@ const TrackerChart = (props: Props) => {
         // toast.success('not empty')
         let find = false;
         array.map((item: TrackerChartData) => {
-          if (item.date === index.date) {
+          if (item.date === index.createdAt) {
             item.income = item.income + index.amount;
             toast.info(item.income);
             find = true;
@@ -57,7 +59,7 @@ const TrackerChart = (props: Props) => {
         if (find === false) {
           // toast.info(index.date)
           const obj: TrackerChartData = {
-            date: index.date,
+            date: convertIsoDate(index.createdAt),
             expences: 0,
             income: index.amount,
           };

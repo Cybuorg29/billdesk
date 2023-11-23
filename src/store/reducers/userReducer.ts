@@ -26,6 +26,7 @@ export const InitialiseData = (
   state.activities = action.payload.activities;
   state.image = action.payload.image;
   state._id = action.payload._id
+  state.landmark = action.payload.landmark;
 };
 
 export const updateUser = (
@@ -46,17 +47,3 @@ export const updateUser = (
       break;
   }
 };
-
-// export const setData=(state:userDetailSchema,action:PayloadAction<load>)=>{
-//   toast.success(action.payload.data.name)
-
-// }
-
-// export const updateA = createAsyncThunk('user/getdata',async()=>{
-//   toast.success('in')
-//      const {auth} = store.getState()
-//       const {token} = auth
-//       const user = await getUserData(token)
-//
-
-// })

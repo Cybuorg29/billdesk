@@ -1,5 +1,5 @@
 import axios from "axios"
-import { baseUrl } from "../Url/ProdUrl"
+import { baseUrl, v2Url } from "../Url/ProdUrl"
 import { createProductObj } from "../../models/inventory/productModel"
 import { toast } from "react-toastify"
 
@@ -10,7 +10,7 @@ export const getProductsByToken = (token: any) => {
 export const pushProduct = (token: string, product: createProductObj) => {
     const image = product.image
     delete product.image;
-    return axios.post(`${baseUrl}/api/create/product`, { token, product, image }, {
+    return axios.post(`${v2Url}/api/create/product`, { token, product, image }, {
         headers: {
             "Content-Type": 'multipart/form-data'
         }

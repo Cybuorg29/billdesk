@@ -12,8 +12,9 @@ const TopSection = (props: Props) => {
   return (
     <div className='flex h-full w-full place-content-between'>
         <PageHeading name='Invoices' key={headingKey} />
-        <div>
+        <div className='flex gap-3'>
           <SolidButton color='black' innerText='Create  New Invoice' onClick={() => { naviagte('/create/invoice') }} key={createInvoiceKey} />
+          <SolidButton color='black' innerText='Record Invoice Payment' onClick={() => { naviagte('/create/invoice/income') }} key={createInvoiceKey} />
         </div>
       </div>
   )

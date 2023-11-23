@@ -45,3 +45,7 @@ export const createInvoiceAPI=(obj:IcreateInvoice)=>{
 export function getInvoiceApi(token:string){
     return toast.promise(axios.get(`${v2Url}/api/user/invoice/get/${token}`),{pending:'getting invoices'})
 }
+
+export function DeleteInvoiceApi(_id:string,token:string){
+    return toast.promise(axios.get(`${v2Url}/api/user/invoice/delete/${_id}/${token}`),{pending:'please while we perform this action'})
+}

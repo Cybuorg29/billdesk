@@ -3,10 +3,11 @@ import { setInvoiceAction } from '../../../../store/actions/invoice/set'
 import { Iinvoice } from '../../../../models/invoice/invoice.model'
 import Tabs, { tabProps } from '../../../../components/ui/tabs/Tabs'
 import { useAppSelector } from '../../../../store/app/hooks'
+import { converToInrFormat } from '../../../../utils/ConvertInrFormat'
 
-type Props = {}
+type Props = {type:string,set:any}
 
-const TopTabs = (props: Props) => {
+const TopTabs = ({set,type}: Props) => {
     const { istoken, token } = useAppSelector(state => state.auth)
     const { invoices, isLoaded } = useAppSelector(state => state.invoice)
     const [tabArray,settabArray] =  useState<tabProps[]>([
@@ -73,8 +74,12 @@ const TopTabs = (props: Props) => {
   return (
     <div className='w-full h-full flex gap-3'>
          {
-          tabArray.map((index: tabProps) => {
-            return <Tabs amount={index.amount} image={index?.image} link={index?.link} name={index.name} key={index.name} />
+          tabArray.map((index: tabProps,i:number) => {
+             let amount = index.amount;
+             if(i===2) amount = converToInrFormat(index.amount)
+            return <div className='w-full' onClick={(e)=>{set(index.name)}}>
+              <Tabs amount={amount} image={index?.image} link={index?.link} name={index.name} key={index.name} />
+            </div>
           })
         }
     </div>

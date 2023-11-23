@@ -1,46 +1,56 @@
+export  function convertToIndianCurrencyWords(amount: number): string {
+  const ones = [
+    'Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine'
+  ];
+  const teens = [
+    'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'
+  ];
+  const tens = [
+    '', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'
+  ];
 
- export function convertNumToWord(number: number): string {
-    const ones: string[] = [
-      '', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
-      'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'
-    ];
-  
-    const tens: string[] = [
-      '', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'
-    ];
-  
-    const thousands: string[] = ['', 'thousand', 'million', 'billion'];
-  
-    function convertLessThanThousand(num: number): string {
-      if (num === 0) {
-        return '';
-      } else if (num < 20) {
-        return ones[num];
-      } else if (num < 100) {
-        return tens[Math.floor(num / 10)] + ' ' + ones[num % 10];
-      } else {
-        return ones[Math.floor(num / 100)] + ' hundred ' + convertLessThanThousand(num % 100);
-      }
-    }
-  
-    function toWords(num: number): string {
-      if (num === 0) {
-        return 'zero';
-      }
-  
-      let result = '';
-      for (let i = 0; num > 0; i++, num = Math.floor(num / 1000)) {
-        if (num % 1000 !== 0) {
-          result = convertLessThanThousand(num % 1000) + ' ' + thousands[i] + ' ' + result;
-        }
-      }
-  
-      return result.trim();
-    }
-  
-    return toWords(number);
+  if (amount === 0) {
+    return 'Zero Rupees';
   }
-  
-  // Example usage:
 
-  
+  function convertToWords(num: number): string {
+    if (num === 0) {
+      return '';
+    } else if (num < 10) {
+      return ones[num];
+    } else if (num < 20) {
+      return teens[num - 10];
+    } else {
+      const ten = Math.floor(num / 10);
+      const one = num % 10;
+      return tens[ten] + (one > 0 ? ` ${ones[one]}` : '');
+    }
+  }
+
+  const crore = Math.floor(amount / 10000000);
+  const lakh = Math.floor((amount % 10000000) / 100000);
+  const thousand = Math.floor((amount % 100000) / 1000);
+  const remaining = Math.floor(amount % 1000);
+  const decimalPart = Math.round((amount % 1) * 100);
+
+  let words = '';
+
+  if (crore > 0) {
+    words += convertToWords(crore) + ' Crore ';
+  }
+  if (lakh > 0) {
+    words += convertToWords(lakh) + ' Lakh ';
+  }
+  if (thousand > 0) {
+    words += convertToWords(thousand) + ' Thousand ';
+  }
+  if (remaining > 0) {
+    words += convertToWords(remaining) + ' Rupees ';
+  }
+  if (decimalPart > 0) {
+    words += 'and ' + convertToWords(decimalPart) + ' Paisa';
+  }
+
+  return words.trim(); // Remove leading/trailing spaces
+}
+

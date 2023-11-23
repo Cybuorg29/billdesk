@@ -12,6 +12,7 @@ export interface userDetailSchema{
     image:any,
     _id:string,
     type:string
+    landmark:string
 }
 
 export interface bankDetails{
@@ -33,6 +34,7 @@ export interface bankDetails{
     state:string
     activities:string
     pincode:string
-    image:any,
+    image:any
+    landmark:string
      type:0|1
  }

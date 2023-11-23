@@ -189,7 +189,7 @@ const AddProducts = (props: Props) => {
                <>
                       <div className='flex items-center gap-3  border rounded-lg p-2' >
                         <div>{index?.type}</div>
-                        <div>{index?.value}{'%'}</div>
+                        <div>{index?.value}</div>
                         <div className='text-gray-700 cursor-pointer ' onClick={() => { handleSpecOperations('delete', index) }} > X</div>
                       </div>
                     </>

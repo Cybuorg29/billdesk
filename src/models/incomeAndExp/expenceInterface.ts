@@ -9,3 +9,16 @@ export interface ExpenceCreateObj{
         token: string
         uid:string
 }
+
+export interface IExpence{
+        title: string
+        category: string
+        amount: number
+        date: string
+        Emp_id: string
+        token: string
+        uid:string
+        createdAt: string,
+        updatedAt: string,
+        __v: number
+}

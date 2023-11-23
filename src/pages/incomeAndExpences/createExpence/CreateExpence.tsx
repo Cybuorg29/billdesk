@@ -13,11 +13,15 @@ import ExtraInput from './components/ExtraInput'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ExpenceCreateObj } from '../../../models/incomeAndExp/expenceInterface'
 import AddStockDialog from '../../inventory/Add/AddStockDialog'
+import { title } from 'process'
+import { toast } from 'react-toastify'
+import { converToInrFormat } from '../../../utils/ConvertInrFormat'
 
 type Props = {}
 
 const CreateExpence = (props: Props) => {
     const { token } = useAppSelector(state => state.auth)
+     const {employee,isEmployee} = useAppSelector(state=>state.employees)
          const {type} = useParams();
      const navigate = useNavigate();
      const [isPurchaseGoods,setIsPurchasedGoods] = useState(false)
@@ -31,6 +35,12 @@ const CreateExpence = (props: Props) => {
         token: token,
         uid:''
     })
+
+    function validateDataAndPush(){
+        if(Expence.title==='')toast.info('please add title to this expence');
+       else  if(Expence.amount===0)toast.info('cannot add expences of '+ converToInrFormat(0));
+        else addExpence(Expence);
+    }
 
 
 
@@ -63,7 +73,7 @@ const CreateExpence = (props: Props) => {
                     <Select value={Expence.category} onChange={(e) => {navigate(`/create/${e.target.value}/expence`)}} >
                         <MenuItem value='400'>Salaries Paid </MenuItem>
                         <MenuItem value='300'>Purchase </MenuItem>
-                        <MenuItem value='200'   >Purchase of Goods</MenuItem>
+                        <MenuItem value='200'>Purchase of Goods</MenuItem>
                         <MenuItem value='100'>Provision Paid</MenuItem>
                         <MenuItem value='600'>Tax Filled (other)</MenuItem>
                         <MenuItem value='700'>GST Filled</MenuItem>
@@ -89,7 +99,7 @@ const CreateExpence = (props: Props) => {
                     </div>
                 <div>
                     {/* <Button color='info' variant='outlined' onClick={() => { ; addExpence(Expence) }} >Add Expence</Button> */}
-                    <SolidButton color='black' innerText='Add Expence' onClick={() => { addExpence(Expence) }} />
+                    <SolidButton color='black' innerText='Add Expence' onClick={() => { validateDataAndPush() }} />
                 </div>
             </div>
 
@@ -102,12 +112,17 @@ const CreateExpence = (props: Props) => {
     )
 
      async function handleExtraInput(value:any) {
-         
         setExpence((prev:any)=>{return{...prev,uid:value}});console.log('value',value)
          switch(Expence.category){
             case '200':
                 setIsPurchasedGoods(true);
-                
+                break;
+                case '400':
+                employee.map((index:any)=>{
+                  if(index._id===value) setExpence((prev:any)=>{return{...prev,title:`salary paid to ${index.name}`,amount:index.salary}})
+                  return
+                })
+                break;
          }        
     }
 }

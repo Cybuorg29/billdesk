@@ -7,6 +7,7 @@ import { useAppSelector } from '../../store/app/hooks'
 import { setUpProfile } from '../../api/userServices'
 import { toast } from 'react-toastify'
 import Update from './components/button/Update'
+import { SolidButton } from '../../components/ui/Buttons/solid/SolidButton'
 
 type Props = {}
 
@@ -52,9 +53,12 @@ const Settings = (props: Props) => {
       case 'pincode':
         setClient({ ...client, pincode: value });
         break;
-      case 'activities':
-        setClient({ ...client, activities: value });
-        break;
+        case 'activities':
+          setClient({ ...client, activities: value });
+          break;
+          case 'landmark':
+            setClient({ ...client, landmark: value });
+            break;
       case 'benName':
         setBank({ ...bank, name: value })
         break;
@@ -73,6 +77,8 @@ const Settings = (props: Props) => {
       case 'image':
 
         setClient({ ...client, image: value })
+        break;
+
 
 
     }
@@ -98,14 +104,34 @@ const Settings = (props: Props) => {
   }
 
 
+  useEffect(() => {
+    
+  }, [initData ])
+
   return (
     <div className={`  w-full h-full  bg-white/50   duration-200 `} >
       {/* <TopSection close={()=>close()} /> */}
       <div className='p-5 text-xl text-gray-600' >User Details</div>
       <DataFields client={client} handleInputChange={(type: string, value: any) => handleInputChange(type, value)} />
       <BankDetails bank={bank} handleChange={(type: string, value: string) => handleInputChange(type, value)} />
+      {/* <Update name={client.name} updateUser={() => updateUser()} /> */}
 
-      <Update name={client.name} updateUser={() => updateUser()} />
+
+    {  (initData?.name==='')?
+          <div  className='p-5' >
+
+         <SolidButton  color='black' innerText='Insert Data' onClick={()=>updateUser()} key={'button1'}/>
+        </div>:
+        <>
+        <div  className='p-5' >
+             <SolidButton  color='black' innerText='REQUEST UPDATE' onClick={()=>{toast.success('you request has been received . ')}} key={'button1'}/>
+            </div>
+
+        </>
+    
+   }
+
+      
     </div>
 
   )

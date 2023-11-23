@@ -3,7 +3,6 @@ import {
   addExpences,
   deleteExpenceByToken,
   editExpenceByObject,
-  getExpencesbyToken,
 } from "../../../../api/dataServices";
 import { store } from "../../../app/store";
 import {
@@ -50,35 +49,37 @@ export const deleteExpence = async (uid: string) => {
   }
 };
 
-export const getExpences = async () => {
-  const { auth, incomeAndExpence } = store.getState();
-  if (!incomeAndExpence.isExpences) {
-    store.dispatch(change());
-    if (!auth.istoken) {
-      toast.error("an error occured please refresh to continue");
-      store.dispatch(change());
-    } else {
-      const { data } = await getExpencesbyToken(auth.token);
-      if (data?.code !== 200) {
-        toast.error("an error occured please refresh the page ");
-        store.dispatch(change());
-      } else {
-        const payload: IncomeAndExpencespayload = {
-          type: "expences",
-          data: data?.expences,
-        };
-        store.dispatch(setIncomeAndExpence(payload));
-        store.dispatch(change());
-      }
-    }
-  }
-};
+// export const getExpences = async () => {
+//   const { auth, incomeAndExpence } = store.getState();
+//   if (!incomeAndExpence.isExpences) {
+//     store.dispatch(change());
+//     if (!auth.istoken) {
+//       toast.error("an error occured please refresh to continue");
+//       store.dispatch(change());
+//     } else {
+//       const { data } = await getExpencesbyToken(auth.token);
+//       if (data?.code !== 200) {
+//         toast.error("an error occured please refresh the page ");
+//         store.dispatch(change());
+//       } else {
+//         const payload: IncomeAndExpencespayload = {
+//           type: "expences",
+//           data: data?.expences,
+//         };
+//         store.dispatch(setIncomeAndExpence(payload));
+//         store.dispatch(change());
+//       }
+//     }
+//   }
+// };
 
 export const addExpence = async (Expence: any) => {
   try {
     store.dispatch(change());
-    const { data } = await addExpences(Expence);
-    if (data?.code !== 200) {
+      const {token,istoken} = store.getState().auth
+      if(!istoken) throw new Error('an error occured');
+    const { data } = await addExpences(Expence,token);
+    if (data?.code != 200) {
       toast.error(data?.message);
       store.dispatch(change());
     } else {
@@ -94,7 +95,9 @@ export const addExpence = async (Expence: any) => {
       store.dispatch(change());
     }
   } catch (err: any) {
+    console.log(err?.error)
     toast.error(err.message);
+     store.dispatch(change())
   }
 };
 
