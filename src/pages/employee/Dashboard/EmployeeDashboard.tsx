@@ -41,9 +41,14 @@ const EmployeeDashboard = (props: Props) => {
     total: 0,
     contract: 0,
     regular: 0
-  })
+  });
 
   const initData = () => {
+    setEmployeeDetails({
+      total: 0,
+      contract: 0,
+      regular: 0
+    })
     employee.map((index: any) => {
       setEmployeeDetails((prev: any) => { return { ...prev, total: prev.total + 1 } })
       if (index?.type === 200) {
@@ -61,8 +66,11 @@ const EmployeeDashboard = (props: Props) => {
 
   useEffect(() => {
     initData()
-
   }, [employee])
+
+  useEffect(() => {
+
+  }, [expences])
 
 
 
@@ -147,28 +155,37 @@ const EmployeeDashboard = (props: Props) => {
                     type = 'contract'
                   }
                   const salary = converToInrFormat(index.salary)
-                   let  Balance  = index.salary;
-                  // let greater = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1);
-                  // let lower = new Date(new Date().getFullYear(), new Date().getMonth() + 2, 1);
+                  let Balance = index.salary;
                   const now = new Date();
                   const year = now.getUTCFullYear();
+                  const currentMonth = now.getUTCMonth() + 1; // Adding 1 because months are zero-indexed
+                  const fiscalYearStartMonth = 4; // April
+                  const fiscalYear = currentMonth < fiscalYearStartMonth ? year - 1 : year;
+
                   const month = (now.getUTCMonth() + 1).toString().padStart(2, '0');
                   const day = now.getUTCDate().toString().padStart(2, '0');
                   const hours = now.getUTCHours().toString().padStart(2, '0');
                   const minutes = now.getUTCMinutes().toString().padStart(2, '0');
                   const seconds = now.getUTCSeconds().toString().padStart(2, '0');
                   const milliseconds = now.getUTCMilliseconds().toString().padStart(3, '0');
-                
-                   const greater =  `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}+00:00`;
-                   const lower =  `${year}-${parseInt(month)+1}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}+00:00`;
-                   console.log('greater',greater)
-                   console.log(lower)
-                   expences.map((expence:any)=>{
-                     if(expence?.uid===index._id&&convertIsoDate(expence?.createdAt)<convertIsoDate(greater)&&convertIsoDate(expence?.createdAt)>convertIsoDate(lower)){
-                       Balance = Balance - parseInt(expence?.amount);
 
-                     }
-                   })
+                  const greater = `${fiscalYear}-${month}-00-T00:00.000Z`;
+                  const lower = `${fiscalYear}-${month}-05-T${hours}:${minutes}:${seconds}.${milliseconds}+00:00`;
+
+                  console.log('greater', greater);
+                  console.log('lower', lower);
+
+                  expences.map((expence: any) => {
+                    if (
+                      expence?.uid === index._id &&
+                      convertIsoDate(expence?.createdAt) < convertIsoDate(greater) &&
+                      convertIsoDate(expence?.createdAt) > convertIsoDate(lower)
+                    ) {
+                      toast.success(index.name)
+                      Balance = Balance - parseInt(expence?.amount);
+                    }
+                  });
+
                   return (
                     <>
                       <TableRow >

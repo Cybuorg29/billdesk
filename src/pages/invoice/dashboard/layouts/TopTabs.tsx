@@ -70,7 +70,10 @@ const TopTabs = ({set,type}: Props) => {
            setInvoiceAction();
        }
       update();
-    }, [isLoaded, istoken, token])
+    }, [isLoaded, istoken, token]);
+    useEffect(() => {
+      
+    }, [invoices])
   return (
     <div className='w-full h-full flex gap-3'>
          {

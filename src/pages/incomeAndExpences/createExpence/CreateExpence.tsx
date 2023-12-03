@@ -40,6 +40,9 @@ const CreateExpence = (props: Props) => {
         if(Expence.title==='')toast.info('please add title to this expence');
        else  if(Expence.amount===0)toast.info('cannot add expences of '+ converToInrFormat(0));
         else addExpence(Expence);
+        if(Expence.category==='400'){
+            navigate('/dashboard/employees')
+        }
     }
 
 

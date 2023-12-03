@@ -6,7 +6,7 @@ import { IcreateInvoice } from '../../../../models/invoice/invoice.model'
 import { getProducts } from '../../../../store/actions/products'
 import { toast } from 'react-toastify'
 
-type Props = {scale:boolean,setScale:any,setInvoice:any}
+type Props = {scale:boolean,setScale:any,setInvoice:any,setMinStock:any}
 
 interface IProductTab {
     name:string
@@ -15,7 +15,7 @@ interface IProductTab {
 
   
 
-const AddProductDialog = ({scale,setScale,setInvoice}: Props) => {
+const AddProductDialog = ({scale,setScale,setInvoice,setMinStock}: Props) => {
     const blue = 'text-blue-800'
     const { products,isProducts } = useAppSelector(state => state.product)
 
@@ -40,6 +40,16 @@ const AddProductDialog = ({scale,setScale,setInvoice}: Props) => {
             this.unit = unit
             this.tax = tax
         }
+    }
+
+
+    function submit(e:React.ChangeEvent,index:ProductObj){
+        setInvoice((prev:IcreateInvoice)=>{
+            return{...prev,products:[...prev.products,new PRODUCT(index.name,index.description,index.code,index.rate,index.unit,index.tax)]
+            }
+        })
+        ;setScale(false);
+        setMinStock((prev:any)=>{return[...prev,index.stock]});
     }
 
     useEffect(() => {
@@ -93,8 +103,8 @@ const AddProductDialog = ({scale,setScale,setInvoice}: Props) => {
                     </thead>
                     <tbody>
                     {
-                        products.map((index: ProductObj,i:number) => {
-                            return<tr className="border-b border-gray-400 text-sm font-source2 cursor-pointer hover:bg-black/20 hover:text-white" key={`index.name${i}`}   onClick={(e:any)=>{setInvoice((prev:IcreateInvoice)=>{return{...prev,products:[...prev.products,new PRODUCT(index.name,index.description,index.code,index.rate,index.unit,index.tax)]}});setScale(false)}} >
+                      products.filter(index=>index.category==='Finished Goods').map((index: ProductObj,i:number) => {
+                            return<tr className="border-b border-gray-400 text-sm font-source2 cursor-pointer hover:bg-black/20 hover:text-white" key={`index.name${i}`} onClick={(e:any)=>{submit(e,index)}}   >
                                 <th scope="col" className='px-1 py-2  sticky text-black ' >{++i}</th>
                                 <th scope="col" className='px-1 py-2  sticky text-black ' >{index.name}</th>
                                 <th scope="col" className='px-1 py-2  sticky text-gray-500 ' >{index.rate}</th>

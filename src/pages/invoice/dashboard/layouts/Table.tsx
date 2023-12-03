@@ -49,7 +49,7 @@ const Table = ({ type, set }: Props) => {
                         if (searchInvoiceValue(invoices, searchValue).some((element) => element === i) || searchValue === '') {
                           if ((type === 'Payment Received' && index.isPaid === true) || (type === 'Total Due' && index.isPaid === false) || (type === 'Total Invoice') || type === '')
 
-                            return <tr className="border-b border-gray-400  font-source2 cursor-pointer hover:bg-gray-100 " key={`index.name${i}`}>
+                            return <tr className="border-b border-gray-400  font-source2 cursor-default hover:bg-gray-100 " key={`index.name${i}`}>
                               <th scope="col" className=' px-6 py-4  sticky '  >{++k}</th>
                               <th scope="col" className=' px-6 py-4  sticky '  >{index.invoice_No}</th>
                               <th scope="col" className=' px-6 py-4  sticky '  >{index.billed_To.name}</th>
