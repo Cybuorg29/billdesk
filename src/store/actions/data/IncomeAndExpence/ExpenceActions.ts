@@ -11,6 +11,7 @@ import {
 } from "../../../features/IncomeAndExpences/IncomeAndExpences";
 import { change } from "../../../features/loader/loaderSlice";
 import { IncomeAndExpencespayload } from "../../../reducers/incAndExpReducer";
+import { actionPayload } from "../../../payload/payloadModel";
 
 export const deleteExpence = async (uid: string) => {
   try {

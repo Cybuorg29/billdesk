@@ -20,14 +20,13 @@ export async function createInvoice(obj: IcreateInvoice) {
             setInvoiceAction();
           }
           else {
-            toast.error(res.message) 
-            console.log(res.error)
+               throw Error(res.error)
           }
 
         store.dispatch(change());
     } catch (err: any) {
         toast.error('an error occured please try again');
-         console.log(err?.error);
+         console.log(err?.error,err?.message);
           store.dispatch(change());
     }
 

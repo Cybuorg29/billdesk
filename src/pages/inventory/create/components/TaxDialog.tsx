@@ -14,7 +14,7 @@ const TaxDialog = ({dialog,handleTaxOperations,pushTax,setDialog,setPushTax}: Pr
           <div className='grid gap-5' >
             <div className='w-full  ' >
               <label>Tax Type</label>
-              <Select value={pushTax.type} className='w-full' onChange={(e: SelectChangeEvent<HTMLSelectElement>) => { setPushTax('type',e.target.value)}}  >
+              <Select value={pushTax?.type} className='w-full' onChange={(e: SelectChangeEvent<HTMLSelectElement>) => { setPushTax('type',e.target.value)}}  >
                 <MenuItem value={'CGST'} >CGST</MenuItem>
                 <MenuItem value={'IGST'} >IGST</MenuItem>
                 <MenuItem value={'SGST'} >SGST</MenuItem>
@@ -22,7 +22,7 @@ const TaxDialog = ({dialog,handleTaxOperations,pushTax,setDialog,setPushTax}: Pr
 
               </Select>
             </div>
-            <Inputs value={pushTax.amount} name='tax(%)' type={'Number'} onchange={(e: React.ChangeEvent<HTMLInputElement>) => { setPushTax('amount',e.target.value) }}  ></Inputs>
+            <Inputs value={pushTax?.amount} name='tax(%)' type={'Number'} onchange={(e: React.ChangeEvent<HTMLInputElement>) => { setPushTax('amount',e.target.value) }}  ></Inputs>
             <div className='flex gap-5' >
               <SolidButton color='black' innerText='ADD' onClick={() => { handleTaxOperations('push') }} key={'addTax'} />
               <SolidButton color='primary' innerText='Cancel' onClick={() => { setDialog(false) }} key={'TaxCancel'} />

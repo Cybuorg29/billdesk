@@ -11,7 +11,7 @@ import { actionPayload } from "../../payload/payloadModel";
 interface array {
     product: ProductObj[]
 }
-const operations = {
+export const ProductOperations = {
     set: "set",
     delete: "delete",
     push: "push"
@@ -25,12 +25,14 @@ const stockOperation = {
 export const changeProduct = (state: productArray, action: PayloadAction<actionPayload>) => {
     const data = action.payload.data;
     const type = action.payload.type;
+     console.log('new product',data)
     switch (type) {
-        case operations.set:
+        case ProductOperations.set:
+             console.log('in set');
             state.products = data
             state.isProducts = true
             break;
-        case operations.delete:
+        case ProductOperations.delete:
             // state.products = state.products.filter((index: ProductObj) => index._id !== data);
               let array:any[] = [];
                state.products.map((index:ProductObj)=>
@@ -38,7 +40,7 @@ export const changeProduct = (state: productArray, action: PayloadAction<actionP
                )
                state.products = array;
             break;
-        case operations.push:
+        case ProductOperations.push:
             state.products.push(data)
             break
         default:

@@ -63,15 +63,15 @@ function App() {
       <>
         <ToastContainer />
         <Loader />
-        <div className=" font-rubik scrollbar ">
+        <div className=" font-rubik scrollbar " id='app'>
           <BrowserRouter>
             <Routes>
               <Route path='/login' element={<Login />} />
               <Route path='/signup' element={<SignUp />} />
               <Route path='/forgot/generate' element={<ForgotPassword />} />
               <Route path='/' element={<Main />}>
-                <Route path='/' element={<Dashboard />}></Route>
-                <Route path='/dashboard' element={< Dashboard />}></Route>
+                <Route path='/' element={<IncAndExpDashboard />}></Route>
+                <Route path='/dashboard' element={< IncAndExpDashboard />}></Route>
                 <Route path='/settings' element={<Settings />}></Route>
                 <Route path='/*' element={<NotFound />}></Route>
                 <Route path='/dashboard/Transactions' element={<IncAndExpDashboard />}></Route>

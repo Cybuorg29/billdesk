@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useId, useState } from 'react'
 import PageHeading from '../../../components/ui/Page Heading/PageHeading'
 import { SolidButton } from '../../../components/ui/Buttons/solid/SolidButton'
 import { useNavigate } from 'react-router-dom'
 import { getProducts } from '../../../store/actions/products'
 import { useAppSelector } from '../../../store/app/hooks'
-import { ProductObj } from '../../../models/inventory/productModel'
+import { ProductObj, createProductObj } from '../../../models/inventory/productModel'
 import { DeleteIcon } from '../../../components/ui/icons/DeleteIcon'
 import { EditIcons } from '../../../components/ui/icons/EditIcon'
 import ViewIcon from '../../../components/ui/icons/ViewIcon'
@@ -18,6 +18,8 @@ import TopTabs from './components/TopTabs'
 import ConfirmDeleteProductDialog from './components/ConfirmDeleteProductDialog'
 import { converToInrFormat } from '../../../utils/ConvertInrFormat'
 import ArrowIconForward from '../../../components/ui/icons/ArrowIconForward'
+import AddQtyAmount from '../Add/AddQtyAmount'
+import EditDialog from '../edit/EditDialog'
 
 type Props = {}
 
@@ -27,26 +29,39 @@ const InventoryDashboard = (props: Props) => {
   const { istoken } = useAppSelector(state => state.auth)
   const { products } = useAppSelector(state => state.product)
   const [AddDialog, setAddDialog] = useState<boolean>(false)
+  const [addQtyDialogScales, setAddQtyDialogScale] = useState<boolean>(false);
   const [_id, setId] = useState<string>('')
   const [confirmDelete, setConfirmDelete] = useState(false)
   const [type, setType]: any = useState('Total Products')
+  const [toEditProduct,setToEditProduct]:any = useState<createProductObj>()
+  const [toEditProductScale,setToEditProductScale]:any = useState<boolean>(false)
+
+
+
+  // keys
+   const AddStockDialogKeys = useId();
+   const AddQtyDialogKeys = useId();
+   const editDialogKey = useId();
 
 
 
 
-  
+
   useEffect(() => {
     getProducts()
   }, [istoken])
-  useEffect(()=>{
+  useEffect(() => {
 
-  },[products])
+  }, [products])
+
   return (
     <div className='h-full w-full overflow-auto p-5' >
-      <AddStockDialog open={AddDialog} id={_id} close={() => setAddDialog(false)} />
+      <AddStockDialog open={AddDialog} id={_id} close={() => setAddDialog(false)} key={AddStockDialogKeys} />
+      <AddQtyAmount scale={addQtyDialogScales} _id={_id} close={setAddQtyDialogScale}  key={AddQtyDialogKeys}/>
+      <EditDialog data={toEditProduct} close={()=>{setToEditProductScale(false)}} scale={toEditProductScale}  key={editDialogKey}  />
       <ConfirmDeleteProductDialog close={() => setConfirmDelete(false)} id={_id} open={confirmDelete} key={'confirmDeleteProductDialog'} />
       <TopSection />
-      <TopTabs  onclick={(type: any) => { setType(type) }} />
+      <TopTabs onclick={(type: any) => { setType(type) }} />
       <div className='h-[69%] bg-component rounded-xl p-3' >
         <div className='flex  place-content-between ' >
           <div className='text-xl'>Products</div>
@@ -115,11 +130,11 @@ const InventoryDashboard = (props: Props) => {
                     products.map((index: ProductObj, i: number) => {
                       if (i < view || view === 'all') {
 
-                        if (type === index.category || type === 'Total Products' || type==='Low Stock' &&index.stock<=index.limit) return <>
-                          <tr className="border-b border-neutral-300 font-light cursor-pointer hover:bg-gray-200" id={index._id} >
+                        if (type === index.category || type === 'Total Products' || type === 'Low Stock' && index.stock <= index.limit) return <>
+                          <tr className="border-b border-neutral-300 font-light cursor-default hover:bg-gray-200" id={index._id} >
                             <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{++i}</th>
                             <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{index.name}</th>
-                            <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' title={index.description} >{(index.description.length>10)?index.description.slice(0,15)+".....":index.description}</th>
+                            <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' title={index.description} >{(index.description.length > 10) ? index.description.slice(0, 15) + "....." : index.description}</th>
                             <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{index?.unit}</th>
                             <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{converToInrFormat(index?.rate)}</th>
                             <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{index.stock}</th>
@@ -127,16 +142,16 @@ const InventoryDashboard = (props: Props) => {
                             <th scope="col" className='whitespace-nowrap font-medium   sticky ' >
                               <div className='flex ' >
                                 <DeleteIcon color='black' onclick={() => { setConfirmDelete(true); setId(index._id) }} key={'adas'} tooltip='Delete Product' />
-                                <EditIcons color='blue' onclick={() => { }} key={'asda'} />
-                                <AddIcon color='blue' onclick={() => { setAddDialog(true); setId(index._id) }} key={index._id + 'a'} />
-                                <MinusIcon color='black' onclick={() => { navigate(`/user/view/${index._id}/product`) }} key={index._id + 'M'} />
-                                <ArrowIconForward  onclick={()=>{navigate(`/user/view/${index._id}/product`) }} tooltip='View Product' key={index.name +'v' }/>
+                                <EditIcons color='blue' onclick={() => { setToEditProduct(index);setToEditProductScale(true)}} key={'asda'} />
+                                <AddIcon color='blue' onclick={() => { (index.category==='Raw Material')?setAddDialog(true):setAddQtyDialogScale(true); setId(index._id) }} key={index._id + 'a'} />
+                                {/* <MinusIcon color='black' onclick={() => { navigate(`/user/view/${index._id}/product`) }} key={index._id + 'M'} /> */}
+                                <ArrowIconForward onclick={() => { navigate(`/user/view/${index._id}/product`) }} tooltip='View Product' key={index.name + 'v'} />
 
                               </div>
                             </th>
                           </tr>
                         </>
-                      }else{
+                      } else {
                       }
                     })
                   }

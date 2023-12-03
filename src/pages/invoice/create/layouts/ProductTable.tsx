@@ -5,6 +5,7 @@ import { IInvoiceProduct, ProductObj } from '../../../../models/inventory/produc
 import { toast } from 'react-toastify'
 import TableInputs from '../components/TableInputs'
 import { converToInrFormat } from '../../../../utils/ConvertInrFormat'
+import { useAppSelector } from '../../../../store/app/hooks'
 
 type Props = { invoice: IcreateInvoice, setInvoice: any }
 interface TableProps {
@@ -15,6 +16,8 @@ interface TableProps {
 
 const ProductTable = ({ invoice, setInvoice }: Props) => {
   const [selectProductOpen, setSelectProductOpen] = useState<boolean>(false);
+   const {products} = useAppSelector(state=>state.product);
+   const [minStock,setMinStock] = useState<number[]>([])
   //keys 
   const addProductDialogKey = useId();
 
@@ -37,7 +40,11 @@ const ProductTable = ({ invoice, setInvoice }: Props) => {
 
     if (type === 'qty') {
       // add stock validator -- pending 
+       if(minStock[i]<value) toast.error('Not enought stock')
+       else{
       index.qty = value;
+    }
+      
     }
     if (type === 'rate') index.rate = value;
     if (type === 'discount') index.discount = value;
@@ -89,7 +96,7 @@ const ProductTable = ({ invoice, setInvoice }: Props) => {
 
   return (
     <>
-      <AddProductDialog scale={selectProductOpen} setScale={setSelectProductOpen} setInvoice={setInvoice} key={addProductDialogKey} />
+      <AddProductDialog scale={selectProductOpen} setScale={setSelectProductOpen} setInvoice={setInvoice} setMinStock={setMinStock} key={addProductDialogKey} />
       <div className='h-full w-full  relative'>
 
         <div className='border-t    w-full h-[90%] overflow-auto text-sm relative' >

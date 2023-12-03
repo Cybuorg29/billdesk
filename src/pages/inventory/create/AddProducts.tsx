@@ -125,7 +125,7 @@ const AddProducts = (props: Props) => {
           <form className=' grid lg:grid-cols-3 gap-5 p-5'>
             <div className='grid  cursor-pointer ' >
               <label htmlFor='image'>Image</label>
-              <input id='image' type='file' onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setProduct((prev: any) => { return { ...prev, image: e.target.files?.[0] } }); console.log(e.target.files?.[0]) }} className='file:rounded-l-xl file:border-0 file:bg-gray-700 file:text-white' />
+              <input id='image' type='file' onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setProduct((prev: any) => { return { ...prev, image: e.target.files?.[0] } });}} className='file:rounded-l-xl file:border-0 file:bg-gray-700 file:text-white' />
             </div>
             {
               // creates a object of the prooduct array and then return a input element for each of the inputs 
