@@ -32,13 +32,13 @@ const Table = ({ type, set }: Props) => {
                 <table className="min-w-full text-left  ">
                   <thead className="border-b   border-neutral-500 uppercase sticky top-0">
                     <tr className="border-b border-neutral-500">
-                      <th scope="col" className='px-6 py-4  sticky text-grayFont  ' >#</th>
-                      <th scope="col" className='px-6 py-4  sticky text-grayFont  ' >Invoice No.</th>
-                      <th scope="col" className='px-6 py-4  sticky text-grayFont  ' >Billed To</th>
-                      <th scope="col" className='px-6 py-4  sticky text-grayFont  ' >Date</th>
-                      <th scope="col" className='px-6 py-4  sticky text-grayFont  ' >Amount</th>
-                      <th scope="col" className='px-6 py-4  sticky text-grayFont  ' >Status</th>
-                      <th scope="col" className='px-6 py-4  sticky text-grayFont  ' >Delete/View</th>
+                      <th scope="col" className='px-6 py-4 text-xs sticky text-grayFont  ' >#</th>
+                      <th scope="col" className='px-6 py-4 text-xs sticky text-grayFont  ' >Invoice No.</th>
+                      <th scope="col" className='px-6 py-4 text-xs sticky text-grayFont  ' >Billed To</th>
+                      <th scope="col" className='px-6 py-4 text-xs sticky text-grayFont  ' >Date</th>
+                      <th scope="col" className='px-6 py-4 text-xs sticky text-grayFont  ' >Amount</th>
+                      <th scope="col" className='px-6 py-4 text-xs sticky text-grayFont  ' >Status</th>
+                      <th scope="col" className='px-6 py-4 text-xs sticky text-grayFont  ' >Delete/View</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -50,13 +50,13 @@ const Table = ({ type, set }: Props) => {
                           if ((type === 'Payment Received' && index.isPaid === true) || (type === 'Total Due' && index.isPaid === false) || (type === 'Total Invoice') || type === '')
 
                             return <tr className="border-b border-gray-400  font-source2 cursor-default hover:bg-gray-100 " key={`index.name${i}`}>
-                              <th scope="col" className=' px-6 py-4  sticky '  >{++k}</th>
-                              <th scope="col" className=' px-6 py-4  sticky '  >{index.invoice_No}</th>
-                              <th scope="col" className=' px-6 py-4  sticky '  >{index.billed_To.name}</th>
-                              <th scope="col" className=' px-6 py-4  sticky '  >{index.invoice_Date}</th>
-                              <th scope="col" className=' px-6 py-4  sticky '  >{converToInrFormat(index.grand_Total)}</th>
-                              <th scope="col" className=' px-6 py-4  sticky '  >{(!index.isPaid) ? 'Not Paid' : 'Paid'}</th>
-                              <th scope="col" className=' px-6 py-4  sticky '  >
+                              <th scope="col" className=' px-6 py-3 text-xs sticky '  >{++k}</th>
+                              <th scope="col" className=' px-6 py-3 text-xs sticky '  >{index.invoice_No}</th>
+                              <th scope="col" className=' px-6 py-3 text-xs sticky '  >{index.billed_To.name}</th>
+                              <th scope="col" className=' px-6 py-3 text-xs sticky '  >{index.invoice_Date}</th>
+                              <th scope="col" className=' px-6 py-3 text-xs sticky '  >{converToInrFormat(index.grand_Total)}</th>
+                              <th scope="col" className=' px-6 py-3 text-xs sticky '  >{(!index.isPaid) ? 'Not Paid' : 'Paid'}</th>
+                              <th scope="col" className=' px-6 py-3 text-xs sticky '  >
                                 <div className='flex place-content-start' >
                                   <div><DeleteIcon color='black' onclick={() => {deleteInvoiceAction(index._id) }} tooltip='Delete Invoice' key={deleteInvoiceIconKey} /></div>
                                   <div><ViewIcon color='blue' onclick={() => {navigate(`/view/${index._id}/invoice`) }} tooltip='View' key={viewIconId} /></div>

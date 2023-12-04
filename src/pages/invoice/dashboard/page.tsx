@@ -1,12 +1,7 @@
-import React, { useEffect, useId, useState } from 'react'
-import PageHeading from '../../../components/ui/Page Heading/PageHeading'
-import { SolidButton } from '../../../components/ui/Buttons/solid/SolidButton'
-import { useNavigate } from 'react-router-dom'
+import  {  useId, useState } from 'react'
+
 import TopSection from './layouts/TopSection'
-import Tabs, { tabProps } from '../../../components/ui/tabs/Tabs'
-import { useAppSelector } from '../../../store/app/hooks'
-import { setInvoiceAction } from '../../../store/actions/invoice/set'
-import { IcreateInvoice, Iinvoice } from '../../../models/invoice/invoice.model'
+
 import TopTabs from './layouts/TopTabs'
 import Table from './layouts/Table'
 
