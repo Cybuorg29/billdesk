@@ -6,7 +6,7 @@ type Props = {value:string,onchange:any,type:any,set:any}
 const Search = ({onchange,value,type,set}: Props) => {
   
     return (
-        <div className="relative mb-4 flex w-full gap-2 flex-wrap items-stretch">
+        <div className="relative mb-4 flex w-full h-1/2 gap-2 flex-wrap items-stretch">
             <input
                 value={value}
                 type="search"
