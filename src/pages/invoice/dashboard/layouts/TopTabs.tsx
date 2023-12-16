@@ -24,7 +24,7 @@ const TopTabs = ({set,type}: Props) => {
         link: ''
       },
       {
-        name: 'Payment Reveived',
+        name: 'Payment Received',
         amount: 0,
         image: '',
         link: ''
@@ -45,7 +45,7 @@ const TopTabs = ({set,type}: Props) => {
           link: ''
         },
         {
-          name: 'Payment Reveived',
+          name: 'Payment Received',
           amount: 0,
           image: '',
           link: ''
@@ -79,9 +79,14 @@ const TopTabs = ({set,type}: Props) => {
          {
           tabArray.map((index: tabProps,i:number) => {
              let amount = index.amount;
-             if(i===2) amount = converToInrFormat(index.amount)
+             let name =index.name;
+             if(i===2)
+             {
+               amount = converToInrFormat(index.amount)
+              name = `payment Received from ${(tabArray[0].amount - tabArray[1].amount)} invoices `
+             } 
             return <div className='w-full' onClick={(e)=>{set(index.name)}}>
-              <Tabs amount={amount} image={index?.image} link={index?.link} name={index.name} key={index.name} />
+              <Tabs amount={amount} image={index?.image} link={index?.link} name={name} key={index.name} />
             </div>
           })
         }

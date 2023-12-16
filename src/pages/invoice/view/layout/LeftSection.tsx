@@ -8,12 +8,12 @@ import BillingDetails from './invoice/BillingDetails'
 import Fotter from './invoice/Fotter'
 import { roundNumber } from '../../../../utils/RoundOff'
 
-type Props = { invoice: Iinvoice }
+type Props = { invoice: Iinvoice ,targetRef:any}
 
-const LeftSection = ({ invoice }: Props) => {
+const LeftSection = ({ invoice,targetRef }: Props) => {
   const selfInfoKeys = useId();
   return (
-    <div className='p-4 h-full w-full overflow-auto text-sm' id='toPrint' >
+    <div   className='p-4 h-full w-full  text-sm'   >
       <div>GSTIN:{invoice.billed_From.gstin}</div>
       <div className='w-full h-full ' >
       <div className='text-sm  border border-b-0 border-black text-center'>Tax Invoice</div>
@@ -25,11 +25,11 @@ const LeftSection = ({ invoice }: Props) => {
         </div>
         <div className='h-[16%] border-black border-b grid grid-cols-2 border-l border-r'>
           <div className='border-r border-black  '>
-            <div className='border-b border-black pl-2 text-xs'>Billed To</div>
+            <div className='border-b border-black pl-2 text-us font-semibold'>Billed To</div>
             <BillingDetails array={invoice.billed_To} />
           </div>
           <div>
-            <div className='border-b border-black pl-2 text-xs '>Shipped  To</div>
+            <div className='border-b border-black pl-2 text-us font-semibold '>Shipped  To</div>
             <BillingDetails array={invoice.shipped_To} />
           </div>
         </div>
@@ -44,7 +44,6 @@ const LeftSection = ({ invoice }: Props) => {
           <Fotter invoice={invoice} />
           </div>
         </div>
-
       </div>
     </div>
   )

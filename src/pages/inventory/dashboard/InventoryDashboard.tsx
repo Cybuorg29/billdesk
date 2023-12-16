@@ -127,11 +127,10 @@ const InventoryDashboard = (props: Props) => {
                 </thead>
                 <tbody>
                   {
-                    products.map((index: ProductObj, i: number) => {
+                    products.filter(index=>(index.category===type||type==='Total Products'||(type==='Low Stock'&&index.stock<=index.limit))).map((index: ProductObj, i: number) => {
                       if (i < view || view === 'all') {
 
-                        if (type === index.category || type === 'Total Products' || type === 'Low Stock' && index.stock <= index.limit) return <>
-                          <tr className="border-b border-neutral-300 font-light cursor-default hover:bg-gray-200" id={index._id} >
+                        return  <tr className="border-b border-neutral-300 font-light cursor-default hover:bg-gray-200" id={index._id} >
                             <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{++i}</th>
                             <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{index.name}</th>
                             <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' title={index.description} >{(index.description.length > 10) ? index.description.slice(0, 15) + "....." : index.description}</th>
@@ -149,12 +148,9 @@ const InventoryDashboard = (props: Props) => {
 
                               </div>
                             </th>
-                          </tr>
-                        </>
-                      } else {
-                      }
-                    })
-                  }
+                          </tr>                     
+                    }})}
+                
                 </tbody>
               </table>
             </div>

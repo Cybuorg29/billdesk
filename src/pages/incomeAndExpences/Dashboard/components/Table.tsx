@@ -12,7 +12,7 @@ const Table = ({ array, name, color, link }: Props) => {
   const colorArray = ['text-green-600', 'text-red-600'];
   return (
     <div className="h-[100%] w-full bg-component rounded-xl  relative border ">
-      <div className="text-xl font-poopins text-grayFont pl-5 pr-5 p-2 border-b  h-[8%]">{name}</div>
+      <div className="text-lg font-semibold text-grayFont pl-5 pr-5 p-2 border-b  h-[8%]">{name}</div>
       <div className='h-[84%]'>
       {
         (array.length === 0) ?
