@@ -87,7 +87,7 @@ const Table = ({invoice}: Props) => {
                                       return <>
                                         <div className='grid grid-cols-2 text-table '>
                                           <div className='text-sm border flex grow text-table'>{item.amount + '%'}</div>
-                                          <div className='text-sm border flex grow overflow-auto text-table '>{parseFloat(calculateTaxAmount(item.amount, index.taxable_Value).toFixed(2))}</div>
+                                          <div className='text-sm border flex grow overflow-hidden text-table '>{calculateTaxAmount(item.amount, index.taxable_Value).toFixed(2).toString()}</div>
 
                                         </div>
                                       </>
