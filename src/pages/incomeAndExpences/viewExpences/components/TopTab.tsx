@@ -6,6 +6,7 @@ import { toast } from 'react-toastify'
 import { ResponsiveContainer } from 'recharts'
 import { useAppSelector } from '../../../../store/app/hooks'
 import { incomeAndExpencesObjectSchema } from '../../../../store/features/IncomeAndExpences/IncomeAndExpences'
+import { converToInrFormat } from '../../../../utils/ConvertInrFormat'
 type Props = {}
 type infoTabProps = { name: string, amount: number, color: string }
 
@@ -155,13 +156,17 @@ const TopTab = (props: Props) => {
     )
 
     function InfoTab({ name, amount, color }: infoTabProps) {
+         console.log('amount',amount)
+         if(amount=== undefined){
+            amount = 0;
+         }
         return <div className=' grid w-fit h-fit place-items-center' >
             <div>
                 <div className='flex gap-2 place-items-center'>
                     <div className={`h-2 w-2 rounded-full bg-[${color}]`}></div>
                     <div className='text-xs font-semibold uppercase text-gray-600 text-center'>{name}</div>
                 </div>
-                <div className='text-xl font-bold text-center'>{amount}</div>
+                <div className='text-lg font-bold text-center'>{converToInrFormat(amount)}</div>
             </div>
         </div>
     }

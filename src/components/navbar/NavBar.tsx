@@ -77,7 +77,7 @@ const NavBar = (props: Props) => {
       <div className="relative h-full bg-navbar text-white " >
 
         <div className="border-b ">
-          <div className="p-5 text-center text-2xl ">BillDesk</div>
+          <div className="p-5 text-center text-2xl ">AudditX</div>
         </div>
         <div className="absolute bottom-5 grid w-full "  >
           <NavTab

@@ -31,16 +31,16 @@ const Table = ({invoice}: Props) => {
             <table className="min-w-full text-left  ">
               <thead className="border-b  text-table border-black uppercase sticky top-0">
                 <tr className="border-b border-black">
-                  <th scope="col" className='px-1 py-2 text-us  sticky text-black border-l border-black ' >#</th>
-                  <th scope="col" className='px-1 py-2 text-us  sticky text-black  ' >Description</th>
-                  <th scope="col" className='px-1 py-2 text-us  sticky text-black  ' >HSN code</th>
-                  <th scope="col" className='px-1 py-2 text-us  sticky text-black  ' >Qty</th>
-                  <th scope="col" className='px-1 py-2 text-us  sticky text-black  ' >Rate</th>
-                  <th scope="col" className='px-1 py-2 text-us  sticky text-black  ' >Amount</th>
-                  <th scope="col" className='px-1 py-2 text-us  sticky text-black  ' >Discount</th>
-                  <th scope="col" className='px-1 py-2 text-us  sticky text-black  ' >Tax. Value</th>
-                  <th scope="col" className='px-1 py-2 text-us  sticky text-black  ' >tax</th>
-                  <th scope="col" className='px-1 py-2 text-us  sticky text-black  border-black border-r' >Total</th>
+                  <th scope="col" className='px-0.5 py-1 border-r text-us  sticky text-black border-l border-black ' >#</th>
+                  <th scope="col" className='px-0.5 py-1 border-r border-black text-us  sticky text-black  ' >Description</th>
+                  <th scope="col" className='px-0.5 py-1 border-r border-black text-us  sticky text-black  ' >HSN code</th>
+                  <th scope="col" className='px-0.5 py-1 border-r border-black text-us  sticky text-black  ' >Qty</th>
+                  <th scope="col" className='px-0.5 py-1 border-r border-black text-us  sticky text-black  ' >Rate</th>
+                  <th scope="col" className='px-0.5 py-1 border-r border-black text-us  sticky text-black  ' >Amount</th>
+                  <th scope="col" className='px-0.5 py-1 border-r border-black text-us  sticky text-black  ' >Discount</th>
+                  <th scope="col" className='px-0.5 py-1 border-r border-black text-us  sticky text-black  ' >Tax. Value</th>
+                  <th scope="col" className='px-0.5 py-1 border-r border-black text-us  sticky text-black  ' >tax</th>
+                  <th scope="col" className='px-0.5 py-1  text-us  sticky text-black  border-black border-r' >Total</th>
                 </tr>
               </thead>
               <tbody>
@@ -52,7 +52,7 @@ const Table = ({invoice}: Props) => {
                             <th scope="col" className=' sticky text-gray-700 border border-black  text-center' >{++k}</th>
                             <th scope="col" className=' sticky text-gray-700 border border-black  text-sm ' >
                               <div className='flex flex-col text-table'>
-                                <div className='text-black'>{index.name}</div>
+                                <div className='text-black font-semibold'>{index.name}</div>
                                 <div className='text-black'>{index.description}</div>
                               </div>
                             </th>
@@ -87,7 +87,7 @@ const Table = ({invoice}: Props) => {
                                       return <>
                                         <div className='grid grid-cols-2 text-table '>
                                           <div className='text-sm border flex grow text-table'>{item.amount + '%'}</div>
-                                          <div className='text-sm border flex grow overflow-auto text-table '>{parseFloat(calculateTaxAmount(item.amount, index.taxable_Value).toFixed(2))}</div>
+                                          <div className='text-sm border flex grow overflow-hidden text-table '>{calculateTaxAmount(item.amount, index.taxable_Value).toFixed(2).toString()}</div>
 
                                         </div>
                                       </>

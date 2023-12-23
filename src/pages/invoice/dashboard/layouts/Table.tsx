@@ -43,12 +43,9 @@ const Table = ({ type, set }: Props) => {
                   </thead>
                   <tbody>
                     {
-                      invoices.map((index: Iinvoice, i: number) => {
+                      invoices.filter(index=>((type==='Total Invoice')||(type==='Total Due'&& !index.isPaid)||(type==='Payment Received'&&index.isPaid))).map((index: Iinvoice, i: number) => {
                         let k = i
-                        let find = false;
                         if (searchInvoiceValue(invoices, searchValue).some((element) => element === i) || searchValue === '') {
-                          if ((type === 'Payment Received' && index.isPaid === true) || (type === 'Total Due' && index.isPaid === false) || (type === 'Total Invoice') || type === '')
-
                             return <tr className="border-b border-gray-400  font-source2 cursor-default hover:bg-gray-100 " key={`index.name${i}`}>
                               <th scope="col" className=' px-6 py-3 text-xs sticky '  >{++k}</th>
                               <th scope="col" className=' px-6 py-3 text-xs sticky '  >{index.invoice_No}</th>

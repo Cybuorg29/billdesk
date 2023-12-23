@@ -14,6 +14,8 @@ import Tabs from "../../../components/ui/tabs/Tabs";
 import { converToInrFormat } from "../../../utils/ConvertInrFormat";
 import { IExpence } from "../../../models/incomeAndExp/expenceInterface";
 import convertIsoDate from "../../../utils/convertIsoDates";
+import { getMonthName } from "../../../utils/getMonthName";
+import { splitDate } from "../../../utils/splitDate";
 
 
 type Props = {};
@@ -163,25 +165,19 @@ const EmployeeDashboard = (props: Props) => {
                   const fiscalYear = currentMonth < fiscalYearStartMonth ? year - 1 : year;
 
                   const month = (now.getUTCMonth() + 1).toString().padStart(2, '0');
-                  const day = now.getUTCDate().toString().padStart(2, '0');
-                  const hours = now.getUTCHours().toString().padStart(2, '0');
-                  const minutes = now.getUTCMinutes().toString().padStart(2, '0');
-                  const seconds = now.getUTCSeconds().toString().padStart(2, '0');
-                  const milliseconds = now.getUTCMilliseconds().toString().padStart(3, '0');
-
-                  const greater = `${fiscalYear}-${month}-00-T00:00.000Z`;
-                  const lower = `${fiscalYear}-${month}-05-T${hours}:${minutes}:${seconds}.${milliseconds}+00:00`;
-
-                  console.log('greater', greater);
-                  console.log('lower', lower);
 
                   expences.map((expence: any) => {
+                     const date:any = splitDate(expence?.createdAt);
                     if (
                       expence?.uid === index._id &&
-                      convertIsoDate(expence?.createdAt) < convertIsoDate(greater) &&
-                      convertIsoDate(expence?.createdAt) > convertIsoDate(lower)
+                       (
+                        (date.year===fiscalYear)
+                        &&
+                        (date.month===currentMonth)
+                        &&
+                        (date?.day>0&&date.day<30)
+                       )
                     ) {
-                      toast.success(index.name)
                       Balance = Balance - parseInt(expence?.amount);
                     }
                   });

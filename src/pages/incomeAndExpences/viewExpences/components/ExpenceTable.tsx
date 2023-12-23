@@ -1,5 +1,6 @@
 import { Button, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Tooltip } from '@mui/material'
 import React, { useEffect } from 'react'
+
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { useAppSelector } from '../../../../store/app/hooks'
@@ -9,6 +10,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { convertIncAndExpCode } from '../../../../utils/ConverIncAndExpCode'
 import { SolidButton } from '../../../../components/ui/Buttons/solid/SolidButton'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
+import { converToInrFormat } from '../../../../utils/ConvertInrFormat'
 
 type Props = { setUid: (value: string) => void, openEdit: (value: any) => void }
 
@@ -80,7 +82,7 @@ const ExpenceTable = ({ setUid, openEdit }: Props) => {
                                                                     <td className="whitespace-nowrap px-6 py-4">{index.date}</td>
                                                                     <td className="whitespace-nowrap px-6 py-4">{category}</td>
                                                                     <td className="whitespace-nowrap px-6 py-4">{index.title}</td>
-                                                                    <td className="whitespace-nowrap px-6 py-4">{index.amount}</td>
+                                                                    <td className="whitespace-nowrap px-6 py-4">{converToInrFormat(index.amount)}</td>
                                                                     <td className="whitespace-nowrap px-6 py-4">{
                                                                         <div className='flex gap-2' aria-label='asdfasdas ' >
                                                                             <Tooltip title="Delete Expence " >

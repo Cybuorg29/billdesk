@@ -69,7 +69,7 @@ const ViewExpences = (props: Props) => {
     <>
       <ConfirmDialog />
       <EditDialod Expence={Expence} handleAmountInput={(e: any) => { handleAmountInput(e) }} openEdit={openEdit} setExpence={(value: any) => setExpence((prev: any) => { return { ...prev, category: value } })} setOpenEdit={() => handleOpenEditDialog()} />
-      <div className=' h-[150%]  '  >
+      <div className=' h-[150%] overflow-auto   '  >
 
         <div className='h-[6%]  rounded-xl'>
           <div className=' grid grid-cols-3  gap-5 items-center w-full  p-2 ' >
@@ -93,9 +93,11 @@ const ViewExpences = (props: Props) => {
         </div>
 
       </div>
-      <div className='h-[100%]  ' >
+      <div className='h-[100%] ' >
+        <div className='h-[10%]'>
         <PageHeading name='Expence Chart'/>
-        <div className='bg-component p-2 h-[100%] m-2  rounded-xl'>
+        </div>
+        <div className='bg-component p-5 mb-10 h-[80%] m-2  rounded-xl'>
           <ExpenceChart/>
         </div>
       </div>
