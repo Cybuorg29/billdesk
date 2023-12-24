@@ -38,16 +38,10 @@ export const initialiseUserData = async () => {
 
 
       const { data } = await getUserData(token);
-          
+
       if (data.code === 200) {
         store.dispatch(initilise(data.user));
         store.dispatch(initliseBank(data.bank));
-        // if(data.user.name===''){
-        //    toast('in init');
-        //    window.location.href = '/settings'
-        //  }
-        
-
         const d = new Date()
         const month = d.getMonth() + 1;
         changeIncomeAndExpenceByMonth(month)

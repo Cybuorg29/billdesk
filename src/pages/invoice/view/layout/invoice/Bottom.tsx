@@ -48,7 +48,7 @@ const Bottom = ({ invoice }: Props) => {
     return total;
   }
 
-  
+
   useEffect(() => {
     setTaxAmount()
     calculateTotalTax()
@@ -60,7 +60,7 @@ const Bottom = ({ invoice }: Props) => {
     <div className='flex flex-col gap-3 h-full w-full  border-t border-black border-b text-table'>
       <div className='h-[3%] flex p-2 place-content-between' >
         <div className='font-bold text-sm'>Grand Total</div>
-        <div className='font-bold'>{converToInrFormat(invoice.grand_Total)}</div>
+        <div className='font-bold text-[1rem]'>{converToInrFormat(invoice.grand_Total)}</div>
       </div>
       <div className='border-t  border-black h-full  grid grid-cols-2'>
         <div className='border-r  border-black grid '>

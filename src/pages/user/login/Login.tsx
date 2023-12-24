@@ -55,14 +55,14 @@ export default function SignIn() {
       const { data } = await login(user.username, user.password)
       if (data.code === 200) {
         toast.success(data.message)
-        const payload:actionPayload={
-          type:'',
-          data:{
-            token:data?.token,
-            istoken:true
+        const payload: actionPayload = {
+          type: '',
+          data: {
+            token: data?.token,
+            istoken: true
           }
         }
-      dispatch(saveToken(payload))
+        dispatch(saveToken(payload))
 
         navigate('/')
         dispatch(change())
@@ -86,13 +86,13 @@ export default function SignIn() {
 
     } else {
       token = JSON.parse(token)
-        const payload:actionPayload={
-          type:'',
-          data:{
-            token:token,
-            istoken:true
-          }
+      const payload: actionPayload = {
+        type: '',
+        data: {
+          token: token,
+          istoken: true
         }
+      }
       dispatch(saveToken(payload))
       navigate('/')
     }
