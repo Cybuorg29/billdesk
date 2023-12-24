@@ -17,12 +17,12 @@ type Props = {};
 
 const Main = (props: Props) => {
   const { istoken } = useAppSelector(state => state.auth);
-  const { name, gstin } = useAppSelector(state => state.userData)
-  const { isIncome,isExpences} = useAppSelector(state => state.incomeAndExpence)
+  const user = useAppSelector(state => state.userData)
+  const { isIncome, isExpences } = useAppSelector(state => state.incomeAndExpence)
   const location = useLocation();
   const pathname = location.pathname;
   const partsAfterSlash = pathname.split('/').filter(part => part !== '');
-   const [path,setPath] = useState<any>(location)
+  const [path, setPath] = useState<any>(location)
   const navigate = useNavigate();
 
   const navKey = useId();
@@ -30,7 +30,7 @@ const Main = (props: Props) => {
   const outletKey = useId();
 
 
- 
+
 
   useEffect(() => {
     checkUserLogin()
@@ -38,15 +38,15 @@ const Main = (props: Props) => {
   }, [istoken]);
 
   useEffect(() => {
-      if(isExpences||isIncome){ 
-        if (name === '' || gstin === '') {
-          navigate('/settings')
-          toast.info('please setup you profile to continue')
-        } else {
-          navigate(`/${partsAfterSlash}`)
-        }
+    if (isExpences || isIncome) {
+      if (user.name === '' || user.gstin === '') {
+        navigate('/settings')
+        toast.info('please setup you profile to continue')
+      } else {
+        navigate(`/${partsAfterSlash}`)
       }
-  }, [name])
+    }
+  }, [user]);
 
 
 

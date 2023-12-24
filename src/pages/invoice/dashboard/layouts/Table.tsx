@@ -43,7 +43,7 @@ const Table = ({ type, set }: Props) => {
                   </thead>
                   <tbody>
                     {
-                      invoices.filter(index=>((type==='Total Invoice')||(type==='Total Due'&& !index.isPaid)||(type==='Payment Received'&&index.isPaid))).map((index: Iinvoice, i: number) => {
+                      invoices.filter(index=>((type==='Total Invoice')||(type==='Total Due'&& !index.isPaid)||(type==='Payment Received'&&index.isPaid))).reverse().map((index: Iinvoice, i: number) => {
                         let k = i
                         if (searchInvoiceValue(invoices, searchValue).some((element) => element === i) || searchValue === '') {
                             return <tr className="border-b border-gray-400  font-source2 cursor-default hover:bg-gray-100 " key={`index.name${i}`}>

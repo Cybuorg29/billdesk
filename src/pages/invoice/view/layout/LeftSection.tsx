@@ -33,7 +33,7 @@ const LeftSection = ({ invoice,targetRef }: Props) => {
             <BillingDetails array={invoice.shipped_To} />
           </div>
         </div>
-        <div className='h-fit border-black '>
+        <div className='h-fit border-black  '>
           <Table invoice={invoice} />
         </div>
           <div className='h-[30%]   border-black'>
