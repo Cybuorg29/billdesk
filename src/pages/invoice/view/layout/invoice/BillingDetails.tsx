@@ -12,14 +12,14 @@ const BillingDetails = ({ array }: Props) => {
           if (index === 'state_Code') return
           if (index === 'adress') {
             return <>
-              <div className='flex  gap-5  grid-cols-2 pl-2 border-b-2    border-black text-xs  '>
+              <div className='flex  gap-5  grid-cols-2 pl-2 border-b-2    border-black text-sm  '>
                 <div className=''>{replaceUnderscoresWithSpaces(index)}:</div>
                 <div className=''>{array[index]}</div>
               </div>
             </>
           }
           if (index === 'state') return <>
-            <div className='flex gap-5   w-full pl-2 border-b-2    border-black text-xs  '>
+            <div className='flex gap-5   w-full pl-2 border-b-2    border-black text-sm  '>
               <div className='grid gap-5 grid-cols-2 w-1/2'>
                 <div className=''>{replaceUnderscoresWithSpaces(index)}</div>
                 <div className='text-center'>{array[index]}</div>
@@ -31,13 +31,13 @@ const BillingDetails = ({ array }: Props) => {
             </div>
           </>
           if (i === 4 || i === 8) {
-            return <div className='grid   grid-cols-2  pl-2 border-black text-xs  '>
+            return <div className='grid   grid-cols-2  pl-2 border-black text-sm  '>
               <div className=''>{replaceUnderscoresWithSpaces(index)} :</div>
               <div className=''>{array[index]}</div>
             </div>
           }
           return <>
-            <div className='grid   grid-cols-2 pl-2 border-b-2    border-black text-xs  '>
+            <div className='grid   grid-cols-2 pl-2 border-b-2    border-black text-sm  '>
               <div className=''>{replaceUnderscoresWithSpaces(index)} :</div>
               <div className=''>{array[index]}</div>
             </div>

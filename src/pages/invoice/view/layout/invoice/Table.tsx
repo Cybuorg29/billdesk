@@ -68,11 +68,11 @@ const Table = ({ invoice }: Props) => {
                               {
                                 index.tax.map((item: any, i: number) => {
                                   if (i === 0) return <>
-                                    <div className='text-table bg-white text-center w-full font-bold  grow flex'>{item.type}</div>
+                                    <div className=' bg-white text-center w-full font-bold  grow flex'>{item.type}</div>
 
                                   </>
                                   return <>
-                                    <div className='text-table bg-white border-l border-black grow flex'>{item.type}</div>
+                                    <div className=' bg-white border-l-2 border-black grow flex'>{item.type}</div>
                                   </>
                                 })
                               }
@@ -80,9 +80,9 @@ const Table = ({ invoice }: Props) => {
                             </div>
 
 
-                            <div className='grid grid-cols-2  text-table  border-t-0 border-black ' >
-                              <div className=' '>rate</div>
-                              <div className=' border-l border-black  '>amount</div>
+                            <div className='grid grid-cols-2  text-xs  border-t-0 border-black ' >
+                              <div className=' font-bold'>rate</div>
+                              <div className=' border-l-2 border-black  '>amount</div>
 
                             </div>
 
@@ -92,9 +92,9 @@ const Table = ({ invoice }: Props) => {
                                 index.tax.map((item: any, i: number) => {
 
                                   return <>
-                                    <div className='grid grid-cols-2 text-table '>
-                                      <div className='text-sm border-t border-black flex grow text-table '>{item.amount + '%'}</div>
-                                      <div className='text-sm border-l border-t flex grow overflow-hidden text-table border-black '>{converToInrFormat(calculateTaxAmount(item.amount, index.taxable_Value).toFixed(2).toString())}</div>
+                                    <div className='grid grid-cols-2 text-sm '>
+                                      <div className='text-sm border-t-2 border-black flex grow  '>{item.amount + '%'}</div>
+                                      <div className='text-sm border-l-2 border-t-2 flex grow overflow-hidden  border-black '>{converToInrFormat(calculateTaxAmount(item.amount, index.taxable_Value).toFixed(2).toString())}</div>
 
                                     </div>
                                   </>
