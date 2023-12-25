@@ -23,7 +23,7 @@ const LeftSection = ({ invoice, targetRef }: Props) => {
         <div className='h-[11%]  border-black border-l-2    border-r-2   '>
           <GeneralInfo invoice={invoice} />
         </div>
-        <div className='h-[18%] border-black border-b grid grid-cols-2 border-l-2    border-r-2   '>
+        <div className='h-fit border-black border-b grid grid-cols-2 border-l-2    border-r-2   '>
           <div className='border-r-2    border-black  '>
             <div className='border-b-2 border-black pl-2 text-lg font-semibold '>Billed To</div>
             <BillingDetails array={invoice.billed_To} />
