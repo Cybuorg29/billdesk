@@ -17,10 +17,10 @@ const LeftSection = ({ invoice, targetRef }: Props) => {
       <div>GSTIN:{invoice.billed_From.gstin}</div>
       <div className='w-full h-full ' >
         <div className='text-lg font-bold  border-2 border-b-0 border-black text-center'>Tax Invoice</div>
-        <div className='h-[20%] border-2 border-black'>
+        <div className='h-fit border-2 border-black'>
           <SelfInfo invoice={invoice} key={selfInfoKeys} />
         </div>
-        <div className='h-[11%]  border-black border-l-2    border-r-2   '>
+        <div className='h-fit  border-black border-l-2    border-r-2   '>
           <GeneralInfo invoice={invoice} />
         </div>
         <div className='h-fit border-black border-b grid grid-cols-2 border-l-2    border-r-2   '>
