@@ -16,8 +16,8 @@ interface TableProps {
 
 const ProductTable = ({ invoice, setInvoice }: Props) => {
   const [selectProductOpen, setSelectProductOpen] = useState<boolean>(false);
-   const {products} = useAppSelector(state=>state.product);
-   const [minStock,setMinStock] = useState<number[]>([])
+  const { products } = useAppSelector(state => state.product);
+  const [minStock, setMinStock] = useState<number[]>([])
   //keys 
   const addProductDialogKey = useId();
 
@@ -40,15 +40,15 @@ const ProductTable = ({ invoice, setInvoice }: Props) => {
 
     if (type === 'qty') {
       // add stock validator -- pending 
-       if(minStock[i]<value) toast.error('Not enought stock')
-       else{
-      index.qty = value;
-    }
-      
+      if (minStock[i] < value) toast.error('Not enought stock')
+      else {
+        index.qty = value;
+      }
+
     }
     if (type === 'rate') index.rate = value;
     if (type === 'discount') index.discount = value;
-    index.amount = (index.rate * index.qty) ;
+    index.amount = (index.rate * index.qty);
     index.amount = parseFloat(index.amount.toFixed(2));
     index.taxable_Value = index.amount - index.discount;
     let taxAmount: number = 0;
@@ -112,6 +112,7 @@ const ProductTable = ({ invoice, setInvoice }: Props) => {
                         <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >Description</th>
                         <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >HSN code</th>
                         <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >Qty</th>
+                        <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >Unit</th>
                         <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >Rate</th>
                         <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >Amount</th>
                         <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >Discount</th>
@@ -137,6 +138,7 @@ const ProductTable = ({ invoice, setInvoice }: Props) => {
                             </th>
                             <th scope="col" className=' sticky text-gray-700 border border-gray-400 ' >{index.code}</th>
                             <TableInputs value={index.qty} onChange={(e: any) => { handleQtyRateAndDiscountChange(e.target.value, 'qty', i) }} type={'number'} key={`qty${i}`} />
+                            <th scope="col" className=' sticky text-gray-700 border border-gray-400 ' >{index.unit}</th>
                             <TableInputs value={index.rate} onChange={(e: any) => { handleQtyRateAndDiscountChange(e.target.value, 'rate', i) }} type={'number'} key={`rate${i}`} />
                             <th scope="col" className=' sticky text-gray-700 border border-gray-400 text-center' >{converToInrFormat(index.amount)}</th>
                             <TableInputs onChange={(e: any) => { handleQtyRateAndDiscountChange(e.target.value, 'discount', i) }} type={'number'} value={index.discount} key={`discount${i}`} />
