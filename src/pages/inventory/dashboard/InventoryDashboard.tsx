@@ -33,15 +33,15 @@ const InventoryDashboard = (props: Props) => {
   const [_id, setId] = useState<string>('')
   const [confirmDelete, setConfirmDelete] = useState(false)
   const [type, setType]: any = useState('Total Products')
-  const [toEditProduct,setToEditProduct]:any = useState<createProductObj>()
-  const [toEditProductScale,setToEditProductScale]:any = useState<boolean>(false)
+  const [toEditProduct, setToEditProduct]: any = useState<createProductObj>()
+  const [toEditProductScale, setToEditProductScale]: any = useState<boolean>(false)
 
 
 
   // keys
-   const AddStockDialogKeys = useId();
-   const AddQtyDialogKeys = useId();
-   const editDialogKey = useId();
+  const AddStockDialogKeys = useId();
+  const AddQtyDialogKeys = useId();
+  const editDialogKey = useId();
 
 
 
@@ -57,16 +57,16 @@ const InventoryDashboard = (props: Props) => {
   return (
     <div className='h-full w-full overflow-auto p-5' >
       <AddStockDialog open={AddDialog} id={_id} close={() => setAddDialog(false)} key={AddStockDialogKeys} />
-      <AddQtyAmount scale={addQtyDialogScales} _id={_id} close={setAddQtyDialogScale}  key={AddQtyDialogKeys}/>
-      <EditDialog data={toEditProduct} close={()=>{setToEditProductScale(false)}} scale={toEditProductScale}  key={editDialogKey}  />
+      <AddQtyAmount scale={addQtyDialogScales} _id={_id} close={setAddQtyDialogScale} key={AddQtyDialogKeys} />
+      <EditDialog data={toEditProduct} close={() => { setToEditProductScale(false) }} scale={toEditProductScale} key={editDialogKey} />
       <ConfirmDeleteProductDialog close={() => setConfirmDelete(false)} id={_id} open={confirmDelete} key={'confirmDeleteProductDialog'} />
       <TopSection />
       <TopTabs onclick={(type: any) => { setType(type) }} />
-      <div className='h-[69%] bg-component rounded-xl p-3' >
-        <div className='flex  place-content-between ' >
+      <div className='h-[69%]  bg-component rounded-xl p-3' >
+        <div className='flex h-[7%]  place-content-between ' >
           <div className='text-xl'>Products</div>
           <div className='flex gap-2'>
-            <label>View</label>
+            <label className='grid place-content-center'>View</label>
             <select title='view' name='View' value={view} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => { setView(e.target.value) }} className='' >
               <option value={10} >10</option>
               <option value={25} >25</option>
@@ -74,7 +74,7 @@ const InventoryDashboard = (props: Props) => {
             </select>
           </div>
         </div>
-        <div className='w-full h-full' >
+        <div className='w-full h-[93%]' >
 
           {
             (products.length !== 0) ? <ProductTable /> : <div className='h-full w-full grid justify-items-center items-center'>
@@ -127,30 +127,31 @@ const InventoryDashboard = (props: Props) => {
                 </thead>
                 <tbody>
                   {
-                    products.filter(index=>(index.category===type||type==='Total Products'||(type==='Low Stock'&&index.stock<=index.limit))).map((index: ProductObj, i: number) => {
+                    products.filter(index => (index.category === type || type === 'Total Products' || (type === 'Low Stock' && index.stock <= index.limit))).map((index: ProductObj, i: number) => {
                       if (i < view || view === 'all') {
 
-                        return  <tr className="border-b border-neutral-300 font-light cursor-default hover:bg-gray-200" id={index._id} >
-                            <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{++i}</th>
-                            <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{index.name}</th>
-                            <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' title={index.description} >{(index.description.length > 10) ? index.description.slice(0, 15) + "....." : index.description}</th>
-                            <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{index?.unit}</th>
-                            <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{converToInrFormat(index?.rate)}</th>
-                            <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{index.stock}</th>
-                            <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' > {index.limit}</th>
-                            <th scope="col" className='whitespace-nowrap font-medium   sticky ' >
-                              <div className='flex ' >
-                                <DeleteIcon color='black' onclick={() => { setConfirmDelete(true); setId(index._id) }} key={'adas'} tooltip='Delete Product' />
-                                <EditIcons color='blue' onclick={() => { setToEditProduct(index);setToEditProductScale(true)}} key={'asda'} />
-                                <AddIcon color='blue' onclick={() => { (index.category==='Raw Material')?setAddDialog(true):setAddQtyDialogScale(true); setId(index._id) }} key={index._id + 'a'} />
-                                {/* <MinusIcon color='black' onclick={() => { navigate(`/user/view/${index._id}/product`) }} key={index._id + 'M'} /> */}
-                                <ArrowIconForward onclick={() => { navigate(`/user/view/${index._id}/product`) }} tooltip='View Product' key={index.name + 'v'} />
+                        return <tr className="border-b border-neutral-300 font-light cursor-default hover:bg-gray-200" id={index._id} >
+                          <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{++i}</th>
+                          <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{index.name}</th>
+                          <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' title={index.description} >{(index.description.length > 10) ? index.description.slice(0, 15) + "....." : index.description}</th>
+                          <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{index?.unit}</th>
+                          <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{converToInrFormat(index?.rate)}</th>
+                          <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{index.stock}</th>
+                          <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' > {index.limit}</th>
+                          <th scope="col" className='whitespace-nowrap font-medium   sticky ' >
+                            <div className='flex ' >
+                              <DeleteIcon color='black' onclick={() => { setConfirmDelete(true); setId(index._id) }} key={'adas'} tooltip='Delete Product' />
+                              <EditIcons color='blue' onclick={() => { setToEditProduct(index); setToEditProductScale(true) }} key={'asda'} />
+                              <AddIcon color='blue' onclick={() => { (index.category === 'Raw Material') ? setAddDialog(true) : setAddQtyDialogScale(true); setId(index._id) }} key={index._id + 'a'} />
+                              {/* <MinusIcon color='black' onclick={() => { navigate(`/user/view/${index._id}/product`) }} key={index._id + 'M'} /> */}
+                              <ArrowIconForward onclick={() => { navigate(`/user/view/${index._id}/product`) }} tooltip='View Product' key={index.name + 'v'} />
 
-                              </div>
-                            </th>
-                          </tr>                     
-                    }})}
-                
+                            </div>
+                          </th>
+                        </tr>
+                      }
+                    })}
+
                 </tbody>
               </table>
             </div>

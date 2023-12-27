@@ -14,7 +14,7 @@ const LeftSection = ({ invoice, targetRef }: Props) => {
   const selfInfoKeys = useId();
   return (
     <div className='p-4 h-full w-full  text-sm font-bold ' ref={targetRef}   >
-      <div>GSTIN:{invoice.billed_From.gstin}</div>
+      <div className='text-lg'>GSTIN:{invoice.billed_From.gstin}</div>
       <div className='w-full h-full ' >
         <div className='text-lg font-bold  border-2 border-b-0 border-black text-center'>Tax Invoice</div>
         <div className='h-fit border-2 border-black'>
@@ -33,7 +33,7 @@ const LeftSection = ({ invoice, targetRef }: Props) => {
             <BillingDetails array={invoice.shipped_To} />
           </div>
         </div>
-        <div className='h-fit border-black  border-t-2  '>
+        <div className='h-fit border-black  border-t-2 '>
           <Table invoice={invoice} />
         </div>
 

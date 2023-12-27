@@ -26,7 +26,7 @@ type Props = {}
 
 const CreateInvoice = (props: Props) => {
     const { connections, isConnection } = useAppSelector(state => state.connections)
-    const { state, name, gstin, phone, building, district, landmark, pincode } = useAppSelector(state => state.userData)
+    const { name, gstin, phone, adress, pincode, state } = useAppSelector(state => state.userData)
     const { bank, auth } = useAppSelector(state => state)
     const { token } = auth
     const [rroundOffNum, setRoundOffNum] = useState<number>(0);
@@ -35,7 +35,7 @@ const CreateInvoice = (props: Props) => {
         billed_From: {
             name: name,
             gstin: gstin,
-            adress: `${building},${landmark},${district},${state} - ${pincode}`,
+            adress: `${adress} - ${pincode}`,
             mobile: phone,
             state: state,
             state_Code: 0,
@@ -91,8 +91,8 @@ const CreateInvoice = (props: Props) => {
         if (isRoundOff) {
             setRoundOffNum(calculateGrandTotal() - roundNumber(invoice.grand_Total));
             setInvoice((prev) => { return { ...prev, grand_Total: roundNumber(prev.grand_Total) } })
-        }else{
-            
+        } else {
+
             setInvoice((prev) => { return { ...prev, grand_Total: calculateGrandTotal() } })
         }
     }
@@ -110,18 +110,18 @@ const CreateInvoice = (props: Props) => {
     }, [token, isToken])
 
     useEffect(() => {
-         roundOff();
-    }, [invoice.grand_Total,isRoundOff])
+        roundOff();
+    }, [invoice.grand_Total, isRoundOff])
 
 
 
-  function calculateGrandTotal() {
-    let total = 0;
-    invoice.products.map((index: any) => {
-      total = total + index.total;
-    })
-    return total;
-  }
+    function calculateGrandTotal() {
+        let total = 0;
+        invoice.products.map((index: any) => {
+            total = total + index.total;
+        })
+        return total;
+    }
 
 
 
@@ -147,7 +147,7 @@ const CreateInvoice = (props: Props) => {
                     <div className='flex gap-10'>
                         <div >
                             <div className='flex gap-2'>
-                                <input type='checkbox' title='RoundOff' onClick={() => {(isRoundOff)?setIsRoundOff(false):setIsRoundOff(true);setRoundOffNum(0)}} ></input>
+                                <input type='checkbox' title='RoundOff' onClick={() => { (isRoundOff) ? setIsRoundOff(false) : setIsRoundOff(true); setRoundOffNum(0) }} ></input>
                                 <div>Round off({` ${limitDecimalDigits(rroundOffNum)}`})</div>
                             </div>
                         </div>

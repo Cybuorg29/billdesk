@@ -5,35 +5,32 @@ import { userDetailSchema } from '../../../models/userModel'
 import { InitialiseData, updateUser } from '../../reducers/userReducer';
 
 
-const initialState:userDetailSchema={
-    name:'',
-    gstin:'',
-    phone:'',
-    email:'',
-    building:'',
-    city:'',
-    district:'',
-    state:'',
-    activities:'',
-    pincode:'',
-    image:'',
-    _id:'',
-    type:'',
-    landmark:''
+const initialState: userDetailSchema = {
+    name: '',
+    gstin: '',
+    phone: '',
+    email: '',
+    adress: '',
+    activities: '',
+    pincode: '',
+    image: '',
+    _id: '',
+    type: '',
+    state: ''
 }
 
 export const UserSlice = createSlice({
-    name:'userData',
+    name: 'userData',
     initialState,
-    reducers:{
-         initilise : InitialiseData,
-         userUpdate:updateUser
+    reducers: {
+        initilise: InitialiseData,
+        userUpdate: updateUser
     }
 })
 
 
 
-export const { initilise,userUpdate} = UserSlice.actions
+export const { initilise, userUpdate } = UserSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectCount = (state: RootState) => state.counter.value

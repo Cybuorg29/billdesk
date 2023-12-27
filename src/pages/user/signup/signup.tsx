@@ -56,7 +56,8 @@ export const SignUp = () => {
         navigate('/login')
 
       } else if (res.data.code === 400) {
-        toast.error(res.data.message)
+        toast.error(res.data.message);
+        navigate(`/claim/profile/${res.data.package}`);
       } else {
         toast.error(res.data.message)
       }
@@ -164,9 +165,9 @@ export const SignUp = () => {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/login" variant="body2">
+                <div className='text-blue-500 text-sm cursor-pointer' onClick={() => navigate('/login')}>
                   Already have an account? Sign in
-                </Link>
+                </div>
               </Grid>
             </Grid>
           </Box>

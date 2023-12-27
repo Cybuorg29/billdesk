@@ -58,32 +58,32 @@ const Bottom = ({ invoice }: Props) => {
 
   return (
     <div className='flex flex-col gap-3 h-full w-full  border-t-2 border-black border-b-2 text-table'>
-      <div className='h-[3%] flex p-2 place-content-between' >
+      <div className='h-[3%] flex p-2 place-content-between ' >
         <div className='font-bold text-sm'>Grand Total</div>
         <div className='font-bold text-[1rem]'>{converToInrFormat(invoice.grand_Total)}</div>
       </div>
-      <div className='border-t  border-black h-full  grid grid-cols-2'>
-        <div className='border-r  border-black grid '>
+      <div className='border-t-2  border-black h-full  grid grid-cols-2'>
+        <div className='border-r-2  border-black grid '>
           <div className=' pl-2 pt-2 border-black text-xs font-bold '>Amount in Words</div>
           <div className='pl-2 text-xs font-bold '>
             {convertToIndianCurrencyWords(invoice.grand_Total)}
           </div>
         </div>
         <div className='grid grid-rows-5 ' >
-          <div className='grid grid-cols-3 border-b border-black pl-2 text-xs'>
+          <div className='grid grid-cols-3 border-b-2 border-black pl-2 text-xs'>
             <div className='col-span-2 border-r border-black' >Total amount before tax</div>
             <div className='col-span-1 pl-2 font-bold' >{converToInrFormat(tax.onValue)}</div>
           </div>
 
-          <div className='grid grid-cols-3 border-b border-black pl-2  text-xs'>
+          <div className='grid grid-cols-3 border-b-2 border-black pl-2  text-xs'>
             <div className='col-span-2 border-r border-black' >Total Tax</div>
             <div className='col-span-1 pl-2 font-bold' >{converToInrFormat(tax.total_tax)}</div>
           </div>
-          <div className='grid grid-cols-3 border-b border-black pl-2 text-xs'>
+          <div className='grid grid-cols-3 border-b-2 border-black pl-2 text-xs'>
             <div className='col-span-2 border-r border-black' >Total Amount after tax</div>
             <div className='col-span-1 pl-2  font-bold' >{converToInrFormat(calculateGrandTotal())}</div>
           </div>
-          <div className='grid grid-cols-3 border-b border-black pl-2 text-xs'>
+          <div className='grid grid-cols-3 border-b-2 border-black pl-2 text-xs'>
             <div className='col-span-2 border-r border-black' >Round Off</div>
             <div className='col-span-1 pl-2  font-bold' >{limitDecimalDigits(roundOffNum)}</div>
           </div>

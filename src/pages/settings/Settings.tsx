@@ -38,14 +38,8 @@ const Settings = (props: Props) => {
       case 'email':
         setClient({ ...client, email: value });
         break;
-      case 'building':
-        setClient({ ...client, building: value });
-        break;
-      case 'city':
-        setClient({ ...client, city: value });
-        break;
-      case 'district':
-        setClient({ ...client, district: value });
+      case 'adress':
+        setClient({ ...client, adress: value });
         break;
       case 'state':
         setClient({ ...client, state: value });
@@ -53,24 +47,10 @@ const Settings = (props: Props) => {
       case 'pincode':
         setClient({ ...client, pincode: value });
         break;
-        case 'activities':
-          setClient({ ...client, activities: value });
-          break;
-          case 'landmark':
-            setClient({ ...client, landmark: value });
-            break;
-      case 'benName':
-        setBank({ ...bank, name: value })
+      case 'activities':
+        setClient({ ...client, activities: value });
         break;
-      case 'branch':
-        setBank({ ...bank, branch: value })
-        break;
-      case 'isfc':
-        setBank({ ...bank, isfc: value })
-        break;
-      case 'no':
-        setBank({ ...bank, no: value })
-        break;
+
       case 'bank':
         setBank({ ...bank, bank: value })
         break;
@@ -105,8 +85,8 @@ const Settings = (props: Props) => {
 
 
   useEffect(() => {
-    
-  }, [initData ])
+
+  }, [initData])
 
   return (
     <div className={`  w-full h-full  bg-white/50   duration-200 `} >
@@ -117,21 +97,21 @@ const Settings = (props: Props) => {
       {/* <Update name={client.name} updateUser={() => updateUser()} /> */}
 
 
-    {  (initData?.name==='')?
-          <div  className='p-5' >
+      {(initData?.name === '') ?
+        <div className='p-5' >
 
-         <SolidButton  color='black' innerText='Insert Data' onClick={()=>updateUser()} key={'button1'}/>
-        </div>:
+          <SolidButton color='black' innerText='Insert Data' onClick={() => updateUser()} key={'button1'} />
+        </div> :
         <>
-        <div  className='p-5' >
-             <SolidButton  color='black' innerText='REQUEST UPDATE' onClick={()=>{toast.success('you request has been received . ')}} key={'button1'}/>
-            </div>
+          <div className='p-5' >
+            <SolidButton color='black' innerText='REQUEST UPDATE' onClick={() => { toast.success('you request has been received . ') }} key={'button1'} />
+          </div>
 
         </>
-    
-   }
 
-      
+      }
+
+
     </div>
 
   )

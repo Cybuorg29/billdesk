@@ -35,6 +35,8 @@ const Table = ({ invoice }: Props) => {
                     <th scope="col" className='px-0.5 py-1 border-r-2 border-black text-xs   sticky text-black  ' >Description</th>
                     <th scope="col" className='px-0.5 py-1 border-r-2 border-black text-xs   sticky text-black  ' >HSN code</th>
                     <th scope="col" className='px-0.5 py-1 border-r-2 border-black text-xs   sticky text-black  ' >Qty</th>
+                    <th scope="col" className='px-0.5 py-1 border-r-2 border-black text-xs   sticky text-black  ' >Unit</th>
+
                     <th scope="col" className='px-0.5 py-1 border-r-2 border-black text-xs   sticky text-black  ' >Rate</th>
                     <th scope="col" className='px-0.5 py-1 border-r-2 border-black text-xs   sticky text-black  ' >Amount</th>
                     <th scope="col" className='px-0.5 py-1 border-r-2 border-black text-xs   sticky text-black  ' >Discount</th>
@@ -58,6 +60,7 @@ const Table = ({ invoice }: Props) => {
                         </th>
                         <th scope="col" className=' sticky font-extrabold border-2  text-xs  border-black ' >{index.code}</th>
                         <th scope="col" className=' sticky font-bold border-2   text-xs border-black text-center' >{index.qty}</th>
+                        <th scope="col" className=' sticky font-bold border-2   text-xs border-black text-center' >{index.unit}</th>
                         <th scope="col" className=' sticky font-bold border-2   text-xs border-black text-center' >{converToInrFormat(index.rate)}</th>
                         <th scope="col" className=' sticky font-bold border-2   text-xs border-black text-center' >{converToInrFormat(index.amount)}</th>
                         <th scope="col" className=' sticky font-bold border-2   text-xs border-black text-center' >{converToInrFormat(index.discount)}</th>

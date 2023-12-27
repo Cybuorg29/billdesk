@@ -119,7 +119,7 @@ async function verifyBySessionId() {
       toast.info('please login ')
       window.location.href = `${window.location.protocol}//${window.location.host}/login`
     } else {
-      toast.success('logined sucessfully ')
+      toast.success('login sucessfully ')
       const payload: actionPayload = {
         type: '',
         data: <tokenSchema>{ token: token, istoken: true }

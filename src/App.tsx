@@ -28,13 +28,14 @@ import ClientDashboard from './pages/Client/Dashboard/ClientDashboard';
 import AddBusiness from './pages/Client/Add/AddBusiness';
 import ViewProfile from './pages/user/view/ViewProfile';
 import SearchUserPage from './pages/user/search/SearchUserPage';
-import {registerLicense} from '@syncfusion/ej2-base'
+import { registerLicense } from '@syncfusion/ej2-base'
 import InsertDummyData from './pages/dummyData/Insert';
 import SupplierDashboard from './pages/supplier/dashboard/page';
 import InvoiceDashboard from './pages/invoice/dashboard/page';
 import CreateInvoice from './pages/invoice/create/Page';
 import CreateIncome from './pages/income/create/page';
 import ViewInvoice from './pages/invoice/view/Page';
+import ClaimProfile from './pages/user/claim/profile/page';
 registerLicense("Ngo9BigBOggjHTQxAR8/V1NGaF5cXmdCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdgWXhfeHVUQ2hfWUJ0VkE=");
 function App() {
 
@@ -68,6 +69,7 @@ function App() {
             <Routes>
               <Route path='/login' element={<Login />} />
               <Route path='/signup' element={<SignUp />} />
+              <Route path='/claim/profile/:id' element={<ClaimProfile />} />
               <Route path='/forgot/generate' element={<ForgotPassword />} />
               <Route path='/' element={<Main />}>
                 <Route path='/' element={<IncAndExpDashboard />}></Route>
@@ -81,21 +83,21 @@ function App() {
                 <Route path='/dashboard/employees' element={<EmployeeDashboard />}></Route>
                 <Route path='/create/employee' element={<AddEmployee />}></Route>
                 <Route path='/edit/:id/employee' element={<EditEmployee />}></Route>
-                <Route path='/spreadsheet' element={<SpreadSheet/>} ></Route>
-                <Route path='/dashboard/inventory'  element={<InventoryDashboard/>}   />
-                <Route path='/create/product'  element={<AddProducts/>}   />
-                <Route path='/user/view/:id/product'  element={<ViewProduct/>}   />
-                <Route path='/dashboard/client'  element={<ClientDashboard/>}   />
-                <Route path='/create/connection'  element={<AddBusiness/>}   />
-                <Route path='/view/:id/profile'  element={<ViewProfile />}   />
-                <Route path='/search/user'  element={<SearchUserPage/>}   />
-                <Route path='/insert/dummy' element={<InsertDummyData/>}/>
-                <Route path='/dashboard/supplier' element={<SupplierDashboard/>}/>
-                <Route path='/dashboard/invoice' element={<InvoiceDashboard/>}/>
-                <Route path='/create/invoice' element={<CreateInvoice/>}/>
-                <Route path='/create/income' element={<CreateIncome/>}/>
-                <Route path='/create/:type/income' element={<CreateIncome/>}/>
-                <Route path='/view/:id/invoice' element={<ViewInvoice/>}/>
+                <Route path='/spreadsheet' element={<SpreadSheet />} ></Route>
+                <Route path='/dashboard/inventory' element={<InventoryDashboard />} />
+                <Route path='/create/product' element={<AddProducts />} />
+                <Route path='/user/view/:id/product' element={<ViewProduct />} />
+                <Route path='/dashboard/client' element={<ClientDashboard />} />
+                <Route path='/create/connection' element={<AddBusiness />} />
+                <Route path='/view/:id/profile' element={<ViewProfile />} />
+                <Route path='/search/user' element={<SearchUserPage />} />
+                <Route path='/insert/dummy' element={<InsertDummyData />} />
+                <Route path='/dashboard/supplier' element={<SupplierDashboard />} />
+                <Route path='/dashboard/invoice' element={<InvoiceDashboard />} />
+                <Route path='/create/invoice' element={<CreateInvoice />} />
+                <Route path='/create/income' element={<CreateIncome />} />
+                <Route path='/create/:type/income' element={<CreateIncome />} />
+                <Route path='/view/:id/invoice' element={<ViewInvoice />} />
               </Route>
 
             </Routes>
