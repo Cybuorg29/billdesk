@@ -51,14 +51,26 @@ const Settings = (props: Props) => {
         setClient({ ...client, activities: value });
         break;
 
+
       case 'bank':
         setBank({ ...bank, bank: value })
         break;
-      case 'image':
-
-        setClient({ ...client, image: value })
+      case 'benName':
+        setBank({ ...bank, name: value })
+        break; case 'no':
+        setBank({ ...bank, no: value })
+        break;
+      case 'ifsc':
+        setBank({ ...bank, isfc: value })
+        break;
+      case 'branch':
+        setBank({ ...bank, branch: value })
         break;
 
+
+      case 'image':
+        setClient({ ...client, image: value })
+        break;
 
 
     }
