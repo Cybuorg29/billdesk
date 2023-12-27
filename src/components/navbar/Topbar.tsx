@@ -9,6 +9,7 @@ import OptionBar from "./OptionBar";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationDialog from "../ui/Notifications/NotificationDialog";
 import { Badge } from "@mui/material";
+import CachedIcon from '@mui/icons-material/Cached';
 type props = {};
 
 
@@ -71,8 +72,11 @@ const Topbar = ({ }: props) => {
         </div>
         <div className="text-xl text-grayFont" >{name}</div>
         <div className="pr-3 flex gap-2  items-center">
+          <div className="rounded-full cursor-pointer " onClick={() => { window.location.reload() }}>
+            <CachedIcon />
+          </div>
           <div className="relative">
-            <div className=" cursor-pointer    "  title="view notifications" onClick={()=>{setNotificationScale(true)}}>
+            <div className=" cursor-pointer    " title="view notifications" onClick={() => { setNotificationScale(true) }}>
               <Badge badgeContent={notification.length} color="error" >
                 <NotificationsIcon color="action" />
               </Badge>
