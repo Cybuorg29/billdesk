@@ -13,12 +13,14 @@ import { setConnections } from "../../features/Connections/ConnectionsSlide";
 export const createConnection = async (generalInfo: clientModelObj, bankInfo: bankDetails) => {
   try {
     store.dispatch(change());
-    const { auth } = store.getState();
+    const { auth, userData } = store.getState();
     const { token } = auth;
-    const { data } = await postConnection(generalInfo, bankInfo, token);
+    const { _id } = userData
+
+    const { data } = await postConnection(generalInfo, bankInfo, _id);
     const res: responceObj = data;
-      toast.info(res.message);
-    (res.code === 200) ? sucess(res.package?.generalInfo, res.package?.bankinfo) :(res.code===400)?foundId(res):failure(res)
+    toast.info(res.message);
+    (res.code === 200) ? sucess(res.package?.generalInfo, res.package?.bankinfo) : (res.code === 400) ? foundId(res) : failure(res)
   } catch (err: any) {
     console.log(err.message);
     toast.error('an error occured please try again')
@@ -29,11 +31,11 @@ export const createConnection = async (generalInfo: clientModelObj, bankInfo: ba
 
 
 async function sucess(generalInfo: any, bankInfo: any) {
-   const type = generalInfo?.type;
-  const payload:actionPayload={
-    type:ConnectionsActionObj.addClient,
-    data:{
-      generalInfo,bankInfo,type:type
+  const type = generalInfo?.type;
+  const payload: actionPayload = {
+    type: ConnectionsActionObj.addClient,
+    data: {
+      generalInfo, bankInfo, type: type
     }
   }
   store.dispatch(setConnections(payload))
@@ -41,22 +43,22 @@ async function sucess(generalInfo: any, bankInfo: any) {
 
 }
 
-function failure(res:responceObj){
-    if(res.code!==200){
+function failure(res: responceObj) {
+  if (res.code !== 200) {
 
-      console.log(res?.error)
-      toast.error(res.message);
-      store.dispatch(change())
-    }
+    console.log(res?.error)
+    toast.error(res.message);
+    store.dispatch(change())
+  }
 
 
-   
+
 }
 
-async function  foundId(res:responceObj) {
-         if(res.code===400){
-           toast.error(res.message);
-           window.location.pathname = `/view/profile/${res.error}`  
-         }
-      store.dispatch(change())
+async function foundId(res: responceObj) {
+  if (res.code === 400) {
+    toast.error(res.message);
+    window.location.pathname = `/view/profile/${res.error}`
+  }
+  store.dispatch(change())
 }

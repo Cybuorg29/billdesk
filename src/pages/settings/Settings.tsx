@@ -50,8 +50,6 @@ const Settings = (props: Props) => {
       case 'activities':
         setClient({ ...client, activities: value });
         break;
-
-
       case 'bank':
         setBank({ ...bank, bank: value })
         break;
@@ -66,8 +64,6 @@ const Settings = (props: Props) => {
       case 'branch':
         setBank({ ...bank, branch: value })
         break;
-
-
       case 'image':
         setClient({ ...client, image: value })
         break;
@@ -80,10 +76,9 @@ const Settings = (props: Props) => {
 
   const updateUser = async () => {
     try {
-
+      console.log(client, bank, token)
       const res = await setUpProfile(client, bank, token)
       if (res.data.code === 200) {
-
         toast.success('profile Setup Complete')
       } else {
         toast.error(res.data.message)
