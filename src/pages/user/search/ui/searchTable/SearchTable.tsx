@@ -5,14 +5,14 @@ import ArrowIconForward from '../../../../../components/ui/icons/ArrowIconForwar
 import { useNavigate } from 'react-router-dom'
 import LoadingAnimation from './loader/LoadingAnimation'
 
-type Props = {array:any[],isLoading:boolean}
+type Props = { array: any[], isLoading: boolean }
 
-const SearchTable = ({array,isLoading}: Props) => {
- 
+const SearchTable = ({ array, isLoading }: Props) => {
+
   const navigate = useNavigate();
 
   return (
-     <Table/>
+    <Table />
   )
 
 
@@ -38,36 +38,36 @@ const SearchTable = ({array,isLoading}: Props) => {
                     <th scope="col" className=' py-2  sticky text-grayFont  ' >view</th>
                   </tr>
                 </thead>
-            
+
                 <tbody>
                   {
-                   array.map((index, i: number) => {
-                     console.log(index.type)
-                      return <tr  className = "border-b border-neutral-300 font-light    cursor-pointer  duration-150 hover:bg-gray-100"
-                       onClick={()=>{navigate(`/view/${index._id}/profile`)}}  id={`${i}`}>
-                      <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{++i}</th>
-                      <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{index ?.name}</th>
-                      <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{index ?.gstin}</th>
-                      <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{index ?.phone}</th>
-                      <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{index ?.email}</th>
-                      <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' > {index?.activities}</th>
-                      <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' > {index?.district + "/" + index?.state}</th>
-                      <th scope="col" className = 'whitespace-nowrap font-medium   sticky ' >
-                    <div className='flex ' >
-                       <ArrowIconForward tooltip='view profile'  onclick={()=>{navigate(`/view/${index._id}/profile`)}} key={index.phone} />
-                    </div>
- 
-                      </th>
+                    array.map((index, i: number) => {
+                      console.log(index.type)
+                      return <tr className="border-b border-neutral-300 font-light    cursor-pointer  duration-150 hover:bg-gray-100"
+                        onClick={() => { navigate(`/view/${index._id}/profile`) }} id={`${i}`}>
+                        <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{++i}</th>
+                        <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{index?.name}</th>
+                        <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{index?.gstin}</th>
+                        <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{index?.phone}</th>
+                        <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{index?.email}</th>
+                        <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' > {index?.activities}</th>
+                        <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' > {index?.adress + "/" + index?.state}</th>
+                        <th scope="col" className='whitespace-nowrap font-medium   sticky ' >
+                          <div className='flex ' >
+                            <ArrowIconForward tooltip='view profile' onclick={() => { navigate(`/view/${index._id}/profile`) }} key={index.phone} />
+                          </div>
+
+                        </th>
                       </tr>
 
 
                     })
                   }
-          </tbody>
-        </table>
+                </tbody>
+              </table>
 
-      </div>
-    </div>
+            </div>
+          </div>
         </div ></div ></div >
   }
 }
