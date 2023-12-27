@@ -49,6 +49,7 @@ const DataFields = ({ client, handleInputChange }: Props) => {
             <TextField label='Email' id='email' value={client?.email} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
             <TextField label='adress' id='adress' value={client?.adress} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
             <TextField label='Pincode' id='pincode' value={client?.pincode} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
+            <TextField label='State' id='state' value={client?.state} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
             <Select value={client.activities} name='activities' id='activities' onChange={(e) => { handleInputChange(e.target.name, e.target.value) }} >
               <MenuItem value={`ManuFacturing`} >Manufacturing</MenuItem>
               <MenuItem value={`Distribution`} >Distributor</MenuItem>
@@ -83,6 +84,7 @@ const DataFields = ({ client, handleInputChange }: Props) => {
             <TextField disabled label='Email' id='email' value={client?.email} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
             <TextField disabled label='Adress' id='adress' value={client?.adress} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
             <TextField disabled label='Pincode' id='pincode' value={client?.pincode} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
+            <TextField disabled label='State' id='state' value={client?.state} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
             <TextField disabled label='Activities' id='activities' value={client?.activities} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
 
           </div>
