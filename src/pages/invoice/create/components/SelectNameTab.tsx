@@ -70,38 +70,38 @@ const SelectNameTab = ({ keysArray, name, selectArray, valueArray, onSelect }: P
                     <div className='cursor-pointer' onClick={() => { setOpenDialog(false); setScale('scale-0') }}>X</div>
                 </div>
             </DialogContentText>
-                <div className="w-full p-2">
-                    <div className="inline-block min-w-full ">
-                        <div className="overflow-hidden">
-                            <table className="min-w-full text-left  ">
-                                <thead className="border-b  text-small border-neutral-500 uppercase sticky top-0">
-                                    <tr className="border-b border-neutral-500">
-                                        <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >#</th>
-                                        <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >Name</th>
-                                        <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >GSTIN</th>
-                                        <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >Adress</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        (selectArray.length===0)?<div>no  clients to display . <span className='text-blue-700' >add</span> </div>:
+            <div className="w-full p-2">
+                <div className="inline-block min-w-full ">
+                    <div className="overflow-hidden">
+                        <table className="min-w-full text-left  ">
+                            <thead className="border-b  text-small border-neutral-500 uppercase sticky top-0">
+                                <tr className="border-b border-neutral-500">
+                                    <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >#</th>
+                                    <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >Name</th>
+                                    <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >GSTIN</th>
+                                    <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >Adress</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    (selectArray.length === 0) ? <div>no  clients to display . <span className='text-blue-700' >add</span> </div> :
                                         selectArray.map((index: userDetailSchema, i: number) => {
                                             return <>
-                                                <tr className='hover:bg-black/20 cursor-pointer p-2 rounded-lg border-b' onClick={() => { onSelect({ adress: `${index.building + ',' + index.city + ',' + index.district + ',' + index.state + ' - ' + index.pincode}`, gstin: index.gstin, name: index.name, state: index.state, state_Code: getStateCode(index.state) }); setOpenDialog(false); setScale('scale-0') }}>
+                                                <tr className='hover:bg-black/20 cursor-pointer p-2 rounded-lg border-b' onClick={() => { onSelect({ adress: `${index.adress + ' - ' + index.pincode}`, gstin: index.gstin, name: index.name, state: index.state, state_Code: getStateCode(index.state) }); setOpenDialog(false); setScale('scale-0') }}>
                                                     <th scope="col" className='px-3 py-4 font-source2 sticky text-gray-500 text-small  ' >{++i}</th>
                                                     <th scope="col" className='px-3 py-4 font-source2 sticky text-black text-small  ' >{index.name}</th>
                                                     <th scope="col" className='px-3 py-4 font-source2 sticky text-gray-500 text-small  ' >{index.gstin}</th>
-                                                    <th scope="col" className='px-3 py-4 font-source2 sticky text-gray-500 text-small  ' >{index.building+' ,'+index.city+' ,'+index.district+' ,'+index.state+' - '+index.pincode }</th>
+                                                    <th scope="col" className='px-3 py-4 font-source2 sticky text-gray-500 text-small  ' >{index.adress + ' - ' + index.pincode}</th>
 
                                                 </tr>
                                             </>
                                         })
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
+                                }
+                            </tbody>
+                        </table>
                     </div>
                 </div>
+            </div>
 
 
         </Dialog>

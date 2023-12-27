@@ -18,15 +18,13 @@ export const InitialiseData = (
   state.gstin = action.payload.gstin;
   state.phone = action.payload.phone;
   state.email = action.payload.email;
-  state.building = action.payload.building;
-  state.city = action.payload.city;
-  state.district = action.payload.district;
-  state.state = action.payload.state;
+  state.adress = action.payload.adress;
   state.pincode = action.payload.pincode;
   state.activities = action.payload.activities;
   state.image = action.payload.image;
   state._id = action.payload._id
-  state.landmark = action.payload.landmark;
+  state.state = action.payload.state
+
 };
 
 export const updateUser = (

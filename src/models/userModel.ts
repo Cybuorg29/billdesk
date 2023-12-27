@@ -1,40 +1,34 @@
-export interface userDetailSchema{
-    name:string
-    gstin:string
-    phone:string
-    email:string
-    building:string
-    city:string
-    district:string
-    state:string
-    activities:string
-    pincode:string
-    image:any,
-    _id:string,
-    type:string
-    landmark:string
+export interface userDetailSchema {
+    name: string
+    gstin: string
+    phone: string
+    email: string
+    activities: string
+    pincode: string
+    image: any,
+    _id: string,
+    type: string
+    state: string
+    adress: string
 }
 
-export interface bankDetails{
-    name:string
-    isfc:string
-    no:string
-    branch:string
-    bank:string
+export interface bankDetails {
+    name: string
+    isfc: string
+    no: string
+    branch: string
+    bank: string
 }
 
- export interface createUserModel{
-    name:string
-    gstin:string
-    phone:string
-    email:string
-    building:string
-    city:string
-    district:string
-    state:string
-    activities:string
-    pincode:string
-    image:any
-    landmark:string
-     type:0|1
- }
+export interface createUserModel {
+    name: string
+    gstin: string
+    phone: string
+    email: string
+    activities: string
+    pincode: string
+    image: any
+    adress: string
+    type: 0 | 1
+    state: string
+}

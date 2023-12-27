@@ -163,9 +163,9 @@ export default function SignIn() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="/signup" variant="body2">
+                <div onClick={() => { navigate('/signup') }} className='text-blue-500 text-sm cursor-pointer ' >
                   {"Don't have an account? Sign Up"}
-                </Link>
+                </div>
               </Grid>
             </Grid>
           </Box>

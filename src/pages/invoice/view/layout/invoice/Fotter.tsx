@@ -4,7 +4,6 @@ import { Iinvoice } from '../../../../../models/invoice/invoice.model'
 type Props = { invoice: Iinvoice | any }
 
 const Fotter = ({ invoice }: Props) => {
-    const bankKeys = Object.keys(invoice.bank)
     return (
         <div className='w-full h-full grid grid-cols-4 text-table  '>
             <div className='border-r-2 border-black col-span-3  '>

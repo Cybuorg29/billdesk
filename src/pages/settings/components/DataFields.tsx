@@ -14,7 +14,7 @@ type Props = { client: userDetailSchema, handleInputChange: (type: string, value
 const DataFields = ({ client, handleInputChange }: Props) => {
   const user = useAppSelector(state => state.userData)
   const { token } = useAppSelector(state => state.auth)
-   const inputId = useId();
+  const inputId = useId();
   const [addImageScale, setAddImageScale] = useState('scale-0')
 
   useEffect(() => {
@@ -47,11 +47,7 @@ const DataFields = ({ client, handleInputChange }: Props) => {
             <TextField label='GSTIN' id='gstin' value={client?.gstin} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
             <TextField label='Phone' id='phone' value={client?.phone} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
             <TextField label='Email' id='email' value={client?.email} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
-            <TextField label='Building' id='building' value={client?.building} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
-            <TextField label='Landmark' id='landmark' value={client?.landmark} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
-            <TextField label='City' id='city' value={client?.city} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
-            <TextField label='District' id='district' value={client?.district} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
-            <TextField label='State' id='state' value={client?.state} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
+            <TextField label='adress' id='adress' value={client?.adress} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
             <TextField label='Pincode' id='pincode' value={client?.pincode} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
             <Select value={client.activities} name='activities' id='activities' onChange={(e) => { handleInputChange(e.target.name, e.target.value) }} >
               <MenuItem value={`ManuFacturing`} >Manufacturing</MenuItem>
@@ -85,11 +81,7 @@ const DataFields = ({ client, handleInputChange }: Props) => {
             <TextField disabled label='GSTIN' id='gstin' value={client?.gstin} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
             <TextField disabled label='Phone' id='phone' value={client?.phone} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
             <TextField disabled label='Email' id='email' value={client?.email} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
-            <TextField disabled label='Building' id='building' value={client?.building} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
-            <TextField disabled  label='landmark' id='landmark' value={client?.landmark} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
-            <TextField disabled label='City' id='city' value={client?.city} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
-            <TextField disabled label='District' id='district' value={client?.district} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
-            <TextField disabled label='State' id='state' value={client?.state} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
+            <TextField disabled label='Adress' id='adress' value={client?.adress} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
             <TextField disabled label='Pincode' id='pincode' value={client?.pincode} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
             <TextField disabled label='Activities' id='activities' value={client?.activities} onChange={(e) => handleInputChange(e.target.id, e.target.value)} ></TextField>
 
