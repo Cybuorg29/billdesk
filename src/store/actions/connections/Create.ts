@@ -10,7 +10,7 @@ import { ConnectionsActionObj } from "../../reducers/connections/connectionReduc
 import { setConnections } from "../../features/Connections/ConnectionsSlide";
 
 
-export const createConnection = async (generalInfo: clientModelObj, bankInfo: bankDetails) => {
+export const createConnection = async (generalInfo: clientModelObj, bankInfo: bankDetails, navigate: any) => {
   try {
     store.dispatch(change());
     const { auth, userData } = store.getState();
@@ -20,7 +20,7 @@ export const createConnection = async (generalInfo: clientModelObj, bankInfo: ba
     const { data } = await postConnection(generalInfo, bankInfo, _id);
     const res: responceObj = data;
     toast.info(res.message);
-    (res.code === 200) ? sucess(res.package?.generalInfo, res.package?.bankinfo) : (res.code === 400) ? foundId(res) : failure(res)
+    (res.code === 200) ? sucess(res.package, navigate, generalInfo.type) : (res.code === 400) ? foundId(res) : failure(res)
   } catch (err: any) {
     console.log(err.message);
     toast.error('an error occured please try again')
@@ -30,17 +30,9 @@ export const createConnection = async (generalInfo: clientModelObj, bankInfo: ba
 
 
 
-async function sucess(generalInfo: any, bankInfo: any) {
-  const type = generalInfo?.type;
-  const payload: actionPayload = {
-    type: ConnectionsActionObj.addClient,
-    data: {
-      generalInfo, bankInfo, type: type
-    }
-  }
-  store.dispatch(setConnections(payload))
+async function sucess(data: any, navigate: any, type: any) {
   store.dispatch(change())
-
+  navigate(`/view/${data._id}/profile`)
 }
 
 function failure(res: responceObj) {
