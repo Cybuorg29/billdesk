@@ -74,7 +74,7 @@ const InventoryDashboard = (props: Props) => {
             </select>
           </div>
         </div>
-        <div className='w-full h-[93%]' >
+        <div className='w-full h-[93%] ' >
 
           {
             (products.length !== 0) ? <ProductTable /> : <div className='h-full w-full grid justify-items-center items-center'>
@@ -83,9 +83,6 @@ const InventoryDashboard = (props: Props) => {
             </div>
           }
         </div>
-
-
-
       </div>
     </div>
 

@@ -34,6 +34,10 @@ const AddBusiness = (props: Props) => {
     no: ''
   })
 
+  function validateData() {
+
+  }
+
 
   const keys = Object.keys(client);
   const bankKeys = Object.keys(bankDetails);
@@ -54,7 +58,7 @@ const AddBusiness = (props: Props) => {
         <GeneralInputs client={client} type={client?.type} handleClientInput={(e: any) => { handleClientInput(e) }} keys={keys} key={'asd'} />
         <BankInputs bankDetails={bankDetails} Keys={bankKeys} handleBankInput={(e: any) => { handleBankInput(e) }} />
         <div className='mt-3' >
-          <SolidButton color='black' innerText={`Add `} onClick={() => { createConnection(client, bankDetails) }} key={'AddBusinessButton'} />
+          <SolidButton color='black' innerText={`Add `} onClick={() => { createConnection(client, bankDetails, navigate) }} key={'AddBusinessButton'} />
         </div>
       </div>
 
