@@ -24,9 +24,3 @@ yarn-error.log*
 
 # tauri app 
 ./src-tauri
-
-
-# backend server urls 
-  
-.src/api/Url
-
