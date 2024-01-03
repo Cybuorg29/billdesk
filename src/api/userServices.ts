@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useAppSelector } from "../store/app/hooks";
 import { userDetailSchema } from "../models/userModel";
 import { bankInterface } from "../store/features/bank/bankSlice";
-import { baseUrl } from "./Url/ProdUrl";
+import { baseUrl, v2Url } from "./Url/ProdUrl";
 
 
 export const signup = (user: registerArgs) => {
@@ -19,8 +19,8 @@ export const getUserData = (token: any) => {
   return axios.get(`${baseUrl}/api/user/getdata/${token}`);
 };
 
-export const  verifyLogin=(token:string)=>{
-  
+export const verifyLogin = (token: string) => {
+
   return axios.get(`${baseUrl}/api/user/verify/${token}`)
 
 }
@@ -69,10 +69,10 @@ export const updateProfileImage = (image: any, token: any) => {
   );
 };
 
-export const profileData = (id:string)=>{
-   return axios.get(`${baseUrl}/api/get/profile/${id}`);
+export const profileData = (id: string) => {
+  return axios.get(`${v2Url}/api/user/get/profiledata/${id}`);
 }
 
-export const getUserProducts=(id:string)=>{
+export const getUserProducts = (id: string) => {
   return axios.get(`${baseUrl}/api/get/products/${id}`);
 }

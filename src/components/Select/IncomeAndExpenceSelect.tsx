@@ -3,6 +3,7 @@ import { useAppSelector } from '../../store/app/hooks'
 import { useNavigate } from 'react-router-dom'
 import { getMonthName } from '../../utils/getMonthName'
 import { changeIncomeAndExpenceByMonth } from '../../store/actions/data/IncomeAndExpence'
+import { toast } from 'react-toastify'
 
 type Props = {}
 
@@ -18,12 +19,17 @@ const IncomeAndExpenceSelect = (props: Props) => {
   const [monthArray, setMonthArray] = useState<monthObj[]>(appendArray())
   const navigate = useNavigate();
 
+  interface monthObj {
+    name: string;
+    value: number;
+  }
 
   function appendArray(): monthObj[] {
     const monthNames: string[] = [
-      "April", "May", "June", "July", "August", "September",
-      "October", "November", "December", "January", "February", "March"
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
     ];
+
     function getMonthNumber(monthName: string) {
       // Create an array of month names
       const monthNames = [
@@ -44,16 +50,40 @@ const IncomeAndExpenceSelect = (props: Props) => {
       }
     }
 
-
     let months: monthObj[] = [];
     const currentDate = new Date();
-    const currentMonth = currentDate.getMonth() - 2;
+    const fiscalStartMonthIndex = monthNames.indexOf("April");
 
-    for (let i = 0; i < currentMonth; i++) {
+    // Calculate the number of months from April of the current fiscal year
+    // to the current month
+    const monthsCount = (currentDate.getMonth() + 12 - fiscalStartMonthIndex + 1) % 12;
+
+    if (monthsCount > 4) for (let i = 0; i < monthsCount; i++) {
+      const monthIndex = (fiscalStartMonthIndex + i) % 12;
       months.push({
-        name: monthNames[i],
-        value: getMonthNumber(monthNames[i])
-      })
+        name: monthNames[monthIndex],
+        value: getMonthNumber(monthNames[monthIndex])
+      });
+    }
+    else {
+      let num = 0
+      for (let i = 4; i <= 12 + monthsCount; i++) {
+
+        if (i > 12) {
+          months.push({
+            name: monthNames[num],
+            value: getMonthNumber(monthNames[num])
+          });
+          ++num;
+        }
+        else {
+          months.push({
+            name: monthNames[i],
+            value: getMonthNumber(monthNames[i])
+          });
+        }
+
+      }
     }
 
     return months;
