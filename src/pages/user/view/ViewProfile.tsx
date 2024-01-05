@@ -13,9 +13,10 @@ import ProductCard from '../../../components/ui/Product/ProductCard';
 import { ProductObj } from '../../../models/inventory/productModel';
 import { getProducts, getProductsByToken } from '../../../api/inventory';
 import { responceObj } from '../../../models/responce';
-import { useAppSelector } from '../../../store/app/hooks';
+import { useAppDispatch, useAppSelector } from '../../../store/app/hooks';
 import axios from 'axios';
 import { v2Url } from '../../../api/Url/ProdUrl';
+import { change } from '../../../store/features/loader/loaderSlice';
 type Props = {}
 
 const ViewProfile = (props: Props) => {
@@ -31,6 +32,7 @@ const ViewProfile = (props: Props) => {
     const [data, setData]: any = useState<userDetailSchema>()
     const [product, setProduct] = useState<ProductObj[]>([])
     const navigate = useNavigate();
+    const dispatch = useAppDispatch()
 
 
     useEffect(() => {
@@ -80,26 +82,30 @@ const ViewProfile = (props: Props) => {
 
     async function fetchData() {
         try {
+            dispatch(change());
             if (uid === _id) {
                 navigate('/settings')
                 toast.info('You are trying to view your own profile')
             } else {
 
-                const { data } = await profileData(uid)
+                const { data } = await profileData(_id)
                 console.log(data);
                 const res: responceObj = data
                 if (res.code === 200) {
                     setData(data.package)
                     // fetchProduct(data?.package.id)
 
+
                 } else {
                     toast.info(res.message)
                 }
             }
+            dispatch(change());
 
         } catch (err: any) {
             console.log(err.message)
             toast.error('an error occured ')
+            dispatch(change());
         }
     }
 

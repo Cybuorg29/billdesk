@@ -21,26 +21,26 @@ type Props = {}
 
 const CreateExpence = (props: Props) => {
     const { token } = useAppSelector(state => state.auth)
-     const {employee,isEmployee} = useAppSelector(state=>state.employees)
-         const {type} = useParams();
-     const navigate = useNavigate();
-     const [isPurchaseGoods,setIsPurchasedGoods] = useState(false)
-    const [Expence, setExpence] = useState<ExpenceCreateObj>({  
+    const { employee, isEmployee } = useAppSelector(state => state.employees)
+    const { type } = useParams();
+    const navigate = useNavigate();
+    const [isPurchaseGoods, setIsPurchasedGoods] = useState(false)
+    const [Expence, setExpence] = useState<ExpenceCreateObj>({
         title: ``,
         // category consist of codes 
         category: '500',
         amount: 0,
         date: createDate(),
-        Emp_id: '',
+        E_id: '',
         token: token,
-        uid:''
+        uid: ''
     })
 
-    function validateDataAndPush(){
-        if(Expence.title==='')toast.info('please add title to this expence');
-       else  if(Expence.amount===0)toast.info('cannot add expences of '+ converToInrFormat(0));
+    function validateDataAndPush() {
+        if (Expence.title === '') toast.info('please add title to this expence');
+        else if (Expence.amount === 0) toast.info('cannot add expences of ' + converToInrFormat(0));
         else addExpence(Expence);
-        if(Expence.category==='400'){
+        if (Expence.category === '400') {
             navigate('/dashboard/employees')
         }
     }
@@ -57,76 +57,74 @@ const CreateExpence = (props: Props) => {
     }
 
 
-    
+
 
     useEffect(() => {
-         console.log(type)
-        setExpence((prev:any)=>{return{...prev,category:type}})
-  
+        console.log(type)
+        setExpence((prev: any) => { return { ...prev, category: type } })
+
     }, [type])
-    
+
 
     return (
         <>
             <div className='font-semibold text-2xl text-grayFont p-5 ' >Create Expence</div>
-        <div className='grid gap-5  rounded-xl p-5' >
-            <div className='p-5 border rounded-xl bg-component ' >
-                <div className='grid gap-3 w-1/2'>
-                    <label>Expence Type</label>
-                    <Select value={Expence.category} onChange={(e) => {navigate(`/create/${e.target.value}/expence`)}} >
-                        <MenuItem value='400'>Salaries Paid </MenuItem>
-                        <MenuItem value='300'>Purchase </MenuItem>
-                        <MenuItem value='200'>Purchase of Goods</MenuItem>
-                        <MenuItem value='100'>Provision Paid</MenuItem>
-                        <MenuItem value='600'>Tax Filled (other)</MenuItem>
-                        <MenuItem value='700'>GST Filled</MenuItem>
-                        <MenuItem value='500'>others</MenuItem>
+            <div className='grid gap-5  rounded-xl p-5' >
+                <div className='p-5 border rounded-xl bg-component ' >
+                    <div className='grid gap-3 w-1/2'>
+                        <label>Expence Type</label>
+                        <Select value={Expence.category} onChange={(e) => { navigate(`/create/${e.target.value}/expence`) }} >
+                            <MenuItem value='400'>Salaries Paid </MenuItem>
+                            <MenuItem value='300'>Purchase </MenuItem>
+                            <MenuItem value='200'>Purchase of Goods</MenuItem>
+                            <MenuItem value='100'>Provision Paid</MenuItem>
+                            <MenuItem value='600'>Tax Filled (other)</MenuItem>
+                            <MenuItem value='700'>GST Filled</MenuItem>
+                            <MenuItem value='500'>others</MenuItem>
 
-                    </Select>
-                </div>
-                <div className='flex flex-wrap my-5 gap-4  mt-4' >
-                    <div className='grid gap-3 w-1/2 ' >
-                        <label>Title (Note)</label>
-                        <Input value={Expence.title} onChange={(e) => { setExpence({ ...Expence, title: e.target.value }) }} />
+                        </Select>
                     </div>
-                    <div className='grid gap-3 ' >
-                        <label>Amount</label>
-                        <Input type='number' value={Expence.amount} onChange={(e) => { handleAmountInput(e) }} />
-                    </div>
+                    <div className='flex flex-wrap my-5 gap-4  mt-4' >
+                        <div className='grid gap-3 w-1/2 ' >
+                            <label>Title (Note)</label>
+                            <Input value={Expence.title} onChange={(e) => { setExpence({ ...Expence, title: e.target.value }) }} />
+                        </div>
+                        <div className='grid gap-3 ' >
+                            <label>Amount</label>
+                            <Input type='number' value={Expence.amount} onChange={(e) => { handleAmountInput(e) }} />
+                        </div>
 
-                </div>
+                    </div>
                     <div className='m-5' >
-                    <AddStockDialog close={()=>{setIsPurchasedGoods(false)}} id={Expence.uid} open={isPurchaseGoods} key={'sdasd'} />
-                    <ExtraInput   value={Expence.uid} code={Expence.category} handleIdChange={(value:any)=>{handleExtraInput(value)}} />
-
+                        <AddStockDialog close={() => { setIsPurchasedGoods(false) }} id={Expence.uid} open={isPurchaseGoods} key={'sdasd'} />
+                        <ExtraInput value={Expence.uid} code={Expence.category} handleIdChange={(value: any) => { handleExtraInput(value) }} />
                     </div>
-                <div>
-                    {/* <Button color='info' variant='outlined' onClick={() => { ; addExpence(Expence) }} >Add Expence</Button> */}
-                    <SolidButton color='black' innerText='Add Expence' onClick={() => { validateDataAndPush() }} />
+                    <div>
+                        <SolidButton color='black' innerText='Add Expence' onClick={() => { validateDataAndPush() }} />
+                    </div>
                 </div>
+
+
+
+
             </div>
-
-
-
-
-        </div>
         </>
 
     )
 
-     async function handleExtraInput(value:any) {
-        setExpence((prev:any)=>{return{...prev,uid:value}});console.log('value',value)
-         switch(Expence.category){
+    async function handleExtraInput(value: any) {
+        switch (Expence.category) {
             case '200':
                 setIsPurchasedGoods(true);
                 break;
-                case '400':
-                employee.map((index:any)=>{
-                  if(index._id===value) setExpence((prev:any)=>{return{...prev,title:`salary paid to ${index.name}`,amount:index.salary}})
-                  return
+            case '400':
+                employee.map((index: any) => {
+                    setExpence((prev: any) => { return { ...prev, uid: value } }); console.log('value', value)
+                    if (index._id === value) setExpence((prev: any) => { return { ...prev, title: `salary paid to ${index.name}`, amount: index.salary } })
+                    return
                 })
                 break;
-         }        
+        }
     }
 }
 

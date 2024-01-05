@@ -9,37 +9,37 @@ import { ConnectionsActionObj } from "../../reducers/connections/connectionReduc
 import { setConnections } from "../../features/Connections/ConnectionsSlide";
 import { getConnection } from "./set";
 
-export async function deleteConnection(user:any,role:number) {
-    try{
-        const {_id} = store.getState().userData
+export async function deleteConnection(user: any, role: number) {
+    try {
+        const { _id } = store.getState().userData
         store.dispatch(change());
-        const {token} = store.getState().auth
-        const  {data} = await deleteConnectionApi(_id,user._id,role);
-        const res:responceObj = data;
+        const { token } = store.getState().auth
+        const { data } = await deleteConnectionApi(_id, user._id, role);
+        const res: responceObj = data;
         console.log(res)
-        if(res.code===200) {
-            sucess(res,user.id,role)
-        }else failure(res)
+        if (res.code === 200) {
+            sucess(res, user.id, role)
+        } else failure(res)
 
-    }catch(err:any){
-       console.log(err.message);
-       toast.error('an error occured please try again ')
+    } catch (err: any) {
+        console.log(err.message);
+        toast.error('an error occured please try again ')
     }
-    
+
     store.dispatch(change())
 }
 
-function sucess(res:responceObj,id:string,role:number){
+function sucess(res: responceObj, id: string, role: number) {
     toast.success(res.message);
-      getConnection();
+    getConnection();
 
 
 }
 
-function failure(res:responceObj){
+function failure(res: responceObj) {
     toast.error(res.message)
-     if(res.code===500){
-         console.log(res.error)
-     }
+    if (res.code === 500) {
+        console.log(res.error)
+    }
 
 }

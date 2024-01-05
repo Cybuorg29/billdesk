@@ -138,7 +138,7 @@ const NavBar = (props: Props) => {
             navTabsWithDetails.map((index: detailsTab) => {
               return <>
                 <details className=" duration-500" title={index.name} >
-                  <summary className="hover:bg-[#21262C] rounded-lg p-2 pl-3  cursor-pointer" >{index.name}</summary>
+                  <summary className="hover:bg-[#21262C] rounded-lg p-2 pl-3  cursor-pointer  list-decimal  " >{index.name}</summary>
                   {
                     index.Tabs.map((item: Navtab) => {
                       return <>
