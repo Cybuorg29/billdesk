@@ -7,6 +7,7 @@ import { change } from "../../../features/loader/loaderSlice"
 import { actionPayload } from "../../../payload/payloadModel"
 import { updateStock } from "../../../features/inventory/inventorySlice"
 import { setIncomeAndExpence } from "../../../features/IncomeAndExpences/IncomeAndExpences"
+import { stockOperation } from "../../../reducers/inventory"
 
 
 interface addStock {
@@ -17,22 +18,45 @@ interface addStock {
     E_id: string
 }
 
-function sucess(price: number, quantity: number, expence: object) {
+
+
+export async function addStock({ _id, price, quantity, total, E_id }: addStock) {
     try {
 
         store.dispatch(change())
+        const { auth } = store.getState();
+        const { token } = auth;
+        const date = createDate();
+
+        const { data } = await AddStockApi(quantity, price, total, token, _id, date, E_id)
+        const res: responceObj = data;
+        { (res.code === 200) ? sucess(price, quantity, res.package.expence, _id) : error(res.error, res.message) }
+        store.dispatch(change())
+    } catch (err: any) {
+        console.log(err.message);
+        store.dispatch(change())
+
+
+    }
+
+}
+
+function sucess(price: number, quantity: number, expence: object, id: string) {
+    try {
+
         const stockPayload: actionPayload = {
             data: {
                 rate: price,
-                stock: quantity
+                stock: quantity,
+                _id: id
             },
-            type: 'add'
+            type: stockOperation.add
         };
 
         store.dispatch(updateStock(stockPayload));
         const expencePayload: actionPayload = {
             data: expence,
-            type: 'pushExpences'
+            type: 'pushExpence'
         }
         store.dispatch(setIncomeAndExpence(expencePayload))
         toast.success('Stock updated Sucessfully');
@@ -49,28 +73,4 @@ function sucess(price: number, quantity: number, expence: object) {
 function error(error: any, message: string) {
     toast.error(message);
     console.log(error);
-    store.dispatch(change())
-}
-
-export async function addStock({ _id, price, quantity, total, E_id }: addStock) {
-    try {
-
-        store.dispatch(change())
-        const { auth } = store.getState();
-        const { token } = auth;
-        const date = createDate();
-
-        const { data } = await AddStockApi(quantity, price, total, token, _id, date)
-        const res: responceObj = data;
-
-        { (res.code === 200) ? sucess(res.package?.avgPrice, quantity, res.package) : error(res.error, res.message) }
-
-
-    } catch (err: any) {
-        console.log(err.message);
-        store.dispatch(change())
-
-
-    }
-
 }

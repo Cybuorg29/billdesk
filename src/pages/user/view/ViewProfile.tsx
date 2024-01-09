@@ -88,7 +88,7 @@ const ViewProfile = (props: Props) => {
                 toast.info('You are trying to view your own profile')
             } else {
 
-                const { data } = await profileData(_id)
+                const { data } = await profileData(uid)
                 console.log(data);
                 const res: responceObj = data
                 if (res.code === 200) {

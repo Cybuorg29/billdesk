@@ -1,38 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { SolidButton } from "../../../components/ui/Buttons/solid/SolidButton";
 import { useNavigate } from "react-router-dom";
-import exp from "constants";
-import { expIcon } from "../../../icons/exportIcons";
 import { useAppSelector } from "../../../store/app/hooks";
 import { converToInrFormat } from "../../../utils/ConvertInrFormat";
-import SouthWestIcon from "@mui/icons-material/SouthWest";
-import NorthEastIcon from "@mui/icons-material/NorthEast";
-import ExploreRoundedIcon from "@mui/icons-material/ExploreRounded";
 import TrackerChart from "../../../components/charts/tracker/TrackerChart";
 import Table from "./components/Table";
-import { incomeAndExpencesObjectSchema } from "../../../store/features/IncomeAndExpences/IncomeAndExpences";
 import Tabs, { tabProps } from "../../../components/ui/tabs/Tabs";
-import { getMonthName } from "../../../utils/getMonthName";
-import { changeIncomeAndExpenceByMonth } from "../../../store/actions/data/IncomeAndExpence";
 import IncomeAndExpenceSelect from "../../../components/Select/IncomeAndExpenceSelect";
 import PageHeading from "../../../components/ui/Page Heading/PageHeading";
 type Props = {};
 
 
-interface monthObj{
-  name:string
-  value:number
+interface monthObj {
+  name: string
+  value: number
 }
 interface monthobjArray {
-  months:monthObj[]
+  months: monthObj[]
 }
 
 const IncAndExpDashboard = (props: Props) => {
   const { totalExpences, totalIncome, expences, income } = useAppSelector(
     (state) => state.incomeAndExpence
   );
-   const {month} = useAppSelector(state=>state.incomeAndExpence)
-  const [monthArray,setMonthArray] = useState<monthObj[]>()
   const navigate = useNavigate();
   const tabArray: tabProps[] = [
     {
@@ -56,8 +46,12 @@ const IncAndExpDashboard = (props: Props) => {
   ];
 
 
- 
-  
+
+
+  useEffect(() => {
+
+  }, [income, expences])
+
 
 
   return (
@@ -65,13 +59,13 @@ const IncAndExpDashboard = (props: Props) => {
       <div className="text-2xl font-semibold  flex place-content-between  h-[8%]  text-grayFont">
         {" "}
         <div className="flex gap-5 place-items-center">
-         <PageHeading name="Transactions"/>
-        <IncomeAndExpenceSelect/>
-      
+          <PageHeading name="Transactions" />
+          <IncomeAndExpenceSelect />
+
 
         </div>
         <div className="flex gap-3 text-sm font-black place-items-start">
-          
+
           <SolidButton
             color="black"
             innerText="Add Expence"
@@ -103,18 +97,18 @@ const IncAndExpDashboard = (props: Props) => {
       </div>
       <div className="flex   gap-3 h-[75%]     rounded-xl ">
         <div className=" w-1/2  rounded-xl pb-1 bg-component h-full" >
-      <TrackerChart/>
+          <TrackerChart />
         </div>
         <div className=" flex  gap-2 h-full w-1/2" >
           <div className="h-full w-1/2 " >
-        <Table array={income}   name="Income"  color="text-green-600" link="/view/all/income" />
+            <Table array={income} name="Income" color="text-green-600" link="/view/all/income" />
           </div>
           <div className="h-full  w-1/2 " >
-        <Table array={expences} name="Expences" color="text-red-600"  link="/view/all/10/expences" />
+            <Table array={expences} name="Expences" color="text-red-600" link="/view/all/10/expences" />
 
           </div>
         </div>
-   
+
       </div>
 
     </div>

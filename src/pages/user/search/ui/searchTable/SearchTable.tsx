@@ -44,7 +44,7 @@ const SearchTable = ({ array, isLoading }: Props) => {
                     array.map((index, i: number) => {
                       console.log(index.type)
                       return <tr className="border-b border-neutral-300 font-light    cursor-pointer  duration-150 hover:bg-gray-100"
-                        onClick={() => { navigate(`/view/${index.id}/profile`) }} id={`${i}`}>
+                        onClick={() => { navigate(`/view/${index._id}/profile`) }} id={`${i}`}>
                         <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{++i}</th>
                         <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{index?.name}</th>
                         <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{index?.gstin}</th>

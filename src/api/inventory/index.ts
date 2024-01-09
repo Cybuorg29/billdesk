@@ -4,7 +4,7 @@ import { createProductObj } from "../../models/inventory/productModel"
 import { toast } from "react-toastify"
 
 export const getProductsByToken = (token: any) => {
-    return  toast.promise( axios.get(`${baseUrl}/api/get/user/products/${token}`),{pending:'getting Products'})
+    return toast.promise(axios.get(`${baseUrl}/api/get/user/products/${token}`), { pending: 'getting Products' })
 }
 
 export const pushProduct = (token: string, product: createProductObj) => {
@@ -22,9 +22,9 @@ export const delProduct = (token: string, _id: string) => {
 
 }
 
-export const AddStockApi = (value: any, price: any, total: any, token: any, _id: any, date: any) => axios.post(`${baseUrl}/api/add/stock`, { value, price, total, token, _id, date })
+export const AddStockApi = (value: any, price: any, total: any, token: any, _id: any, date: any, E_id: string) => axios.post(`${baseUrl}/api/add/stock`, { value, price, total, token, _id, date, E_id })
 
-export async function getProducts(id:string) {
-    return axios.get(`${baseUrl}/api/get/products/${id}`)    
+export async function getProducts(id: string) {
+    return axios.get(`${baseUrl}/api/get/products/${id}`)
 }
 
