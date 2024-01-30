@@ -17,6 +17,10 @@ import { useAppDispatch } from "../../store/app/hooks";
 import { deleteToken } from "../../store/features/auth/authSlice";
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import AddIcon from "../ui/icons/AddIcon";
+import { MdSwitchAccount } from "react-icons/md";
+import CallReceivedIcon from '@mui/icons-material/CallReceived';
+import { RiFolderReceivedLine } from "react-icons/ri";
+import { MdOutlineDriveFolderUpload } from "react-icons/md";
 type Props = {};
 
 
@@ -68,15 +72,20 @@ const NavBar = (props: Props) => {
       icon: <PersonIcon />
     },
     {
+      name: 'Accounts',
+      link: '/accounts',
+      icon: <MdSwitchAccount />
+    },
+    {
       name: 'Employees',
       link: 'dashboard/employees',
       icon: <PersonIcon />
     },
-    {
-      name: 'SpreadSheet',
-      link: '/spreadsheet',
-      icon: <FormatListNumberedIcon />
-    },
+    // {
+    //   name: 'SpreadSheet',
+    //   link: '/spreadsheet',
+    //   icon: <FormatListNumberedIcon />
+    // },
 
 
   ]
@@ -89,10 +98,29 @@ const NavBar = (props: Props) => {
         {
           name: 'Create P.O',
           link: '/client',
-          icon: <AddIcon onclick={() => { }} color="black" key={'asdas'} />
+          icon: <AddIcon onclick={() => { }} color="black" key={'P.O.1'} />
+        }
+      ]
+
+
+    },
+    {
+      name: 'Bills',
+      Tabs: [
+
+        {
+          name: 'Bills Receivable',
+          icon: <RiFolderReceivedLine size={20} />,
+          link: '/dashboard/invoice'
+        },
+        {
+          name: 'Bills Payable',
+          icon: <MdOutlineDriveFolderUpload size={20} />,
+          link: '/dashboard/bills/payable'
         }
       ]
     }
+
 
   ]
 
@@ -138,11 +166,11 @@ const NavBar = (props: Props) => {
             navTabsWithDetails.map((index: detailsTab) => {
               return <>
                 <details className=" duration-500" title={index.name} >
-                  <summary className="hover:bg-[#21262C] rounded-lg p-2 pl-3  cursor-pointer  list-decimal  " >{index.name}</summary>
+                  <summary className="hover:bg-[#21262C] rounded-lg p-2 pl-3  cursor-pointer    " >{index.name}</summary>
                   {
                     index.Tabs.map((item: Navtab) => {
                       return <>
-                        <p className="p-2 flex  hover:bg-[#21262C] rounded-lg  cursor-pointer" onClick={() => navigate(item.link)}>
+                        <p className="p-2 flex  gap-2 hover:bg-[#21262C] rounded-lg  cursor-pointer" onClick={() => navigate(item.link)}>
                           <div className="grid place-content-center">{item.icon}</div>
                           <div className="grid place-content-center">{item.name}</div>
                         </p>

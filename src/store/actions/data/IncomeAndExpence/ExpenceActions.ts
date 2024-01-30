@@ -23,6 +23,7 @@ export const deleteExpence = async (uid: string) => {
       toast.error("an error occured please refresh");
       store.dispatch(change());
     } else {
+      console.log(token, uid)
       const { data } = await deleteExpenceByToken(token, uid);
       if (data.code !== 200) {
         toast.error(data.message);
@@ -77,9 +78,9 @@ export const deleteExpence = async (uid: string) => {
 export const addExpence = async (Expence: any) => {
   try {
     store.dispatch(change());
-      const {token,istoken} = store.getState().auth
-      if(!istoken) throw new Error('an error occured');
-    const { data } = await addExpences(Expence,token);
+    const { token, istoken } = store.getState().auth;
+    if (!istoken) throw new Error("an error occured");
+    const { data } = await addExpences(Expence, token);
     if (data?.code != 200) {
       toast.error(data?.message);
       store.dispatch(change());
@@ -96,9 +97,9 @@ export const addExpence = async (Expence: any) => {
       store.dispatch(change());
     }
   } catch (err: any) {
-    console.log(err?.error)
+    console.log(err?.error);
     toast.error(err.message);
-     store.dispatch(change())
+    store.dispatch(change());
   }
 };
 

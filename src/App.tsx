@@ -36,6 +36,10 @@ import CreateInvoice from './pages/invoice/create/Page';
 import CreateIncome from './pages/income/create/page';
 import ViewInvoice from './pages/invoice/view/Page';
 import ClaimProfile from './pages/user/claim/profile/page';
+import Accounts from './pages/accounts/page';
+import ViewAccount from './pages/accounts/view/page';
+import PayableDashboard from './pages/bills/receivable/dashboard/page';
+import CheckState from './pages/bills/receivable/checkState';
 registerLicense("Ngo9BigBOggjHTQxAR8/V1NGaF5cXmdCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdgWXhfeHVUQ2hfWUJ0VkE=");
 function App() {
 
@@ -98,6 +102,9 @@ function App() {
                 <Route path='/create/income' element={<CreateIncome />} />
                 <Route path='/create/:type/income' element={<CreateIncome />} />
                 <Route path='/view/:id/invoice' element={<ViewInvoice />} />
+                <Route path='/accounts' element={<Accounts />} />
+                <Route path='/view/:id/account' element={<ViewAccount />} />
+                <Route path='/dashboard/bills/payable' element={<CheckState children={<PayableDashboard />} key={'asdasd'} />} />
               </Route>
 
             </Routes>

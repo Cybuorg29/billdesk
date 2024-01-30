@@ -139,7 +139,7 @@ const InventoryDashboard = (props: Props) => {
                             <div className='flex ' >
                               <DeleteIcon color='black' onclick={() => { setConfirmDelete(true); setId(index._id) }} key={'adas'} tooltip='Delete Product' />
                               <EditIcons color='blue' onclick={() => { setToEditProduct(index); setToEditProductScale(true) }} key={'asda'} />
-                              <AddIcon color='blue' onclick={() => { (index.category === 'Raw Material') ? setAddDialog(true) : setAddQtyDialogScale(true); setId(index._id) }} key={index._id + 'a'} />
+                              <AddIcon color='blue' onclick={() => { setAddDialog(true); setId(index._id) }} key={index._id + 'a'} />
                               {/* <MinusIcon color='black' onclick={() => { navigate(`/user/view/${index._id}/product`) }} key={index._id + 'M'} /> */}
                               <ArrowIconForward onclick={() => { navigate(`/user/view/${index._id}/product`) }} tooltip='View Product' key={index.name + 'v'} />
 

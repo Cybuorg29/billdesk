@@ -72,7 +72,9 @@ const ViewInvoice = (props: Props) => {
     id: '',
     isPaid: false,
     _id: '',
-    _v: 0
+    _v: 0,
+    createdAt: '',
+    updatedAt: ''
   })
 
   useEffect(() => {

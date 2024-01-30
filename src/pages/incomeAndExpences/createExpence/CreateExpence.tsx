@@ -94,6 +94,15 @@ const CreateExpence = (props: Props) => {
                             <Input type='number' value={Expence.amount} onChange={(e) => { handleAmountInput(e) }} />
                         </div>
 
+                        <div className='grid gap-3 w-1/2 ' >
+                            <label>Status</label>
+                            {/* <Input type='number' value={Expence.amount} onChange={(e) => { handleAmountInput(e) }} /> */}
+                            <Select title='credit'>
+                                <MenuItem>Paid</MenuItem>
+                                <MenuItem>Credit</MenuItem>
+                            </Select>
+                        </div>
+
                     </div>
                     <div className='m-5' >
                         <AddStockDialog close={() => { setIsPurchasedGoods(false) }} id={Expence.uid} open={isPurchaseGoods} key={'sdasd'} />

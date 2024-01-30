@@ -1,51 +1,53 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../../app/store"
-import {  changeIncomeAndExpencesState} from "../../reducers/incAndExpReducer"
+import { changeIncomeAndExpencesState } from "../../reducers/incAndExpReducer"
 import { IIncome } from "../../../models/incomeAndExp/incomeInterface"
 
 
 //interface for object inside incomearray
-  export interface  incomeAndExpencesObjectSchema{
-    title:string
-    amount:number
-    category:string
-    id:string
-    date:string
+export interface incomeAndExpencesObjectSchema {
+  title: string
+  amount: number
+  category: string
+  id: string
+  date: string
+  E_id: string
+  createdAt: string
 }
 //interface for income array 
-  export interface incomeArray{
-   income:IIncome[]
-   expences:incomeAndExpencesObjectSchema[]
-   totalIncome:number
-   totalExpences:number
-   isIncome:boolean
-   isExpences:boolean
-   month:number
+export interface incomeArray {
+  income: IIncome[]
+  expences: incomeAndExpencesObjectSchema[]
+  totalIncome: number
+  totalExpences: number
+  isIncome: boolean
+  isExpences: boolean
+  month: number
 }
 
 
-const initialState:incomeArray={
-    income:[],
-    expences:[],
-    isExpences:false,
-    isIncome:false,
-    totalExpences:0,
-    totalIncome:0,
-    month:13    
+const initialState: incomeArray = {
+  income: [],
+  expences: [],
+  isExpences: false,
+  isIncome: false,
+  totalExpences: 0,
+  totalIncome: 0,
+  month: 13
 }
 
 
 const ProfitAndLossSlice = createSlice({
-     name: 'income',
-    initialState,
-    reducers:{
-        setIncomeAndExpence:changeIncomeAndExpencesState,
-       
-    }
+  name: 'income',
+  initialState,
+  reducers: {
+    setIncomeAndExpence: changeIncomeAndExpencesState,
+
+  }
 })
 
 // export const { switch } = loaderSlice.actions
-export const {setIncomeAndExpence} =  ProfitAndLossSlice.actions
+export const { setIncomeAndExpence } = ProfitAndLossSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectCount = (state: RootState) => state.counter.value
