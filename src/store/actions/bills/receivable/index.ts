@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import { store } from "../../../app/store";
-import { getPayablesApi } from "../../../../api/v2/bills/receivable/api";
+import { getPayablesApi } from "../../../../api/v2/bills/payable/api";
 import { responceObj } from "../../../../models/responce";
 import { actionPayload } from "../../../payload/payloadModel";
 import { payableActions } from "../../../reducers/bills/receivable/reducer";

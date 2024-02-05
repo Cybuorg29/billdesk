@@ -18,3 +18,18 @@ export interface IbillsPaylable {
     updatedAt: any
 
 }
+
+export interface IcreateBillsPayable {
+    token: string,
+    billed_From: {
+        name: string,
+        gstin: string,
+        adress: string,
+        id: string,
+        state: string
+    },
+    products: IInvoiceProduct[],
+    po: string
+    total: number
+    isPaid: boolean
+}

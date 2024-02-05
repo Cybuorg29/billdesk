@@ -15,11 +15,12 @@ interface array {
 export const ProductOperations = {
     set: "set",
     delete: "delete",
-    push: "push"
+    push: "push",
 }
 export const stockOperation = {
     add: 'add',
-    delete: 'delete'
+    delete: 'delete',
+    update: 'update'
 }
 
 
@@ -77,6 +78,15 @@ export const changeStock = (state: productArray, action: PayloadAction<actionPay
                         state.products[i].stock = state.products[i].stock + parseFloat(data?.stock)
                     })
                     break;
+
+                case stockOperation.update:
+                    state.products = state.products.map((index: ProductObj) => {
+                        if (index._id === data._id) {
+                            index.stock = data.qty;
+                            return index
+                        }
+                        return index
+                    })
             }
 
     }

@@ -9,12 +9,17 @@ import { SolidButton } from '../../../../components/ui/Buttons/solid/SolidButton
 import DashboardTable, { DashboardTableProps } from '../../../../components/ui/table/dashboardTable'
 import { tabProps } from '../../../../components/ui/tabs/Tabs'
 import InfoTabs from '../../../../components/ui/tabs/InfoTabs'
+import { DeleteIcon } from '../../../../components/ui/icons/DeleteIcon'
+import ViewIcon from '../../../../components/ui/icons/ViewIcon'
+import ArrowIconForward from '../../../../components/ui/icons/ArrowIconForward'
+import { useNavigate } from 'react-router-dom'
 
 type Props = {}
 
 const PayableDashboard: React.FC = (props: Props) => {
 
     const { invoice } = useAppSelector(state => state.payables);
+    const navigate = useNavigate()
     const keys = {
         heading: useId(),
         InsertNew: useId(),
@@ -25,7 +30,7 @@ const PayableDashboard: React.FC = (props: Props) => {
             amount: 0,
             image: '',
             link: '',
-            name: 'Total Invoices'
+            name: 'Total Bills Payable'
         }
         ,
         {
@@ -42,7 +47,7 @@ const PayableDashboard: React.FC = (props: Props) => {
             name: 'Amount Due'
         }
     ])
-    const [tableArray, setTableArray] = useState<DashboardTableProps>({
+    const [tableArray, setTableArray]: any = useState<DashboardTableProps>({
         dataArray: [],
         headers: ['Date', 'Billed From', 'P.O No.', 'status', 'Total'],
         onclick: () => { },
@@ -50,12 +55,11 @@ const PayableDashboard: React.FC = (props: Props) => {
     })
 
 
-    const dashboardArray: DashboardTableProps = {
+    let dashboardArray: DashboardTableProps = {
         dataArray: [],
-        headers: ['Date', 'Billed From', 'P.O No.', 'status', 'Total'],
+        headers: ['Date', 'Billed From', 'P.O No.', 'status', 'Total', 'actions'],
         onclick: () => { },
         Buttons: []
-
     }
 
     class arrayObj {
@@ -75,10 +79,26 @@ const PayableDashboard: React.FC = (props: Props) => {
 
     function InitliseTable() {
         let newArray: any = []
+        let totalCount = 0;
+        let unpaidCount = 0
+        let unpaidTotal = 0;
         invoice.map((index: IbillsPaylable, i: number) => {
             dashboardArray.dataArray.push(new arrayObj(convertIsoDate(index.createdAt), index.billed_From.name, index.po, converToInrFormat(index.total), (index.isPaid) ? 'Paid' : 'Unpaid'))
+            totalCount = ++totalCount
+            if (index.isPaid) { }
+            else {
+                unpaidCount = ++unpaidCount;
+                unpaidTotal = unpaidTotal + index.total
+            }
+            dashboardArray.Buttons?.push([<DeleteIcon color='black' onclick={() => { }} tooltip='Delete' key={index._id + '1'} />, <ArrowIconForward onclick={() => { navigate(`/view/bills/${index._id}/payable`) }} tooltip='Forward' key={index._id + 3} />]);
+
         })
-        console.log('newArray', newArray)
+        console.log('newArray', dashboardArray)
+        let newTabs = tabArray;
+        newTabs[0].amount = (totalCount);
+        newTabs[1].amount = unpaidCount;
+        newTabs[2].amount = converToInrFormat(unpaidTotal);
+        setTabArray(newTabs)
         setTableArray(dashboardArray)
 
     }
@@ -88,7 +108,7 @@ const PayableDashboard: React.FC = (props: Props) => {
 
     useEffect(() => {
         InitliseTable()
-    }, [])
+    }, [invoice])
 
 
     return (
@@ -96,8 +116,7 @@ const PayableDashboard: React.FC = (props: Props) => {
             <div className='h-[5%] flex place-content-between'>
                 <PageHeading name='Bills Payables' key={keys.heading} />
                 <div>
-                    <SolidButton color='black' innerText='Insert New ' onClick={() => { }} key={keys.InsertNew} />
-
+                    <SolidButton color='black' innerText='Insert New ' onClick={() => { navigate(`/create/billspayable`) }} key={keys.InsertNew} />
                 </div>
             </div>
             <div className='h-[15%]'>
@@ -107,27 +126,7 @@ const PayableDashboard: React.FC = (props: Props) => {
             {/* table */}
 
             <div className=' bg-component h-[80%] rounded-xl  '>
-                {/* <div className='grid grid-cols-4 pl-5  border-b uppercase font-source text-grayFont  border-black'>
-                    <div className='px-6 py-4  sticky text-grayFont'>Date</div>
-                    <div className='px-6 py-4  sticky text-grayFont'>Billed From</div>
-                    <div className='px-6 py-4  sticky text-grayFont'>Po No</div>
-                    <div className='px-6 py-4  sticky text-grayFont'>Total</div>
-                </div>
-                {
-                    invoice.map((index: IbillsPaylable) => {
-                        return <>
-                            <div className='grid grid-cols-4  border-b border-black'>
-                                <div className='px-6 py-3  sticky '>{convertIsoDate(index.createdAt)}</div>
-                                <div className='px-6 py-3  sticky '>{index.billed_From.name}</div>
-                                <div className='px-6 py-3  sticky '>{index.po}</div>
-                                <div className='px-6 py-3  sticky '>{converToInrFormat(index.total)}</div>
-                            </div>
-                        </>
-                    })
-                } */}
-
-
-                <DashboardTable dataArray={tableArray.dataArray} headers={dashboardArray.headers} onclick={() => { }} Buttons={[]} key={'itit'} />
+                <DashboardTable dataArray={tableArray.dataArray} headers={tableArray.headers} onclick={() => { }} Buttons={tableArray.Buttons} key={'itit'} />
 
             </div>
 
@@ -135,4 +134,4 @@ const PayableDashboard: React.FC = (props: Props) => {
     )
 }
 
-export default PayableDashboard
+export default PayableDashboard 

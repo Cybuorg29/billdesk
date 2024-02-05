@@ -38,8 +38,10 @@ import ViewInvoice from './pages/invoice/view/Page';
 import ClaimProfile from './pages/user/claim/profile/page';
 import Accounts from './pages/accounts/page';
 import ViewAccount from './pages/accounts/view/page';
-import PayableDashboard from './pages/bills/receivable/dashboard/page';
-import CheckState from './pages/bills/receivable/checkState';
+import PayableDashboard from './pages/bills/payable/dashboard/page';
+import CheckState from './pages/bills/payable/checkState';
+import ViewBillsPayable from './pages/bills/payable/view/page';
+import CreateBillsPayable from './pages/bills/payable/create/page';
 registerLicense("Ngo9BigBOggjHTQxAR8/V1NGaF5cXmdCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdgWXhfeHVUQ2hfWUJ0VkE=");
 function App() {
 
@@ -105,6 +107,8 @@ function App() {
                 <Route path='/accounts' element={<Accounts />} />
                 <Route path='/view/:id/account' element={<ViewAccount />} />
                 <Route path='/dashboard/bills/payable' element={<CheckState children={<PayableDashboard />} key={'asdasd'} />} />
+                <Route path='/view/bills/:id/payable' element={<CheckState children={<ViewBillsPayable />} key={'asdasd'} />} />
+                <Route path='/create/billspayable' element={<CreateBillsPayable />} />
               </Route>
 
             </Routes>

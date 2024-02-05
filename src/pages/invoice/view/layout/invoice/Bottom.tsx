@@ -52,7 +52,7 @@ const Bottom = ({ invoice }: Props) => {
   useEffect(() => {
     setTaxAmount()
     calculateTotalTax()
-    setRoundOffNum(calculateGrandTotal() - roundNumber(invoice.grand_Total));
+    setRoundOffNum(roundNumber(invoice.grand_Total) - calculateGrandTotal());
   }, [invoice])
 
 

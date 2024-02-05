@@ -89,7 +89,7 @@ const CreateInvoice = (props: Props) => {
 
     function roundOff() {
         if (isRoundOff) {
-            setRoundOffNum(calculateGrandTotal() - roundNumber(invoice.grand_Total));
+            setRoundOffNum(roundNumber(invoice.grand_Total) - calculateGrandTotal());
             setInvoice((prev) => { return { ...prev, grand_Total: roundNumber(prev.grand_Total) } })
         } else {
 
