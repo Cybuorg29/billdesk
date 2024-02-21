@@ -40,7 +40,7 @@ const TrackerChart = (props: Props) => {
       if (array.length === 0) {
         // toast.error('empty')
         const obj: TrackerChartData = {
-          date:convertIsoDate(index.createdAt),
+          date: convertIsoDate(index.createdAt).split('20')[0],
           expences: 0,
           income: index.amount,
         };
@@ -59,7 +59,7 @@ const TrackerChart = (props: Props) => {
         if (find === false) {
           // toast.info(index.date)
           const obj: TrackerChartData = {
-            date: convertIsoDate(index.createdAt),
+            date: convertIsoDate(index.createdAt).split('20')[0],
             expences: 0,
             income: index.amount,
           };
@@ -72,7 +72,7 @@ const TrackerChart = (props: Props) => {
       if (array.length === 0) {
         // toast.info('empty')
         const obj: TrackerChartData = {
-          date: index.date,
+          date: convertIsoDate(index.createdAt).split('20')[0],
           expences: index.amount,
           income: 0,
         };
@@ -95,7 +95,7 @@ const TrackerChart = (props: Props) => {
         if (find === false) {
           // toast.info(index.date)
           const obj: TrackerChartData = {
-            date: index.date,
+            date: convertIsoDate(index.createdAt).split('20')[0],
             expences: index.amount,
             income: 0,
           };
@@ -117,47 +117,47 @@ const TrackerChart = (props: Props) => {
 
   return (
     <>
-    <ResponsiveContainer
-      width={"100%"}
-      height={"100%"}
-      className={"grid items-center  bg-component rounded-xl    w-full h-full overflow-auto "}
-    >
-      
-      <BarChart
-        data={data}
-        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+      <ResponsiveContainer
+        width={"100%"}
+        height={"100%"}
+        className={"grid items-center  bg-component rounded-xl    w-full h-full overflow-auto "}
       >
-         <Legend />
-        <defs>
-          <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-            <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
-          </linearGradient>
-          <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
-            <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
-          </linearGradient>
-        </defs>
-        <XAxis dataKey="date" />
-        {/* <YAxis /> */}
-        {/* <CartesianGrid /> */}
-        <Tooltip />
-       
-        <Bar
-          type="monotone"
-          dataKey="income"
-          stroke="#82ca9d"
-       
-          fill="url(#colorPv)"
-        />
-        <Bar
-          type="monotone"
-          dataKey="expences"
-          fillOpacity={1}
-          fill="url(#colorUv)"
-        />
-      </BarChart>
-    </ResponsiveContainer>
+
+        <BarChart
+          data={data}
+          margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+        >
+          <Legend />
+          <defs>
+            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+            </linearGradient>
+            <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <XAxis dataKey="date" />
+          {/* <YAxis /> */}
+          {/* <CartesianGrid /> */}
+          <Tooltip />
+
+          <Bar
+            type="monotone"
+            dataKey="income"
+            stroke="#82ca9d"
+
+            fill="url(#colorPv)"
+          />
+          <Bar
+            type="monotone"
+            dataKey="expences"
+            fillOpacity={1}
+            fill="url(#colorUv)"
+          />
+        </BarChart>
+      </ResponsiveContainer>
     </>
 
   );

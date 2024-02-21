@@ -16,12 +16,15 @@ import AddStockDialog from '../../inventory/Add/AddStockDialog'
 import { title } from 'process'
 import { toast } from 'react-toastify'
 import { converToInrFormat } from '../../../utils/ConvertInrFormat'
+import { IbillsPaylable } from '../../../store/features/bills/receivable/model'
+import { setPayablePaidAction } from '../../../store/actions/bills/payable/setPaid'
 
 type Props = {}
 
 const CreateExpence = (props: Props) => {
     const { token } = useAppSelector(state => state.auth)
     const { employee, isEmployee } = useAppSelector(state => state.employees)
+    const { invoice } = useAppSelector(state => state.payables)
     const { type } = useParams();
     const navigate = useNavigate();
     const [isPurchaseGoods, setIsPurchasedGoods] = useState(false)
@@ -42,6 +45,9 @@ const CreateExpence = (props: Props) => {
         else addExpence(Expence);
         if (Expence.category === '400') {
             navigate('/dashboard/employees')
+        }
+        if (Expence.category === '800' && Expence.title !== '') {
+            setPayablePaidAction(Expence.uid)
         }
     }
 
@@ -74,12 +80,13 @@ const CreateExpence = (props: Props) => {
                     <div className='grid gap-3 w-1/2'>
                         <label>Expence Type</label>
                         <Select value={Expence.category} onChange={(e) => { navigate(`/create/${e.target.value}/expence`) }} >
-                            <MenuItem value='400'>Salaries Paid </MenuItem>
-                            <MenuItem value='300'>Purchase </MenuItem>
-                            <MenuItem value='200'>Purchase of Goods</MenuItem>
                             <MenuItem value='100'>Provision Paid</MenuItem>
+                            <MenuItem value='200'>Purchase of Goods</MenuItem>
+                            <MenuItem value='300'>Purchase </MenuItem>
+                            <MenuItem value='400'>Salaries Paid </MenuItem>
                             <MenuItem value='600'>Tax Filled (other)</MenuItem>
                             <MenuItem value='700'>GST Filled</MenuItem>
+                            <MenuItem value='800'>Bills Payable</MenuItem>
                             <MenuItem value='500'>others</MenuItem>
 
                         </Select>
@@ -92,15 +99,6 @@ const CreateExpence = (props: Props) => {
                         <div className='grid gap-3 ' >
                             <label>Amount</label>
                             <Input type='number' value={Expence.amount} onChange={(e) => { handleAmountInput(e) }} />
-                        </div>
-
-                        <div className='grid gap-3 w-1/2 ' >
-                            <label>Status</label>
-                            {/* <Input type='number' value={Expence.amount} onChange={(e) => { handleAmountInput(e) }} /> */}
-                            <Select title='credit'>
-                                <MenuItem>Paid</MenuItem>
-                                <MenuItem>Credit</MenuItem>
-                            </Select>
                         </div>
 
                     </div>
@@ -128,12 +126,20 @@ const CreateExpence = (props: Props) => {
                 break;
             case '400':
                 employee.map((index: any) => {
-                    setExpence((prev: any) => { return { ...prev, uid: value } }); console.log('value', value)
-                    if (index._id === value) setExpence((prev: any) => { return { ...prev, title: `salary paid to ${index.name}`, amount: index.salary } })
+                    if (index._id === value) setExpence((prev: any) => { return { ...prev, title: `salary paid to ${index.name}`, amount: index.salary, uid: value } })
                     return
                 })
                 break;
+            case '800':
+                invoice.map((index: IbillsPaylable) => {
+                    if (index._id === value) setExpence((prev: any) => { return { ...prev, title: `Payment made to  ${index.billed_From.name}  for outstanding bills Payable  `, amount: index.total, uid: value } })
+                    return
+                })
+
+
+
         }
+
     }
 }
 

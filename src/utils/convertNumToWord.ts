@@ -33,25 +33,25 @@ function convert_number(number: any) {
     res += (convert_number(Gn) + " CRORE");
   }
   if (kn > 0) {
-    res += (((res == "") ? "" : " ") +
+    res += (((res === "") ? "" : " ") +
       convert_number(kn) + " LAKH");
   }
   if (Hn > 0) {
-    res += (((res == "") ? "" : " ") +
+    res += (((res === "") ? "" : " ") +
       convert_number(Hn) + " THOUSAND");
   }
 
   if (Dn) {
-    res += (((res == "") ? "" : " ") +
+    res += (((res === "") ? "" : " ") +
       convert_number(Dn) + " HUNDRED");
   }
 
 
-  var ones = Array("", "ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN", "EIGHT", "NINE", "TEN", "ELEVEN", "TWELVE", "THIRTEEN", "FOURTEEN", "FIFTEEN", "SIXTEEN", "SEVENTEEN", "EIGHTEEN", "NINETEEN");
-  var tens = Array("", "", "TWENTY", "THIRTY", "FOURTY", "FIFTY", "SIXTY", "SEVENTY", "EIGHTY", "NINETY");
+  var ones = Array(["", "ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN", "EIGHT", "NINE", "TEN", "ELEVEN", "TWELVE", "THIRTEEN", "FOURTEEN", "FIFTEEN", "SIXTEEN", "SEVENTEEN", "EIGHTEEN", "NINETEEN"]);
+  var tens = Array(["", "", "TWENTY", "THIRTY", "FOURTY", "FIFTY", "SIXTY", "SEVENTY", "EIGHTY", "NINETY"]);
 
   if (tn > 0 || one > 0) {
-    if (!(res == "")) {
+    if (!(res === "")) {
       res += " AND ";
     }
     if (tn < 2) {
@@ -66,7 +66,7 @@ function convert_number(number: any) {
     }
   }
 
-  if (res == "") {
+  if (res === "") {
     res = "zero";
   }
   return res;

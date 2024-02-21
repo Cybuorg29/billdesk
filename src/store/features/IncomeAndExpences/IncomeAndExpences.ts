@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../../app/store"
 import { changeIncomeAndExpencesState } from "../../reducers/incAndExpReducer"
 import { IIncome } from "../../../models/incomeAndExp/incomeInterface"
+import { IExpence } from "../../../models/incomeAndExp/expenceInterface"
 
 
 //interface for object inside incomearray
@@ -17,7 +18,7 @@ export interface incomeAndExpencesObjectSchema {
 //interface for income array 
 export interface incomeArray {
   income: IIncome[]
-  expences: incomeAndExpencesObjectSchema[]
+  expences: IExpence[]
   totalIncome: number
   totalExpences: number
   isIncome: boolean

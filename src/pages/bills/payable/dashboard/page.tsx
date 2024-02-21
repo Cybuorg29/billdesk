@@ -1,5 +1,5 @@
 import React, { useEffect, useId, useState } from 'react'
-import { setPayablesAction } from '../../../../store/actions/bills/receivable'
+import { setPayablesAction } from '../../../../store/actions/bills/payable'
 import { useAppSelector } from '../../../../store/app/hooks'
 import { IbillsPaylable } from '../../../../store/features/bills/receivable/model'
 import convertIsoDate from '../../../../utils/convertIsoDates'
@@ -13,17 +13,29 @@ import { DeleteIcon } from '../../../../components/ui/icons/DeleteIcon'
 import ViewIcon from '../../../../components/ui/icons/ViewIcon'
 import ArrowIconForward from '../../../../components/ui/icons/ArrowIconForward'
 import { useNavigate } from 'react-router-dom'
+import DeleteBillsPayableDialog from '../delete/Dialog'
 
 type Props = {}
 
 const PayableDashboard: React.FC = (props: Props) => {
 
     const { invoice } = useAppSelector(state => state.payables);
+    const [deleteDialog, setDeleteDialog] = useState(
+        {
+            name: '',
+            date: '',
+            isOpen: false,
+            invocieNo: '',
+
+
+        }
+    )
     const navigate = useNavigate()
     const keys = {
         heading: useId(),
         InsertNew: useId(),
-        infotabs: useId()
+        infotabs: useId(),
+        createExpence: useId()
     }
     const [tabArray, setTabArray] = useState<tabProps[]>([
         {
@@ -90,14 +102,16 @@ const PayableDashboard: React.FC = (props: Props) => {
                 unpaidCount = ++unpaidCount;
                 unpaidTotal = unpaidTotal + index.total
             }
-            dashboardArray.Buttons?.push([<DeleteIcon color='black' onclick={() => { }} tooltip='Delete' key={index._id + '1'} />, <ArrowIconForward onclick={() => { navigate(`/view/bills/${index._id}/payable`) }} tooltip='Forward' key={index._id + 3} />]);
+            dashboardArray.Buttons?.push([<DeleteIcon color='black' onclick={() => { setDeleteDialog(prev => { return { ...prev, isOpen: true, date: convertIsoDate(index.createdAt), name: index.billed_From.name, invocieNo: index._id } }) }} tooltip='Delete' key={index._id + '1'} />, <ArrowIconForward onclick={() => { navigate(`/view/bills/${index._id}/payable`) }} tooltip='Forward' key={index._id + 3} />]);
 
         })
         console.log('newArray', dashboardArray)
         let newTabs = tabArray;
         newTabs[0].amount = (totalCount);
         newTabs[1].amount = unpaidCount;
-        newTabs[2].amount = converToInrFormat(unpaidTotal);
+        newTabs[2].amount = converToInrFormat(unpaidTotal)
+        dashboardArray.dataArray.reverse();
+        dashboardArray.Buttons?.reverse();
         setTabArray(newTabs)
         setTableArray(dashboardArray)
 
@@ -113,10 +127,12 @@ const PayableDashboard: React.FC = (props: Props) => {
 
     return (
         <div className='p-5 h-full w-full flex flex-col gap-5'>
+            <DeleteBillsPayableDialog close={() => { setDeleteDialog(prev => { return { ...prev, isOpen: false } }) }} date={deleteDialog.date} invoiceNo={deleteDialog.invocieNo} isOpen={deleteDialog.isOpen} name={deleteDialog.name} onclick={() => { }} key={'DeleteDialog'} />
             <div className='h-[5%] flex place-content-between'>
                 <PageHeading name='Bills Payables' key={keys.heading} />
-                <div>
+                <div className='flex gap-4'>
                     <SolidButton color='black' innerText='Insert New ' onClick={() => { navigate(`/create/billspayable`) }} key={keys.InsertNew} />
+                    <SolidButton color='black' innerText='Record Payables payment ' onClick={() => { navigate(`/create/800/expence`) }} key={keys.createExpence} />
                 </div>
             </div>
             <div className='h-[15%]'>
@@ -125,9 +141,8 @@ const PayableDashboard: React.FC = (props: Props) => {
 
             {/* table */}
 
-            <div className=' bg-component h-[80%] rounded-xl  '>
+            <div className=' bg-component h-[80%] overflow-auto rounded-xl  '>
                 <DashboardTable dataArray={tableArray.dataArray} headers={tableArray.headers} onclick={() => { }} Buttons={tableArray.Buttons} key={'itit'} />
-
             </div>
 
         </div>

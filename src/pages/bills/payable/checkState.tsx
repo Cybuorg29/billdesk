@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../store/app/hooks'
-import { setPayablesAction } from '../../../store/actions/bills/receivable'
+import { setPayablesAction } from '../../../store/actions/bills/payable'
 
 type Props = {
     children: React.ReactNode

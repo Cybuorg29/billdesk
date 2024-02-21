@@ -20,7 +20,7 @@ export const createConnection = async (generalInfo: clientModelObj, bankInfo: ba
     const { data } = await postConnection(generalInfo, bankInfo, _id);
     const res: responceObj = data;
     toast.info(res.message);
-    (res.code === 200) ? sucess(res.package, navigate, generalInfo.type) : (res.code === 400) ? foundId(res) : failure(res)
+    (res.code === 200) ? sucess(res.package, navigate, generalInfo.type) : (res.code === 400) ? foundId(res, navigate) : failure(res)
   } catch (err: any) {
     console.log(err.message);
     toast.error('an error occured please try again')
@@ -37,7 +37,6 @@ async function sucess(data: any, navigate: any, type: any) {
 
 function failure(res: responceObj) {
   if (res.code !== 200) {
-
     console.log(res?.error)
     toast.error(res.message);
     store.dispatch(change())
@@ -47,10 +46,7 @@ function failure(res: responceObj) {
 
 }
 
-async function foundId(res: responceObj) {
-  if (res.code === 400) {
-    toast.error(res.message);
-    window.location.pathname = `/view/profile/${res.error}`
-  }
+async function foundId(data: any, navigate: any) {
   store.dispatch(change())
+  navigate(`/view/${data.error}/profile`)
 }

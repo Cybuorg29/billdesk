@@ -7,14 +7,16 @@ import { payableActions } from "../../../reducers/bills/receivable/reducer";
 import { changePayables } from "../../../features/bills/receivable/billsReceivableSlice";
 
 
-export async function setPayablesAction(month: any) {
+export async function setPayablesAction(month?: any) {
     try {
         const { token, istoken } = store.getState().auth
         if (!token) {
 
         }
         else {
-
+            if (!month) {
+                month = new Date().getMonth()
+            }
             const { data } = await getPayablesApi(token, month);
             const res: responceObj = data;
             console.log(res)

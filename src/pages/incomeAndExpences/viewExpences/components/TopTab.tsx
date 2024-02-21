@@ -7,6 +7,7 @@ import { ResponsiveContainer } from 'recharts'
 import { useAppSelector } from '../../../../store/app/hooks'
 import { incomeAndExpencesObjectSchema } from '../../../../store/features/IncomeAndExpences/IncomeAndExpences'
 import { converToInrFormat } from '../../../../utils/ConvertInrFormat'
+import { IExpence } from '../../../../models/incomeAndExp/expenceInterface'
 type Props = {}
 type infoTabProps = { name: string, amount: number, color: string }
 
@@ -37,7 +38,7 @@ const TopTab = (props: Props) => {
             others: 0
         }
 
-        expences.map((index: incomeAndExpencesObjectSchema, i) => {
+        expences.map((index: IExpence, i) => {
             let value = 0
 
 
@@ -48,27 +49,34 @@ const TopTab = (props: Props) => {
                     tot.provisions = value
                     break;
                 }
-                case '200':
-                    {
-                        value = tot.purchaseOfGoods + index.amount;
-                        setTotal((prev: any) => { return { ...prev, purchaseOfGoods: value } })
-                        tot.purchaseOfGoods = value
-                        break;
-                    }
+                case ('200'):
+
+                    value = tot.purchaseOfGoods + index.amount;
+                    setTotal((prev: any) => { return { ...prev, purchaseOfGoods: value } })
+                    tot.purchaseOfGoods = value
+
+                    break;
+                case ('800'):
+
+                    value = tot.purchaseOfGoods + index.amount;
+                    setTotal((prev: any) => { return { ...prev, purchaseOfGoods: value } })
+                    tot.purchaseOfGoods = value
+
+                    break
                 case '300':
-                    {
-                        value = tot.purchase + index.amount;
-                        setTotal((prev: any) => { return { ...prev, purchase: value } })
-                        tot.purchase = value
-                        break;
-                    }
+
+                    value = tot.purchase + index.amount;
+                    setTotal((prev: any) => { return { ...prev, purchase: value } })
+                    tot.purchase = value
+                    break;
+
                 case '400':
-                    {
-                        value = tot.salaries + index.amount;
-                        setTotal({ ...total, salaries: value })
-                        tot.salaries = value
-                        break;
-                    }
+
+                    value = tot.salaries + index.amount;
+                    setTotal({ ...total, salaries: value })
+                    tot.salaries = value
+                    break;
+
                 case '500':
                     {
                         value = tot.others + index.amount;
@@ -133,33 +141,33 @@ const TopTab = (props: Props) => {
 
     return (
         <>
-        <div className='border p-3  h-full rounded-xl bg-component ' >
-            <div className='flex h-full  ' >
-                <div className=' h-full  flex place-items-center w-[20%] p-2 ' >
-                    <Doughnut data={data} />
-                </div>
-                <div className='grid flex-1 gap-5 md:grid-cols-4 lg:grid-cols-5 items-center '>
-                    <InfoTab name='Provisions' amount={array?.provisions} color={'#878BB6'} />
-                    <InfoTab name='Purchase Of Goods' amount={array?.purchaseOfGoods} color={'#4ACAB4'} />
-                    <InfoTab name='Purchase' amount={array?.purchase} color={'#FFEA88'} />
-                    <InfoTab name='Salaries' amount={array?.salaries} color={'#FF8153'} />
-                    <InfoTab name='Tax Paid' amount={array?.tax} color={'#FF6384'} />
-                    <InfoTab name='GST Paid' amount={array?.gst} color={'#884EA0'} />
-                    <InfoTab name='Others' amount={array?.others} color={'#EB984E'} />
+            <div className='border p-3  h-full rounded-xl bg-component ' >
+                <div className='flex h-full  ' >
+                    <div className=' h-full  flex place-items-center w-[20%] p-2 ' >
+                        <Doughnut data={data} />
+                    </div>
+                    <div className='grid flex-1 gap-5 md:grid-cols-4 lg:grid-cols-5 items-center '>
+                        <InfoTab name='Provisions' amount={array?.provisions} color={'#878BB6'} />
+                        <InfoTab name='Purchase Of Goods' amount={array?.purchaseOfGoods} color={'#4ACAB4'} />
+                        <InfoTab name='Purchase' amount={array?.purchase} color={'#FFEA88'} />
+                        <InfoTab name='Salaries' amount={array?.salaries} color={'#FF8153'} />
+                        <InfoTab name='Tax Paid' amount={array?.tax} color={'#FF6384'} />
+                        <InfoTab name='GST Paid' amount={array?.gst} color={'#884EA0'} />
+                        <InfoTab name='Others' amount={array?.others} color={'#EB984E'} />
+                    </div>
+
                 </div>
 
             </div>
-
-        </div>
         </>
 
     )
 
     function InfoTab({ name, amount, color }: infoTabProps) {
-         console.log('amount',amount)
-         if(amount=== undefined){
+        console.log('amount', amount)
+        if (amount === undefined) {
             amount = 0;
-         }
+        }
         return <div className=' grid w-fit h-fit place-items-center' >
             <div>
                 <div className='flex gap-2 place-items-center'>

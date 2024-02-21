@@ -12,3 +12,11 @@ export function getPayablesApi(token: string, month: any) {
 export function InsertPayableApi(data: IcreateBillsPayable) {
     return toast.promise(axios.post(`${v2Url}/api/user/billspayable/create`, { ...data }), { pending: 'Inserting Bills Payable' })
 }
+
+export function deletePayableApi(_id: string, token: string) {
+    return toast.promise(axios.get(`${v2Url}/api/user/billspayable/delete/${_id}/${token}`), { pending: 'Deleting Bills Payables' })
+}
+
+export function setPaidApi(token: string, invoiceid: string) {
+    return toast.promise(axios.get(`${v2Url}/api/user/payables/markpaid/${invoiceid}/${token}`), { pending: 'updating Payables' })
+}

@@ -22,7 +22,6 @@ const AddBusiness = (props: Props) => {
     pincode: '',
     state: '',
     activities: '',
-    type: 0,
     image: '',
     adress: ''
   })

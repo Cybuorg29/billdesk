@@ -47,11 +47,6 @@ const NavBar = (props: Props) => {
       icon: <GridViewRoundedIcon />
     },
     {
-      name: "Invoice",
-      link: "dashboard/invoice",
-      icon: <DescriptionRoundedIcon />
-    },
-    {
       name: "Inventory",
       link: "dashboard/Inventory",
       icon: <InventoryRoundedIcon />
@@ -135,7 +130,7 @@ const NavBar = (props: Props) => {
         <div className="border-b ">
           <div className="p-5 text-center text-2xl ">AudditX</div>
         </div>
-        <div className="absolute bottom-5 grid w-full "  >
+        <div className="absolute bottom-5 grid w-full  "  >
           <NavTab
             name="Settings"
             link="/settings"
@@ -149,7 +144,7 @@ const NavBar = (props: Props) => {
 
 
 
-        <div className="input  ">
+        <div className="input  h-[75%]  overflow-auto">
 
           {
             navList.map((index) => {

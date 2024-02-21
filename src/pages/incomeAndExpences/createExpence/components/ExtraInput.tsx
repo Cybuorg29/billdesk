@@ -2,6 +2,7 @@ import React, { useEffect, useId } from 'react'
 import EmployeeList from './inputs/EmployeeList';
 import ProductList from './inputs/ProductList';
 import SupplierList from './inputs/SupplierList';
+import BillsPayableList from './inputs/BillsPayableList';
 
 type Props = { code: string, handleIdChange: any, value: string }
 
@@ -14,6 +15,7 @@ const ExtraInput = ({ code, handleIdChange, value }: Props) => {
   const keys = {
     EmployeeList: useId(),
     ProductList: useId(),
+    BillsPayable: useId()
   }
 
 
@@ -29,6 +31,12 @@ const ExtraInput = ({ code, handleIdChange, value }: Props) => {
   } else if (code === '200') {
     obj = <div className='grid grid-cols-2 gap-5'>
       <ProductList handleChange={(id: any) => { handleIdChange(id) }} value={value} key={keys.ProductList} />
+    </div>
+  } else if (code === '800') {
+    obj = <div className='grid grid-cols-2 gap-5'>
+      <BillsPayableList handleChange={(id: any) => { handleIdChange(id) }} value={value} key={keys.ProductList} />
+      {/* <BillsPayableList /> */}
+
     </div>
   }
   return obj

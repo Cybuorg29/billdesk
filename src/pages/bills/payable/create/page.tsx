@@ -14,7 +14,7 @@ import { converToInrFormat } from '../../../../utils/ConvertInrFormat'
 import { toast } from 'react-toastify'
 import GrandTotalSection from './layouts/GrandTotalSection'
 import { SolidButton } from '../../../../components/ui/Buttons/solid/SolidButton'
-import { insertBillsPayable } from '../../../../store/actions/bills/receivable/insert'
+import { insertBillsPayable } from '../../../../store/actions/bills/payable/insert'
 import { updateProductQuantityOnly } from '../../../../store/actions/products/add/quantity'
 import { IInvoiceProduct, ProductObj } from '../../../../models/inventory/productModel'
 
