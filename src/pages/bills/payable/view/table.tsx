@@ -56,7 +56,7 @@ const Table = ({ data }: Props) => {
                                                     <th scope="col" className=' sticky font-bold  border-2  text-xs  border-black text-center' >{index.taxable_Value}</th>
                                                     <th scope="" className=' sticky  border-2    border-black text-center' >
                                                         <div className=' h-full'>
-                                                            <div className='grid grid-flow-col bg-black border-b-2 border-black'>
+                                                            <div className='grid grid-flow-col bg-black border-b-2 border-black text-table'>
                                                                 {
                                                                     index.tax.map((item: any, i: number) => {
                                                                         if (i === 0) return <>
@@ -72,7 +72,7 @@ const Table = ({ data }: Props) => {
                                                             </div>
 
 
-                                                            <div className='grid grid-cols-2  text-xs  border-t-0 border-black ' >
+                                                            <div className='grid grid-cols-2  text-table  border-t-0 border-black ' >
                                                                 <div className=' font-bold'>rate</div>
                                                                 <div className=' border-l-2 border-black   '>amount</div>
 
@@ -84,9 +84,9 @@ const Table = ({ data }: Props) => {
                                                                     index.tax.map((item: any, i: number) => {
 
                                                                         return <>
-                                                                            <div className='grid grid-cols-2 text-sm '>
-                                                                                <div className='text-sm border-t-2 border-black flex grow  '>{item.amount + '%'}</div>
-                                                                                <div className='text-sm border-l-2 border-t-2 flex grow overflow-hidden  border-black '>{converToInrFormat(calculateTaxAmount(item.amount, index.taxable_Value).toFixed(2).toString())}</div>
+                                                                            <div className='grid grid-cols-2  '>
+                                                                                <div className='text-table border-t-2 border-black flex grow  '>{item.amount + '%'}</div>
+                                                                                <div className='text-table border-l-2 border-t-2 flex grow overflow-hidden  border-black '>{converToInrFormat(calculateTaxAmount(item.amount, index.taxable_Value).toFixed(2).toString())}</div>
 
                                                                             </div>
                                                                         </>
