@@ -27,7 +27,7 @@ interface iAccounts {
 
 const Table = (props: Props) => {
     const { connections, isConnection } = useAppSelector(state => state.connections);
-    const { expences, income, isExpences, isIncome, month } = useAppSelector(state => state.incomeAndExpence)
+    const { expences, income, isExpences, isIncome } = useAppSelector(state => state.incomeAndExpence)
     const { invoices, isLoaded } = useAppSelector(state => state.invoice);
     const { token } = useAppSelector(state => state.auth);
     const payables = useAppSelector(state => state.payables)

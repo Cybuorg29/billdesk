@@ -23,8 +23,13 @@ export interface incomeArray {
   totalExpences: number
   isIncome: boolean
   isExpences: boolean
+  from: string,
+  to: string,
   month: number
 }
+
+
+const date = new Date();
 
 
 const initialState: incomeArray = {
@@ -34,7 +39,10 @@ const initialState: incomeArray = {
   isIncome: false,
   totalExpences: 0,
   totalIncome: 0,
-  month: 13
+  from: `${date.getFullYear()}-${date.getMonth() + 1}-01`,
+  to: `${date.getFullYear()}-${date.getMonth() + 1}-${new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()}`,
+  month: 1
+
 }
 
 

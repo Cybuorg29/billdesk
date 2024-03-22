@@ -33,6 +33,7 @@ interface Navtab {
 
 interface detailsTab {
   name: string,
+  link?: string
   Tabs: Navtab[]
 }
 
@@ -88,11 +89,12 @@ const NavBar = (props: Props) => {
 
   const navTabsWithDetails: detailsTab[] = [
     {
-      name: 'P.O',
+      name: 'Purchase Order',
+      link: '/dashboard/purchase Order',
       Tabs: [
         {
           name: 'Create P.O',
-          link: '/client',
+          link: '/create/purchase Order',
           icon: <AddIcon onclick={() => { }} color="black" key={'P.O.1'} />
         }
       ]
@@ -159,7 +161,7 @@ const NavBar = (props: Props) => {
 
           {
             navTabsWithDetails.map((index: detailsTab) => {
-              return <>
+              if (!index.link) return <>
                 <details className=" duration-500" title={index.name} >
                   <summary className="hover:bg-[#21262C] rounded-lg p-2 pl-3  cursor-pointer    " >{index.name}</summary>
                   {
@@ -175,6 +177,27 @@ const NavBar = (props: Props) => {
 
                 </details>
               </>
+
+              else {
+                const to: any = index.link
+                return <>
+                  <details className=" duration-500" title={index.name}  >
+                    <summary className="hover:bg-[#21262C] rounded-lg p-2 pl-3  cursor-pointer    " onClick={() => { navigate(to) }} >{index.name}</summary>
+                    {
+                      index.Tabs.map((item: Navtab) => {
+                        return <>
+                          <p className="p-2 flex  gap-2 hover:bg-[#21262C] rounded-lg  cursor-pointer" onClick={() => navigate(item.link)}>
+                            <div className="grid place-content-center">{item.icon}</div>
+                            <div className="grid place-content-center">{item.name}</div>
+                          </p>
+                        </>
+                      })
+                    }
+
+                  </details>
+                </>
+
+              }
             })
           }
 

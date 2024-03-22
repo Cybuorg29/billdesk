@@ -42,6 +42,8 @@ import PayableDashboard from './pages/bills/payable/dashboard/page';
 import CheckState from './pages/bills/payable/checkState';
 import ViewBillsPayable from './pages/bills/payable/view/page';
 import CreateBillsPayable from './pages/bills/payable/create/page';
+import PurchaseOrderDashboard from './pages/purchaseOrder/dashboard/Page';
+import CreatePurchaseOrder from './pages/purchaseOrder/Create/Page';
 registerLicense("Ngo9BigBOggjHTQxAR8/V1NGaF5cXmdCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdgWXhfeHVUQ2hfWUJ0VkE=");
 function App() {
 
@@ -109,6 +111,8 @@ function App() {
                 <Route path='/dashboard/bills/payable' element={<CheckState children={<PayableDashboard />} key={'asdasd'} />} />
                 <Route path='/view/bills/:id/payable' element={<CheckState children={<ViewBillsPayable />} key={'asdasd'} />} />
                 <Route path='/create/billspayable' element={<CreateBillsPayable />} />
+                <Route path='/dashboard/purchase order' element={<PurchaseOrderDashboard />} />
+                <Route path='/create/purchase order' element={<CreatePurchaseOrder />} />
               </Route>
 
             </Routes>

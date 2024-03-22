@@ -8,6 +8,7 @@ import Table from "./components/Table";
 import Tabs, { tabProps } from "../../../components/ui/tabs/Tabs";
 import IncomeAndExpenceSelect from "../../../components/Select/IncomeAndExpenceSelect";
 import PageHeading from "../../../components/ui/Page Heading/PageHeading";
+import { updateTopTabs } from "./functions/updateTopTabs";
 type Props = {};
 
 
@@ -24,26 +25,7 @@ const IncAndExpDashboard = (props: Props) => {
     (state) => state.incomeAndExpence
   );
   const navigate = useNavigate();
-  const tabArray: tabProps[] = [
-    {
-      name: "Total Income",
-      image: '',
-      amount: converToInrFormat(totalIncome),
-      link: "/view/all/income",
-    },
-    {
-      name: "Total Expences",
-      amount: converToInrFormat(totalExpences),
-      image: '',
-      link: "/view/all/10/expences",
-    },
-    {
-      name: "Balance",
-      amount: converToInrFormat(totalIncome - totalExpences),
-      image: "",
-      link: "/",
-    },
-  ];
+  const tabArray: any = updateTopTabs(income, expences)
 
 
 
@@ -56,7 +38,7 @@ const IncAndExpDashboard = (props: Props) => {
 
   return (
     <div className=" h-full p-4 ">
-      <div className="text-2xl font-semibold  flex place-content-between  h-[8%]  text-grayFont">
+      <div className="text-2xl font-semibold  flex place-content-between  h-[10%]  text-grayFont">
         {" "}
         <div className="flex gap-5 place-items-center">
           <PageHeading name="Transactions" />

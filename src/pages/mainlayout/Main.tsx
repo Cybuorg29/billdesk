@@ -1,4 +1,4 @@
-import React, { useEffect, useId, useState } from "react";
+import React, { useEffect, useId, useLayoutEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import ListRoundedIcon from "@mui/icons-material/ListRounded";
@@ -32,12 +32,12 @@ const Main = (props: Props) => {
 
 
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     checkUserLogin()
 
   }, [istoken]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isExpences || isIncome) {
       if (user.name === '' || user.gstin === '') {
         navigate('/settings')

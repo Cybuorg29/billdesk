@@ -12,6 +12,9 @@ import { setInvoiceAction } from "../../invoice/set";
 import { setInovices } from "../../../features/invoice/invoiceSlice";
 import { invoiceActions } from "../../../reducers/invoice/invoice.reducer";
 import { EmployeeData } from "../employee/get";
+import { isToken } from "typescript";
+import { getIncomeAndExpencesByDatesApi } from "../../../../api/dataServices";
+import convertIsoDate from "../../../../utils/convertIsoDates";
 
 
 export const changeIncomeAndExpenceByMonth = async (month: number) => {
@@ -87,7 +90,7 @@ export async function addIncome({ income, navigate }: { income: ICreateIncome, n
             }
             store.dispatch(setIncomeAndExpence(payload));
             //  window.location.reload();
-             setInvoiceAction();
+            setInvoiceAction();
             toast.success('income added sucessfully')
             if (navigate) {
                 navigate('/dashboard/Transactions')
@@ -108,4 +111,63 @@ export async function addIncome({ income, navigate }: { income: ICreateIncome, n
         toast.error('an error occured please try again')
         store.dispatch(change());
     }
+}
+
+
+interface dates {
+    upper: string
+    lower: string
+}
+
+export async function changeIncomeAndExpenceByDates(dates: dates) {
+
+    try {
+
+        const { istoken, token } = store.getState().auth;
+
+        if (!isToken) {
+
+        } else {
+
+            console.log('dates', dates.lower, dates.upper);
+
+
+            const [lYear, lmonth, ldate] = dates.lower.split('-');
+            const [uYear, umonth, udate] = dates.upper.split('-');
+
+            console.log(uYear, umonth, udate);
+            console.log(lYear, lmonth, ldate);
+            const lowerDate: any = `${lYear}-${lmonth}-${ldate}T18:30:00.000Z`
+            const upperDate: any = `${uYear}-${umonth}-${udate}T18:30:00.000Z`
+
+            const { data } = await getIncomeAndExpencesByDatesApi(token, lowerDate, upperDate);
+            let res: responceObj = data;
+            console.log(res)
+
+            if (res.code != 200) {
+                throw new Error(res.message);
+            }
+            const packages = {
+                income: res.package.income,
+                expences: res.package.expences,
+                to: dates.lower,
+                from: dates.upper
+            }
+
+            const payload: actionPayload = {
+                data: packages,
+                type: 'change'
+            }
+            store.dispatch(setIncomeAndExpence(payload));
+            toast.success('Data Loaded')
+
+        }
+
+
+    } catch (err: any) {
+        console.log(err)
+        toast(err.message)
+    }
+
+
 }
