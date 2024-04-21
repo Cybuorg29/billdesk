@@ -17,6 +17,7 @@ import { SolidButton } from '../../../../components/ui/Buttons/solid/SolidButton
 import { insertBillsPayable } from '../../../../store/actions/bills/payable/insert'
 import { updateProductQuantityOnly } from '../../../../store/actions/products/add/quantity'
 import { IInvoiceProduct, ProductObj } from '../../../../models/inventory/productModel'
+import { useNavigate } from 'react-router-dom'
 
 type Props = {}
 
@@ -27,7 +28,8 @@ const CreateBillsPayable = (props: Props) => {
     const [connectionsArray, setConnectionsArray] = useState([]);
     const [rroundOffNum, setRoundOffNum] = useState<number>(0);
     const [isRoundOff, setIsRoundOff] = useState<boolean>(false);
-    const [addProductScale, setAddProductScale] = useState<boolean>(false)
+    const [addProductScale, setAddProductScale] = useState<boolean>(false);
+    const navigate = useNavigate();
 
     const [data, setData] = useState({
         billed_From: {
@@ -39,7 +41,10 @@ const CreateBillsPayable = (props: Props) => {
         },
         token: token,
         isPaid: false,
-        po: '',
+        po: {
+            number: '',
+            id: ''
+        },
         products: [],
         total: 0
     });
@@ -116,9 +121,11 @@ const CreateBillsPayable = (props: Props) => {
 
         })
         console.log(newArray);
-        Promise.all(newArray.map((index: any) => {
-            updateProductQuantityOnly(index.id, index.qty)
-        }))
+        // Promise.all(newArray.map((index: any) => {
+        //     updateProductQuantityOnly(index.id, index.qty)
+        // }))
+        navigate('/dashboard/bills/payable')
+
     }
 
 
@@ -134,12 +141,12 @@ const CreateBillsPayable = (props: Props) => {
 
     return (
         <div className='w-full h-full  flex flex-col gap-4 rounded-xl  p-4 bg-component'>
-            <SelectProducts scale={addProductScale} setInvoice={setData} setMinStock={() => { }} setScale={setAddProductScale} key={keys.selectProduct} />
+            {/* <SelectProducts po={data.po} scale={addProductScale} setInvoice={setData} setMinStock={() => { }} setScale={setAddProductScale} key={keys.selectProduct} /> */}
             <div className=' flex h-[8%]   gap-5  place-content-center'>
                 <Selector connectionsArray={connectionsArray} data={data} setData={setData} key={keys.selector} />
             </div>
             <div className='h-[60%] border'>
-                <ProductTable invoice={data} setInvoice={setData} key={keys.productTable} />
+                <ProductTable po={data.po.number} invoice={data} setInvoice={setData} key={keys.productTable} />
             </div>
             <div className='h-[5%]'>
                 <GrandTotalSection isRoundOff={isRoundOff} rroundOffNum={rroundOffNum} setIsRoundOff={setIsRoundOff} setRoundOffNum={setRoundOffNum} total={data.total} key={'asdas'} />

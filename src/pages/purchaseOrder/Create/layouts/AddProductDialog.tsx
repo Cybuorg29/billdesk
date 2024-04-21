@@ -3,7 +3,8 @@ import React, { useEffect } from 'react'
 import { useAppSelector } from '../../../../store/app/hooks'
 import { getProducts } from '../../../../store/actions/products'
 import { ProductObj } from '../../../../models/inventory/productModel'
-import { IPURCHASE_ORDER_PRODUCT } from '../../model/model'
+import { ICREATE_PURCHASE_ORDER_PRODUCT } from '../../model/model'
+import { toast } from 'react-toastify'
 
 type Props = {
     isOpen: boolean
@@ -33,8 +34,8 @@ const AddProductDialog = (props: Props) => {
         value = 0
         name = ''
 
-        constructor({ del_sch, description, measuring_Unit, quantity, rate, tax, value, name }: IPURCHASE_ORDER_PRODUCT) {
-
+        constructor({ del_sch, description, measuring_Unit, quantity, rate, tax, value, name }: ICREATE_PURCHASE_ORDER_PRODUCT) {
+            // toast(name)
             this.del_sch = del_sch
             this.description = description
             this.measuring_Unit = measuring_Unit
@@ -49,7 +50,7 @@ const AddProductDialog = (props: Props) => {
 
 
     function pushProduct(value: ProductObj) {
-        const data = new dataPusjObj({ del_sch: '', description: value.description, measuring_Unit: value.unit, quantity: 0, rate: value.rate, tax: value.tax, value: 0, name: value.name });
+        const data = new dataPusjObj({ del_sch: '', description: value.description, measuring_Unit: value.unit, quantity: 0, rate: value.rate, tax: value.tax, value: 0, name: value.name, in_id: value._id });
         props.push(data);
         props.close();
     }

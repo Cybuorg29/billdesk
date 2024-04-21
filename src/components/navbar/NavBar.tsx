@@ -132,7 +132,7 @@ const NavBar = (props: Props) => {
         <div className="border-b ">
           <div className="p-5 text-center text-2xl ">AudditX</div>
         </div>
-        <div className="absolute bottom-5 grid w-full  "  >
+        <div className="absolute bottom-5 grid w-full  z-50 bg-navbar "  >
           <NavTab
             name="Settings"
             link="/settings"
@@ -153,7 +153,6 @@ const NavBar = (props: Props) => {
               return (
                 <>
                   <NavTab name={index.name} icon={index.icon} link={index.link} key={index.name} />
-
                 </>
               )
             })

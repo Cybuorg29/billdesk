@@ -9,17 +9,18 @@ import { converToInrFormat } from "../../../../../utils/ConvertInrFormat"
 import { IInvoiceProduct } from "../../../../../models/inventory/productModel"
 
 
-type Props = { invoice: IcreateBillsPayable, setInvoice: any }
+type Props = { invoice: IcreateBillsPayable, setInvoice: any, po: string }
 interface TableProps {
   value: any
   onChange: (e: any) => void
   type: any
 }
 
-const ProductTable = ({ invoice, setInvoice }: Props) => {
+const ProductTable = ({ invoice, setInvoice, po }: Props) => {
   const [selectProductOpen, setSelectProductOpen] = useState<boolean>(false);
   const { products } = useAppSelector(state => state.product);
-  const [minStock, setMinStock] = useState<number[]>([])
+  const [minStock, setMinStock] = useState<number[]>([]);
+
   //keys 
   const addProductDialogKey = useId();
 
@@ -95,7 +96,7 @@ const ProductTable = ({ invoice, setInvoice }: Props) => {
 
   return (
     <>
-      <SelectProducts scale={selectProductOpen} setScale={setSelectProductOpen} setInvoice={setInvoice} setMinStock={setMinStock} key={addProductDialogKey} />
+      <SelectProducts po={po} scale={selectProductOpen} setScale={setSelectProductOpen} setInvoice={setInvoice} setMinStock={setMinStock} key={addProductDialogKey} />
       <div className='h-full w-full  relative'>
 
         <div className='border-t    w-full h-[90%] overflow-auto text-sm relative' >

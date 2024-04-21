@@ -23,6 +23,10 @@ export const setPayables = (state: IBillsStore, action: PayloadAction<actionPayl
             state.invoice = data
             state.isLoaded = true
             break;
+        case payableActions.PUSH:
+            state.invoice = [...state.invoice, data];
+            break;
+
         case payableActions.DELETE:
             {
                 const newArray = state.invoice.filter(index => index._id !== data);

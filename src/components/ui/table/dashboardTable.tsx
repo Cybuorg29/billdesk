@@ -3,7 +3,7 @@ import { toast } from 'react-toastify'
 export type DashboardTableProps = {
   headers: string[],
   dataArray: any[],
-  onclick: any,
+  onclick?: any,
   Buttons?: React.ReactNode[]
 
 }
@@ -37,7 +37,13 @@ const DashboardTable = ({ dataArray, headers, Buttons, onclick }: DashboardTable
                         const j = i
                         const array: any = Buttons
 
-                        return <tr className="border-b border-neutral-300 font-light hover:bg-slate-100 cursor-pointer" onClick={() => { onclick() }} >
+                        return <tr className="border-b border-neutral-300 font-light hover:bg-slate-100 cursor-pointer" onClick={() => {
+                          if (!onclick) {
+                            onclick();
+                          } else {
+
+                          }
+                        }} >
                           <td scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{++i}</td>
 
                           {

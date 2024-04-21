@@ -29,7 +29,10 @@ export interface IcreateBillsPayable {
         state: string
     },
     products: IInvoiceProduct[],
-    po: string
+    po: {
+        number: string
+        id: string
+    }
     total: number
     isPaid: boolean
 }

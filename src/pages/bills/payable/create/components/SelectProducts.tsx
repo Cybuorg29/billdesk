@@ -1,20 +1,26 @@
 import { Dialog, DialogContent, DialogContentText } from '@mui/material'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAppSelector } from '../../../../../store/app/hooks'
 import { ProductObj } from '../../../../../models/inventory/productModel'
 import { getProducts } from '../../../../../store/actions/products'
+import { initlisePurchaseOrder } from '../../../../../store/actions/purchaseOrder/action'
+import { toast } from 'react-toastify'
+import { ICREATE_PURCHASE_ORDER_PRODUCT, IPURCHASE_ORDER, IPURCHASE_ORDER_PRODUCT } from '../../../../purchaseOrder/model/model'
 
-type Props = { scale: boolean, setScale: any, setInvoice: any, setMinStock: any }
+type Props = { scale: boolean, setScale: any, setInvoice: any, setMinStock: any, po: string }
 
 interface IProductTab {
     name: string
     value: any
 }
 
-const SelectProducts = ({ scale, setInvoice, setMinStock, setScale }: Props) => {
+const SelectProducts = ({ scale, setInvoice, setMinStock, setScale, po }: Props) => {
 
     const blue = 'text-blue-800'
-    const { products, isProducts } = useAppSelector(state => state.product)
+    const { products, isProducts } = useAppSelector(state => state.product);
+    const { isLoaded, purchase_Order } = useAppSelector(state => state.po)
+    const [array, setArray] = useState<any>(initliseDataArray())
+
 
     class PRODUCT {
 
@@ -30,10 +36,9 @@ const SelectProducts = ({ scale, setInvoice, setMinStock, setScale }: Props) => 
         taxable_Value = 0
         tax = []
         id = ''
-        constructor(name: string, description: string, code: string, rate: number, unit: string, tax: any, id: string) {
+        constructor(name: string, description: string, rate: number, unit: string, tax: any, id: string) {
             this.name = name;
             this.description = description
-            this.code = code
             this.rate = rate
             this.unit = unit
             this.tax = tax
@@ -42,21 +47,46 @@ const SelectProducts = ({ scale, setInvoice, setMinStock, setScale }: Props) => 
     }
 
 
-    function submit(e: React.ChangeEvent, index: ProductObj) {
+    function submit(e: React.ChangeEvent, index: IPURCHASE_ORDER_PRODUCT) {
         setInvoice((prev: any) => {
             return {
-                ...prev, products: [...prev.products, new PRODUCT(index.name, index.description, index.code, index.rate, index.unit, index.tax, index._id)]
+                ...prev, products: [...prev.products, new PRODUCT(index.name, index.description, index.rate, index.measuring_Unit, index.tax, index._id)]
             }
         })
-            ;
+
         setScale(false);
         // setMinStock((prev: any) => { return [...prev, index.stock] });
     }
 
-    useEffect(() => {
-        getProducts()
+    // useEffect(() => {
+    //     getProducts()
 
-    }, [products])
+    // }, [products])
+
+
+    function initliseDataArray() {
+        let newArray: IPURCHASE_ORDER_PRODUCT[] = [];
+        // toast()
+        purchase_Order.map((order: IPURCHASE_ORDER) => {
+            if (order.po_NO === po) {
+                newArray = [...order.product];
+            }
+        })
+        return newArray;
+    }
+
+
+    useEffect(() => {
+        if (po === '') {
+            setArray((prev: any) => products)
+        } else {
+            if (!isLoaded) {
+                initlisePurchaseOrder();
+            }
+
+            setArray(initliseDataArray());
+        }
+    }, [isLoaded, purchase_Order, po])
 
     const ProductTab = ({ name, value }: IProductTab) => {
         if (name === 'Rate') {
@@ -98,21 +128,20 @@ const SelectProducts = ({ scale, setInvoice, setMinStock, setScale }: Props) => 
                                                     <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >#</th>
                                                     <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >Name</th>
                                                     <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >Rate</th>
-                                                    <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >Stock</th>
+                                                    <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >To Deliver</th>
+                                                    <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >Undelivered</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {
-                                                    products.map((index: ProductObj, i: number) => {
+                                                    array.map((index: IPURCHASE_ORDER_PRODUCT, i: number) => {
                                                         return <tr className="border-b border-gray-400 text-sm font-source2 cursor-pointer hover:bg-black/20 hover:text-white" key={`index.name${i}`} onClick={(e: any) => { submit(e, index) }}   >
                                                             <th scope="col" className='px-1 py-2  sticky text-black ' >{++i}</th>
                                                             <th scope="col" className='px-1 py-2  sticky text-black ' >{index.name}</th>
                                                             <th scope="col" className='px-1 py-2  sticky text-gray-500 ' >{index.rate}</th>
-                                                            <th scope="col" className='px-1 py-2  sticky text-gray-500 ' >{index.stock}</th>
+                                                            <th scope="col" className='px-1 py-2  sticky text-gray-500 text-center ' >{index.quantity}</th>
+                                                            <th scope="col" className='px-1 py-2  sticky text-gray-500  text-center' >{(index.quantity) ? (index.quantity - index.delivered) : null}</th>
                                                         </tr>
-
-
-
                                                     })
                                                 }
                                             </tbody>

@@ -14,6 +14,7 @@ import ViewIcon from '../../../../components/ui/icons/ViewIcon'
 import ArrowIconForward from '../../../../components/ui/icons/ArrowIconForward'
 import { useNavigate } from 'react-router-dom'
 import DeleteBillsPayableDialog from '../delete/Dialog'
+import { toast } from 'react-toastify'
 
 type Props = {}
 
@@ -89,7 +90,7 @@ const PayableDashboard: React.FC = (props: Props) => {
         }
     }
 
-    function InitliseTable() {
+    function InitliseTable(): DashboardTableProps {
         let newArray: any = []
         let totalCount = 0;
         let unpaidCount = 0
@@ -112,8 +113,10 @@ const PayableDashboard: React.FC = (props: Props) => {
         newTabs[2].amount = converToInrFormat(unpaidTotal)
         dashboardArray.dataArray.reverse();
         dashboardArray.Buttons?.reverse();
-        setTabArray(newTabs)
-        setTableArray(dashboardArray)
+        setTabArray((prev) => newTabs)
+        // setTableArray((prev: any) => dashboardArray)
+        // toast('Dashboard Updated')
+        return dashboardArray;
 
     }
 
@@ -121,7 +124,7 @@ const PayableDashboard: React.FC = (props: Props) => {
 
 
     useEffect(() => {
-        InitliseTable()
+        setTableArray((prev: any) => InitliseTable())
     }, [invoice])
 
 
@@ -130,7 +133,7 @@ const PayableDashboard: React.FC = (props: Props) => {
             <DeleteBillsPayableDialog close={() => { setDeleteDialog(prev => { return { ...prev, isOpen: false } }) }} date={deleteDialog.date} invoiceNo={deleteDialog.invocieNo} isOpen={deleteDialog.isOpen} name={deleteDialog.name} onclick={() => { }} key={'DeleteDialog'} />
             <div className='h-[5%] flex place-content-between'>
                 <PageHeading name='Bills Payables' key={keys.heading} />
-                <div className='flex gap-4'>
+                <div className='flex gap-4 h-full'>
                     <SolidButton color='black' innerText='Insert New ' onClick={() => { navigate(`/create/billspayable`) }} key={keys.InsertNew} />
                     <SolidButton color='black' innerText='Record Payables payment ' onClick={() => { navigate(`/create/800/expence`) }} key={keys.createExpence} />
                 </div>
