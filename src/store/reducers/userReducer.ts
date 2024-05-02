@@ -1,9 +1,7 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { userDetailSchema } from "../../models/userModel";
 
-import { toast } from "react-toastify";
-import { store } from "../app/store";
-import { getUserData } from "../../api/userServices";
+
 
 export interface load {
   type: string;

@@ -1,4 +1,4 @@
-import React, { useEffect, useId, useState } from "react";
+import React, { useEffect, useId, useLayoutEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import ListRoundedIcon from "@mui/icons-material/ListRounded";
@@ -10,6 +10,7 @@ import Topbar from "../../components/navbar/Topbar";
 import NavBar from "../../components/navbar/NavBar";
 import { Colors, Chart, ArcElement } from "chart.js";
 import getUpdate from "../../store/actions/notifications.actoion";
+import { change } from "../../store/features/loader/loaderSlice";
 Chart.register(ArcElement);
 Chart.register(Colors);
 
@@ -17,6 +18,7 @@ type Props = {};
 
 const Main = (props: Props) => {
   const { istoken } = useAppSelector(state => state.auth);
+  const dispatch = useAppDispatch()
   const user = useAppSelector(state => state.userData)
   const { isIncome, isExpences } = useAppSelector(state => state.incomeAndExpence)
   const location = useLocation();
@@ -32,21 +34,23 @@ const Main = (props: Props) => {
 
 
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     checkUserLogin()
-
   }, [istoken]);
 
   useEffect(() => {
-    if (isExpences || isIncome) {
-      if (user.name === '' || user.gstin === '') {
+    dispatch(change())
+    if (isExpences && isIncome && istoken) {
+      if (user.name === '' && user.gstin === '') {
         navigate('/settings')
         toast.info('please setup you profile to continue')
       } else {
         navigate(`/${partsAfterSlash}`)
       }
     }
-  }, [user]);
+    dispatch(change())
+
+  }, [user.name, user.gstin, isExpences, isIncome]);
 
 
 

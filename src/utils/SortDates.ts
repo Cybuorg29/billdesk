@@ -19,6 +19,8 @@
 //   },
 // ];
 
+import convertIsoDate from "./convertIsoDates";
+
 // export const SortDates = () => {
 //   const newArray: any = [];
 //   array.map((index: any, i: number) => {
@@ -43,8 +45,8 @@
 
 export function sortByDate(array: any[]) {
   array.sort((a, b) => {
-    const datePartsA = a.date.split("-").map((part: any) => parseInt(part));
-    const datePartsB = b.date.split("-").map((part: any) => parseInt(part));
+    const datePartsA = convertIsoDate(a.date).split("-").map((part: any) => parseInt(part));
+    const datePartsB = convertIsoDate(b.date).split("-").map((part: any) => parseInt(part));
     const [dayA, monthA, yearA] = datePartsA;
     const [dayB, monthB, yearB] = datePartsB;
 

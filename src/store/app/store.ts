@@ -13,12 +13,13 @@ import notificationsSlice from '../features/notifications/notificationsSlice'
 import termsSlice from '../features/terms/index'
 import invoiceSlice from '../features/invoice/invoiceSlice'
 import payableSlice from '../features/bills/receivable/billsReceivableSlice'
+import poSlice from '../features/PO/poSlice'
 
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer, userData: userSlice, auth: authSlice, loader: loaderSlice, bank: bankSlice, tracker: trackerSlice, incomeAndExpence: incomeSlice,
-    employees: employeeSlice, product: productSlice, connections: ConnectionSlice, Notification: notificationsSlice, Terms: termsSlice, invoice: invoiceSlice, payables: payableSlice
+    employees: employeeSlice, product: productSlice, connections: ConnectionSlice, Notification: notificationsSlice, Terms: termsSlice, invoice: invoiceSlice, payables: payableSlice, po: poSlice
   },
 })
 

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 import { RootState } from "../../app/store"
 import { changeIncomeAndExpencesState } from "../../reducers/incAndExpReducer"
 import { IIncome } from "../../../models/incomeAndExp/incomeInterface"
+import { IExpence } from "../../../models/incomeAndExp/expenceInterface"
 
 
 //interface for object inside incomearray
@@ -17,13 +18,18 @@ export interface incomeAndExpencesObjectSchema {
 //interface for income array 
 export interface incomeArray {
   income: IIncome[]
-  expences: incomeAndExpencesObjectSchema[]
+  expences: IExpence[]
   totalIncome: number
   totalExpences: number
   isIncome: boolean
   isExpences: boolean
+  from: string,
+  to: string,
   month: number
 }
+
+
+const date = new Date();
 
 
 const initialState: incomeArray = {
@@ -33,7 +39,10 @@ const initialState: incomeArray = {
   isIncome: false,
   totalExpences: 0,
   totalIncome: 0,
-  month: 13
+  from: `${date.getFullYear()}-${date.getMonth() + 1}-01`,
+  to: `${date.getFullYear()}-${date.getMonth() + 1}-${new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()}`,
+  month: 1
+
 }
 
 

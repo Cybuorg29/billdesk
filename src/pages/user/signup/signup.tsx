@@ -47,6 +47,7 @@ export const SignUp = () => {
     event.preventDefault();
 
     try {
+      console.log(user)
 
       const res = await signup(user)
 

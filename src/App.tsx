@@ -38,8 +38,15 @@ import ViewInvoice from './pages/invoice/view/Page';
 import ClaimProfile from './pages/user/claim/profile/page';
 import Accounts from './pages/accounts/page';
 import ViewAccount from './pages/accounts/view/page';
-import PayableDashboard from './pages/bills/receivable/dashboard/page';
-import CheckState from './pages/bills/receivable/checkState';
+import PayableDashboard from './pages/bills/payable/dashboard/page';
+import CheckState from './pages/bills/payable/checkState';
+import ViewBillsPayable from './pages/bills/payable/view/page';
+import CreateBillsPayable from './pages/bills/payable/create/page';
+import PurchaseOrderDashboard from './pages/purchaseOrder/dashboard/Page';
+import CreatePurchaseOrder from './pages/purchaseOrder/Create/Page';
+import CheckPoState from './pages/purchaseOrder/CheckState'
+import { elements } from 'chart.js';
+import ViewPurchaseOrder from './pages/purchaseOrder/view/Page';
 registerLicense("Ngo9BigBOggjHTQxAR8/V1NGaF5cXmdCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdgWXhfeHVUQ2hfWUJ0VkE=");
 function App() {
 
@@ -76,8 +83,8 @@ function App() {
               <Route path='/claim/profile/:id' element={<ClaimProfile />} />
               <Route path='/forgot/generate' element={<ForgotPassword />} />
               <Route path='/' element={<Main />}>
-                <Route path='/' element={<IncAndExpDashboard />}></Route>
-                <Route path='/dashboard' element={< IncAndExpDashboard />}></Route>
+                <Route path='/' element={<Dashboard />}></Route>
+                <Route path='/dashboard' element={< Dashboard />}></Route>
                 <Route path='/settings' element={<Settings />}></Route>
                 <Route path='/*' element={<NotFound />}></Route>
                 <Route path='/dashboard/Transactions' element={<IncAndExpDashboard />}></Route>
@@ -104,7 +111,12 @@ function App() {
                 <Route path='/view/:id/invoice' element={<ViewInvoice />} />
                 <Route path='/accounts' element={<Accounts />} />
                 <Route path='/view/:id/account' element={<ViewAccount />} />
-                <Route path='/dashboard/bills/payable' element={<CheckState children={<PayableDashboard />} key={'asdasd'} />} />
+                <Route path='/dashboard/bills/payable' element={<CheckState children={<PayableDashboard />} key={'DashboardPayables'} />} />
+                <Route path='/view/bills/:id/payable' element={<CheckState children={<ViewBillsPayable />} key={'viewPayables'} />} />
+                <Route path='/create/billspayable' element={<CreateBillsPayable />} />
+                <Route path='/dashboard/purchase order' element={<CheckPoState children={<PurchaseOrderDashboard />} />} />
+                <Route path='/create/purchase order' element={<CheckPoState children={<CreatePurchaseOrder />} />} />
+                <Route path='/purchase order/:_id/view' element={<CheckPoState children={<ViewPurchaseOrder />} />} />
               </Route>
 
             </Routes>

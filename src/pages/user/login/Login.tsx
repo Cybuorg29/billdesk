@@ -1,6 +1,6 @@
 
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -83,7 +83,6 @@ export default function SignIn() {
   const initToken = () => {
     let token: any = sessionStorage.getItem('token')
     if (!token) {
-
     } else {
       token = JSON.parse(token)
       const payload: actionPayload = {
@@ -97,7 +96,7 @@ export default function SignIn() {
       navigate('/')
     }
   }
-  useEffect(() => {
+  useLayoutEffect(() => {
     initToken();
 
 

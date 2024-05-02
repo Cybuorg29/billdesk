@@ -29,6 +29,5 @@ export interface createUserModel {
     pincode: string
     image: any
     adress: string
-    type: 0 | 1
     state: string
 }

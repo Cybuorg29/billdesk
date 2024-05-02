@@ -12,6 +12,7 @@ import {
 import { change } from "../../../features/loader/loaderSlice";
 import { IncomeAndExpencespayload } from "../../../reducers/incAndExpReducer";
 import { actionPayload } from "../../../payload/payloadModel";
+import { setPayablePaidAction } from "../../bills/payable/setPaid";
 
 export const deleteExpence = async (uid: string) => {
   try {
@@ -77,6 +78,7 @@ export const deleteExpence = async (uid: string) => {
 
 export const addExpence = async (Expence: any) => {
   try {
+    console.log(Expence)
     store.dispatch(change());
     const { token, istoken } = store.getState().auth;
     if (!istoken) throw new Error("an error occured");
@@ -88,11 +90,12 @@ export const addExpence = async (Expence: any) => {
       toast.success("expence added sucessfully");
       const { incomeAndExpence } = store.getState();
       let { expences } = incomeAndExpence;
-      let newExpence = [Expence, ...expences];
+      let newExpence = [data.package, ...expences];
       const payload: IncomeAndExpencespayload = {
         type: "expences",
         data: newExpence,
       };
+      if (Expence.category === '800') setPayablePaidAction(Expence.uid)
       store.dispatch(setIncomeAndExpence(payload));
       store.dispatch(change());
     }

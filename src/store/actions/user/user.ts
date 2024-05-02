@@ -36,7 +36,6 @@ export const initialiseUserData = async () => {
       checkUserLogin();
     } else {
 
-
       const { data } = await getUserData(token);
 
       if (data.code === 200) {

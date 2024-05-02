@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 // import { colorArray } from '../ColorArray'
 
-type Props = { color: 'primary'| 'black'|'error', innerText: string, onClick: any }
+type Props = { color: 'primary' | 'black' | 'error', innerText: string, onClick: any }
 
 
 export const SolidButton = ({ innerText, color, onClick }: Props) => {
@@ -47,7 +47,7 @@ export const SolidButton = ({ innerText, color, onClick }: Props) => {
 
 
     return (
-        <div>
+        <div className='h-full w-fit flex items-center place-content-center '>
             <button type="button" className={`${varient?.text} ${varient?.color}  focus:ring-4  font-medium rounded-lg text-sm px-4 py-2 mr-2 mb-2  focus:outline-none  `} onClick={() => { onClick() }}   >{innerText}</button>
         </div>
     )

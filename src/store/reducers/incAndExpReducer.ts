@@ -45,7 +45,7 @@ export const changeIncomeAndExpencesState = (
       state.totalIncome = totalIncome;
       state.isExpences = true;
       state.isIncome = true;
-      state.month = parseInt(data.month);
+      // state.month = parseInt(data.month);
       break;
     case 'pushExpence':
       state.expences = [data, ...state.expences]
@@ -53,5 +53,19 @@ export const changeIncomeAndExpencesState = (
     case 'pushIncome':
       state.income.push(data);
       break;
+
+
+
+
+
+    case 'change': {
+      console.log(data)
+      state.income = data?.income
+      state.expences = data?.expences
+      state.to = data?.to
+      state.from = data?.from
+      break;
+    }
+
   }
 };

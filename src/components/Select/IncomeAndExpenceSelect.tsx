@@ -4,6 +4,11 @@ import { useNavigate } from 'react-router-dom'
 import { getMonthName } from '../../utils/getMonthName'
 import { changeIncomeAndExpenceByMonth } from '../../store/actions/data/IncomeAndExpence'
 import { toast } from 'react-toastify'
+import { IIncome } from '../../models/incomeAndExp/incomeInterface'
+import { IExpence } from '../../models/incomeAndExp/expenceInterface'
+import { converToInrFormat } from '../../utils/ConvertInrFormat'
+import convertIsoDate from '../../utils/convertIsoDates'
+import DateChangeDialog from './dateChangeDialog'
 
 type Props = {}
 
@@ -15,8 +20,16 @@ interface monthObj {
 const IncomeAndExpenceSelect = (props: Props) => {
 
 
-  const { month } = useAppSelector(state => state.incomeAndExpence)
-  const [monthArray, setMonthArray] = useState<monthObj[]>(appendArray())
+  const { month, expences, income, isExpences, isIncome, from, to } = useAppSelector(state => state.incomeAndExpence)
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
+
+  // const [monthArray, setMonthArray] = useState<monthObj[]>(appendArray())
+
+  const [dates, setDates] = useState({
+    upper: '',
+    lower: '',
+
+  })
   const navigate = useNavigate();
 
   interface monthObj {
@@ -56,7 +69,7 @@ const IncomeAndExpenceSelect = (props: Props) => {
 
     // Calculate the number of months from April of the current fiscal year
     // to the current month
-    const monthsCount = (currentDate.getMonth() + 12 - fiscalStartMonthIndex + 1) % 12;
+    const monthsCount = (currentDate.getMonth() + 1 + 12 - fiscalStartMonthIndex + 1) % 12;
 
     if (monthsCount > 4) for (let i = 0; i < monthsCount; i++) {
       const monthIndex = (fiscalStartMonthIndex + i) % 12;
@@ -90,20 +103,52 @@ const IncomeAndExpenceSelect = (props: Props) => {
   }
 
 
+  function initliseDates() {
+
+
+    const today = new Date();
+    // console.log('upper', upper)
+    let upper: any = ""
+    let lower: any = ""
+
+    if (!isIncome || !isExpences) {
+      let month: any = ""
+      month = (today.getMonth() + 1 > 9) ? today.getMonth() + 1 : `0${today.getMonth() + 1}`
+      lower = `${today.getFullYear() + '-' + month + '-' + 30}`
+      upper = `${today.getFullYear() + '-' + month + '-' + '01'}`;
+
+    } else {
+      const mon = (today.getMonth() + 1 > 9) ? today.getMonth() + 1 : `0${today.getMonth() + 1}`
+      lower = `${today.getFullYear() + '-' + mon + '-' + 30}`
+      upper = `${today.getFullYear() + '-' + mon + '-' + '01'}`;
+      // month = convertIsoDate().split('-')
+
+    }
+
+
+    // setDates(prev => { return { ...prev, upper: upper } })
+
+
+    return { upper: upper, lower: lower }
+
+  }
+
 
   // Populate the months array for the whole year
 
 
 
   useEffect(() => {
-    setMonthArray(appendArray())
+    // setMonthArray(appendArray())
+    setDates(initliseDates());
+
   }, [])
 
 
   return (
     <div className='w-fit'>
 
-      <div className="flex w-fit place-items-center text-sm font-black text-black " >
+      {/* <div className="flex w-fit place-items-center text-sm font-black text-black " >
         <label htmlFor="select_month" >Month :</label>
         <select name="Month" id="select_month" value={month} onChange={(e: any) => { changeIncomeAndExpenceByMonth(e.target.value) }} >
           {
@@ -116,6 +161,36 @@ const IncomeAndExpenceSelect = (props: Props) => {
           <option value={13}  >This Year</option>
           <option value={14}  >previous Years</option>
         </select>
+      </div> */}
+      <DateChangeDialog lower={from} upper={to} isOpen={openDialog} close={() => setOpenDialog(false)} onChange={(e: React.ChangeEvent<any>) => { setDates((prev) => { return { ...prev, [e.target.name]: e.target.value } }) }} />
+      <div className=' flex place-content-center font-sans text-sm text-black gap-5'>
+        <div>
+          {/* <input type='date' name='dates' placeholder='date' value={from} className='px-2 rounded-md' /> */}
+          <div className='flex gap-2'>
+            <div className='text-gray-600'>From :  </div>
+            {
+              convertIsoDate(from).split('at')[0]
+            }
+
+          </div>
+        </div>
+
+        <div>
+          {/* <input type='date' name='dates' placeholder='date' value={from} className='px-2 rounded-md' /> */}
+          <div className='flex gap-2'>
+            <div className='text-gray-600'>To :  </div>
+            {
+              convertIsoDate(to).split('at')[0]
+            }
+
+          </div>
+        </div>
+
+
+        <div className='cursor-pointer border px-1.5 hover:bg-black hover:text-white rounded-md' onClick={() => { (!openDialog) ? setOpenDialog(true) : setOpenDialog(false) }}>
+          change
+        </div>
+
       </div>
     </div>
   )

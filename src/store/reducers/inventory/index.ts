@@ -15,11 +15,13 @@ interface array {
 export const ProductOperations = {
     set: "set",
     delete: "delete",
-    push: "push"
+    push: "push",
 }
 export const stockOperation = {
     add: 'add',
-    delete: 'delete'
+    delete: 'delete',
+    update: 'update',
+    addMany: 'addMany'
 }
 
 
@@ -75,6 +77,30 @@ export const changeStock = (state: productArray, action: PayloadAction<actionPay
                         }
                         state.products[i].rate = data?.rate;
                         state.products[i].stock = state.products[i].stock + parseFloat(data?.stock)
+                    })
+                    break;
+
+                case stockOperation.update:
+                    state.products = state.products.map((index: ProductObj) => {
+                        if (index._id === data._id) {
+                            index.stock = data.qty;
+                            return index
+                        }
+                        return index
+                    })
+                    break;
+
+                case stockOperation.addMany:
+                    toast(data.length)
+                    data.map((index: any) => {
+                        return state.products = state.products.map((product: ProductObj) => {
+                            if (product._id === index._id) {
+                                product.stock = index.qty;
+                                toast('asdasd')
+                                return index
+                            }
+                            return index
+                        })
                     })
                     break;
             }

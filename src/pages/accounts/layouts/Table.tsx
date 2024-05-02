@@ -10,6 +10,11 @@ import { converToInrFormat } from '../../../utils/ConvertInrFormat'
 import { useNavigate } from 'react-router-dom'
 import { isToken } from 'typescript'
 import { toast } from 'react-toastify'
+import convertIsoDate from '../../../utils/convertIsoDates'
+import { getDateInfo } from '../../../utils/getMonthInfo'
+import { setPayablesAction } from '../../../store/actions/bills/payable'
+import { IbillsPaylable } from '../../../store/features/bills/receivable/model'
+import { IExpence } from '../../../models/incomeAndExp/expenceInterface'
 
 type Props = {}
 
@@ -22,9 +27,10 @@ interface iAccounts {
 
 const Table = (props: Props) => {
     const { connections, isConnection } = useAppSelector(state => state.connections);
-    const { expences, income, isExpences, isIncome, month } = useAppSelector(state => state.incomeAndExpence)
+    const { expences, income, isExpences, isIncome } = useAppSelector(state => state.incomeAndExpence)
     const { invoices, isLoaded } = useAppSelector(state => state.invoice);
-    const { token, istoken } = useAppSelector(state => state.auth)
+    const { token } = useAppSelector(state => state.auth);
+    const payables = useAppSelector(state => state.payables)
 
 
     const [accountsArray, setAccountsArray] = useState<any[]>([
@@ -34,11 +40,9 @@ const Table = (props: Props) => {
 
 
     class accountPush {
-
-
         name = ''
         toPay = 0
-        payed = 0
+        paid = 0
         toReceive = 0
         received = 0
         balance = 0
@@ -74,7 +78,6 @@ const Table = (props: Props) => {
         })
 
         connections.supplier.map((index: clientModelObj) => {
-            console.log('asdada')
             if (newArray.length === 0) {
                 newArray.push(new accountPush(index.name, index._id))
             }
@@ -86,15 +89,29 @@ const Table = (props: Props) => {
                     // account already exists
                 }
             })
-            console.log('creating account');
             if (!found) newArray.push(new accountPush(index.name, index._id))
             return
-
         })
 
         invoices.map((index: Iinvoice, i: number) => {
             newArray.map((item: any, j: number) => {
-                if (index.billed_To.name === item?.name) {
+                if (index.billed_To.name === item?.name && getDateInfo(index.createdAt).monthNumber === new Date().getMonth() + 1) {
+                    if (index.isPaid) {
+                        newArray[j].received = newArray[j].received + index.grand_Total
+                    } else {
+                        newArray[j].toReceive = newArray[j].toReceive + index.grand_Total
+                    }
+                }
+
+                return
+            })
+
+            return
+        })
+        invoices.map((index: Iinvoice, i: number) => {
+            newArray.map((item: any, j: number) => {
+                console.log(new Date().getMonth())
+                if (index.billed_To.name === item?.name && getDateInfo(index.createdAt).monthNumber === new Date().getMonth() + 1) {
                     if (index.isPaid) {
                         newArray[j].received = newArray[j].received + index.grand_Total
                     } else {
@@ -108,17 +125,38 @@ const Table = (props: Props) => {
             return
         })
 
-        expences.map((expence: incomeAndExpencesObjectSchema, index: number) => {
+
+
+
+        expences.map((expence: IExpence, index: number) => {
 
             connections.supplier.map((supplier: clientModelObj, i: number) => {
                 if (expence.E_id === supplier._id) {
                     newArray.map((index: any, j: any) => {
                         if (supplier.name === index.name) {
-                            newArray[j].payed = newArray[j].payed + expence.amount;
+                            newArray[j].paid = newArray[j].paid + expence.amount;
                         }
                     })
                 }
             })
+
+        })
+
+        payables.invoice.map((index: IbillsPaylable) => {
+            newArray.map((item: any, j: number) => {
+                console.log(new Date().getMonth())
+                if (index.billed_From.name === item?.name && getDateInfo(index.createdAt).monthNumber === new Date().getMonth()) {
+                    if (index.isPaid) {
+                        newArray[j].paid = newArray[j].paid + index.total
+                    } else {
+                        newArray[j].toPay = newArray[j].toPay + index.total
+                    }
+                }
+
+                return
+            })
+
+            return
 
         })
 
@@ -134,8 +172,9 @@ const Table = (props: Props) => {
     useEffect(() => {
         if (!isConnection) { getConnection(); toast('no connections') }
         else if (!isLoaded) setInvoiceAction();
+        else if (!payables.isLoaded) setPayablesAction();
         else Initlise()
-    }, [connections, isLoaded, isToken, token])
+    }, [connections, isLoaded, isToken, token, payables.isLoaded, payables.invoice])
 
     useEffect(() => {
 
@@ -154,7 +193,7 @@ const Table = (props: Props) => {
                                         <th scope="col" className='px-6 py-4  sticky text-grayFont  ' >To Receive</th>
                                         <th scope="col" className='px-6 py-4  sticky text-grayFont  ' >Received</th>
                                         <th scope="col" className='px-6 py-4  sticky text-grayFont  ' >To Pay</th>
-                                        <th scope="col" className='px-6 py-4  sticky text-grayFont  ' >Payed</th>
+                                        <th scope="col" className='px-6 py-4  sticky text-grayFont  ' >paid</th>
 
                                     </tr>
                                 </thead>
@@ -166,21 +205,6 @@ const Table = (props: Props) => {
 
                                             let totalIncome: number = 0;
                                             console.log('inde', index)
-                                            // let totalExpence: number = 0;
-
-                                            // // income.map((item: IIncome) => {
-                                            // //     if (index._id === item.)
-                                            // //         return
-                                            // // })
-                                            // invoices.map((invoice: Iinvoice) => {
-                                            //     if ((invoice.billed_To.gstin === index.gstin) && (invoice.billed_To.name === index.name)) {
-                                            //         if (invoice.isPaid) {
-                                            //             totalIncome = totalIncome + invoice.grand_Total;
-                                            //         }
-                                            //     }
-                                            //     return
-                                            // })
-
 
                                             return <tr className="border-b border-neutral-300 font-light hover:bg-slate-100 cursor-pointer" onClick={() => { navigate(`/view/${index.id}/account`) }} >
                                                 <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{++i}</th>
@@ -188,7 +212,7 @@ const Table = (props: Props) => {
                                                 <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky  text-gray-700' >{converToInrFormat(index?.toReceive)}</th>
                                                 <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky  text-green-700 ' >{converToInrFormat(index?.received)}</th>
                                                 <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky ' >{converToInrFormat(index?.toPay)}</th>
-                                                <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky text-red-700 ' >{converToInrFormat(index?.payed)}</th>
+                                                <th scope="col" className='whitespace-nowrap font-medium px-6 py-4  sticky text-red-700 ' >{converToInrFormat(index?.paid)}</th>
                                                 <th scope="col" className='whitespace-nowrap font-medium   sticky ' >
                                                     <div className='flex ' >
                                                         {/* <DeleteIcon color='black' onclick={() => { deleteConnection(index, 0) }} key={`${deleteIconKey + 1}`} tooltip={`Delete Client`} />

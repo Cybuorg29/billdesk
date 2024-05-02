@@ -80,6 +80,7 @@ const Settings = (props: Props) => {
       const res = await setUpProfile(client, bank, token)
       if (res.data.code === 200) {
         toast.success('profile Setup Complete')
+        window.location.reload();
       } else {
         toast.error(res.data.message)
 
