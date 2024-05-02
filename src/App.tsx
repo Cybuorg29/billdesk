@@ -46,6 +46,7 @@ import PurchaseOrderDashboard from './pages/purchaseOrder/dashboard/Page';
 import CreatePurchaseOrder from './pages/purchaseOrder/Create/Page';
 import CheckPoState from './pages/purchaseOrder/CheckState'
 import { elements } from 'chart.js';
+import ViewPurchaseOrder from './pages/purchaseOrder/view/Page';
 registerLicense("Ngo9BigBOggjHTQxAR8/V1NGaF5cXmdCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdgWXhfeHVUQ2hfWUJ0VkE=");
 function App() {
 
@@ -82,8 +83,8 @@ function App() {
               <Route path='/claim/profile/:id' element={<ClaimProfile />} />
               <Route path='/forgot/generate' element={<ForgotPassword />} />
               <Route path='/' element={<Main />}>
-                <Route path='/' element={<IncAndExpDashboard />}></Route>
-                <Route path='/dashboard' element={< IncAndExpDashboard />}></Route>
+                <Route path='/' element={<Dashboard />}></Route>
+                <Route path='/dashboard' element={< Dashboard />}></Route>
                 <Route path='/settings' element={<Settings />}></Route>
                 <Route path='/*' element={<NotFound />}></Route>
                 <Route path='/dashboard/Transactions' element={<IncAndExpDashboard />}></Route>
@@ -115,6 +116,7 @@ function App() {
                 <Route path='/create/billspayable' element={<CreateBillsPayable />} />
                 <Route path='/dashboard/purchase order' element={<CheckPoState children={<PurchaseOrderDashboard />} />} />
                 <Route path='/create/purchase order' element={<CheckPoState children={<CreatePurchaseOrder />} />} />
+                <Route path='/purchase order/:_id/view' element={<CheckPoState children={<ViewPurchaseOrder />} />} />
               </Route>
 
             </Routes>

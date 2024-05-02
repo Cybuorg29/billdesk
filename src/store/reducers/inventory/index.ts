@@ -20,7 +20,8 @@ export const ProductOperations = {
 export const stockOperation = {
     add: 'add',
     delete: 'delete',
-    update: 'update'
+    update: 'update',
+    addMany: 'addMany'
 }
 
 
@@ -87,6 +88,21 @@ export const changeStock = (state: productArray, action: PayloadAction<actionPay
                         }
                         return index
                     })
+                    break;
+
+                case stockOperation.addMany:
+                    toast(data.length)
+                    data.map((index: any) => {
+                        return state.products = state.products.map((product: ProductObj) => {
+                            if (product._id === index._id) {
+                                product.stock = index.qty;
+                                toast('asdasd')
+                                return index
+                            }
+                            return index
+                        })
+                    })
+                    break;
             }
 
     }

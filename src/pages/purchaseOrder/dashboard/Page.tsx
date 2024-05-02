@@ -1,17 +1,12 @@
-import React, { useEffect, useId, useState } from 'react'
+import { useEffect, useId, useState } from 'react'
 import { useAppSelector } from '../../../store/app/hooks'
-import PageHeading from '../../../components/ui/Page Heading/PageHeading'
-import { SolidButton } from '../../../components/ui/Buttons/solid/SolidButton'
 import Heading from './layouts/Heading'
 import { InitliseInfoTabs } from './functions/initliseTabsArray'
 import InfoTabs from '../../../components/ui/tabs/InfoTabs'
 import { tabProps } from '../../../components/ui/tabs/Tabs'
-import DashboardTable, { DashboardTableProps } from '../../../components/ui/table/dashboardTable'
-import Dashboard from '../../Dashboard/Dashboard'
-import { initliseDashboardArray } from './functions/initliseDashboardArray'
+
 import Table from './layouts/Table'
-import { table } from 'console'
-import { toast } from 'react-toastify'
+
 
 type Props = {}
 

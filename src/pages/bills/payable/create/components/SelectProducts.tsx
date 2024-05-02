@@ -23,7 +23,6 @@ const SelectProducts = ({ scale, setInvoice, setMinStock, setScale, po }: Props)
 
 
     class PRODUCT {
-
         name = ''
         description = ''
         code = ''
@@ -128,7 +127,7 @@ const SelectProducts = ({ scale, setInvoice, setMinStock, setScale, po }: Props)
                                                     <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >#</th>
                                                     <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >Name</th>
                                                     <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >Rate</th>
-                                                    <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >To Deliver</th>
+                                                    <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >Ordered</th>
                                                     <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >Undelivered</th>
                                                 </tr>
                                             </thead>

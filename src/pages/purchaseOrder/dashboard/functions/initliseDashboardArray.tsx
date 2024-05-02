@@ -1,8 +1,9 @@
+import { toast } from "react-toastify"
 import ArrowIconForward from "../../../../components/ui/icons/ArrowIconForward"
 import { DeleteIcon } from "../../../../components/ui/icons/DeleteIcon"
 import { DashboardTableProps } from "../../../../components/ui/table/dashboardTable"
 import { converToInrFormat } from "../../../../utils/ConvertInrFormat"
-import { ICREATE_PURCHASE_ORDER, IPURCHASE_ORDER } from "../../model/model"
+import { IPURCHASE_ORDER } from "../../model/model"
 
 export function initliseDashboardArray(array: IPURCHASE_ORDER[], UpdateDeleteOption: any, navigate: any): DashboardTableProps {
     let newArray: DashboardTableProps = {
@@ -47,7 +48,7 @@ export function initliseDashboardArray(array: IPURCHASE_ORDER[], UpdateDeleteOpt
         newArray.Buttons?.push([
             <>
                 <DeleteIcon color="black" onclick={() => { UpdateDeleteOption(value, i) }} tooltip="Delete Purchase Order" key={value._id + i} />
-                <ArrowIconForward onclick={() => { navigate(``) }} tooltip="" key={value.date + i} />
+                <ArrowIconForward onclick={() => { navigate(`/purchase order/${value._id}/view`) }} tooltip="" key={value.date + i} />
             </>
         ]
         )

@@ -21,6 +21,7 @@ import { MdSwitchAccount } from "react-icons/md";
 import CallReceivedIcon from '@mui/icons-material/CallReceived';
 import { RiFolderReceivedLine } from "react-icons/ri";
 import { MdOutlineDriveFolderUpload } from "react-icons/md";
+import TextSnippetIcon from '@mui/icons-material/TextSnippet';
 type Props = {};
 
 
@@ -77,6 +78,18 @@ const NavBar = (props: Props) => {
       link: 'dashboard/employees',
       icon: <PersonIcon />
     },
+    {
+      name: 'Purchase Orders',
+      link: "/dashboard/purchase order",
+      icon: <TextSnippetIcon />
+    },
+    {
+
+      name: 'Sales Orders',
+      link: "/dashboard/purchase order",
+      icon: <TextSnippetIcon />
+
+    }
     // {
     //   name: 'SpreadSheet',
     //   link: '/spreadsheet',
@@ -88,35 +101,39 @@ const NavBar = (props: Props) => {
 
 
   const navTabsWithDetails: detailsTab[] = [
-    {
-      name: 'Purchase Order',
-      link: '/dashboard/purchase Order',
-      Tabs: [
-        {
-          name: 'Create P.O',
-          link: '/create/purchase Order',
-          icon: <AddIcon onclick={() => { }} color="black" key={'P.O.1'} />
-        }
-      ]
 
-
-    },
     {
-      name: 'Bills',
+      name: 'Invoices',
       Tabs: [
 
         {
-          name: 'Bills Receivable',
+          name: 'Sales Invoices',
           icon: <RiFolderReceivedLine size={20} />,
           link: '/dashboard/invoice'
         },
         {
-          name: 'Bills Payable',
+          name: 'Purchase Invoices',
           icon: <MdOutlineDriveFolderUpload size={20} />,
           link: '/dashboard/bills/payable'
-        }
+        },
+
       ]
-    }
+    },
+    // {
+    //   name: 'Purchase Order',
+    //   link: '/dashboard/purchase Order',
+    //   Tabs: [
+    //     {
+    //       name: 'Create P.O',
+    //       link: '/create/purchase Order',
+    //       icon: <AddIcon onclick={() => { }} color="black" key={'P.O.1'} />
+    //     }
+    //   ]
+
+
+    // },
+
+
 
 
   ]

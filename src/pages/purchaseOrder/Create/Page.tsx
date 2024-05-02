@@ -3,7 +3,7 @@ import SelectSenderInfo from './layouts/SelectSendToInfo'
 import { ICREATE_PURCHASE_ORDER, ICREATE_PURCHASE_ORDER_PRODUCT, IPurchaseOrderBody } from '../model/model'
 import { SolidButton } from '../../../components/ui/Buttons/solid/SolidButton'
 import ProductTable from './layouts/Table'
-import AddProductDialog from './layouts/AddProductDialog'
+import AddProductDialog from './components/AddProductDialog'
 import { limitDecimalDigits } from '../../../utils/limitDecimalDigits'
 import { converToInrFormat } from '../../../utils/ConvertInrFormat'
 import TopSection_NoAnsDate from './layouts/TopSection_NoAnsDate'
@@ -13,6 +13,7 @@ import Notes from './layouts/Notes'
 import { createPurchaseOrderAction } from '../../../store/actions/purchaseOrder/action'
 import { useAppSelector } from '../../../store/app/hooks'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 // import { useNavigate } from 'react-router-dom'
 
 type Props = {}
@@ -83,9 +84,9 @@ const CreatePurchaseOrder = (props: Props) => {
     }
 
 
-    function calculateGrandTotal() {
+    function calculateGrandTotal(products: ICREATE_PURCHASE_ORDER_PRODUCT[]) {
         let total = 0;
-        data.product.map((index: ICREATE_PURCHASE_ORDER_PRODUCT) => {
+        products.map((index: ICREATE_PURCHASE_ORDER_PRODUCT) => {
             let tax = 0;
             index.tax.map((taxs: any) => {
                 return tax = tax + calculateTaxAmount(taxs.amount, (index.quantity * index.rate));
@@ -95,10 +96,31 @@ const CreatePurchaseOrder = (props: Props) => {
         return total;
     }
 
-    useEffect(() => {
-        setData(prev => { return { ...prev, total: limitDecimalDigits(calculateGrandTotal()) } })
 
-    }, [data.product])
+
+
+
+    function validate(data: ICREATE_PURCHASE_ORDER): Boolean {
+        try {
+
+            if (data.date.length === 0) throw new Error("Please Add Date to Save the PO");
+            if (data.po_NO.length === 0) throw new Error("Please Add PO Number to Save the PO");
+            if (data.to.name.length === 0) throw new Error("Please Add Billed To ")
+            if (data.ship_To.name.length === 0) throw new Error("Please Add Shipped To ")
+            if (data.product.length === 0) throw new Error("Please Add At Least 1 Product  to Save the PO");
+            else {
+                data.product.map((index: ICREATE_PURCHASE_ORDER_PRODUCT) => {
+                    if (index.quantity === 0) throw new Error("Cannot Add Product With 0 Quantity")
+                })
+            }
+
+        } catch (Err: any) {
+            toast.info(Err.message)
+            return false;
+        }
+        return true
+
+    }
 
 
 
@@ -121,7 +143,7 @@ const CreatePurchaseOrder = (props: Props) => {
                 </div>
                 <div className='max-h-[70%] min-h-[40%] border  rounded-xl'>
                     <div className='h-[90%] border-t-2 border-black '>
-                        <ProductTable array={data.product} setArray={(value: ICREATE_PURCHASE_ORDER_PRODUCT[]) => { setData((prev) => { return { ...prev, product: value } }) }} />
+                        <ProductTable array={data.product} setArray={(value: ICREATE_PURCHASE_ORDER_PRODUCT[]) => { setData((prev) => { return { ...prev, product: value, total: limitDecimalDigits(calculateGrandTotal(value)) } }) }} />
                     </div>
                     <div className='w-full border-t border-blue-200 h-[10%]  cursor-pointer bg-blue-200/60 grid place-content-center rounded-b-xl  ' onClick={() => { (!openDialog) ? setOpenDialog(true) : setOpenDialog(false) }}>
                         <div>Add + </div>
@@ -135,7 +157,7 @@ const CreatePurchaseOrder = (props: Props) => {
                         <div className='text-end'>Amount Before Tax :</div>
                         <div>
                             {
-                                converToInrFormat(calculateGrandTotal() - calculateTotalTax())
+                                converToInrFormat(data.total - calculateTotalTax())
                             }
                         </div>
                     </div>
@@ -152,7 +174,7 @@ const CreatePurchaseOrder = (props: Props) => {
                         <div className='text-end'>Grand Total :</div>
                         <div>
                             {
-                                converToInrFormat(calculateGrandTotal())
+                                converToInrFormat(data.total)
                             }
                         </div>
                     </div>
@@ -172,9 +194,12 @@ const CreatePurchaseOrder = (props: Props) => {
 
 
                 <div className=''>
-                    <SolidButton color='black' innerText='Save' onClick={() => {
-                        console.log(data); createPurchaseOrderAction(data);
-                        navigate('/dashboard/purchase order')
+                    <SolidButton color='black' innerText='Save' onClick={async () => {
+                        console.log(data);
+                        if (validate(data)) {
+                            await createPurchaseOrderAction(data)
+                            navigate('/dashboard/purchase order')
+                        }
                     }} key={keys.button} />
                 </div>
             </div>

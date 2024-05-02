@@ -96,6 +96,7 @@ const ViewInvoice = (props: Props) => {
 
   async function printOne() {
     try {
+      console.log(targetRef.current)
       dispatch(change());
       htmlToImage.toPng(targetRef.current, { quality: 0.50 })
         .then(function (dataUrl) {

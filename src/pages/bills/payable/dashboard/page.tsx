@@ -132,7 +132,7 @@ const PayableDashboard: React.FC = (props: Props) => {
         <div className='p-5 h-full w-full flex flex-col gap-5'>
             <DeleteBillsPayableDialog close={() => { setDeleteDialog(prev => { return { ...prev, isOpen: false } }) }} date={deleteDialog.date} invoiceNo={deleteDialog.invocieNo} isOpen={deleteDialog.isOpen} name={deleteDialog.name} onclick={() => { }} key={'DeleteDialog'} />
             <div className='h-[5%] flex place-content-between'>
-                <PageHeading name='Bills Payables' key={keys.heading} />
+                <PageHeading name='Purchase Invoices' key={keys.heading} />
                 <div className='flex gap-4 h-full'>
                     <SolidButton color='black' innerText='Insert New ' onClick={() => { navigate(`/create/billspayable`) }} key={keys.InsertNew} />
                     <SolidButton color='black' innerText='Record Payables payment ' onClick={() => { navigate(`/create/800/expence`) }} key={keys.createExpence} />

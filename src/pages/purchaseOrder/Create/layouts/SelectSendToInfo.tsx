@@ -94,8 +94,8 @@ const SelectSendToInfo = ({ onchange, values }: Props) => {
     return (
         <>
             <div className='w-full h-full grid grid-cols-2 gap-5'>
-                <SelectBilledTo name='Billed To' arrayList={connectionList} onchange={(e: React.ChangeEvent<HTMLInputElement>) => { push(e, 'to') }} value={selectedValue.to} key={'any'} />
-                <SelectBilledTo name='Shipped To' arrayList={connectionList} onchange={(e: React.ChangeEvent<HTMLInputElement>) => { push(e, 'ship_To') }} value={selectedValue.ship_To} key={'any'} />
+                <SelectBilledTo name='To' arrayList={connectionList} onchange={(e: React.ChangeEvent<HTMLInputElement>) => { push(e, 'to') }} value={selectedValue.to} key={'any'} />
+                {/* <SelectBilledTo name='Shipped To' arrayList={connectionList} onchange={(e: React.ChangeEvent<HTMLInputElement>) => { push(e, 'ship_To') }} value={selectedValue.ship_To} key={'any'} /> */}
             </div>
         </>
     )

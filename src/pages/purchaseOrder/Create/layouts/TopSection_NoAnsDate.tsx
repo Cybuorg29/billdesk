@@ -18,7 +18,7 @@ const TopSection_NoAnsDate = ({ poNo, setData, dates, setDates, qut_ref, setRef 
         <>
             <span>Purchase Order No :</span>
             <div><Input value={poNo} onChange={(e) => { setData(e.target.value) }} /></div>
-            <div className='h-full  text-xs flex place-content-end   gap-2  rounded-lg'>
+            <div className='h-full  text-xs lg:flex  grid lg:place-content-end   gap-2  rounded-lg'>
                 <div className='grid'>
                     <div className='text-end text-gray-400'>Format(dd-mm-yyyy)</div>
                     <div className='flex   place-content-center items-center gap-1  '>
@@ -27,7 +27,7 @@ const TopSection_NoAnsDate = ({ poNo, setData, dates, setDates, qut_ref, setRef 
                     </div>
                 </div>
                 <div className='grid'>
-                    <div className='text-end text-gray-400'>Format(dd-mm-yyyy)</div>
+                    <div className=' text-end text-gray-400'>dd-mm-yyyy or till Supplies</div>
                     <div className='flex place-content-center items-center gap-1   '>
                         <div>Valid Till :</div>
                         <div><input title='aaa' className='border' type='text' value={dates.till} onChange={(e) => { setDates(e.target.value, 'valid_Date') }} /></div>

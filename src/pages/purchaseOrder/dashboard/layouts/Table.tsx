@@ -1,24 +1,30 @@
 import React, { useEffect, useState } from 'react'
-import DashboardTable from '../../../../components/ui/table/dashboardTable'
-import { initliseDashboardArray } from '../functions/initliseDashboardArray'
+import DashboardTable, { DashboardTableProps } from '../../../../components/ui/table/dashboardTable'
 import { useAppSelector } from '../../../../store/app/hooks'
 import { MenuItem, Select } from '@mui/material'
 import { ICREATE_PURCHASE_ORDER, IPURCHASE_ORDER } from '../../model/model'
 import PurchaseOrderDeleteDialog from '../../Delete/DeleteDialog'
 import { useNavigate } from 'react-router-dom'
+import { converToInrFormat } from '../../../../utils/ConvertInrFormat'
+import { DeleteIcon } from '../../../../components/ui/icons/DeleteIcon'
+import ArrowIconForward from '../../../../components/ui/icons/ArrowIconForward'
+import { initliseDashboardArray } from '../functions/initliseDashboardArray'
 
 type Props = {}
 
 const Table = (props: Props) => {
 
-    const { purchase_Order } = useAppSelector(state => state.po);
+    const { purchase_Order, isLoaded } = useAppSelector(state => state.po);
     const [toDelete, setToDelete] = useState<IPURCHASE_ORDER>()
     const [DeleteDialogIsOpen, setDeleteDialogIsOpen] = useState<boolean>(false);
     const [index, setIndex] = useState<number>(0);
     const navigate = useNavigate()
-    const [dashboardTableArray, setDashboardArray] = useState(initliseDashboardArray(purchase_Order,
-        (value: IPURCHASE_ORDER, i: number) => { setToDelete((prev: any) => value); setIndex((prev) => i); setDeleteDialogIsOpen(true); },
-        navigate));
+    const [dashboardTableArray, setDashboardArray] = useState<DashboardTableProps>({
+        dataArray: [],
+        headers: [' Order No', 'Billed To', 'Issue Date', 'Valid Till', 'Status', "Amount"],
+        onclick: [],
+        Buttons: []
+    });
     const [searchParams, setSearchParams] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>()
 
@@ -44,16 +50,24 @@ const Table = (props: Props) => {
     }
 
 
+
+
+
+
     useEffect(() => {
-        setDashboardArray(initliseDashboardArray(purchase_Order, (value: IPURCHASE_ORDER, i: number) => { setToDelete((prev: any) => value); setIndex((prev) => i); setDeleteDialogIsOpen(true); }, navigate));
+        setDashboardArray((prev) => initliseDashboardArray(purchase_Order, (value: IPURCHASE_ORDER, i: number) => { setToDelete((prev: any) => value); setIndex((prev) => i); setDeleteDialogIsOpen(true); }, navigate));
     }, [purchase_Order])
 
     useEffect(() => {
-        const time = setTimeout(() => {
-            setDashboardArray(initliseDashboardArray(updateArraythroughSearchParams(searchParams), (value: IPURCHASE_ORDER, i: number) => { setToDelete((prev: any) => value); setIndex((prev) => i); setDeleteDialogIsOpen(true); }, navigate));
-            setIsLoading(false)
-        }, 1000);
-        return () => clearTimeout(time);
+        if (!isLoading) {
+            setIsLoading(false);
+        } else {
+            const time = setTimeout(() => {
+                setDashboardArray((prev) => initliseDashboardArray(updateArraythroughSearchParams(searchParams), (value: IPURCHASE_ORDER, i: number) => { setToDelete((prev: any) => value); setIndex((prev) => i); setDeleteDialogIsOpen(true); }, navigate));
+                setIsLoading(false)
+            }, 1000);
+            return () => clearTimeout(time);
+        }
     }, [searchParams])
 
     return (
