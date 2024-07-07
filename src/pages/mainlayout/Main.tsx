@@ -23,7 +23,8 @@ const Main = (props: Props) => {
   const { isIncome, isExpences } = useAppSelector(state => state.incomeAndExpence)
   const location = useLocation();
   const pathname = location.pathname;
-  const partsAfterSlash = pathname.split('/').filter(part => part !== '');
+
+  const partsAfterSlash = pathname.split(`/`).filter(part => part !== '');
   const [path, setPath] = useState<any>(location)
   const navigate = useNavigate();
 
@@ -45,7 +46,8 @@ const Main = (props: Props) => {
         navigate('/settings')
         toast.info('please setup you profile to continue')
       } else {
-        navigate(`/${partsAfterSlash}`)
+        ;
+        navigate(`/${partsAfterSlash.join(',').replaceAll(',', '/')}`)
       }
     }
     dispatch(change())

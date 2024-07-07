@@ -1,13 +1,9 @@
 import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material'
-import React, { useId, useState } from 'react'
+import React from 'react'
 import { ICREATE_PURCHASE_ORDER_PRODUCT } from '../../model/model'
 import { converToInrFormat } from '../../../../utils/ConvertInrFormat'
-import { IInvoiceProduct } from '../../../../models/inventory/productModel'
 import TableInputs from '../../../invoice/create/components/TableInputs'
-import { useAppSelector } from '../../../../store/app/hooks'
-import { toast } from 'react-toastify'
 import { limitDecimalDigits } from '../../../../utils/limitDecimalDigits'
-import removeProduct from '../functions/removeProduct'
 import removeIndex from '../../../../utils/removeIndex'
 
 type Props = {
@@ -16,8 +12,6 @@ type Props = {
 }
 
 const ProductTable = ({ array, setArray }: Props) => {
-    const [selectProductOpen, setSelectProductOpen] = useState<boolean>(false);
-    const { products } = useAppSelector(state => state.product);
     function handleQtyAndRateChange(value: number, change: 'rate' | 'qty', index: number) {
         let arry = array;
         console.log(value)

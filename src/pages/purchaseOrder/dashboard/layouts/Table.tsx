@@ -21,7 +21,7 @@ const Table = (props: Props) => {
     const navigate = useNavigate()
     const [dashboardTableArray, setDashboardArray] = useState<DashboardTableProps>({
         dataArray: [],
-        headers: [' Order No', 'Billed To', 'Issue Date', 'Valid Till', 'Status', "Amount"],
+        headers: [' Order No', 'Billed To', 'Issue Date', 'Valid Till', 'Delivered', "Amount"],
         onclick: [],
         Buttons: []
     });
@@ -75,9 +75,9 @@ const Table = (props: Props) => {
             <PurchaseOrderDeleteDialog Data={toDelete} index={index} close={() => { setDeleteDialogIsOpen(false) }} isOpen={DeleteDialogIsOpen} key={`DeleteDialog`} />
             <div className='h-[15%] p-2 flex gap-2 '>
                 <div className='border h-full w-[25%]'>
-                    <input title='input' value={searchParams} onChange={(e) => { setIsLoading(true); setSearchParams(prev => e.target.value) }} placeholder='search with Invoice No, Billed to name date ' className='w-full h-full ' />
+                    <input title='input' value={searchParams} onChange={(e) => { setIsLoading(true); setSearchParams(prev => e.target.value) }} placeholder='search with Invoice No, Billed to name date ' className='w-full h-full rounded-xl' />
                 </div>
-                <div className='w-[8%] cursor-pointer hover:bg-gray-100  flex items-center border text-center place-content-center'>Search</div>
+                <div className='w-[8%] rounded-xl cursor-pointer hover:bg-gray-100  flex items-center border text-center place-content-center'>Search</div>
             </div>
             <div className='h-[80%] '>
                 {

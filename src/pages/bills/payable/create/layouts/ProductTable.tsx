@@ -43,8 +43,8 @@ const ProductTable = ({ invoice, setInvoice, po }: Props) => {
 
     if (type === 'qty') {
       // add stock validator -- pending 
-
-      index.qty = value;
+      if (index.delivered && value > index.delivered) toast.error("Quantity Excedded");
+      else index.qty = value;
     }
     if (type === 'rate') index.rate = value;
     if (type === 'discount') index.discount = value;

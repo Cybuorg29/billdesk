@@ -86,7 +86,7 @@ const NavBar = (props: Props) => {
     {
 
       name: 'Sales Orders',
-      link: "/dashboard/purchase order",
+      link: "/dashboard/sales order",
       icon: <TextSnippetIcon />
 
     }

@@ -36,8 +36,10 @@ const DashboardTable = ({ dataArray, headers, Buttons, onclick }: DashboardTable
                       dataArray.map((index: any, i: number) => {
                         const j = i
                         const array: any = Buttons
+                        const length = Buttons?.length;
 
-                        return <tr className="border-b border-neutral-300 font-light hover:bg-slate-100 cursor-pointer" onClick={() => {
+
+                        return <tr className="border-b border-neutral-300 font-light duration-300  hover:bg-slate-100 cursor-pointer" onClick={() => {
                           if (!onclick) {
                             onclick();
                           } else {
@@ -55,9 +57,10 @@ const DashboardTable = ({ dataArray, headers, Buttons, onclick }: DashboardTable
                           <td>
                             <div className='flex gap-1'>
                               {
-                                array[j]?.map((Index: any) => {
-                                  return Index
-                                })
+                                (length === 0) ? console.log("0") :
+                                  array[j]?.map((Index: any) => {
+                                    return Index
+                                  })
 
                               }
                             </div>

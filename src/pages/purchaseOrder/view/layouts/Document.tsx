@@ -66,7 +66,7 @@ const Document = ({ _id, doc, targetref }: Props) => {
     }, [purchase_Order, _id])
     return (
         <>
-            <div className='w-full min-h-full  overflow-auto  p-4 border-black font-bold text-sm' ref={targetref} >
+            <div className='w-full min-h-full  overflow-auto  p-4  font-bold text-sm ' ref={targetref} >
                 <div className='text-end'>{doc}</div>
                 <div className='h-[6%] border-2 grid place-content-center  border-black font-bold text-xl text-center'>Purchase Order</div>
                 <div className='border-t-0 border-2 pt-1 border-black h-fit  grid grid-cols-2 '>
