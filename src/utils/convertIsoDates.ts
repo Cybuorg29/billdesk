@@ -1,6 +1,7 @@
 
 
-export default function convertIsoDate(value: string) {
+export default function convertIsoDate(value: string | undefined) {
+  if (!value) return ''
   const date = new Date(value);
   const formattedDateString = date.toLocaleString('en-IN', {
     year: 'numeric',

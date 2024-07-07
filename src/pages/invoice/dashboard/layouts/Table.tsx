@@ -8,6 +8,7 @@ import { DeleteIcon } from '../../../../components/ui/icons/DeleteIcon';
 import { converToInrFormat } from '../../../../utils/ConvertInrFormat';
 import { useNavigate } from 'react-router-dom';
 import { deleteInvoiceAction } from '../../../../store/actions/invoice/delete';
+import ConfirmDeleteDialog from './ConfirmDeleteDialog';
 
 type Props = { type: string, set: any }
 
@@ -16,6 +17,9 @@ const Table = ({ type, set }: Props) => {
   const [searchValue, setSearchValue] = useState<string>("")
   const viewIconId = useId();
   const deleteInvoiceIconKey = useId()
+  const [toDeleteId, setToDeleteId] = useState<string>('');
+  const [IsDialogOPen, setIsDialogOPen] = useState(false)
+  const [InvoiceNo, setInvoiceNo] = useState('')
 
   const navigate = useNavigate();
 
@@ -25,6 +29,7 @@ const Table = ({ type, set }: Props) => {
 
   return (
     <div className='w-full h-full   '>
+      <ConfirmDeleteDialog toDelete={toDeleteId} invoiceNo={InvoiceNo} close={() => setIsDialogOPen(false)} isOPen={IsDialogOPen} />
       <div className='border-t    w-full h-[90%] overflow-auto text-sm relative' >
         <div className='p-3 grid grid-cols-2 border-b ' >
           <Search type={type} set={set} value={searchValue} onchange={(e: React.ChangeEvent<HTMLInputElement>) => { setSearchValue(e.target.value) }} />
@@ -59,7 +64,7 @@ const Table = ({ type, set }: Props) => {
                             <th scope="col" className=' px-6 py-3 text-xs sticky '  >{(!index.isPaid) ? 'Not Paid' : 'Paid'}</th>
                             <th scope="col" className=' px-6 py-3 text-xs sticky '  >
                               <div className='flex place-content-start' >
-                                <div><DeleteIcon color='black' onclick={() => { deleteInvoiceAction(index._id) }} tooltip='Delete Invoice' key={deleteInvoiceIconKey} /></div>
+                                <div><DeleteIcon color='black' onclick={() => { setToDeleteId(prev => index._id); setInvoiceNo(prev => index.invoice_No); setIsDialogOPen(true) }} tooltip='Delete Invoice' key={deleteInvoiceIconKey} /></div>
                                 <div><ViewIcon color='blue' onclick={() => { navigate(`/view/${index._id}/invoice`) }} tooltip='View' key={viewIconId} /></div>
                               </div>
                             </th>

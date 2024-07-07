@@ -45,8 +45,13 @@ import CreateBillsPayable from './pages/bills/payable/create/page';
 import PurchaseOrderDashboard from './pages/purchaseOrder/dashboard/Page';
 import CreatePurchaseOrder from './pages/purchaseOrder/Create/Page';
 import CheckPoState from './pages/purchaseOrder/CheckState'
+import CheckSalesOrderState from './pages/salesOrders/CheckState'
 import { elements } from 'chart.js';
 import ViewPurchaseOrder from './pages/purchaseOrder/view/Page';
+import CreateSalesOrders from './pages/salesOrders/create/Page';
+import SalesOrderDashboard from './pages/salesOrders/dashboard/Page';
+import ViewSalesOrder from './pages/salesOrders/view/Page'
+
 registerLicense("Ngo9BigBOggjHTQxAR8/V1NGaF5cXmdCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdgWXhfeHVUQ2hfWUJ0VkE=");
 function App() {
 
@@ -117,6 +122,9 @@ function App() {
                 <Route path='/dashboard/purchase order' element={<CheckPoState children={<PurchaseOrderDashboard />} />} />
                 <Route path='/create/purchase order' element={<CheckPoState children={<CreatePurchaseOrder />} />} />
                 <Route path='/purchase order/:_id/view' element={<CheckPoState children={<ViewPurchaseOrder />} />} />
+                <Route path='/sales order/create' element={<CheckSalesOrderState children={<CreateSalesOrders />} />} />
+                <Route path='/dashboard/sales order' element={<CheckSalesOrderState children={<SalesOrderDashboard />} />} />
+                <Route path='/view/:_id/sales order' element={<CheckSalesOrderState children={<ViewSalesOrder />} />} />
               </Route>
 
             </Routes>

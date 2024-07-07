@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { SolidButton } from '../ui/Buttons/solid/SolidButton'
 import { changeIncomeAndExpenceByDates } from '../../store/actions/data/IncomeAndExpence'
 import { useAppSelector } from '../../store/app/hooks'
+import { toast } from 'react-toastify'
 
 type Props = {
     upper: string,
@@ -14,6 +15,7 @@ type Props = {
 
 const DateChangeDialog = ({ isOpen, lower, upper, close, onChange }: Props) => {
     const { from, to } = useAppSelector(state => state.incomeAndExpence)
+    let ref = useRef<HTMLInputElement>(null);
     const [dates, setDates] = useState({
         lower: to,
         upper: from
@@ -22,6 +24,13 @@ const DateChangeDialog = ({ isOpen, lower, upper, close, onChange }: Props) => {
 
 
 
+
+    useEffect(() => {
+        if (ref.current) {
+            ref.current.focus();
+            toast('asdasd' + ref.current)
+        }
+    }, [])
 
 
 
@@ -49,7 +58,7 @@ const DateChangeDialog = ({ isOpen, lower, upper, close, onChange }: Props) => {
                 <div className='flex gap-5'>
                     <div>
                         <div>From</div>
-                        <input type='date' title='dateh' data-date-inline-picker="true" className='border' value={dates.upper} onChange={(e) => { setDates((prev) => { return { ...prev, upper: e.target.value } }) }} />
+                        <input ref={ref} type='date' title='dateh' data-date-inline-picker="true" className='border' value={dates.upper} onChange={(e) => { setDates((prev) => { return { ...prev, upper: e.target.value } }) }} />
                     </div>
                     <div>
 

@@ -4,11 +4,12 @@ import { DeleteIcon } from "../../../../components/ui/icons/DeleteIcon"
 import { DashboardTableProps } from "../../../../components/ui/table/dashboardTable"
 import { converToInrFormat } from "../../../../utils/ConvertInrFormat"
 import { IPURCHASE_ORDER } from "../../model/model"
+import { limitDecimalDigits } from "../../../../utils/limitDecimalDigits"
 
 export function initliseDashboardArray(array: IPURCHASE_ORDER[], UpdateDeleteOption: any, navigate: any): DashboardTableProps {
     let newArray: DashboardTableProps = {
         dataArray: [],
-        headers: [' Order No', 'Billed To', 'Issue Date', 'Valid Till', 'Status', "Amount"],
+        headers: [' Order No', 'Billed To', 'Issue Date', 'Valid Till', 'Delivered', "Amount"],
         onclick: [],
         Buttons: []
     }
@@ -39,12 +40,17 @@ export function initliseDashboardArray(array: IPURCHASE_ORDER[], UpdateDeleteOpt
 
     array.map((value: IPURCHASE_ORDER, i) => {
         let com = 'Incomplete';
+        let totalQuantity = 0;
+        let deliveredQuantity = 0;
         value.product.map((product) => {
             if (product.quantity === product.delivered) {
                 com = 'Completed';
             }
+            totalQuantity = totalQuantity + product.quantity;
+            deliveredQuantity = deliveredQuantity + product.delivered;
         })
-        newArray.dataArray.push(new pushObj(value.po_NO, value.to.name, value.date, value.valid_Date, com, value.total));
+        const per = (deliveredQuantity / totalQuantity) * 100;
+        newArray.dataArray.push(new pushObj(value.po_NO, value.to.name, value.date, value.valid_Date, `${limitDecimalDigits(per)}%`, value.total));
         newArray.Buttons?.push([
             <>
                 <DeleteIcon color="black" onclick={() => { UpdateDeleteOption(value, i) }} tooltip="Delete Purchase Order" key={value._id + i} />

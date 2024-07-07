@@ -26,7 +26,7 @@ const SelectProducts = ({ scale, setInvoice, setMinStock, setScale, po }: Props)
         name = ''
         description = ''
         code = ''
-        qty = ''
+        qty = 0
         rate = 0
         unit = ''
         discount = 0
@@ -35,13 +35,15 @@ const SelectProducts = ({ scale, setInvoice, setMinStock, setScale, po }: Props)
         taxable_Value = 0
         tax = []
         id = ''
-        constructor(name: string, description: string, rate: number, unit: string, tax: any, id: string) {
+        delivered = 0
+        constructor(name: string, description: string, rate: number, unit: string, tax: any, id: string, qty: number) {
             this.name = name;
             this.description = description
             this.rate = rate
             this.unit = unit
             this.tax = tax
             this.id = id
+            this.delivered = qty
         }
     }
 
@@ -49,7 +51,7 @@ const SelectProducts = ({ scale, setInvoice, setMinStock, setScale, po }: Props)
     function submit(e: React.ChangeEvent, index: IPURCHASE_ORDER_PRODUCT) {
         setInvoice((prev: any) => {
             return {
-                ...prev, products: [...prev.products, new PRODUCT(index.name, index.description, index.rate, index.measuring_Unit, index.tax, index._id)]
+                ...prev, products: [...prev.products, new PRODUCT(index.name, index.description, index.rate, index.measuring_Unit, index.tax, index._id, (index.quantity - index.delivered))]
             }
         })
 

@@ -33,24 +33,25 @@ const AddProductDialog = (props: Props) => {
         tax = []
         value = 0
         name = ''
-
+        max = 0
         constructor({ del_sch, description, measuring_Unit, quantity, rate, tax, value, name }: ICREATE_PURCHASE_ORDER_PRODUCT) {
             // toast(name)
             this.del_sch = del_sch
             this.description = description
             this.measuring_Unit = measuring_Unit
-            this.quantity = quantity
+            this.quantity = 0
             this.rate = rate
             this.tax = tax
             this.value = value
             this.name = name
+            this.max = quantity
         }
 
     }
 
 
     function pushProduct(value: ProductObj) {
-        const data = new dataPusjObj({ del_sch: '', description: value.description, measuring_Unit: value.unit, quantity: 0, rate: value.rate, tax: value.tax, value: 0, name: value.name, in_id: value._id });
+        const data = new dataPusjObj({ del_sch: '', description: value.description, measuring_Unit: value.unit, quantity: value.limit, rate: value.rate, tax: value.tax, value: 0, name: value.name, in_id: value._id });
         props.push(data);
         props.close();
     }
