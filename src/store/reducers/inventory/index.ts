@@ -33,7 +33,8 @@ export const changeProduct = (state: productArray, action: PayloadAction<actionP
         case ProductOperations.set:
             console.log('in set');
             state.products = data
-            state.isProducts = true
+            state.isProducts = true;
+            toast.done("Inventory Updated")
             break;
         case ProductOperations.delete:
             // state.products = state.products.filter((index: ProductObj) => index._id !== data);

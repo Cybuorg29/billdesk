@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../store/app/hooks';
 import { setInvoiceAction } from '../../../store/actions/invoice/set';
 import { Iinvoice } from '../../../models/invoice/invoice.model';
@@ -15,6 +15,11 @@ import * as htmlToImage from 'html-to-image';
 
 import './hideSidebarr.css'
 import { change } from '../../../store/features/loader/loaderSlice';
+import { getSalesOrderNoApi } from '../../../api/v2/salesOrder/api';
+import { responceObj } from '../../../models/responce';
+import { ISalesOrder } from '../../salesOrders/Model/model';
+import { getStateCode } from '../../../utils/getStateCode';
+import BillingDetails from './layout/invoice/BillingDetails';
 
 type Props = {}
 
@@ -24,6 +29,10 @@ const ViewInvoice = (props: Props) => {
   const dispatch = useAppDispatch();
   const { isLoaded, invoices } = useAppSelector(state => state.invoice);
   const { istoken, token } = useAppSelector(state => state.auth);
+  const [IsLoaded, setIsLoaded] = useState<boolean>(false)
+  const [doc, setDoc] = useState<'Original' | 'Dublicate' | 'Triplicate'>('Original')
+  const { auth, salesOrders, connections } = useAppSelector(state => state)
+  const navigate = useNavigate();
   const [invoice, setInvoice] = useState<Iinvoice>({
     billed_From: {
       name: '',
@@ -74,7 +83,9 @@ const ViewInvoice = (props: Props) => {
     _id: '',
     _v: 0,
     createdAt: '',
-    updatedAt: ''
+    updatedAt: '',
+    Eway_No: '',
+    SO_NO: ''
   })
 
   useEffect(() => {
@@ -95,9 +106,9 @@ const ViewInvoice = (props: Props) => {
 
 
   async function printOne() {
+    dispatch(change());
     try {
-      console.log(targetRef.current)
-      dispatch(change());
+      // console.log(targetRef.current)
       htmlToImage.toPng(targetRef.current, { quality: 0.50 })
         .then(function (dataUrl) {
           var link = document.createElement('a');
@@ -110,16 +121,58 @@ const ViewInvoice = (props: Props) => {
           pdf.save(`${"invoice" + invoice.invoice_No}.pdf`);
         });
 
-      dispatch(change());
 
 
     } catch (err: any) {
       console.log(err);
       toast.error('an error occured');
-      dispatch(change());
+      // dispatch(change());
 
     }
+    dispatch(change());
   }
+
+
+
+
+
+
+
+
+
+
+
+
+  useEffect(() => {
+    if (!IsLoaded) {
+      if (invoice.SO_NO) getSalesOrderNO()
+    }
+
+  }, [invoice?.SO_NO])
+
+
+
+  async function getSalesOrderNO() {
+    dispatch(change());
+    try {
+      const { data } = await getSalesOrderNoApi(auth.token, invoice.SO_NO);
+      const res: responceObj = data;
+      if (res.code === 200) {
+        setInvoice(prev => { return { ...prev, SO_NO: res.package } });
+        setIsLoaded(true)
+      } else {
+        navigate('/dashboard/invoice')
+      }
+
+    } catch (err: any) {
+      toast.error("an error occured ")
+      toast.error("Error Type : " + err.message)
+    }
+    dispatch(change());
+  }
+
+
+
 
 
 
@@ -131,17 +184,17 @@ const ViewInvoice = (props: Props) => {
       <div className='w-full h-full  overflow-hidden flex gap-2 lg:scale-100 scale-0'>
         <div className='w-[85%] h-full bg-component '   >
           <div className='h-full w-full overflow-auto'   >
-            <LeftSection invoice={invoice} targetRef={targetRef} />
+            <LeftSection doc={doc} invoice={invoice} targetRef={targetRef} />
           </div>
           {/* <iframe title='Invocie' className='h-full w-full'  src={invoiceUrl}>
                 
         </iframe> */}
           <div className='h-fit  w-full overflow-auto  ' id='toPrint'>
-            <LeftSection invoice={invoice} targetRef={targetRef} />
+            <LeftSection doc={doc} invoice={invoice} targetRef={targetRef} />
           </div>
         </div>
         <div className='w-[15%] h-full  bg-component ' id='print' >
-          <RightSection printOne={printOne} />
+          <RightSection setDoc={(value: any) => { setDoc(value) }} printOne={printOne} />
         </div>
 
       </div>

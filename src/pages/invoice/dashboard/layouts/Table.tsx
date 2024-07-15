@@ -30,7 +30,7 @@ const Table = ({ type, set }: Props) => {
   return (
     <div className='w-full h-full   '>
       <ConfirmDeleteDialog toDelete={toDeleteId} invoiceNo={InvoiceNo} close={() => setIsDialogOPen(false)} isOPen={IsDialogOPen} />
-      <div className='border-t    w-full h-[90%] overflow-auto text-sm relative' >
+      <div className='border-t    w-full h-[98%] overflow-auto text-sm relative' >
         <div className='p-3 grid grid-cols-2 border-b ' >
           <Search type={type} set={set} value={searchValue} onchange={(e: React.ChangeEvent<HTMLInputElement>) => { setSearchValue(e.target.value) }} />
         </div>

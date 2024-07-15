@@ -57,7 +57,7 @@ const Bottom = ({ invoice }: Props) => {
 
 
   return (
-    <div className='flex flex-col gap-3 h-full w-full  border-t-2 border-black border-b-2 text-table'>
+    <div className='flex flex-col gap-3 h-full w-full   border-black border-b-2 text-table'>
       <div className='h-[3%] flex p-2 place-content-between ' >
         <div className='font-bold text-sm'>Grand Total</div>
         <div className='font-bold text-[1rem]'>{converToInrFormat(invoice.grand_Total)}</div>

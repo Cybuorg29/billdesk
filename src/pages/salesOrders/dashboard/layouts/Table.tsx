@@ -56,12 +56,12 @@ const Table = (props: Props) => {
             let deliveredQuantity = 0;
             value?.product?.map((product: ISALES_ORDER_PRODUCT) => {
                 totalQty = totalQty + product.quantity;
-                deliveredQuantity = deliveredQuantity + product.value;
+                deliveredQuantity = deliveredQuantity + product.delivered;
             })
             isDelivered = (deliveredQuantity / totalQty) * 100;
             if (value.due_Date !== '') validTill = value.due_Date;
 
-            array.dataArray.push(new pushObj(value.invoice_No, value.to.name, convertIsoDate(value.createdAt), validTill, `${limitDecimalDigits(isDelivered)}%`))
+            array.dataArray.push(new pushObj(value.invoice_No, value.to.name, convertIsoDate(value.createdAt), (validTill !== 'Till Supplies') ? convertIsoDate(validTill).split('at')[0] : 'Till Supplies', `${limitDecimalDigits(isDelivered)}%`))
             array.Buttons?.push([
                 <ViewIcon color='black' onclick={() => { navigate(`/view/${value._id}/sales order`) }} tooltip='' key={`${value._id}`} />,
                 <DeleteIcon color='black' onclick={() => { setToDeleteId(value._id); setToDeleteNO(value.invoice_No); setIndex(() => i); setIsOpen(true); }} tooltip='Delete' key={`del${value._id}`} />

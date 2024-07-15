@@ -7,11 +7,13 @@ import { actionPayload } from "../../payload/payloadModel";
 import { SalesOrderActions, salesOrderPayloadTypes } from "../../reducers/salesOrders/reducer";
 import { setSalesOrderReducer } from "../../features/salesOrders/SalesOrderSlice";
 import { change } from "../../features/loader/loaderSlice";
+import { IcreateInvoice } from "../../../models/invoice/invoice.model";
+import { IInvoiceProduct } from "../../../models/inventory/productModel";
+import { updateInventoryStockThroughInvoice } from "../products/update/updateStockThroughInvoice";
 
 export async function initliseSalesOrdersAction() {
     store.dispatch(change())
     try {
-        toast('asdas')
         const { auth } = store.getState();
         const { data } = await getSalesOrderApi(auth.token);
         const res: responceObj = data;
@@ -102,3 +104,31 @@ export async function deleteSalesOrderAction(_id: string, index: number | undefi
 }
 
 
+
+export async function updateDeliveredThroughInvoice(obj: IcreateInvoice) {
+    // store.dispatch()
+    try {
+        let newArray: { name: string, qty: number }[] = [];
+
+        obj.products.map((value: IInvoiceProduct) => {
+            newArray.push({ name: value.name, qty: value.qty })
+        })
+
+        const payload: salesOrderPayloadTypes = {
+            data: {
+                id: obj.SO_NO,
+                list: newArray
+            },
+            type: 'updateStockThroughInvoice'
+        }
+        updateInventoryStockThroughInvoice(payload.data.list)
+        store.dispatch(setSalesOrderReducer(payload))
+
+    } catch (err: any) {
+        console.log(err.message)
+        toast.error("an error occured please try again ")
+        toast.error("error type :" + err.message);
+    }
+    // store.dispatch(change());
+
+}

@@ -9,6 +9,7 @@ import { changePayables } from "../../../features/bills/receivable/billsReceivab
 import { change } from "../../../features/loader/loaderSlice";
 import { changeProduct, ProductOperations, stockOperation } from "../../../reducers/inventory";
 import { setProducts, updateStock } from "../../../features/inventory/inventorySlice";
+import { getProducts } from "../../products";
 
 export async function insertBillsPayable(payable: IcreateBillsPayable) {
     store.dispatch(change())
@@ -28,29 +29,17 @@ export async function insertBillsPayable(payable: IcreateBillsPayable) {
             }
             const { product, po } = store.getState()
             const { products } = product
+            if (!product.isProducts) await getProducts();
             let newArray: any = []
             payable.products.map((index) => {
                 return products.map((product) => {
+                    let temp = { ...product };
                     if (index.name === product.name) {
-                        product.stock = product.stock + index.qty;
+                        temp.stock = parseInt(`${temp.stock}`) + parseInt(`${index.qty}`);
                     }
-                    newArray.push(product);
+                    newArray.push(temp);
                 })
             })
-
-            let poArray = [];
-
-
-            //    payable.products.map((index)=>{
-
-            //        po.purchase_Order.map((po)=>{
-            //           po.product.map
-            //        })
-            //    })
-
-
-
-
             const InventoryPayload: actionPayload = {
                 data: newArray,
                 type: ProductOperations.set
@@ -63,6 +52,7 @@ export async function insertBillsPayable(payable: IcreateBillsPayable) {
 
         }
     } catch (err: any) {
+        toast.error('asdas')
         toast.error(err.message)
     }
     store.dispatch(change())

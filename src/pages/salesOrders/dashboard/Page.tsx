@@ -15,7 +15,7 @@ const SalesOrderDashboard = (props: Props) => {
             <div className='h-[8%] flex w-full place-content-between'>
                 <PageHeading name='Sales Orders' />
                 <div className='flex items-center'>
-                    <SolidButton color='black' innerText='Record Income +' onClick={() => { }} />
+                    <SolidButton color='black' innerText='Create Invoice + ' onClick={() => { }} />
                     <SolidButton color='black' innerText='Create New +' onClick={() => { navigate("/sales order/create") }} />
                 </div>
             </div>

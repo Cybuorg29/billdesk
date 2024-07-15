@@ -1,12 +1,13 @@
 import { Dialog, DialogActions, DialogContent, DialogContentText } from '@mui/material'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAppSelector } from '../../../../store/app/hooks'
-import { ProductObj } from '../../../../models/inventory/productModel'
+import { IInvoiceProduct, ProductObj } from '../../../../models/inventory/productModel'
 import { IcreateInvoice } from '../../../../models/invoice/invoice.model'
 import { getProducts } from '../../../../store/actions/products'
 import { toast } from 'react-toastify'
+import { ISALES_ORDER_PRODUCT, ISalesOrder } from '../../../salesOrders/Model/model'
 
-type Props = { scale: boolean, setScale: any, setInvoice: any, setMinStock: any }
+type Props = { scale: boolean, setScale: any, setInvoice: any, setMinStock: any, SO_NO: string }
 
 interface IProductTab {
     name: string
@@ -15,9 +16,12 @@ interface IProductTab {
 
 
 
-const AddProductDialog = ({ scale, setScale, setInvoice, setMinStock }: Props) => {
+const AddProductDialog = ({ scale, setScale, setInvoice, setMinStock, SO_NO }: Props) => {
     const blue = 'text-blue-800'
-    const { products, isProducts } = useAppSelector(state => state.product)
+    const { products, isProducts } = useAppSelector(state => state.product);
+    const { Sales_Orders, isLoaded } = useAppSelector(state => state.salesOrders)
+    const [array, setArray] = useState<any>([])
+    const auth = useAppSelector(state => state.auth)
 
     class PRODUCT {
 
@@ -42,6 +46,45 @@ const AddProductDialog = ({ scale, setScale, setInvoice, setMinStock }: Props) =
         }
     }
 
+    // useEffect(() => {
+
+    // }, [])
+
+    function initliseProductArray(): any {
+        let array: any[] = []
+        let order: ISalesOrder | undefined;
+        if (!isProducts) getProducts();
+        else if (SO_NO.length === 0 || SO_NO === '') return products
+        else {
+
+            Sales_Orders.map((value: ISalesOrder) => {
+                if (value._id === SO_NO) {
+                    value.product.map((prod) => {
+                        const obj = products.find((element) => element.name === prod.name);
+                        console.log('obj', obj)
+                        if (typeof obj !== typeof undefined) {
+                            let index = { ...obj }
+                            // array.push(new PRODUCT(prod.name, index.description, index.code, prod.rate, index.unit, prod.tax)
+                            if (index.stock) {
+                                if ((prod.quantity - prod.delivered) < index?.stock) index.stock = (prod.quantity - prod.delivered);
+                            }
+                            array.push(index)
+                        }
+
+                    })
+                    // array = value.product
+                }
+            })
+        }
+        // console.log("array", array)
+        return array;
+
+    }
+
+
+
+
+
 
     function submit(e: React.ChangeEvent, index: ProductObj) {
         setInvoice((prev: IcreateInvoice) => {
@@ -54,9 +97,14 @@ const AddProductDialog = ({ scale, setScale, setInvoice, setMinStock }: Props) =
     }
 
     useEffect(() => {
+        // getProducts()
         getProducts()
+        setArray((prev: any) => initliseProductArray())
+    }, [products, SO_NO, Sales_Orders]);
 
-    }, [products])
+
+
+
 
     const ProductTab = ({ name, value }: IProductTab) => {
         if (name === 'Rate') {
@@ -76,6 +124,8 @@ const AddProductDialog = ({ scale, setScale, setInvoice, setMinStock }: Props) =
             </div>
         </>
     }
+
+
 
     return (
         <Dialog open={scale} fullWidth >
@@ -99,17 +149,17 @@ const AddProductDialog = ({ scale, setScale, setInvoice, setMinStock }: Props) =
                                                     <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >#</th>
                                                     <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >Name</th>
                                                     <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >Rate</th>
-                                                    <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >Stock</th>
+                                                    <th scope="col" className='px-1 py-2  sticky text-grayFont  ' >{(SO_NO.length === 0) ? 'Stock' : 'UnDelivered'}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {
-                                                    products.map((index: ProductObj, i: number) => {
+                                                    array.map((index: any, i: number) => {
                                                         return <tr className="border-b border-gray-400 text-sm font-source2 cursor-pointer hover:bg-black/20 hover:text-white" key={`index.name${i}`} onClick={(e: any) => { submit(e, index) }}   >
                                                             <th scope="col" className='px-1 py-2  sticky text-black ' >{++i}</th>
                                                             <th scope="col" className='px-1 py-2  sticky text-black ' >{index.name}</th>
                                                             <th scope="col" className='px-1 py-2  sticky text-gray-500 ' >{index.rate}</th>
-                                                            <th scope="col" className='px-1 py-2  sticky text-gray-500 ' >{index.stock}</th>
+                                                            <th scope="col" className='px-1 py-2  sticky text-gray-500 ' >{index?.stock}</th>
                                                         </tr>
 
 

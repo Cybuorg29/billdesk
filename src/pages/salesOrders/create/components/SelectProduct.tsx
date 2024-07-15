@@ -31,10 +31,10 @@ const SelectProduct = (props: Props) => {
         quantity = 0
         rate = 0
         tax = []
-        value = 0
+        delivered = 0
         name = ''
 
-        constructor({ del_sch, description, measuring_Unit, quantity, rate, tax, value, name }: ICREATE_SALES_ORDER_PRODUCT) {
+        constructor({ del_sch, description, measuring_Unit, quantity, rate, tax, delivered, name }: ICREATE_SALES_ORDER_PRODUCT) {
             // toast(name)
             this.del_sch = del_sch
             this.description = description
@@ -42,7 +42,7 @@ const SelectProduct = (props: Props) => {
             this.quantity = quantity
             this.rate = rate
             this.tax = tax
-            this.value = value
+            this.delivered = delivered
             this.name = name
         }
 
@@ -50,7 +50,7 @@ const SelectProduct = (props: Props) => {
 
 
     function pushProduct(value: ProductObj) {
-        const data = new dataPusjObj({ del_sch: '', description: value.description, measuring_Unit: value.unit, quantity: 0, rate: value.rate, tax: value.tax, value: 0, name: value.name, in_id: value._id });
+        const data = new dataPusjObj({ del_sch: '', description: value.description, measuring_Unit: value.unit, quantity: 0, rate: value.rate, tax: value.tax, delivered: 0, name: value.name, in_id: value._id });
         props.push(data);
         props.close();
     }

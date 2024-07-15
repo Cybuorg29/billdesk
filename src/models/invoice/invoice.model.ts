@@ -42,6 +42,8 @@ export interface IcreateInvoice {
    bank: bankInterface,
    id: string,
    isPaid: boolean
+   Eway_No: string
+   SO_NO: string
 }
 
 
@@ -90,5 +92,7 @@ export interface Iinvoice {
    isPaid: boolean
    createdAt: string
    updatedAt: string
+   Eway_No: string
+   SO_NO: string
 
 }

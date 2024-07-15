@@ -8,8 +8,8 @@ import { change } from "../../features/loader/loaderSlice";
 import { userDetailSchema } from "../../../models/userModel";
 
 export async function getConnection() {
+   store.dispatch(change())
    try {
-
       const { auth, connections, userData } = store.getState();
       const { isConnection } = connections
       const { istoken, token } = auth
@@ -17,7 +17,6 @@ export async function getConnection() {
          toast.info('verifing login')
 
       } else {
-         store.dispatch(change())
          const { data } = await getConnectionsData(userData._id);
          console.log(data)
          const res: responceObj = data;
@@ -27,18 +26,15 @@ export async function getConnection() {
          } else {
             failure(res.message)
          }
-         store.dispatch(change());
       }
       toast.done('')
 
    } catch (err: any) {
       console.log(err?.message);
       toast.error("an error occured please try again")
-      store.dispatch(change());
       toast.error('')
-
-
    }
+   store.dispatch(change());
 
 }
 

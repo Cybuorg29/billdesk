@@ -10,11 +10,13 @@ import TotalSection from './layouts/TotalSection'
 import { calculateTaxAmount } from '../../../utils/calculateTaxAmount'
 import { toast } from 'react-toastify'
 import { createSalesOrderAction } from '../../../store/actions/salesOrders/action'
+import { useNavigate } from 'react-router-dom'
 
 type Props = {}
 
 const CreateSalesOrders = (props: Props) => {
-    const { _id, name, adress, phone, pincode } = useAppSelector(state => state.userData)
+    const { _id, name, adress, phone, pincode } = useAppSelector(state => state.userData);
+    const navigate = useNavigate();
     const [data, setData] = useState<ICreateSalesOrder>(
         {
             date: '',
@@ -71,6 +73,22 @@ const CreateSalesOrders = (props: Props) => {
     }
 
 
+    function validateAndPush(salesOrder: ICreateSalesOrder) {
+        try {
+            if (salesOrder.to.name.length === 0) throw Error("Please Select The Billed To Information");
+            if (salesOrder.ship_To.name.length === 0) throw Error("Please Select The shipped To Information");
+            if (salesOrder.due_Date.length === 0) throw Error("Please  Enter The Due Date ");
+            if (salesOrder.invoice_No.length === 0) throw Error("Please  Enter The  Sales Order Number ");
+            if (salesOrder.product.length === 0) throw Error("Please Add Atleast 1 Product To Continue")
+            createSalesOrderAction(salesOrder)
+            navigate("/dashboard/sales order")
+        } catch (Err: any) {
+            toast.error(Err.message)
+        }
+
+    }
+
+
 
 
 
@@ -93,7 +111,7 @@ const CreateSalesOrders = (props: Props) => {
                 <TotalSection amount={data.Total} products={data.product} />
             </div>
             <div className='mt-5'>
-                <SolidButton color='black' innerText='Save' onClick={() => { console.log(data); createSalesOrderAction(data) }} />
+                <SolidButton color='black' innerText='Save' onClick={() => { console.log(data); validateAndPush(data) }} />
             </div>
 
         </div>

@@ -87,7 +87,6 @@ export const checkUserLogin = async () => {
       let res: responceObj = data
 
       if (res.code === 200) {
-        toast.success('login sucessfull')
         const payload: actionPayload = {
           type: '',
           data: <tokenSchema>{ token: token, istoken: true }
@@ -118,7 +117,6 @@ async function verifyBySessionId() {
       toast.info('please login ')
       window.location.href = `${window.location.protocol}//${window.location.host}/login`
     } else {
-      toast.success('login sucessfully ')
       const payload: actionPayload = {
         type: '',
         data: <tokenSchema>{ token: token, istoken: true }

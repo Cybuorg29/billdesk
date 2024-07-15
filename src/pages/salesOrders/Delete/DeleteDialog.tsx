@@ -20,6 +20,7 @@ const DeleteDialog = ({ _id, close, no, isOpen, index }: Props) => {
                 <div className='flex place-content-end'>
                     <SolidButton color='error' innerText='Delete' onClick={() => {
                         deleteSalesOrderAction(_id, index);
+                        close()
                     }} key={'DeleteButton'} />
                     <SolidButton color='black' innerText='Cancel' onClick={() => { close() }} key={'CancelButton'} />
 

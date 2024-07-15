@@ -149,7 +149,7 @@ const NavBar = (props: Props) => {
         <div className="border-b ">
           <div className="p-5 text-center text-2xl ">AudditX</div>
         </div>
-        <div className="absolute bottom-5 grid w-full  z-50 bg-navbar "  >
+        <div className="absolute bottom-5 grid w-full  z-40 bg-navbar "  >
           <NavTab
             name="Settings"
             link="/settings"

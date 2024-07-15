@@ -10,7 +10,7 @@ export const postConnection = async (generalInfo: any, bankInfo: any, id: string
 }
 
 export async function getConnectionsData(id: string) {
-    return await axios.get(`${v2Url}/api/user/get/connectiondata/${id}`);
+    return await toast.promise(axios.get(`${v2Url}/api/user/get/connectiondata/${id}`), { pending: "Fetching Connections" })
 
 }
 

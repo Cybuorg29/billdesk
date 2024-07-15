@@ -1,5 +1,5 @@
 import { actionPayload } from "./../../payload/payloadModel";
-import { ISalesOrder } from "../../../pages/salesOrders/Model/model";
+import { ICreateSalesOrder, ISALES_ORDER_PRODUCT, ISalesOrder } from "../../../pages/salesOrders/Model/model";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import removeIndex from "../../../utils/removeIndex";
@@ -9,6 +9,7 @@ export const SalesOrderActions = {
     set: "set",
     push: "push",
     delete: "delete",
+    updateStockthroughInvoice: "updateStockThroughInvoice"
 };
 
 export type salesOrderPayloadTypes = {} & (
@@ -23,14 +24,22 @@ export type salesOrderPayloadTypes = {} & (
     {
         type: "delete"
         data: number
+    } | {
+        type: 'updateStockThroughInvoice'
+        data: {
+            id: string,
+            list: {
+                name: string
+                qty: number
+            }[]
+        }
     }
 );
 
 
 export const changeSalesOrdersReducer = (state: any, action: PayloadAction<actionPayload>) => {
     const type = action.payload.type;
-    const data = action.payload.data
-
+    const data = action.payload.data;
     switch (type) {
         case SalesOrderActions.set:
             state.isLoaded = true;
@@ -45,6 +54,34 @@ export const changeSalesOrdersReducer = (state: any, action: PayloadAction<actio
             state.Sales_Orders = removeIndex(state.Sales_Orders, data);
             toast.success("Sales Order Deleted")
             break;
+        case SalesOrderActions.updateStockthroughInvoice:
+            try {
+                // toast("start" + data.id)
+                let int = state.Sales_Orders.findIndex((order: ISalesOrder) => order._id === data.id);
+                // toast('int' + int)
+                if (int === -1 || !int) {
+                    throw new Error("")
+                }
+                let order: ISalesOrder = state.Sales_Orders[int];
+                // toast("found" + order?._id)
+                data?.list.map((value: { name: string, qty: number }) => {
+                    // toast()
+                    const index = order.product.findIndex((product: ISALES_ORDER_PRODUCT) => product.name.toUpperCase() === value.name.toUpperCase());
+                    // toast('index' + index)
+                    if (index === -1) toast.error("Error Updating Sales Order ON Current Session Please Refresh To See The Change");
+                    else order.product[index].delivered = parseInt(`${order?.product[index].delivered}`) + parseInt(`${value.qty}`)
+                });
+                state.Sales_Orders[int] = order;
+            } catch (err: any) {
+                toast.error(err.message)
+                console.log(err.message)
+
+            }
+            toast.success("Sales Order Updated")
+            break;
+
+
+
         default:
             toast.error("error getting command for sales orders")
             break;

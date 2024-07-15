@@ -54,7 +54,7 @@ const Page = (props: Props) => {
     }
 
     return (
-        <div className='h-full w-full flex '>
+        <div className='h-full w-full flex gap-3 '>
             {/* <div className='w-[80%] h-full overflow-auto'> */}
 
             <div className='w-[80%]  bg-component h-full overflow-auto'>

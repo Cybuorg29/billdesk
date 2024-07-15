@@ -40,7 +40,8 @@ const ProductTable = ({ invoice, setInvoice }: Props) => {
 
     if (type === 'qty') {
       // add stock validator -- pending 
-      if (minStock[i] < value) toast.error('Not enought stock')
+      if (minStock[i] < value && invoice.SO_NO.length === 0) toast.error('Not enought stock');
+      else if (minStock[i] < value && invoice.SO_NO.length !== 0) toast.error('Cannot Add Quantity More Than Available In Inventory Or Sales Order ');
       else {
         index.qty = value;
       }
@@ -96,10 +97,9 @@ const ProductTable = ({ invoice, setInvoice }: Props) => {
 
   return (
     <>
-      <AddProductDialog scale={selectProductOpen} setScale={setSelectProductOpen} setInvoice={setInvoice} setMinStock={setMinStock} key={addProductDialogKey} />
-      <div className='h-full w-full  relative'>
-
-        <div className='border-t    w-full h-[90%] overflow-auto text-sm relative' >
+      <AddProductDialog SO_NO={invoice.SO_NO} scale={selectProductOpen} setScale={setSelectProductOpen} setInvoice={setInvoice} setMinStock={setMinStock} key={addProductDialogKey} />
+      <div className='h-full w-full '>
+        <div className='border-t    w-full h-[20rem]  overflow-auto text relative' >
           <div className="flex flex-col" >
             <div className="">
               <div className="inline-block min-w-full ">
@@ -192,10 +192,10 @@ const ProductTable = ({ invoice, setInvoice }: Props) => {
             </div>
           </div>
         </div>
-        <div className='w-full h-[10%] bg-blue-100 border  border-blue-500 text-center cursor-pointer absolute bottom-0 rounded-b-lg grid items-center place-content-center' onClick={() => setSelectProductOpen(true)} >
-          <div className='h-fit' >
-            Add Product
-          </div>
+      </div>
+      <div className='w-full h-[15%] bg-blue-100 border  border-blue-500 text-center cursor-pointer  rounded-b-lg grid items-center place-content-center' onClick={() => setSelectProductOpen(true)} >
+        <div className='h-fit' >
+          Add Product
         </div>
       </div>
 

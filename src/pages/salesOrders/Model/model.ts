@@ -5,7 +5,6 @@ export interface ISALES_ORDER_PRODUCT extends Document {
     delivered: number
     measuring_Unit: string
     rate: number
-    value: number
     del_sch: string
     tax: []
     id: string
@@ -21,11 +20,11 @@ export interface ICREATE_SALES_ORDER_PRODUCT {
     quantity: number
     measuring_Unit: string
     rate: number
-    value: number
     del_sch: string
     tax: []
     name: string
     in_id: any
+    delivered: number
 }
 
 

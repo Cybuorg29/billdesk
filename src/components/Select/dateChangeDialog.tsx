@@ -28,7 +28,6 @@ const DateChangeDialog = ({ isOpen, lower, upper, close, onChange }: Props) => {
     useEffect(() => {
         if (ref.current) {
             ref.current.focus();
-            toast('asdasd' + ref.current)
         }
     }, [])
 

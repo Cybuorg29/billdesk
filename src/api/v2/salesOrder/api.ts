@@ -18,3 +18,8 @@ export function deleteSalesOrderApi(token: String, id: string) {
     return toast.promise(axios.get(`${v2Url}/api/user/delete/salesorder/${token}/${id}`), { pending: 'Deleting Sales Orders' })
 
 }
+
+export function getSalesOrderNoApi(token: string, id: string) {
+    return toast.promise(axios.get(`${v2Url}/api/user/get/salesorder/no/${token}/${id}`), { pending: 'Getting Sales Orders No.' })
+
+}

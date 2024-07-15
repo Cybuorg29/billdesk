@@ -1,4 +1,4 @@
-import  {  useId, useState } from 'react'
+import { useId, useState } from 'react'
 
 import TopSection from './layouts/TopSection'
 
@@ -9,10 +9,10 @@ type Props = {}
 
 const InvoiceDashboard = (props: Props) => {
 
-   const [type,setType] = useState('Total Invoice');
-   const topSectionKey = useId();
-   const topTabsKey = useId();
-   const tableKey = useId();
+  const [type, setType] = useState('Total Invoice');
+  const topSectionKey = useId();
+  const topTabsKey = useId();
+  const tableKey = useId();
 
   return (
     <div className='w-full h-full p-5 flex gap-5 flex-col' >
@@ -20,11 +20,11 @@ const InvoiceDashboard = (props: Props) => {
         <TopSection key={topSectionKey} />
       </div>
       <div className='h-[15%] flex gap-5' >
-         <TopTabs set={setType}  type={type} key={topTabsKey} />
+        <TopTabs set={setType} type={type} key={topTabsKey} />
       </div>
-       <div className='h-[80%] bg-component rounded-lg '> 
-         <Table set={setType} type={type} key={tableKey}/>
-       </div>
+      <div className='h-[80%] overflow-auto bg-component rounded-lg '>
+        <Table set={setType} type={type} key={tableKey} />
+      </div>
 
     </div>
   )
