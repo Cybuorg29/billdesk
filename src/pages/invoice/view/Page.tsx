@@ -20,7 +20,7 @@ type Props = {}
 const ViewInvoice = (props: Props) => {
 
   const { id } = useParams();
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
   const { isLoaded, invoices } = useAppSelector(state => state.invoice);
   const { istoken, token } = useAppSelector(state => state.auth);
   const [IsLoaded, setIsLoaded] = useState<boolean>(false)
@@ -103,7 +103,7 @@ const ViewInvoice = (props: Props) => {
     dispatch(change());
     try {
       console.log(targetRef.current)
-      htmlToImage.toPng(targetRef.current, { quality: 0.50 })
+      await htmlToImage.toPng(targetRef.current, { quality: 0.50 })
         .then(function (dataUrl) {
           var link = document.createElement('a');
           link.download = 'my-image-name.jpeg';
@@ -112,7 +112,7 @@ const ViewInvoice = (props: Props) => {
           const pdfWidth = pdf.internal.pageSize.getWidth();
           const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
           pdf.addImage(dataUrl, 'PNG', 0, 0, pdfWidth, pdfHeight);
-          pdf.save(`${"invoice" + invoice.invoice_No}.pdf`);
+          pdf.save(`${"invoice -" + doc + '-' + invoice.invoice_No}.pdf`);
         });
 
       // const htmlString = ReactDOMServer.renderToStaticMarkup(<LeftSection doc={doc} invoice={invoice} targetRef={targetRef} />)
@@ -126,6 +126,61 @@ const ViewInvoice = (props: Props) => {
 
     }
     dispatch(change());
+  }
+
+
+
+  async function print() {
+    dispatch(change());
+    try {
+      await htmlToImage.toPng(targetRef.current, { quality: 0.50 })
+        .then(function (dataUrl) {
+          var link = document.createElement('a');
+          link.download = 'my-image-name.jpeg';
+          const pdf = new jsPDF('portrait', 'pt', 'a4');
+          const imgProps = pdf.getImageProperties(dataUrl);
+          const pdfWidth = pdf.internal.pageSize.getWidth();
+          const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+          pdf.addImage(dataUrl, 'PNG', 0, 0, pdfWidth, pdfHeight);
+          pdf.save(`${"invoice -" + doc + '-' + invoice.invoice_No}.pdf`);
+        });
+
+      // const htmlString = ReactDOMServer.renderToStaticMarkup(<LeftSection doc={doc} invoice={invoice} targetRef={targetRef} />)
+
+
+
+    } catch (err: any) {
+      console.log(err.message);
+      toast.error('an error occured');
+      toast.error('error type' + err.message);
+      // dispatch(change());
+
+    }
+    dispatch(change());
+  }
+
+
+  async function DownloadAll() {
+    try {
+      for (let i = 0; i < 2; i++) {
+        if (i === 0) {
+          setDoc(() => 'Original');
+          await printOne();
+        }
+        else if (i === 1) {
+          setDoc(() => 'Dublicate');
+          await printOne();
+        }
+        else if (i === 2) {
+          setDoc(() => 'Triplicate');
+          await printOne();
+        }
+      }
+
+    } catch (err: any) {
+      toast.error("an error occured please try again");
+      toast.error("error type :" + err.message);
+    }
   }
 
 
@@ -206,7 +261,7 @@ const ViewInvoice = (props: Props) => {
           </div>
         </div>
         <div className='w-[15%] h-full  bg-component ' id='print' >
-          <RightSection setDoc={(value: any) => { setDoc(value) }} printOne={() => printOne()} />
+          <RightSection setDoc={(value: any) => { setDoc(value) }} printOne={() => printOne()} printAll={() => DownloadAll()} />
         </div>
 
       </div>

@@ -13,7 +13,7 @@ type Props = { invoice: Iinvoice, targetRef: any, doc: string }
 const LeftSection = ({ invoice, targetRef, doc }: Props) => {
   const selfInfoKeys = useId();
   return (
-    <div className='p-10 h-full  w-full  text-sm font-bold ' ref={targetRef}   >
+    <div className='p-10 h-full  w-full  text-sm font-bold  bg-white' ref={targetRef}   >
       <div className='flex place-content-between'>
         <div className='text-lg'>GSTIN:{invoice.billed_From.gstin}</div>
         <div className='text-lg'>{doc}</div>
@@ -52,10 +52,10 @@ const LeftSection = ({ invoice, targetRef, doc }: Props) => {
 
 
 
-        <div className='h-fit border-black   '>
+        <div className='min-h-[20rem] border-black  mb-2  '>
           <Table invoice={invoice} />
         </div>
-        <div className='h-fit   border-black       border-t-0'>
+        <div className='h-fit   border-black        border-t-2'>
           <div className='h-fit text-sm border-black   '>
             <Bottom invoice={invoice} />
           </div>
