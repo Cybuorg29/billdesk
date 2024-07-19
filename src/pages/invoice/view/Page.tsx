@@ -1,26 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../store/app/hooks';
 import { setInvoiceAction } from '../../../store/actions/invoice/set';
 import { Iinvoice } from '../../../models/invoice/invoice.model';
 import LeftSection from './layout/LeftSection';
 import RightSection from './layout/RightSection';
-import html2canvas from 'html2canvas'
 import { toast } from 'react-toastify';
 import jsPDF from 'jspdf';
-import generatePDF, { Margin, Options, Resolution, usePDF } from 'react-to-pdf';
-import html2PDF from 'jspdf-html2canvas';
-import reactToPdf from 'react-to-pdf';
-import * as htmlToImage from 'html-to-image';
-
+import { usePDF } from 'react-to-pdf';
+// import {} from 'reac'
 import './hideSidebarr.css'
 import { change } from '../../../store/features/loader/loaderSlice';
 import { getSalesOrderNoApi } from '../../../api/v2/salesOrder/api';
 import { responceObj } from '../../../models/responce';
-import { ISalesOrder } from '../../salesOrders/Model/model';
-import { getStateCode } from '../../../utils/getStateCode';
-import BillingDetails from './layout/invoice/BillingDetails';
-
+import * as htmlToImage from 'html-to-image'
+// import html2pdf from 'ht'
 type Props = {}
 
 const ViewInvoice = (props: Props) => {
@@ -108,18 +102,20 @@ const ViewInvoice = (props: Props) => {
   async function printOne() {
     dispatch(change());
     try {
-      // console.log(targetRef.current)
+      console.log(targetRef.current)
       htmlToImage.toPng(targetRef.current, { quality: 0.50 })
         .then(function (dataUrl) {
           var link = document.createElement('a');
           link.download = 'my-image-name.jpeg';
-          const pdf = new jsPDF();
+          const pdf = new jsPDF('portrait', 'pt', 'a4');
           const imgProps = pdf.getImageProperties(dataUrl);
           const pdfWidth = pdf.internal.pageSize.getWidth();
           const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
           pdf.addImage(dataUrl, 'PNG', 0, 0, pdfWidth, pdfHeight);
           pdf.save(`${"invoice" + invoice.invoice_No}.pdf`);
         });
+
+      // const htmlString = ReactDOMServer.renderToStaticMarkup(<LeftSection doc={doc} invoice={invoice} targetRef={targetRef} />)
 
 
 
@@ -131,12 +127,6 @@ const ViewInvoice = (props: Props) => {
     }
     dispatch(change());
   }
-
-
-
-
-
-
 
 
 
@@ -174,9 +164,31 @@ const ViewInvoice = (props: Props) => {
 
 
 
+  const handleGeneratePdf = () => {
+    const doc = new jsPDF({
+      format: 'a4',
+      unit: 'pt',
+    });
+
+
+    // Adding the fonts.
+    doc.setFont('Inter-Regular', 'normal');
+
+    doc.html(targetRef.current, {
+      async callback(doc) {
+        await doc.save('document');
+
+      },
+    });
+  };
+
 
 
   const { targetRef, toPDF } = usePDF();
+
+
+
+
 
 
   return (
@@ -194,7 +206,7 @@ const ViewInvoice = (props: Props) => {
           </div>
         </div>
         <div className='w-[15%] h-full  bg-component ' id='print' >
-          <RightSection setDoc={(value: any) => { setDoc(value) }} printOne={printOne} />
+          <RightSection setDoc={(value: any) => { setDoc(value) }} printOne={() => printOne()} />
         </div>
 
       </div>

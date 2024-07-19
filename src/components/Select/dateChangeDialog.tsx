@@ -4,6 +4,7 @@ import { SolidButton } from '../ui/Buttons/solid/SolidButton'
 import { changeIncomeAndExpenceByDates } from '../../store/actions/data/IncomeAndExpence'
 import { useAppSelector } from '../../store/app/hooks'
 import { toast } from 'react-toastify'
+import { StaticDatePicker } from '@mui/x-date-pickers'
 
 type Props = {
     upper: string,
@@ -57,6 +58,8 @@ const DateChangeDialog = ({ isOpen, lower, upper, close, onChange }: Props) => {
                 <div className='flex gap-5'>
                     <div>
                         <div>From</div>
+                        <StaticDatePicker />
+
                         <input ref={ref} type='date' title='dateh' data-date-inline-picker="true" className='border' value={dates.upper} onChange={(e) => { setDates((prev) => { return { ...prev, upper: e.target.value } }) }} />
                     </div>
                     <div>

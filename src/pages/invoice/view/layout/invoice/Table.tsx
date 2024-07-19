@@ -23,7 +23,7 @@ const Table = ({ invoice }: Props) => {
     return total;
   }
   return (
-    <div className='  w-full h-fit overflow-auto border-t-0 border-l-2 border-r-2 text-sm relative  border-black ' >
+    <div className='  w-full h-fit overflow-auto border-t-0  text-sm relative  border-black ' >
       <div className="flex flex-col" >
         <div className="">
           <div className="inline-block min-w-full ">
@@ -31,7 +31,7 @@ const Table = ({ invoice }: Props) => {
               <table className="min-w-full text-left ">
                 <thead className="border-b  text-sm border-black   uppercase sticky top-0">
                   <tr className="border-b border-black text-center" >
-                    <th scope="col" className='px-0.5 py-1 border-r-2 text-us  sticky text-black  border-black ' >#</th>
+                    <th scope="col" className='px-0.5 py-1 border-r-2  sticky text-black  border-black ' >#</th>
                     <th scope="col" className='px-0.5 py-1 border-r-2 border-black text-xs   sticky text-black  ' >Description</th>
                     <th scope="col" className='px-0.5 py-1 border-r-2 border-black text-xs   sticky text-black  ' >HSN code</th>
                     <th scope="col" className='px-0.5 py-1 border-r-2 border-black text-xs   sticky text-black  ' >Qty</th>
@@ -39,9 +39,9 @@ const Table = ({ invoice }: Props) => {
 
                     <th scope="col" className='px-0.5 py-1 border-r-2 border-black text-xs   sticky text-black  ' >Rate</th>
                     <th scope="col" className='px-0.5 py-1 border-r-2 border-black text-xs   sticky text-black  ' >Amount</th>
-                    <th scope="col" className='px-0.5 py-1 border-r-2 border-black text-xs   sticky text-black  ' >Discount</th>
+                    {/* <th scope="col" className='px-0.5 py-1 border-r-2 border-black text-xs   sticky text-black  ' >Discount</th> */}
                     <th scope="col" className='px-0.5 py-1 border-r-2 border-black text-xs   sticky text-black  ' >Tax. Value</th>
-                    <th scope="col" className='px-0.5 py-1 border-r-2 border-black text-xs   sticky text-black  ' >tax</th>
+                    {/* <th scope="col" className='px-0.5 py-1 border-r-2 border-black text-xs   sticky text-black  ' >tax</th> */}
                     <th scope="col" className='px-0.5 py-1  text-xs  sticky text-black  border-black ' >Total</th>
                   </tr>
                 </thead>
@@ -61,11 +61,11 @@ const Table = ({ invoice }: Props) => {
                         <th scope="col" className=' sticky font-extrabold border-2  text-xs  border-black ' >{index.code}</th>
                         <th scope="col" className=' sticky font-bold border-2   text-xs border-black text-center' >{index.qty}</th>
                         <th scope="col" className=' sticky font-bold border-2   text-xs border-black text-center' >{index.unit}</th>
-                        <th scope="col" className=' sticky font-bold border-2   text-xs border-black text-center' >{converToInrFormat(index.rate)}</th>
-                        <th scope="col" className=' sticky font-bold border-2   text-xs border-black text-center' >{converToInrFormat(index.amount)}</th>
-                        <th scope="col" className=' sticky font-bold border-2   text-xs border-black text-center' >{converToInrFormat(index.discount)}</th>
+                        <th scope="col" className=' sticky font-bold border-2   text-xs border-black text-center' >{index.rate}</th>
+                        <th scope="col" className=' sticky font-bold border-2   text-xs border-black text-center' >{index.amount}</th>
+                        {/* <th scope="col" className=' sticky font-bold border-2   text-xs border-black text-center' >{converToInrFormat(index.discount)}</th> */}
                         <th scope="col" className=' sticky font-bold  border-2  text-xs  border-black text-center' >{index.taxable_Value}</th>
-                        <th scope="" className=' sticky  border-2   border-black text-center' >
+                        {/* <th scope="" className=' sticky  border-2   border-black text-center' >
                           <div className=' h-full'>
                             <div className=' flex   border-b-2 border-black'>
                               {
@@ -109,7 +109,7 @@ const Table = ({ invoice }: Props) => {
 
                           </div>
 
-                        </th>
+                        </th> */}
                         <th scope="col" className=' sticky  border-2 border-r-0  border-black text-center' >{converToInrFormat(index.total)}</th>
 
                       </tr>

@@ -13,46 +13,60 @@ type Props = { invoice: Iinvoice, targetRef: any, doc: string }
 const LeftSection = ({ invoice, targetRef, doc }: Props) => {
   const selfInfoKeys = useId();
   return (
-    <div className='p-4 h-full w-full  text-sm font-bold ' ref={targetRef}   >
+    <div className='p-10 h-full  w-full  text-sm font-bold ' ref={targetRef}   >
       <div className='flex place-content-between'>
         <div className='text-lg'>GSTIN:{invoice.billed_From.gstin}</div>
         <div className='text-lg'>{doc}</div>
 
       </div>
-      <div className='w-full h-full ' >
-        <div className='text-lg font-bold  border-2 border-b-0 border-black text-center'>Tax Invoice</div>
-        <div className='h-fit border-2 border-black'>
+      <div className='w-full min-h-full border-2 border-black' >
+
+
+        <div className='text-lg font-bold       border-b-0 border-black text-center'>Tax Invoice</div>
+        <div className='h-fit      border-black'>
           <SelfInfo invoice={invoice} key={selfInfoKeys} />
         </div>
-        <div className='h-fit border-black border-l-2    border-r-2   '>
+
+
+
+        <div className='h-fit border-black  border-t-2  '>
           <GeneralInfo invoice={invoice} />
         </div>
-        <div className='h-fit border-black  grid grid-cols-2 border-l-2    border-r-2   '>
-          <div className='border-r-2   border-black  '>
-            <div className=' border-b-2 border-black pl-2 text-lg font-semibold '>Billed To</div>
+
+        <div className='h-fit border-black    grid grid-cols-2 '>
+          <div className='min-h-fit border-r-2 border-black'>
+            <div className=' border-b-2  border-black pl-2 text-lg font-semibold '>Bill To</div>
+            <BillingDetails array={invoice.billed_To} />
+          </div>
+          <div className='min-h-fit'>
+            <div className=' border-b-2  border-black pl-2 text-lg font-semibold '>Ship To</div>
             <BillingDetails array={invoice.billed_To} />
           </div>
 
-
-          <div className='border-black ' >
-            <div className='  border-b-2  border-black pl-2 text-lg font-semibold '>Shipped  To</div>
-            <BillingDetails array={invoice.shipped_To} />
-          </div>
         </div>
+
+
+
+
+
+
+
+
         <div className='h-fit border-black   '>
           <Table invoice={invoice} />
         </div>
-        <div className='h-fit   border-black  border-2 border-t-0'>
+        <div className='h-fit   border-black       border-t-0'>
           <div className='h-fit text-sm border-black   '>
             <Bottom invoice={invoice} />
           </div>
-          <div className='  text-xs border-b-2 border-black   grid'>
+          <div className=' border-b-2 border-black   grid'>
             <div className='border-b-2 pl-2 border-black'>Bank Details :- {invoice.bank.name}</div>
             <div className='pl-2'>Bank :- <span>{invoice.bank.bank + ',' + invoice.bank.no + ',' + invoice.bank.branch + ',' + invoice.bank.isfc}</span> </div>
           </div>
-          <div className='h-fit '>
+          <div className='min-h-[10rem]  border-b-2 border-black '>
             <Fotter invoice={invoice} />
           </div>
+          <div className='h-[2rem]'></div>
         </div>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import { Itax } from "../tax/Model"
 
 interface spec {
     type: string
@@ -47,7 +48,7 @@ export interface productArray {
 
 export interface IInvoiceProduct {
     name: string
-    tax: [],
+    tax: Itax[],
     description: string
     code: string
     qty: number

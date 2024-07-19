@@ -4,7 +4,9 @@
 //     const someVariable: string;
 //     function someFunction(): void;
 //   }
-  
+
 //   // Now you can import the module without TypeScript type checking
 //   import '../../api/user/user';
-  
+
+
+declare module 'html2pdf.js';
