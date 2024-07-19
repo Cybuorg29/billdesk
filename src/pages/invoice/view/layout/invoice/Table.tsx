@@ -110,7 +110,7 @@ const Table = ({ invoice }: Props) => {
                           </div>
 
                         </th> */}
-                        <th scope="col" className=' sticky  border-2 border-r-0  border-black text-center' >{converToInrFormat(index.total)}</th>
+                        <th scope="col" className=' sticky  border-2 border-r-0  border-black text-center' >{converToInrFormat(index.qty * index.rate)}</th>
 
                       </tr>
                     })

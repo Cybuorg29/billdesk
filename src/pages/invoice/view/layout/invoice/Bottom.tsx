@@ -110,6 +110,24 @@ const Bottom = ({ invoice }: Props) => {
 
   return (
     <div className='flex flex-col gap-3 h-full w-full   border-black border-b-2 text-table'>
+      <div className='grid grid-cols-2 border-b-2 border-black '>
+        <div></div>
+        <div className='grid '>
+          {
+            TaxArray.map((value: {
+              tax: Itax,
+              rate: number
+            }) => {
+              return <div className='grid grid-cols-3 pl-2  '>
+                <div className='col-span-2 border-r  text-bold text-sm border-black'>{value.tax.type}@{value.rate}%</div>
+                <div className='pl-2 text-sm'>{limitDecimalDigits(value.tax.amount)}</div>
+
+              </div>
+            })
+          }
+        </div>
+
+      </div>
       <div className=' flex p-2 place-content-between ' >
         <div className='font-bold text-sm'>Grand Total</div>
         <div className='font-bold text-[1rem]'>{converToInrFormat(invoice.grand_Total)}</div>
