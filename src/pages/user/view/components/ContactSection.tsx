@@ -24,10 +24,10 @@ const ContactSection = ({ data }: Props) => {
         <SolidButton color='black' innerText='Add as Client' onClick={() => { sendRequest(data._id, 1) }} key={clientKey} />
         <SolidButton color='black' innerText='Add as Supplier' onClick={() => { sendRequest(data._id, 0) }} key={supplierKey} />
       </div>
-      <div className='text-center font-bold' >Or</div>
+      {/* <div className='text-center font-bold' >Or</div>
       <div className='grid justify-items-center '>
         <Button variant='outlined' color='success' >Ask Quotation</Button>
-      </div>
+      </div> */}
     </div>
 
   )

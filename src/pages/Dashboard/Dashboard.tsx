@@ -1,26 +1,30 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react'
-import { Doughnut } from 'react-chartjs-2'
+import React, { lazy, Suspense, useEffect, useLayoutEffect, useState } from 'react'
 import { useAppSelector } from '../../store/app/hooks'
 import { ArcElement, Chart } from 'chart.js'
-import { ResponsiveContainer } from 'recharts'
 import IncAndExpDashboard from '../incomeAndExpences/Dashboard/IncAndExpDashboard'
-import Table from '../invoice/dashboard/layouts/Table'
+const Table = lazy(() => import('../invoice/dashboard/layouts/Table'))
 import { setInvoiceAction } from '../../store/actions/invoice/set'
 import PageHeading from '../../components/ui/Page Heading/PageHeading'
-Chart.register(ArcElement)
+const InvoiceDashboard = lazy(() => import('../invoice/dashboard/page'));
+const SalesOrderDashboard = lazy(() => import('../salesOrders/dashboard/Page'))
+const CheckStateBillsPayable = lazy(() => import('../bills/payable/checkState'))
+// import BillsPayable from '../bills/payable/dashboard/page'
+const BillsPayable = lazy(() => import('../bills/payable/dashboard/page'))
+const CheckSalesOrderState = lazy(() => import("../salesOrders/CheckState"))
+Chart.register(ArcElement);
 type Props = {}
 
 const Dashboard = (props: Props) => {
     const { totalExpences, totalIncome } = useAppSelector(state => state.incomeAndExpence)
     const invoice = useAppSelector(state => state.invoice)
     const [type, setType] = useState('Total Invoice');
+    const { istoken, token } = useAppSelector(state => state.auth)
 
 
     const data = {
         labels: [
             'Expence',
             'Income',
-
         ],
         datasets: [{
             label: 'My First Dataset',
@@ -38,22 +42,17 @@ const Dashboard = (props: Props) => {
             setInvoiceAction();
         }
 
-    }, [])
+    }, [token, istoken])
 
 
     return (
-        // <div className='w-full h-full overflow-auto  flex flex-col gap-5'>
-        //     <div className='min-h-full'>
-        //     </div>
-        // </div>
         <>
             <IncAndExpDashboard />
-            <div className='bg-component h-full overflow-auto rounded-xl m-4  '>
-                <div className='p-3'>
-                    <PageHeading name='Sales Invoices' />
-                </div>
-                <Table set={() => { }} type={type} />
-            </div>
+            <Suspense>
+                <InvoiceDashboard />
+                <CheckStateBillsPayable children={<BillsPayable />} />
+                <CheckSalesOrderState children={<SalesOrderDashboard />} />
+            </Suspense>
         </>
     )
 }

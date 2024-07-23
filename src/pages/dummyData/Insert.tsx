@@ -7,8 +7,8 @@ function InsertDummyData() {
   const [selectedFile, setSelectedFile] = useState(null);
 
   // Handle file input change
-  const handleFileChange = (event:any) => {
-      const image:any = event.target.files[0]
+  const handleFileChange = (event: any) => {
+    const image: any = event.target.files[0]
     setSelectedFile(image);
   };
 
@@ -64,10 +64,10 @@ function InsertDummyData() {
 
   return (
     <div>
-        <div>
-            <label htmlFor='image' >img</label>
-      <input   id='image' type="file" accept="image/*" onChange={handleFileChange} />
-        </div>
+      <div>
+        <label htmlFor='image' >img</label>
+        <input id='image' type="file" accept="image/*" onChange={handleFileChange} />
+      </div>
       <button onClick={createProduct}>Create Product</button>
       <div>
         <h3>Response Message:</h3>

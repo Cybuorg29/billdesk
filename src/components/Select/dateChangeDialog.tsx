@@ -58,8 +58,7 @@ const DateChangeDialog = ({ isOpen, lower, upper, close, onChange }: Props) => {
                 <div className='flex gap-5'>
                     <div>
                         <div>From</div>
-                        <StaticDatePicker />
-
+                        {/* <StaticDatePicker /> */}
                         <input ref={ref} type='date' title='dateh' data-date-inline-picker="true" className='border' value={dates.upper} onChange={(e) => { setDates((prev) => { return { ...prev, upper: e.target.value } }) }} />
                     </div>
                     <div>

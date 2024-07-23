@@ -40,6 +40,17 @@ const AddBusiness = (props: Props) => {
 
   const keys = Object.keys(client);
   const bankKeys = Object.keys(bankDetails);
+
+  function handleClientInput(e: React.ChangeEvent<HTMLInputElement>) {
+    setClient((prev: any) => { return { ...prev, [e.target.name]: e.target.value } })
+  }
+
+  function handleBankInput(e: React.ChangeEvent<HTMLInputElement>) {
+    const name = e.target.name.toLocaleLowerCase();
+    (e.target.name === 'A/C Number') ? setBankDetails((prev: any) => { return { ...prev, no: e.target.value } }) :
+      setBankDetails((prev: any) => { return { ...prev, [name]: e.target.value } })
+  }
+
   return (
     <div className='h-full w-full p-5' >
       <div className='flex place-content-between' >
@@ -64,15 +75,6 @@ const AddBusiness = (props: Props) => {
 
     </div>
   )
-  function handleClientInput(e: React.ChangeEvent<HTMLInputElement>) {
-    setClient((prev: any) => { return { ...prev, [e.target.name]: e.target.value } })
-  }
-
-  function handleBankInput(e: React.ChangeEvent<HTMLInputElement>) {
-    const name = e.target.name.toLocaleLowerCase();
-    (e.target.name === 'A/C Number') ? setBankDetails((prev: any) => { return { ...prev, no: e.target.value } }) :
-      setBankDetails((prev: any) => { return { ...prev, [name]: e.target.value } })
-  }
 
 
 

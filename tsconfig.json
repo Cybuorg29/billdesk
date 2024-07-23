@@ -23,6 +23,6 @@
     "types": ["html2canvas"]
   },
   "include": [
-    "src"
+    "src","types/**/*" 
   ]
 }

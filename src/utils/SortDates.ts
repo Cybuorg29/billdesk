@@ -19,6 +19,7 @@
 //   },
 // ];
 
+import { AnyARecord } from "dns";
 import convertIsoDate from "./convertIsoDates";
 
 // export const SortDates = () => {
@@ -61,18 +62,21 @@ export function sortByDate(array: any[]) {
   return array;
 }
 
-export function sortIsoDates(dateStrings: string[]): string[] {
-  return dateStrings.sort((dateStr1: any, dateStr2: any) => {
+export function sortIsoDates(dateStrings: any[]): any[] {
+  let newArray = dateStrings.sort((dateStr1: any, dateStr2: any) => {
     try {
       const date1 = new Date(dateStr1?.date);
       const date2 = new Date(dateStr2?.date);
 
       return date1.getTime() - date2.getTime();
     } catch (error) {
-      // Handle invalid date formats by treating them as equal
       return 0;
+      // Handle invalid date formats by treating them as equal
+
     }
   });
+
+  return newArray
 }
 
 

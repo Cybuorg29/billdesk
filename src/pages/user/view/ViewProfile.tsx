@@ -17,31 +17,41 @@ import { useAppDispatch, useAppSelector } from '../../../store/app/hooks';
 import axios from 'axios';
 import { v2Url } from '../../../api/Url/ProdUrl';
 import { change } from '../../../store/features/loader/loaderSlice';
+import AddConnectionDialog from '../AddConnectionDialog';
 type Props = {}
 
 const ViewProfile = (props: Props) => {
 
     //urlParameters
-    const { id } = useParams();
+    const { id, isConnections } = useParams();
     const uid: any = id
-    const { _id } = useAppSelector(state => state.userData)
+    const { _id } = useAppSelector(state => state.userData);
+
     //keys 
     const contactKey = useId();
     const topKey = useId();
     //useStates
     const [data, setData]: any = useState<userDetailSchema>()
-    const [product, setProduct] = useState<ProductObj[]>([])
+    const [product, setProduct] = useState<ProductObj[]>([]);
+    const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false)
     const navigate = useNavigate();
     const dispatch = useAppDispatch()
 
 
     useEffect(() => {
-        fetchData()
+        fetchData();
+    }, [])
+
+    useEffect(() => {
+        if (isConnections) {
+            setIsDialogOpen(true);
+        }
     }, [])
 
 
     return (
         <div className='w-full h-full ' >
+            <AddConnectionDialog isOpen={isDialogOpen} data={data} close={() => { setIsDialogOpen(false) }} />
             <div className='w-full h-full   rounded-lg  p-5' >
 
                 <div className='h-[30%]  pb-3 '  >

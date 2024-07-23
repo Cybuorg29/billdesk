@@ -58,38 +58,17 @@ const NavBar = (props: Props) => {
       link: '/dashboard/Transactions',
       icon: <AccountBalanceWalletRoundedIcon />
     },
-    {
-      name: 'Clients',
-      link: '/dashboard/client',
-      icon: <PersonIcon />
-    },
-    {
-      name: 'supplier',
-      link: '/dashboard/supplier',
-      icon: <PersonIcon />
-    },
-    {
-      name: 'Accounts',
-      link: '/accounts',
-      icon: <MdSwitchAccount />
-    },
-    {
-      name: 'Employees',
-      link: 'dashboard/employees',
-      icon: <PersonIcon />
-    },
-    {
-      name: 'Purchase Orders',
-      link: "/dashboard/purchase order",
-      icon: <TextSnippetIcon />
-    },
-    {
+    // {
+    //   name: 'Accounts',
+    //   link: '/accounts',
+    //   icon: <MdSwitchAccount />
+    // },
+    // {
+    //   name: 'Employees',
+    //   link: 'dashboard/employees',
+    //   icon: <PersonIcon />
+    // },
 
-      name: 'Sales Orders',
-      link: "/dashboard/sales order",
-      icon: <TextSnippetIcon />
-
-    }
     // {
     //   name: 'SpreadSheet',
     //   link: '/spreadsheet',
@@ -101,7 +80,38 @@ const NavBar = (props: Props) => {
 
 
   const navTabsWithDetails: detailsTab[] = [
+    {
+      name: 'Connections',
+      Tabs: [
+        {
+          name: 'Clients',
+          link: '/dashboard/client',
+          icon: <PersonIcon />
+        },
+        {
+          name: 'supplier',
+          link: '/dashboard/supplier',
+          icon: <PersonIcon />
+        },
+      ]
+    },
+    {
+      name: 'Orders',
+      Tabs: [
+        {
+          name: 'Purchase Orders',
+          link: "/dashboard/purchase order",
+          icon: <TextSnippetIcon />
+        },
+        {
 
+          name: 'Sales Orders',
+          link: "/dashboard/sales order",
+          icon: <TextSnippetIcon />
+
+        }
+      ],
+    },
     {
       name: 'Invoices',
       Tabs: [
@@ -119,6 +129,8 @@ const NavBar = (props: Props) => {
 
       ]
     },
+
+
     // {
     //   name: 'Purchase Order',
     //   link: '/dashboard/purchase Order',
@@ -183,7 +195,7 @@ const NavBar = (props: Props) => {
                   {
                     index.Tabs.map((item: Navtab) => {
                       return <>
-                        <p className="p-2 flex  gap-2 hover:bg-[#21262C] rounded-lg  cursor-pointer" onClick={() => navigate(item.link)}>
+                        <p className="p-2 flex  gap-2 hover:bg-[#21262C] rounded-lg  text-sm cursor-pointer" onClick={() => navigate(item.link)}>
                           <div className="grid place-content-center">{item.icon}</div>
                           <div className="grid place-content-center">{item.name}</div>
                         </p>

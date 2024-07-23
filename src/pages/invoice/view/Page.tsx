@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../store/app/hooks';
 import { setInvoiceAction } from '../../../store/actions/invoice/set';
@@ -15,6 +15,7 @@ import { getSalesOrderNoApi } from '../../../api/v2/salesOrder/api';
 import { responceObj } from '../../../models/responce';
 import * as htmlToImage from 'html-to-image'
 // import html2pdf from 'ht'
+
 type Props = {}
 
 const ViewInvoice = (props: Props) => {
@@ -103,10 +104,10 @@ const ViewInvoice = (props: Props) => {
     dispatch(change());
     try {
       console.log(targetRef.current)
-      await htmlToImage.toPng(targetRef.current, { quality: 0.50 })
+      await htmlToImage.toPng(targetRef.current, { quality: 0.50, backgroundColor: '#ffffff' })
         .then(function (dataUrl) {
           var link = document.createElement('a');
-          link.download = 'my-image-name.jpeg';
+          link.download = 'my-image-name.png';
           const pdf = new jsPDF('portrait', 'pt', 'a4');
           const imgProps = pdf.getImageProperties(dataUrl);
           const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -114,6 +115,10 @@ const ViewInvoice = (props: Props) => {
           pdf.addImage(dataUrl, 'PNG', 0, 0, pdfWidth, pdfHeight);
           pdf.save(`${"invoice -" + doc + '-' + invoice.invoice_No}.pdf`);
         });
+
+      //  const element = document.getElementById("toPrint");
+
+
 
       // const htmlString = ReactDOMServer.renderToStaticMarkup(<LeftSection doc={doc} invoice={invoice} targetRef={targetRef} />)
 
@@ -133,7 +138,7 @@ const ViewInvoice = (props: Props) => {
   async function print() {
     dispatch(change());
     try {
-      await htmlToImage.toPng(targetRef.current, { quality: 0.50 })
+      await htmlToImage.toPng(targetRef.current, { quality: 0.50, backgroundColor: '#fffff' })
         .then(function (dataUrl) {
           var link = document.createElement('a');
           link.download = 'my-image-name.jpeg';
@@ -219,23 +224,23 @@ const ViewInvoice = (props: Props) => {
 
 
 
-  const handleGeneratePdf = () => {
-    const doc = new jsPDF({
-      format: 'a4',
-      unit: 'pt',
-    });
+  // const handleGeneratePdf = () => {
+  //   const doc = new jsPDF({
+  //     format: 'a4',
+  //     unit: 'pt',
+  //   });
 
 
-    // Adding the fonts.
-    doc.setFont('Inter-Regular', 'normal');
+  //   // Adding the fonts.
+  //   doc.setFont('Inter-Regular', 'normal');
 
-    doc.html(targetRef.current, {
-      async callback(doc) {
-        await doc.save('document');
+  //   doc.html(targetRef.current, {
+  //     async callback(doc) {
+  //       await doc.save('document');
 
-      },
-    });
-  };
+  //     },
+  //   });
+  // };
 
 
 
@@ -246,11 +251,15 @@ const ViewInvoice = (props: Props) => {
 
 
 
+
+
+
+
   return (
     <>
       <div className='w-full h-full  overflow-hidden flex gap-2 lg:scale-100 scale-0'>
-        <div className='w-[85%] h-full bg-component '   >
-          <div className='h-full w-full overflow-auto'   >
+        <div className='w-[85%] h-full bg-component  '   >
+          <div className='h-full w-full overflow-auto'  >
             <LeftSection doc={doc} invoice={invoice} targetRef={targetRef} />
           </div>
           {/* <iframe title='Invocie' className='h-full w-full'  src={invoiceUrl}>

@@ -32,7 +32,7 @@ export const createConnection = async (generalInfo: clientModelObj, bankInfo: ba
 
 async function sucess(data: any, navigate: any, type: any) {
   store.dispatch(change())
-  navigate(`/view/${data._id}/profile`)
+  navigate(`/view/${data._id}/profile/addConnections`)
 }
 
 function failure(res: responceObj) {

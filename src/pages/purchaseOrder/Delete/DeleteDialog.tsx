@@ -14,7 +14,7 @@ type Props = {
 const PurchaseOrderDeleteDialog = ({ Data, isOpen, close, index }: Props) => {
   return (
     <>
-      <Dialog open={isOpen} fullWidth>
+      <Dialog open={isOpen} fullWidth className='p-5'>
         <DialogTitle>Do You Really Want To Delete This Purchase Order</DialogTitle>
         <div className='p-5'>
           <DialogContentText>Order Created On: {Data?.date} </DialogContentText>

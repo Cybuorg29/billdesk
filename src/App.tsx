@@ -106,6 +106,7 @@ function App() {
                 <Route path='/dashboard/client' element={<ClientDashboard />} />
                 <Route path='/create/connection' element={<AddBusiness />} />
                 <Route path='/view/:id/profile' element={<ViewProfile />} />
+                <Route path='/view/:id/profile/:isConnections' element={<ViewProfile />} />
                 <Route path='/search/user' element={<SearchUserPage />} />
                 <Route path='/insert/dummy' element={<InsertDummyData />} />
                 <Route path='/dashboard/supplier' element={<SupplierDashboard />} />

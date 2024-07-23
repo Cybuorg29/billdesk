@@ -1,9 +1,7 @@
-import React, { MouseEventHandler, useEffect, useId, useState } from 'react'
+import { useEffect, useId, useState } from 'react'
 import PageHeading from '../../../components/ui/Page Heading/PageHeading'
 import { SolidButton } from '../../../components/ui/Buttons/solid/SolidButton';
 import { IcreateInvoice } from '../../../models/invoice/invoice.model';
-import Inputs from '../../inventory/create/components/Inputs';
-import SelectNameTab from './components/SelectNameTab';
 import { useAppSelector } from '../../../store/app/hooks';
 import { getConnection } from '../../../store/actions/connections/set';
 import { toast } from 'react-toastify';
@@ -14,13 +12,11 @@ import ProductTable from './layouts/ProductTable';
 import SelectInfo from './layouts/SelectInfo';
 import { converToInrFormat } from '../../../utils/ConvertInrFormat';
 import BankSection from './layouts/BankSection';
-import { createInvoiceAPI } from '../../../api/v2/invoice';
 import TermAndConditionSection from './layouts/TermAndConditionSection';
 import { createInvoice } from '../../../store/actions/invoice/create';
 import { isToken } from 'typescript';
 import { roundNumber } from '../../../utils/RoundOff';
 import { limitDecimalDigits } from '../../../utils/limitDecimalDigits';
-import { CheckBoxChangeEventArgs } from '@syncfusion/ej2-grids';
 import { ISalesOrder } from '../../salesOrders/Model/model';
 import { useNavigate } from 'react-router-dom';
 
@@ -191,19 +187,19 @@ const CreateInvoice = (props: Props) => {
 
 
 
-    useEffect(() => {
-        window.addEventListener("beforeunload", (e) => {
-            e.preventDefault();
-            // confirm("Reload Will Erase All The UnSaved Changes. Do You Really Want To Reload")
-        });
-        return () => {
-            window.removeEventListener("beforeunload", (e) => {
-                e.preventDefault();
-                const a = window.confirm("Reload Will Erase All The Changes.")
-                if (a) window.location.reload();
-            });
-        };
-    }, []);
+    // useEffect(() => {
+    //     window.addEventListener("beforeunload", (e) => {
+    //         e.preventDefault();
+    //         const a = window.confirm("Reload Will Erase All The Changes.")
+    //         if (a) window.location.reload();
+    //         // confirm("Reload Will Erase All The UnSaved Changes. Do You Really Want To Reload")
+    //     });
+    //     return () => {
+    //         window.removeEventListener("beforeunload", (e) => {
+
+    //         });
+    //     };
+    // }, []);
 
 
 
