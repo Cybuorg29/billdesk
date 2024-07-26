@@ -29,7 +29,6 @@ const ViewInvoice = (props: Props) => {
   const { istoken, token } = useAppSelector(state => state.auth);
   const { targetRef, toPDF } = usePDF();
   const [isDownloadDialogOpen, setDownloadDialog] = useState<boolean>(false)
-  const [DownloadOptions, setDownloadOptions] = useState<1 | 2 | 3>()
   const [invoice, setInvoice] = useState<Iinvoice>({
     billed_From: {
       name: '',
@@ -121,7 +120,7 @@ const ViewInvoice = (props: Props) => {
 
 
 
-  async function printOne() {
+  async function printOne(DownloadOptions: number) {
     dispatch(change());
     try {
       console.log(targetRef.current)
@@ -136,7 +135,11 @@ const ViewInvoice = (props: Props) => {
         pdf.addPage('a4', 'portrait')
         pdf.addImage(data2, 'PNG', 0, 0, data2Width, data2Height);
       }
-      pdf.save(`${"invoice -" + '-' + invoice.invoice_No}.pdf`);
+      const str = pdf.output('blob');
+      window.open(URL.createObjectURL(str));
+      // pdf.save(`${"invoice -" + '-' + invoice.invoice_No}.pdf`);
+      // const da = 
+
     } catch (err: any) {
       console.log(err);
       toast.error('an error occured');
@@ -191,12 +194,12 @@ const ViewInvoice = (props: Props) => {
           <div className='text-lg cursor-pointer' onClick={() => { setDownloadDialog(false) }}>X</div>
         </div>
         <div className='p-3 grid gap-3 '>
-          <div className='p-2 bg-blue-200 hover:bg-blue-600 cursor-pointer hover:text-white border-blue-300 border-2 flex place-content-center' onClick={() => { setDownloadOptions(1); printOne() }} >Download Only Invoice </div>
+          <div className='p-2 bg-blue-200 hover:bg-blue-600 cursor-pointer hover:text-white border-blue-300 border-2 flex place-content-center' onClick={() => printOne(1)} >Download Only Invoice </div>
           {/* {
             (invoice.challan_no) ?
               <> */}
-          <div className='p-2 bg-blue-200 hover:bg-blue-600 cursor-pointer hover:text-white border-blue-300 border-2 flex place-content-center' onClick={() => { setDownloadOptions(2); printOne() }} >Download Only Chalan </div>
-          <div className='p-2 bg-blue-200 hover:bg-blue-600 cursor-pointer hover:text-white border-blue-300 border-2 flex place-content-center' onClick={() => { setDownloadOptions(3); printOne() }} >Download Both </div>
+          <div className='p-2 bg-blue-200 hover:bg-blue-600 cursor-pointer hover:text-white border-blue-300 border-2 flex place-content-center' onClick={() => { printOne(2) }} >Download Only Chalan </div>
+          <div className='p-2 bg-blue-200 hover:bg-blue-600 cursor-pointer hover:text-white border-blue-300 border-2 flex place-content-center' onClick={() => { printOne(3) }} >Download Both </div>
           {/* </> : null
 
           } */}
