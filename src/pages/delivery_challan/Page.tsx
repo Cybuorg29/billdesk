@@ -8,6 +8,7 @@ import Table from '../invoice/view/layout/invoice/Table';
 import Bottom from '../invoice/view/layout/invoice/Bottom';
 import Fotter from '../invoice/view/layout/invoice/Fotter';
 import BankSection from '../invoice/create/layouts/BankSection';
+import { IInvoiceProduct } from '../../models/inventory/productModel';
 
 type Props = {
     id: string
@@ -67,9 +68,22 @@ const Page = ({ id }: Props) => {
         createdAt: '',
         updatedAt: '',
         Eway_No: '',
-        SO_NO: ''
+        SO_NO: '',
+        // challan_no:'',
+        // SO_Id:''
     });
 
+
+
+    const [taxable, settaxable] = useState(0)
+
+    function updateTaxableValue() {
+        let newValue = 0
+        data.products.map((index: IInvoiceProduct) => {
+            newValue = newValue + index.taxable_Value;
+        })
+        settaxable(() => newValue);
+    }
 
 
 
@@ -120,8 +134,10 @@ const Page = ({ id }: Props) => {
                     <Table invoice={data} key={'chalanTable'} />
                 </div>
 
-                <div className='h-fit  text-sm    '>
-                    <Bottom invoice={data} />
+                <div className='min-h-[2rem] border-b-2 border-black  text-sm  grid grid-cols-2  '>
+                    <div>Grand Total</div>
+                    <div className='text-end'>{taxable}</div>
+                    {/* <Bottom invoice={data} /> */}
                 </div>
                 <div className=' border-b-2 border-black   grid text-sm'>
                     <div className='border-b-2 pl-2 border-black'>Bank Details :- {data.bank.name}</div>

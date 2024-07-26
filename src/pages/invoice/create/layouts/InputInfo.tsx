@@ -74,8 +74,8 @@ const InputInfo = ({ invoice, setInvoice, SoNO }: Props) => {
               <SelectInputs name={index} options={salesOrderOptions} setValue={setInvoice} value={invoice.SO_Id} />
             </div>
           </div>
-          if (index === 'date_of_supply' || index === 'invoice_No') return <div className='grid grid-cols-2 gap-2'>
-            <div className='border-b pl-2'>Date Of Supply</div>
+          if (index === 'date_of_supply' || index === 'invoice_Date') return <div className='grid grid-cols-2 gap-2'>
+            <div className='border-b pl-2'>{index.replaceAll('_', ' ')}</div>
             <div className='w-full border h-full'>
               <input className='w-full' type='date' title='date' onChange={((e: React.ChangeEvent<HTMLInputElement>) => { setInvoice((prev: IcreateInvoice) => { return { ...prev, [index]: String(e.target.value) } }) })} />
             </div>

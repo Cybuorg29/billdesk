@@ -192,14 +192,14 @@ const ViewInvoice = (props: Props) => {
         </div>
         <div className='p-3 grid gap-3 '>
           <div className='p-2 bg-blue-200 hover:bg-blue-600 cursor-pointer hover:text-white border-blue-300 border-2 flex place-content-center' onClick={() => { setDownloadOptions(1); printOne() }} >Download Only Invoice </div>
-          {
+          {/* {
             (invoice.challan_no) ?
-              <>
-                <div className='p-2 bg-blue-200 hover:bg-blue-600 cursor-pointer hover:text-white border-blue-300 border-2 flex place-content-center' onClick={() => { setDownloadOptions(2); printOne() }} >Download Only Chalan </div>
-                <div className='p-2 bg-blue-200 hover:bg-blue-600 cursor-pointer hover:text-white border-blue-300 border-2 flex place-content-center' onClick={() => { setDownloadOptions(3); printOne() }} >Download Both </div>
-              </> : null
+              <> */}
+          <div className='p-2 bg-blue-200 hover:bg-blue-600 cursor-pointer hover:text-white border-blue-300 border-2 flex place-content-center' onClick={() => { setDownloadOptions(2); printOne() }} >Download Only Chalan </div>
+          <div className='p-2 bg-blue-200 hover:bg-blue-600 cursor-pointer hover:text-white border-blue-300 border-2 flex place-content-center' onClick={() => { setDownloadOptions(3); printOne() }} >Download Both </div>
+          {/* </> : null
 
-          }
+          } */}
 
         </div>
 
@@ -227,7 +227,7 @@ const ViewInvoice = (props: Props) => {
           </div>
           <div className='h-fit w-full mt-5 bg-component ' >
             {
-              (invoice.challan_no?.length === 0 || !invoice.challan_no) ? null :
+              (invoice.challan_no?.length === 0) ? null :
                 <DeliveryChalanPage id={invoice._id} key={'delChalan'} />
             }
           </div>
