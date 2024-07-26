@@ -3,9 +3,9 @@
 @import 'tailwindcss/utilities';
 
 
-/* width */
+ /* width */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 25px;
 }
 
 /* Track */
@@ -15,21 +15,19 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    /* background: gray; */
     background-color: gray;
-    /* background: ; */
-    border-radius: 5px;
-}
+    border-radius: 15px;
+} 
 
-/* Handle on hover */
+/* Handle on hover
 ::-webkit-scrollbar-thumb:hover {
      width: 10px;
     background: black;
-}
-::-webkit-scrollbar:hover{
+} */
+/* ::-webkit-scrollbar:hover{
     width: 15px;
     background: black;
-}
+} */
 /* fonts */
 
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400&display=swap');

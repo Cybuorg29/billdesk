@@ -52,7 +52,7 @@ const InputInfo = ({ invoice, setInvoice, SoNO }: Props) => {
     <div className='grid grid-cols-2 grid-rows-4 border border-b-0 h-full '>
       {
         invoiceKeys.map((index) => {
-          if (index === 'total_Tax' || index === 'products' || index === 'gst_On_Reverce_Charge' || index === 'billed_To' || index === 'billed_From' || index === 'shipped_To' || index === 'discount' || index === 'grand_Total' || index === 'state_Code' || index === 'terms_And_Conditions' || index === 'bank' || index === 'id' || index === 'isPaid') return
+          if (index === 'total_Tax' || index === 'products' || index === 'gst_On_Reverce_Charge' || index === 'billed_To' || index === 'billed_From' || index === 'shipped_To' || index === 'discount' || index === 'grand_Total' || index === 'state_Code' || index === 'terms_And_Conditions' || index === 'bank' || index === 'id' || index === 'isPaid' || index === 'SO_NO') return
           if (index === 'state') return <>
             <div className='grid grid-cols-2 border gap-2'>
               <InputLabel type={typeof invoice[index]} name={index} setValue={setInvoice} value={invoice[index]} key={index} />
@@ -68,10 +68,16 @@ const InputInfo = ({ invoice, setInvoice, SoNO }: Props) => {
               <SelectInputs name={index} options={reverce_Charge_Options} setValue={setInvoice} value={invoice.reverce_Charge} />
             </div>
           </div>
-          if (index == 'SO_NO') return <div className='grid grid-cols-2 gap-2'>
+          if (index == 'SO_Id') return <div className='grid grid-cols-2 gap-2'>
             <div className='pl-2'>Order No.</div>
             <div className='w-full  h-full'>
-              <SelectInputs name={index} options={salesOrderOptions} setValue={setInvoice} value={invoice.SO_NO} />
+              <SelectInputs name={index} options={salesOrderOptions} setValue={setInvoice} value={invoice.SO_Id} />
+            </div>
+          </div>
+          if (index === 'date_of_supply' || index === 'invoice_No') return <div className='grid grid-cols-2 gap-2'>
+            <div className='border-b pl-2'>Date Of Supply</div>
+            <div className='w-full border h-full'>
+              <input className='w-full' type='date' title='date' onChange={((e: React.ChangeEvent<HTMLInputElement>) => { setInvoice((prev: IcreateInvoice) => { return { ...prev, [index]: String(e.target.value) } }) })} />
             </div>
           </div>
           return <>

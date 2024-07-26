@@ -19,7 +19,7 @@ const SelectInfo = ({ invoice, setInvoice }: Props) => {
     // }, [])
     return (
         <>
-            <div className='h-full  w-full bg-component  border-2   flex place-content-center'>
+            <div className='h-full  w-full bg-component  border-2  rounded-lg  flex place-content-center'>
                 <SelectNameTab valueArray={invoice.billed_To} name='Billed To' keysArray={billed_To_Keys} selectArray={[...client, ...supplier]} onSelect={(value: {
                     name: string,
                     gstin: string,
@@ -36,7 +36,7 @@ const SelectInfo = ({ invoice, setInvoice }: Props) => {
                     })
                 }} />
             </div>
-            <div className=' w-full bg-component  ' >
+            <div className=' w-full bg-component  border-2  rounded-lg ' >
                 <SelectNameTab valueArray={invoice.shipped_To} name='Shipped To' keysArray={shipped_To_keys} selectArray={[...client, ...supplier]} onSelect={(value: {
                     name: string,
                     gstin: string,

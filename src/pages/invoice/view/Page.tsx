@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { MutableRefObject, useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../store/app/hooks';
 import { setInvoiceAction } from '../../../store/actions/invoice/set';
@@ -14,6 +14,9 @@ import { change } from '../../../store/features/loader/loaderSlice';
 import { getSalesOrderNoApi } from '../../../api/v2/salesOrder/api';
 import { responceObj } from '../../../models/responce';
 import * as htmlToImage from 'html-to-image'
+import DeliveryChalanPage from '../../delivery_challan/Page';
+import { Dialog } from '@mui/material';
+import { SolidButton } from '../../../components/ui/Buttons/solid/SolidButton';
 // import html2pdf from 'ht'
 
 type Props = {}
@@ -24,10 +27,9 @@ const ViewInvoice = (props: Props) => {
   const dispatch = useAppDispatch()
   const { isLoaded, invoices } = useAppSelector(state => state.invoice);
   const { istoken, token } = useAppSelector(state => state.auth);
-  const [IsLoaded, setIsLoaded] = useState<boolean>(false)
-  const [doc, setDoc] = useState<'Original' | 'Dublicate' | 'Triplicate'>('Original')
-  const { auth, salesOrders, connections } = useAppSelector(state => state)
-  const navigate = useNavigate();
+  const { targetRef, toPDF } = usePDF();
+  const [isDownloadDialogOpen, setDownloadDialog] = useState<boolean>(false)
+  const [DownloadOptions, setDownloadOptions] = useState<1 | 2 | 3>()
   const [invoice, setInvoice] = useState<Iinvoice>({
     billed_From: {
       name: '',
@@ -98,156 +100,116 @@ const ViewInvoice = (props: Props) => {
 
 
 
+  async function convertToImage(element: any, pdf: any): Promise<any[3]> {
+    let pdfHeight = 0
+    let pdfWidth = 0
+    let dataUri = ''
+    await htmlToImage.toPng(element, { quality: 0.50, backgroundColor: '#ffffff' })
+      .then(async function (dataUrl: any) {
+        var link = document.createElement('a');
+        link.download = 'my-image-name.png';
+        const imgProps = pdf.getImageProperties(dataUrl);
+        pdfWidth = pdf.internal.pageSize.getWidth();
+        pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        console.log(dataUrl)
+        dataUri = dataUrl
+      }
+      )
+    return [dataUri, pdfWidth, pdfHeight]
+  }
+
+
 
 
   async function printOne() {
     dispatch(change());
     try {
       console.log(targetRef.current)
-      await htmlToImage.toPng(targetRef.current, { quality: 0.50, backgroundColor: '#ffffff' })
-        .then(function (dataUrl) {
-          var link = document.createElement('a');
-          link.download = 'my-image-name.png';
-          const pdf = new jsPDF('portrait', 'pt', 'a4');
-          const imgProps = pdf.getImageProperties(dataUrl);
-          const pdfWidth = pdf.internal.pageSize.getWidth();
-          const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-          pdf.addImage(dataUrl, 'PNG', 0, 0, pdfWidth, pdfHeight);
-          pdf.save(`${"invoice -" + doc + '-' + invoice.invoice_No}.pdf`);
-        });
-
-      //  const element = document.getElementById("toPrint");
-
-
-
-      // const htmlString = ReactDOMServer.renderToStaticMarkup(<LeftSection doc={doc} invoice={invoice} targetRef={targetRef} />)
-
-
-
+      const pdf = new jsPDF('portrait', 'pt', 'a4', true);
+      if (DownloadOptions === 1 || DownloadOptions === 3) {
+        const [data1, data1Width, data1Height]: any = await convertToImage(targetRef.current, pdf);
+        pdf.addImage(data1, 'PNG', 0, 0, data1Width, data1Height);
+      }
+      if (DownloadOptions === 2 || DownloadOptions === 3) {
+        const element = document.getElementById("chalan")
+        const [data2, data2Width, data2Height]: any = await convertToImage(element, pdf);
+        pdf.addPage('a4', 'portrait')
+        pdf.addImage(data2, 'PNG', 0, 0, data2Width, data2Height);
+      }
+      pdf.save(`${"invoice -" + '-' + invoice.invoice_No}.pdf`);
     } catch (err: any) {
       console.log(err);
       toast.error('an error occured');
-      // dispatch(change());
-
     }
     dispatch(change());
   }
 
 
 
-  async function print() {
-    dispatch(change());
-    try {
-      await htmlToImage.toPng(targetRef.current, { quality: 0.50, backgroundColor: '#fffff' })
-        .then(function (dataUrl) {
-          var link = document.createElement('a');
-          link.download = 'my-image-name.jpeg';
-          const pdf = new jsPDF('portrait', 'pt', 'a4');
-          const imgProps = pdf.getImageProperties(dataUrl);
-          const pdfWidth = pdf.internal.pageSize.getWidth();
-          const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-          pdf.addImage(dataUrl, 'PNG', 0, 0, pdfWidth, pdfHeight);
-          pdf.save(`${"invoice -" + doc + '-' + invoice.invoice_No}.pdf`);
-        });
+  // async function print() {
+  //   dispatch(change());
+  //   try {
+  //     await htmlToImage.toPng(targetRef.current, { quality: 0.50, backgroundColor: '#fffff' })
+  //       .then(function (dataUrl) {
+  //         var link = document.createElement('a');
+  //         link.download = 'my-image-name.jpeg';
+  //         const pdf = new jsPDF('portrait', 'pt', 'a4');
+  //         const imgProps = pdf.getImageProperties(dataUrl);
+  //         const pdfWidth = pdf.internal.pageSize.getWidth();
+  //         const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+  //         // pdf.addImage(dataUrl, 'PNG', 0, 0, pdfWidth, pdfHeight);
+  //         pdf.addPage();
+  //         // pdf.addImage(dataUrl, 'PNG', 0, 0, pdfWidth, pdfHeight);
+  //         pdf.save(`${"invoice -" + '-' + invoice.invoice_No}.pdf`);
+  //       });
 
-      // const htmlString = ReactDOMServer.renderToStaticMarkup(<LeftSection doc={doc} invoice={invoice} targetRef={targetRef} />)
+  //     // const htmlString = ReactDOMServer.renderToStaticMarkup(<LeftSection doc={doc} invoice={invoice} targetRef={targetRef} />)
 
 
 
-    } catch (err: any) {
-      console.log(err.message);
-      toast.error('an error occured');
-      toast.error('error type' + err.message);
-      // dispatch(change());
+  //   } catch (err: any) {
+  //     console.log(err.message);
+  //     toast.error('an error occured');
+  //     toast.error('error type' + err.message);
+  //     // dispatch(change());
 
-    }
-    dispatch(change());
+  //   }
+  //   dispatch(change());
+  // }
+
+
+
+
+
+
+
+  const DownloadDialog = () => {
+    return <Dialog open={isDownloadDialogOpen} fullWidth >
+      <div className='p-5'>
+        <div className='flex place-content-between'>
+          <div className='text-lg'>Select Download Option</div>
+          <div className='text-lg cursor-pointer' onClick={() => { setDownloadDialog(false) }}>X</div>
+        </div>
+        <div className='p-3 grid gap-3 '>
+          <div className='p-2 bg-blue-200 hover:bg-blue-600 cursor-pointer hover:text-white border-blue-300 border-2 flex place-content-center' onClick={() => { setDownloadOptions(1); printOne() }} >Download Only Invoice </div>
+          {
+            (invoice.challan_no) ?
+              <>
+                <div className='p-2 bg-blue-200 hover:bg-blue-600 cursor-pointer hover:text-white border-blue-300 border-2 flex place-content-center' onClick={() => { setDownloadOptions(2); printOne() }} >Download Only Chalan </div>
+                <div className='p-2 bg-blue-200 hover:bg-blue-600 cursor-pointer hover:text-white border-blue-300 border-2 flex place-content-center' onClick={() => { setDownloadOptions(3); printOne() }} >Download Both </div>
+              </> : null
+
+          }
+
+        </div>
+
+      </div>
+
+
+
+
+    </Dialog>
   }
-
-
-  async function DownloadAll() {
-    try {
-      for (let i = 0; i < 2; i++) {
-        if (i === 0) {
-          setDoc(() => 'Original');
-          await printOne();
-        }
-        else if (i === 1) {
-          setDoc(() => 'Dublicate');
-          await printOne();
-        }
-        else if (i === 2) {
-          setDoc(() => 'Triplicate');
-          await printOne();
-        }
-      }
-
-    } catch (err: any) {
-      toast.error("an error occured please try again");
-      toast.error("error type :" + err.message);
-    }
-  }
-
-
-
-
-
-
-  useEffect(() => {
-    if (!IsLoaded) {
-      if (invoice.SO_NO) getSalesOrderNO()
-    }
-
-  }, [invoice?.SO_NO])
-
-
-
-  async function getSalesOrderNO() {
-    dispatch(change());
-    try {
-      const { data } = await getSalesOrderNoApi(auth.token, invoice.SO_NO);
-      const res: responceObj = data;
-      if (res.code === 200) {
-        setInvoice(prev => { return { ...prev, SO_NO: res.package } });
-        setIsLoaded(true)
-      } else {
-        navigate('/dashboard/invoice')
-      }
-
-    } catch (err: any) {
-      toast.error("an error occured ")
-      toast.error("Error Type : " + err.message)
-    }
-    dispatch(change());
-  }
-
-
-
-
-  // const handleGeneratePdf = () => {
-  //   const doc = new jsPDF({
-  //     format: 'a4',
-  //     unit: 'pt',
-  //   });
-
-
-  //   // Adding the fonts.
-  //   doc.setFont('Inter-Regular', 'normal');
-
-  //   doc.html(targetRef.current, {
-  //     async callback(doc) {
-  //       await doc.save('document');
-
-  //     },
-  //   });
-  // };
-
-
-
-  const { targetRef, toPDF } = usePDF();
-
-
-
 
 
 
@@ -257,20 +219,21 @@ const ViewInvoice = (props: Props) => {
 
   return (
     <>
-      <div className='w-full h-full  overflow-hidden flex gap-2 lg:scale-100 scale-0'>
-        <div className='w-[85%] h-full bg-component  '   >
-          <div className='h-full w-full overflow-auto'  >
-            <LeftSection doc={doc} invoice={invoice} targetRef={targetRef} />
+      <DownloadDialog />
+      <div className='w-full h-full   flex gap-2 lg:scale-100 scale-0'>
+        <div className='w-[85%] h-full   overflow-auto '>
+          <div className='h-fit bg-component   w-full overflow-auto'  >
+            <LeftSection invoice={invoice} targetRef={targetRef} />
           </div>
-          {/* <iframe title='Invocie' className='h-full w-full'  src={invoiceUrl}>
-                
-        </iframe> */}
-          <div className='h-fit  w-full overflow-auto  ' id='toPrint'>
-            <LeftSection doc={doc} invoice={invoice} targetRef={targetRef} />
+          <div className='h-fit w-full mt-5 bg-component ' >
+            {
+              (invoice.challan_no?.length === 0 || !invoice.challan_no) ? null :
+                <DeliveryChalanPage id={invoice._id} key={'delChalan'} />
+            }
           </div>
         </div>
         <div className='w-[15%] h-full  bg-component ' id='print' >
-          <RightSection setDoc={(value: any) => { setDoc(value) }} printOne={() => printOne()} printAll={() => DownloadAll()} />
+          <RightSection printOne={() => setDownloadDialog(true)} key={'rhtSec'} />
         </div>
 
       </div>

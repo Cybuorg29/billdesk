@@ -8,15 +8,15 @@ import BillingDetails from './invoice/BillingDetails'
 import Fotter from './invoice/Fotter'
 import { roundNumber } from '../../../../utils/RoundOff'
 
-type Props = { invoice: Iinvoice, targetRef: any, doc: string }
+type Props = { invoice: Iinvoice, targetRef: any }
 
-const LeftSection = ({ invoice, targetRef, doc }: Props) => {
+const LeftSection = ({ invoice, targetRef }: Props) => {
   const selfInfoKeys = useId();
   return (
     <div className='p-10 h-full  w-full  text-sm font-bold  bg-white' ref={targetRef}   >
       <div className='flex place-content-between'>
         <div className='text-lg'>GSTIN:{invoice.billed_From.gstin}</div>
-        <div className='text-lg'>{doc}</div>
+        <div className='text-sm'>Original for the recipient/Duplicate for transporter/Triplicate for supplier</div>
 
       </div>
       <div className='w-full min-h-full border-2 border-black' >
@@ -40,17 +40,12 @@ const LeftSection = ({ invoice, targetRef, doc }: Props) => {
           </div>
           <div className='min-h-fit'>
             <div className=' border-b-2  border-black pl-2 text-lg font-semibold '>Ship To</div>
-            <BillingDetails array={invoice.billed_To} />
+            <BillingDetails array={invoice.shipped_To} />
           </div>
 
+
+
         </div>
-
-
-
-
-
-
-
 
         <div className='min-h-[20rem] border-black  mb-2  '>
           <Table invoice={invoice} />

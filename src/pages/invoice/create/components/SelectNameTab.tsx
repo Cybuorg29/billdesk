@@ -32,10 +32,11 @@ const SelectNameTab = ({ keysArray, name, selectArray, valueArray, onSelect }: P
             <div className={`absolute bg-black/50 rounded-lg h-full w-full ${scale} flex place-content-center items-center text-white cursor-pointer`} onClick={() => { setOpenDialog(true); setScale('scale-0') }} >
                 <div className='h-[40%] w-[60%]  flex place-content-center items-center text-white font-semibold '>Click to change</div>
             </div>
-            <div className='flex place-content-between items-center pr-2 gap-2 h-full '>
-                <div className=' pl-2 text-md text-grayFont  '>{name}</div>
-                <div>Name : {valueArray.name}</div>
-                <div>GSTIN : {valueArray.gstin}</div>
+
+            <div className=' pl-2 place-content-between items-center pr-2 gap-2 h-full '>
+                <div className='  text-md text-grayFont  '>{name}</div>
+                <div >Name : {valueArray.name}</div>
+                <div >GSTIN : {valueArray.gstin}</div>
             </div>
 
         </div>

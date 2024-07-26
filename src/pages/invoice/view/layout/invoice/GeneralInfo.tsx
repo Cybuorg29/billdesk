@@ -8,7 +8,7 @@ import { toast } from 'react-toastify'
 import { getSalesOrderNoApi } from '../../../../../api/v2/salesOrder/api'
 import { responceObj } from '../../../../../models/responce'
 
-type Props = { invoice: Iinvoice | any }
+type Props = { invoice: Iinvoice | any | undefined }
 
 const GeneralInfo = ({ invoice }: Props) => {
   const invoiceKeys = Object.keys(invoice);

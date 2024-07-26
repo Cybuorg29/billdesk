@@ -78,7 +78,9 @@ const CreateInvoice = (props: Props) => {
         id: '',
         isPaid: false,
         Eway_No: '',
-        SO_NO: ''
+        SO_NO: '',
+        challan_no: '',
+        SO_Id: ''
     })
 
     const selectInfoKey = useId();
@@ -172,35 +174,16 @@ const CreateInvoice = (props: Props) => {
                 this.state = state;
                 this.state_Code = getStateCode(state);
                 this.gstin = gstin
-
             }
 
 
         }
-        const value = salesOrders.Sales_Orders.find((salesOrder: ISalesOrder) => salesOrder._id === invoice.SO_NO);
-        console.log('value', value)
+
+        const value = salesOrders.Sales_Orders.find((salesOrder: ISalesOrder) => salesOrder._id === invoice.SO_Id);
         const cli = [...connections.supplier, ...connections.client].find((con) => con.name === value?.to.name && con.adress === value?.ship_To.adress);
         const ship = [...connections.supplier, ...connections.client].find((con) => con.name === value?.to.name && con.adress === value?.ship_To.adress);
-        console.log(cli)
-        setInvoice((prev) => { return { ...prev, billed_To: new billingDetails(cli?.name, cli?.adress, cli?.state, cli?.gstin), shipped_To: new billingDetails(ship?.name, ship?.adress, ship?.state, ship?.gstin), transport_Mode: `${(value?.shipping_Meathod) ? value.shipping_Meathod : ""}` } })
-    }, [invoice.SO_NO]);
-
-
-
-    // useEffect(() => {
-    //     window.addEventListener("beforeunload", (e) => {
-    //         e.preventDefault();
-    //         const a = window.confirm("Reload Will Erase All The Changes.")
-    //         if (a) window.location.reload();
-    //         // confirm("Reload Will Erase All The UnSaved Changes. Do You Really Want To Reload")
-    //     });
-    //     return () => {
-    //         window.removeEventListener("beforeunload", (e) => {
-
-    //         });
-    //     };
-    // }, []);
-
+        setInvoice((prev) => { return { ...prev, billed_To: new billingDetails(cli?.name, cli?.adress, cli?.state, cli?.gstin), shipped_To: new billingDetails(ship?.name, ship?.adress, ship?.state, ship?.gstin), transport_Mode: `${(value?.shipping_Meathod) ? value.shipping_Meathod : ""}`, SO_NO: value?.invoice_No || '' } })
+    }, [invoice.SO_Id]);
 
 
 
@@ -218,7 +201,7 @@ const CreateInvoice = (props: Props) => {
                     <div className=' min-h-full mb-2 bg-component grid rounded-lg  '>
                         <InputInfo SoNO={invoice.SO_NO} invoice={invoice} setInvoice={setInvoice} key={inputInfoId} />
                     </div>
-                    <div className='h-[5%]  p-1  grid grid-cols-2    ' >
+                    <div className='h-[8%]  text-sm p-1 gap-2  grid grid-cols-2    ' >
                         <SelectInfo invoice={invoice} setInvoice={setInvoice} key={selectInfoKey} />
                     </div>
                     <div className='min-h-[15rem]   m-1  bg-component   rounded-lg '>

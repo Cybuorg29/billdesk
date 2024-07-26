@@ -7,7 +7,7 @@ import { getProducts } from '../../../../store/actions/products'
 import { toast } from 'react-toastify'
 import { ISALES_ORDER_PRODUCT, ISalesOrder } from '../../../salesOrders/Model/model'
 
-type Props = { scale: boolean, setScale: any, setInvoice: any, setMinStock: any, SO_NO: string }
+type Props = { scale: boolean, setScale: any, setInvoice: any, SO_NO: string }
 
 interface IProductTab {
     name: string
@@ -16,7 +16,7 @@ interface IProductTab {
 
 
 
-const AddProductDialog = ({ scale, setScale, setInvoice, setMinStock, SO_NO }: Props) => {
+const AddProductDialog = ({ scale, setScale, setInvoice, SO_NO }: Props) => {
     const blue = 'text-blue-800'
     const { products, isProducts } = useAppSelector(state => state.product);
     const { Sales_Orders, isLoaded } = useAppSelector(state => state.salesOrders)
@@ -36,13 +36,15 @@ const AddProductDialog = ({ scale, setScale, setInvoice, setMinStock, SO_NO }: P
         amount = 0
         taxable_Value = 0
         tax = []
-        constructor(name: string, description: string, code: string, rate: number, unit: string, tax: any) {
+        undelivered = 0
+        constructor(name: string, description: string, code: string, rate: number, unit: string, tax: any, undelivered: number) {
             this.name = name;
             this.description = description
             this.code = code
             this.rate = rate
             this.unit = unit
             this.tax = tax
+            this.undelivered = undelivered
         }
     }
 
@@ -63,11 +65,11 @@ const AddProductDialog = ({ scale, setScale, setInvoice, setMinStock, SO_NO }: P
                         const obj = products.find((element) => element.name === prod.name);
                         console.log('obj', obj)
                         if (typeof obj !== typeof undefined) {
-                            let index = { ...obj }
+                            let index = { ...obj, undelivered: (prod.quantity - prod.delivered) }
                             // array.push(new PRODUCT(prod.name, index.description, index.code, prod.rate, index.unit, prod.tax)
-                            if (index.stock) {
-                                if ((prod.quantity - prod.delivered) < index?.stock) index.stock = (prod.quantity - prod.delivered);
-                            }
+                            // if (index.stock) {
+                            //     if ((prod.quantity - prod.delivered) < index?.stock) index.stock = (prod.quantity - prod.delivered);
+                            // }
                             array.push(index)
                         }
 
@@ -86,14 +88,14 @@ const AddProductDialog = ({ scale, setScale, setInvoice, setMinStock, SO_NO }: P
 
 
 
-    function submit(e: React.ChangeEvent, index: ProductObj) {
+    function submit(e: React.ChangeEvent, index: any) {
         setInvoice((prev: IcreateInvoice) => {
             return {
-                ...prev, products: [...prev.products, new PRODUCT(index.name, index.description, index.code, index.rate, index.unit, index.tax)]
+                ...prev, products: [...prev.products, new PRODUCT(index.name, index.description, index.code, index.rate, index.unit, index.tax, (index?.undelivered))]
             }
         })
             ; setScale(false);
-        setMinStock((prev: any) => { return [...prev, index.stock] });
+        // setMinStock((prev: any) => { return [...prev, (index.stock > index?.undelivered) ? index.undelivered : index.stock] });
     }
 
     useEffect(() => {
@@ -159,11 +161,8 @@ const AddProductDialog = ({ scale, setScale, setInvoice, setMinStock, SO_NO }: P
                                                             <th scope="col" className='px-1 py-2  sticky text-black ' >{++i}</th>
                                                             <th scope="col" className='px-1 py-2  sticky text-black ' >{index.name}</th>
                                                             <th scope="col" className='px-1 py-2  sticky text-gray-500 ' >{index.rate}</th>
-                                                            <th scope="col" className='px-1 py-2  sticky text-gray-500 ' >{index?.stock}</th>
+                                                            <th scope="col" className='px-1 py-2  sticky text-gray-500 ' >{(SO_NO.length === 0) ? index?.stock : index?.undelivered}</th>
                                                         </tr>
-
-
-
                                                     })
                                                 }
                                             </tbody>

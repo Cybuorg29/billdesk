@@ -81,7 +81,7 @@ const NavBar = (props: Props) => {
 
   const navTabsWithDetails: detailsTab[] = [
     {
-      name: 'Connections',
+      name: 'Party',
       Tabs: [
         {
           name: 'Clients',
@@ -126,6 +126,17 @@ const NavBar = (props: Props) => {
           icon: <MdOutlineDriveFolderUpload size={20} />,
           link: '/dashboard/bills/payable'
         },
+        {
+          name: 'Debit Note',
+          icon: <MdOutlineDriveFolderUpload size={20} />,
+          link: '/dashboard/bills/payable'
+        },
+        {
+          name: 'Credit Note',
+          icon: <MdOutlineDriveFolderUpload size={20} />,
+          link: '/dashboard/bills/payable'
+        },
+
 
       ]
     },

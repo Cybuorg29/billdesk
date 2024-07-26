@@ -44,6 +44,8 @@ export interface IcreateInvoice {
    isPaid: boolean
    Eway_No: string
    SO_NO: string
+   challan_no?: string
+   SO_Id?: string
 }
 
 
@@ -94,5 +96,7 @@ export interface Iinvoice {
    updatedAt: string
    Eway_No: string
    SO_NO: string
+   challan_no?: string
+   SO_Id?: string
 
 }

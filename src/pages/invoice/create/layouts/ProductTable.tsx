@@ -17,7 +17,6 @@ interface TableProps {
 const ProductTable = ({ invoice, setInvoice }: Props) => {
   const [selectProductOpen, setSelectProductOpen] = useState<boolean>(false);
   const { products } = useAppSelector(state => state.product);
-  const [minStock, setMinStock] = useState<number[]>([])
   //keys 
   const addProductDialogKey = useId();
 
@@ -33,19 +32,17 @@ const ProductTable = ({ invoice, setInvoice }: Props) => {
   }
 
 
-  const handleQtyRateAndDiscountChange = (value: number, type: 'qty' | 'rate' | 'discount', i: number) => {
+  const handleQtyRateAndDiscountChange = (value: number, type: 'qty' | 'rate' | 'discount', i: number, obj: any) => {
     let newArray = invoice.products;
 
     let index = newArray[i];
 
     if (type === 'qty') {
-      // add stock validator -- pending 
-      if (minStock[i] < value && invoice.SO_NO.length === 0) toast.error('Not enought stock');
-      else if (minStock[i] < value && invoice.SO_NO.length !== 0) toast.error('Cannot Add Quantity More Than Available In Inventory Or Sales Order ');
+      if (obj?.undelivered < value && invoice.SO_NO.length === 0) toast.error('Not enought stock');
+      else if (obj?.undelivered < value && invoice.SO_NO.length !== 0) toast.error('Cannot Add Quantity More Than Available In Inventory Or Sales Order ');
       else {
         index.qty = value;
       }
-
     }
     if (type === 'rate') index.rate = value;
     if (type === 'discount') index.discount = value;
@@ -97,7 +94,7 @@ const ProductTable = ({ invoice, setInvoice }: Props) => {
 
   return (
     <>
-      <AddProductDialog SO_NO={invoice.SO_NO} scale={selectProductOpen} setScale={setSelectProductOpen} setInvoice={setInvoice} setMinStock={setMinStock} key={addProductDialogKey} />
+      <AddProductDialog SO_NO={invoice.SO_Id || ''} scale={selectProductOpen} setScale={setSelectProductOpen} setInvoice={setInvoice} key={addProductDialogKey} />
       <div className='h-full w-full '>
         <div className='border-t    w-full h-[20rem]  overflow-auto text relative' >
           <div className="flex flex-col" >
@@ -137,11 +134,11 @@ const ProductTable = ({ invoice, setInvoice }: Props) => {
                               </div>
                             </th>
                             <th scope="col" className=' sticky text-gray-700 border border-gray-400 ' >{index.code}</th>
-                            <TableInputs value={index.qty} onChange={(e: any) => { handleQtyRateAndDiscountChange(e.target.value, 'qty', i) }} type={'number'} key={`qty${i}`} />
+                            <TableInputs value={index.qty} onChange={(e: any) => { handleQtyRateAndDiscountChange(e.target.value, 'qty', i, index) }} type={'number'} key={`qty${i}`} />
                             <th scope="col" className=' sticky text-gray-700 border border-gray-400 ' >{index.unit}</th>
-                            <TableInputs value={index.rate} onChange={(e: any) => { handleQtyRateAndDiscountChange(e.target.value, 'rate', i) }} type={'number'} key={`rate${i}`} />
+                            <TableInputs value={index.rate} onChange={(e: any) => { handleQtyRateAndDiscountChange(e.target.value, 'rate', i, index) }} type={'number'} key={`rate${i}`} />
                             <th scope="col" className=' sticky text-gray-700 border border-gray-400 text-center' >{converToInrFormat(index.amount)}</th>
-                            <TableInputs onChange={(e: any) => { handleQtyRateAndDiscountChange(e.target.value, 'discount', i) }} type={'number'} value={index.discount} key={`discount${i}`} />
+                            <TableInputs onChange={(e: any) => { handleQtyRateAndDiscountChange(e.target.value, 'discount', i, index) }} type={'number'} value={index.discount} key={`discount${i}`} />
                             <th scope="col" className=' sticky text-gray-700 border border-gray-400 text-center' >{index.taxable_Value}</th>
                             <th scope="col" className=' sticky text-gray-700 border border-gray-400 text-center' >
                               {/* tax  */}
