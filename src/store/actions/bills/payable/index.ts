@@ -15,7 +15,7 @@ export async function setPayablesAction(month?: any) {
         }
         else {
             if (!month) {
-                month = new Date().getMonth()
+                month = new Date().getMonth() + 1
             }
             const { data } = await getPayablesApi(token, month);
             const res: responceObj = data;
@@ -25,8 +25,6 @@ export async function setPayablesAction(month?: any) {
                 type: payableActions.SET,
                 data: res.package
             }
-
-
             store.dispatch(changePayables(payload));
         }
 

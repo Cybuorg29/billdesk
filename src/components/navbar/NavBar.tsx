@@ -22,7 +22,10 @@ import CallReceivedIcon from '@mui/icons-material/CallReceived';
 import { RiFolderReceivedLine } from "react-icons/ri";
 import { MdOutlineDriveFolderUpload } from "react-icons/md";
 import TextSnippetIcon from '@mui/icons-material/TextSnippet';
-type Props = {};
+type Props = {
+  scale: boolean
+  setOptionBarScale: any
+};
 
 
 interface Navtab {
@@ -126,35 +129,9 @@ const NavBar = (props: Props) => {
           icon: <MdOutlineDriveFolderUpload size={20} />,
           link: '/dashboard/bills/payable'
         },
-        {
-          name: 'Debit Note',
-          icon: <MdOutlineDriveFolderUpload size={20} />,
-          link: '/dashboard/bills/payable'
-        },
-        {
-          name: 'Credit Note',
-          icon: <MdOutlineDriveFolderUpload size={20} />,
-          link: '/dashboard/bills/payable'
-        },
-
 
       ]
     },
-
-
-    // {
-    //   name: 'Purchase Order',
-    //   link: '/dashboard/purchase Order',
-    //   Tabs: [
-    //     {
-    //       name: 'Create P.O',
-    //       link: '/create/purchase Order',
-    //       icon: <AddIcon onclick={() => { }} color="black" key={'P.O.1'} />
-    //     }
-    //   ]
-
-
-    // },
 
 
 
@@ -239,6 +216,11 @@ const NavBar = (props: Props) => {
               }
             })
           }
+
+          <details className=" cursor-pointer hover:bg-[#21262C] p-2 pl-3  rounded-lg" onClick={() => { props.setOptionBarScale(!props.scale) }}>
+            <summary>More</summary>
+          </details>
+
 
         </div>
       </div>

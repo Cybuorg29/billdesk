@@ -10,6 +10,7 @@ import { change } from "../../features/loader/loaderSlice";
 import { IcreateInvoice } from "../../../models/invoice/invoice.model";
 import { IInvoiceProduct } from "../../../models/inventory/productModel";
 import { updateInventoryStockThroughInvoice } from "../products/update/updateStockThroughInvoice";
+import { ICreateCreditNote } from "../../features/creditNote/model";
 
 export async function initliseSalesOrdersAction() {
     store.dispatch(change())
@@ -112,17 +113,52 @@ export async function updateDeliveredThroughInvoice(obj: IcreateInvoice) {
 
         obj.products.map((value: IInvoiceProduct) => {
             newArray.push({ name: value.name, qty: value.qty })
-        })
+        });
+        // toast('asas' + obj.SO_Id)
 
-        const payload: salesOrderPayloadTypes = {
-            data: {
-                id: obj.SO_NO,
-                list: newArray
-            },
-            type: 'updateStockThroughInvoice'
+        if (obj.SO_Id) {
+            const payload: salesOrderPayloadTypes = {
+                data: {
+                    id: obj.SO_Id,
+                    list: newArray
+                },
+                type: 'updateStockThroughInvoice'
+            }
+            updateInventoryStockThroughInvoice(payload.data.list)
+            store.dispatch(setSalesOrderReducer(payload))
         }
-        updateInventoryStockThroughInvoice(payload.data.list)
-        store.dispatch(setSalesOrderReducer(payload))
+
+    } catch (err: any) {
+        console.log(err.message)
+        toast.error("an error occured please try again ")
+        toast.error("error type :" + err.message);
+    }
+    // store.dispatch(change());
+
+}
+
+
+export async function updateSoDeliveredThroughCreditNote(obj: ICreateCreditNote) {
+    // store.dispatch()
+    try {
+        let newArray: { name: string, qty: number }[] = [];
+
+        obj.products.map((value: IInvoiceProduct) => {
+            newArray.push({ name: value.name, qty: value.qty })
+        });
+        // toast('asas' + obj.SO_Id)
+
+        if (obj.so_id) {
+            const payload: salesOrderPayloadTypes = {
+                data: {
+                    id: obj.so_id,
+                    list: newArray
+                },
+                type: 'updateStockThroughCreditNote'
+            }
+            // updateInventoryStockThroughInvoice(payload.data.list)
+            store.dispatch(setSalesOrderReducer(payload))
+        }
 
     } catch (err: any) {
         console.log(err.message)

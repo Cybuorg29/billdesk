@@ -56,6 +56,9 @@ const Main = (props: Props) => {
 
 
 
+  const [isOptionBarOpen, setisOptionBarOpen] = useState<boolean>(false)
+
+
 
 
 
@@ -63,12 +66,12 @@ const Main = (props: Props) => {
     <>
       <div className="grid grid-cols-7 bg-whitesmoke   h-screen  ">
         <div className="grid col-span-1 bg-whitesmoke h-full">
-          <NavBar key={navKey} />
+          <NavBar scale={isOptionBarOpen} setOptionBarScale={setisOptionBarOpen} key={navKey} />
         </div>
         <div className=" bg-whitesmoke w-full col-span-6  h-screen ">
           <div className="  bg-white border  h-[8%]">
             {" "}
-            <Topbar key={TopbarKey} />
+            <Topbar optionBarScale={isOptionBarOpen} setOptionBarScale={setisOptionBarOpen} key={TopbarKey} />
           </div>
           <div className=" h-[92%]   ">
             <div className=" h-full p-2  overflow-auto bg-whitesmoke rounded-xl ">

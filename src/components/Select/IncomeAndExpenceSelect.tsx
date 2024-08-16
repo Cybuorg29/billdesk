@@ -187,7 +187,7 @@ const IncomeAndExpenceSelect = (props: Props) => {
         </div>
 
 
-        <div className='cursor-pointer border px-1.5 hover:bg-black hover:text-white rounded-md' onClick={() => { (!openDialog) ? setOpenDialog(true) : setOpenDialog(false) }}>
+        <div className='cursor-pointer border px-2 py-1 bg-black text-white rounded-md' onClick={() => { (!openDialog) ? setOpenDialog(true) : setOpenDialog(false) }}>
           change
         </div>
 

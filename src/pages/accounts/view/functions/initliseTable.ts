@@ -77,7 +77,7 @@ export async function initliseTableData({ expences, incomes, invoices, payables 
         }
     })
     expences.map((index: IExpence) => {
-        if (index.category === ('800' || '200')) {
+        if (index.category === '800' || index.category === '200') {
 
             payables.map((invoice: IbillsPaylable) => {
                 if (invoice._id === index.uid) {

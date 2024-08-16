@@ -9,7 +9,8 @@ export const SalesOrderActions = {
     set: "set",
     push: "push",
     delete: "delete",
-    updateStockthroughInvoice: "updateStockThroughInvoice"
+    updateStockthroughInvoice: "updateStockThroughInvoice",
+    updateStockthroughCreditNote: "updateStockThroughCreditNote"
 };
 
 export type salesOrderPayloadTypes = {} & (
@@ -26,6 +27,15 @@ export type salesOrderPayloadTypes = {} & (
         data: number
     } | {
         type: 'updateStockThroughInvoice'
+        data: {
+            id: string,
+            list: {
+                name: string
+                qty: number
+            }[]
+        }
+    } | {
+        type: 'updateStockThroughCreditNote'
         data: {
             id: string,
             list: {
@@ -59,8 +69,8 @@ export const changeSalesOrdersReducer = (state: any, action: PayloadAction<actio
                 // toast("start" + data.id)
                 let int = state.Sales_Orders.findIndex((order: ISalesOrder) => order._id === data.id);
                 // toast('int' + int)
-                if (int === -1 || !int) {
-                    throw new Error("")
+                if (int === -1) {
+                    throw new Error("Cannot find Sales Order")
                 }
                 let order: ISalesOrder = state.Sales_Orders[int];
                 // toast("found" + order?._id)
@@ -70,6 +80,34 @@ export const changeSalesOrdersReducer = (state: any, action: PayloadAction<actio
                     // toast('index' + index)
                     if (index === -1) toast.error("Error Updating Sales Order ON Current Session Please Refresh To See The Change");
                     else order.product[index].delivered = parseInt(`${order?.product[index].delivered}`) + parseInt(`${value.qty}`)
+                });
+                state.Sales_Orders[int] = order;
+            } catch (err: any) {
+                toast.error(err.message)
+                console.log(err.message)
+
+            }
+            toast.success("Sales Order Updated")
+            break;
+
+
+
+        case SalesOrderActions.updateStockthroughCreditNote:
+            try {
+                // toast("start" + data.id)
+                let int = state.Sales_Orders.findIndex((order: ISalesOrder) => order._id === data.id);
+                // toast('int' + int)
+                if (int === -1) {
+                    throw new Error("Cannot find Sales Order")
+                }
+                let order: ISalesOrder = state.Sales_Orders[int];
+                // toast("found" + order?._id)
+                data?.list.map((value: { name: string, qty: number }) => {
+                    // toast()
+                    const index = order.product.findIndex((product: ISALES_ORDER_PRODUCT) => product.name.toUpperCase() === value.name.toUpperCase());
+                    // toast('index' + index)
+                    if (index === -1) toast.error("Error Updating Sales Order ON Current Session Please Refresh To See The Change");
+                    else order.product[index].delivered = parseInt(`${order?.product[index].delivered}`) - parseInt(`${value.qty}`)
                 });
                 state.Sales_Orders[int] = order;
             } catch (err: any) {

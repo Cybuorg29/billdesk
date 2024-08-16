@@ -1,4 +1,4 @@
-export function getStateCode(stateName: string): number {
+export function getStateCode(stateName: string | undefined): number {
   const stateCodes: Record<string, number> = {
     "Andaman and Nicobar Islands": 35,
     "Andhra Pradesh": 28,
@@ -38,7 +38,7 @@ export function getStateCode(stateName: string): number {
     "West Bengal": 19
   };
 
-  if (!stateName || stateName.length === 0) {
+  if (!stateName || stateName.length === 0 || typeof stateName === undefined) {
     return -1
   }
 

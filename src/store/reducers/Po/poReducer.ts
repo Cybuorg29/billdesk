@@ -40,11 +40,12 @@ export const changePoReducer = (state: Po, action: PayloadAction<actionPayload>)
 
         const data: any = action.payload.data;
         const type: any = action.payload.type;
+        console.log('po', data);
 
         switch (type) {
             case poAction.set:
-                const toPush = initliseWithBillsPayables(data.array, data.invoice);
-                state.purchase_Order.push(...toPush)
+                // const toPush = initliseWithBillsPayables(data.array, data.invoice);
+                state.purchase_Order = [...data]
                 state.isLoaded = true
                 break;
             case poAction.push:

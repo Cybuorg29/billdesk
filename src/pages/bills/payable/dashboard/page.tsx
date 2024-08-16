@@ -70,18 +70,20 @@ const PayableDashboard: React.FC = (props: Props) => {
 
     let dashboardArray: DashboardTableProps = {
         dataArray: [],
-        headers: ['P.O No.', 'Date', 'Billed From', 'status', 'Total', 'actions'],
+        headers: ['invoice No', 'P.O No.', 'Date', 'Billed From', 'status', 'Total', 'actions'],
         onclick: () => { },
         Buttons: []
     }
 
     class arrayObj {
+        invoiceNo = ''
         Date = ''
         Billed_From = ''
         PO = ''
         isPaid = ''
         Total = ''
-        constructor(Date: any, Billed_From: any, PO: any, Total: any, isPaid: any) {
+        constructor(Date: any, invoiceNo: string, Billed_From: any, PO: any, Total: any, isPaid: any) {
+            this.invoiceNo = invoiceNo
             this.Date = Date;
             this.Billed_From = Billed_From
             this.PO = PO
@@ -96,7 +98,7 @@ const PayableDashboard: React.FC = (props: Props) => {
         let unpaidCount = 0
         let unpaidTotal = 0;
         invoice.map((index: IbillsPaylable, i: number) => {
-            dashboardArray.dataArray.push(new arrayObj(index.po, convertIsoDate(index.createdAt), index.billed_From.name, converToInrFormat(index.total), (index.isPaid) ? 'Paid' : 'Unpaid'))
+            dashboardArray.dataArray.push(new arrayObj(index.po, (index.no || '-'), convertIsoDate(index.createdAt), index.billed_From.name, converToInrFormat(index.total), (index.isPaid) ? 'Paid' : 'Unpaid'))
             totalCount = ++totalCount
             if (index.isPaid) { }
             else {

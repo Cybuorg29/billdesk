@@ -30,7 +30,7 @@ const MobileMain = (props: Props) => {
 
 
   useEffect(() => {
-      if (user.name === '') {
+    if (user.name === '') {
       navigate('/settings')
     }
     if (!token.istoken) {
@@ -45,20 +45,20 @@ const MobileMain = (props: Props) => {
   useEffect(() => {
 
   }, [user])
-  const [sideBarScale, setSideBarScale] = useState('w-0')
+  const [sideBarScale, setSideBarScale] = useState<boolean>(false)
 
 
   return (
     <div className='w-full h-screen  ' >
-      <SideBar scale={sideBarScale} close={() => setSideBarScale('w-0')} />
+      <SideBar scale={sideBarScale} close={() => setSideBarScale(false)} />
       <div className='h-[10%] bg-white  rounded-xl  ' >
-        <Topbar />
+        <Topbar optionBarScale={sideBarScale} setOptionBarScale={setSideBarScale} />
       </div>
       <div className='h-[82%]  overflow-auto ' >
         <Outlet />
       </div>
       <div className='h-[8%] ' >
-        <BottomBar open={() => setSideBarScale('w-[75vw]')} />
+        <BottomBar open={() => setSideBarScale(false)} />
       </div>
 
 

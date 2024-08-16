@@ -19,7 +19,7 @@ const GeneralInfo = ({ invoice }: Props) => {
       {invoiceKeys.map((index, i: number) => {
         let border = '';
         if (i % 2 === 0) border = 'border-r-2 '
-        if (index === 'total_Tax' || index === 'products' || index === 'gst_On_Reverce_Charge' || index === 'billed_To' || index === 'billed_From' || index === 'shipped_To' || index === 'discount' || index === 'grand_Total' || index === 'state_Code' || index === 'terms_And_Conditions' || index === 'bank' || index === 'id' || index === 'isPaid' || index === '_id' || index === '__v' || index === 'createdAt' || index === 'updatedAt') return
+        if (index === 'total_Tax' || index === 'products' || index === 'gst_On_Reverce_Charge' || index === 'billed_To' || index === 'billed_From' || index === 'shipped_To' || index === 'discount' || index === 'grand_Total' || index === 'state_Code' || index === 'terms_And_Conditions' || index === 'bank' || index === 'id' || index === 'isPaid' || index === '_id' || index === '__v' || index === 'createdAt' || index === 'updatedAt' || index === 'challan_No' || index === 'SO_Id') return
         if (index === 'state') return <>
           <div className={`grid grid-cols-3  gap-5   w-full pl-2 border-b-2 border-black text-s`}>
             <div className={`grid grid-cols-2 ${border} col-span-2 `}>

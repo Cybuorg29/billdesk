@@ -16,6 +16,7 @@ export interface IbillsPaylable {
     isPaid: boolean
     createdAt: any
     updatedAt: any
+    no?: string
 
 }
 
@@ -34,5 +35,6 @@ export interface IcreateBillsPayable {
         id: string
     }
     total: number
-    isPaid: boolean
+    isPaid: boolean,
+    no: string
 }

@@ -10,15 +10,18 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationDialog from "../ui/Notifications/NotificationDialog";
 import { Badge } from "@mui/material";
 import CachedIcon from '@mui/icons-material/Cached';
-type props = {};
+type props = {
+  optionBarScale: boolean
+  setOptionBarScale: any
+};
 
 
 
-const Topbar = ({ }: props) => {
+const Topbar = ({ optionBarScale, setOptionBarScale }: props) => {
   const { name } = useAppSelector((state) => state.userData);
   const { notification } = useAppSelector(state => state.Notification)
   const [location, setLocation] = useState("");
-  const [optionBarScale, setOptionBarScale] = useState(`w-0 `);
+  // const [optionBarScale, setOptionBarScale] = useState(`w-0`);
   const [NotificationScale, setNotificationScale] = useState<boolean>(false)
   let changeLocation: any;
   const local = useLocation();

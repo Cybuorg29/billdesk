@@ -4,44 +4,45 @@ import { change } from "../../features/loader/loaderSlice";
 import { getProductsByToken } from "../../../api/inventory";
 import { actionPayload } from "../../payload/payloadModel";
 import { responceObj } from "../../../models/responce";
-import {  setProducts } from "../../features/inventory/inventorySlice";
+import { setProducts } from "../../features/inventory/inventorySlice";
 
 
 
-export const getProducts=async()=>{
-    try{
-        
-        store.dispatch(change()); 
-         const {auth,product} = store.getState()
-         const {token,istoken} = auth
-          const {isProducts} = product 
-          
-         if(!istoken||isProducts){
+export const getProducts = async (force?: boolean) => {
+    try {
+
+        store.dispatch(change());
+        const { auth, product } = store.getState()
+        const { token, istoken } = auth
+        const { isProducts } = product
+
+        if ((!istoken || isProducts) && !force) {
             store.dispatch(change())
-         }else{
-
-         const {data} = await  getProductsByToken(token);
-          const res:responceObj = data;
-          console.log(res)
-        
-         if(res.code===500||res.code===400){
-            throw new Error(data?.error)
-         }else if(res.code===200){
-            const payload:actionPayload={
-                type:'set',
-                data:res.package
-            }
-            store.dispatch(setProducts(payload));
-             store.dispatch(change())
-
-         }
         }
-        
+        else {
+
+            const { data } = await getProductsByToken(token);
+            const res: responceObj = data;
+            console.log(res)
+
+            if (res.code === 500 || res.code === 400) {
+                throw new Error(data?.error)
+            } else if (res.code === 200) {
+                const payload: actionPayload = {
+                    type: 'set',
+                    data: res.package
+                }
+                store.dispatch(setProducts(payload));
+                store.dispatch(change())
+
+            }
+        }
 
 
-    }catch(err:any){
+
+    } catch (err: any) {
         console.log(err.message);
-         toast.error('an error occured please try again ')
-         store.dispatch(change())
+        toast.error('an error occured please try again ')
+        store.dispatch(change())
     }
 }

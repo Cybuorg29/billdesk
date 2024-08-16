@@ -21,4 +21,5 @@ export interface IExpence {
         createdAt: string,
         updatedAt: string,
         __v: number
+        id: string
 }

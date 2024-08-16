@@ -17,6 +17,7 @@ import * as htmlToImage from 'html-to-image'
 import DeliveryChalanPage from '../../delivery_challan/Page';
 import { Dialog } from '@mui/material';
 import { SolidButton } from '../../../components/ui/Buttons/solid/SolidButton';
+import { Data } from '@syncfusion/ej2-grids';
 // import html2pdf from 'ht'
 
 type Props = {}
@@ -95,6 +96,7 @@ const ViewInvoice = (props: Props) => {
         }
       })
     }
+    console.log(typeof invoice.challan_No)
   }, [invoices, isLoaded, istoken])
 
 
@@ -103,7 +105,7 @@ const ViewInvoice = (props: Props) => {
     let pdfHeight = 0
     let pdfWidth = 0
     let dataUri = ''
-    await htmlToImage.toPng(element, { quality: 0.50, backgroundColor: '#ffffff' })
+    await htmlToImage.toPng(element, { quality: 1, backgroundColor: '#ffffff' })
       .then(async function (dataUrl: any) {
         var link = document.createElement('a');
         link.download = 'my-image-name.png';
@@ -149,41 +151,6 @@ const ViewInvoice = (props: Props) => {
 
 
 
-  // async function print() {
-  //   dispatch(change());
-  //   try {
-  //     await htmlToImage.toPng(targetRef.current, { quality: 0.50, backgroundColor: '#fffff' })
-  //       .then(function (dataUrl) {
-  //         var link = document.createElement('a');
-  //         link.download = 'my-image-name.jpeg';
-  //         const pdf = new jsPDF('portrait', 'pt', 'a4');
-  //         const imgProps = pdf.getImageProperties(dataUrl);
-  //         const pdfWidth = pdf.internal.pageSize.getWidth();
-  //         const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-  //         // pdf.addImage(dataUrl, 'PNG', 0, 0, pdfWidth, pdfHeight);
-  //         pdf.addPage();
-  //         // pdf.addImage(dataUrl, 'PNG', 0, 0, pdfWidth, pdfHeight);
-  //         pdf.save(`${"invoice -" + '-' + invoice.invoice_No}.pdf`);
-  //       });
-
-  //     // const htmlString = ReactDOMServer.renderToStaticMarkup(<LeftSection doc={doc} invoice={invoice} targetRef={targetRef} />)
-
-
-
-  //   } catch (err: any) {
-  //     console.log(err.message);
-  //     toast.error('an error occured');
-  //     toast.error('error type' + err.message);
-  //     // dispatch(change());
-
-  //   }
-  //   dispatch(change());
-  // }
-
-
-
-
-
 
 
   const DownloadDialog = () => {
@@ -198,8 +165,13 @@ const ViewInvoice = (props: Props) => {
           {/* {
             (invoice.challan_no) ?
               <> */}
-          <div className='p-2 bg-blue-200 hover:bg-blue-600 cursor-pointer hover:text-white border-blue-300 border-2 flex place-content-center' onClick={() => { printOne(2) }} >Download Only Chalan </div>
-          <div className='p-2 bg-blue-200 hover:bg-blue-600 cursor-pointer hover:text-white border-blue-300 border-2 flex place-content-center' onClick={() => { printOne(3) }} >Download Both </div>
+          {
+            (invoice.challan_No?.length === 0 || typeof invoice.challan_No === typeof undefined) ? null :
+              <>
+                <div className='p-2 bg-blue-200 hover:bg-blue-600 cursor-pointer hover:text-white border-blue-300 border-2 flex place-content-center' onClick={() => { printOne(2) }} >Download Only Chalan </div>
+                <div className='p-2 bg-blue-200 hover:bg-blue-600 cursor-pointer hover:text-white border-blue-300 border-2 flex place-content-center' onClick={() => { printOne(3) }} >Download Both </div>
+              </>
+          }
           {/* </> : null
 
           } */}
@@ -230,7 +202,7 @@ const ViewInvoice = (props: Props) => {
           </div>
           <div className='h-fit w-full mt-5 bg-component ' >
             {
-              (invoice.challan_no?.length === 0) ? null :
+              (invoice.challan_No?.length === 0 || typeof invoice.challan_No === typeof undefined) ? null :
                 <DeliveryChalanPage id={invoice._id} key={'delChalan'} />
             }
           </div>

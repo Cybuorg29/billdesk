@@ -32,7 +32,7 @@ export const changeProduct = (state: productArray, action: PayloadAction<actionP
     switch (type) {
         case ProductOperations.set:
             console.log('in set');
-            state.products = data
+            state.products = [...data]
             state.isProducts = true;
             toast.done("Inventory Updated")
             break;

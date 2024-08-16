@@ -4,10 +4,13 @@ import { creatBilledFromObj } from '../functions/createBilledFrom'
 import { useAppSelector } from '../../../../../store/app/hooks'
 import { initlisePurchaseOrder } from '../../../../../store/actions/purchaseOrder/action'
 import { toast } from 'react-toastify'
+import { Input } from '@mui/joy'
+import { IbillsPaylable, IcreateBillsPayable } from '../../../../../store/features/bills/receivable/model'
+import { userDetailSchema } from '../../../../../models/userModel'
 
 type Props = {
     connectionsArray: any[],
-    data: any,
+    data: IcreateBillsPayable,
     setData: any
 }
 
@@ -21,11 +24,23 @@ const Selector = ({ connectionsArray, data, setData }: Props) => {
         if (!isLoaded) {
             initlisePurchaseOrder();
         }
-    }, [isLoaded, purchase_Order])
+    }, [isLoaded, purchase_Order]);
+
+    useEffect(() => {
+        const po = purchase_Order.find((value) => value._id === data.po.id);
+        if (!po) null
+        else {
+            const usr = connectionsArray.find((value: userDetailSchema) => value.name === po?.to.name);
+            if (!usr) null
+            else setData((prev: IcreateBillsPayable) => { return { ...prev, billed_From: creatBilledFromObj(usr) } });
+        }
+
+    }, [data.po])
 
 
     return (
         <>
+
             <div className='text-end  w-[20%] h-full pr-3 flex items-center'>
                 Billed From
             </div>
@@ -54,6 +69,8 @@ const Selector = ({ connectionsArray, data, setData }: Props) => {
                 </Select>
 
             </div>
+            <div>Invoice No:</div>
+            <Input type='text' value={data.no} onChange={(e: any) => { console.log(e.target.value); setData((prev: any) => { return { ...prev, no: e.target.value } }) }} />
         </>
     )
 }

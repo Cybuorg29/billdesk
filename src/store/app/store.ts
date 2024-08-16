@@ -15,6 +15,8 @@ import invoiceSlice from "../features/invoice/invoiceSlice";
 import payableSlice from "../features/bills/receivable/billsReceivableSlice";
 import poSlice from "../features/PO/poSlice";
 import salesOrder from "../features/salesOrders/SalesOrderSlice";
+import DebitNote from "../features/debitNote/slice";
+import CreditNote from "../features/creditNote/slice";
 
 export const store = configureStore({
   reducer: {
@@ -33,7 +35,9 @@ export const store = configureStore({
     invoice: invoiceSlice,
     payables: payableSlice,
     po: poSlice,
-    salesOrders: salesOrder
+    salesOrders: salesOrder,
+    DebitNote: DebitNote,
+    CreditNote: CreditNote
   },
 });
 

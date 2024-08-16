@@ -57,7 +57,7 @@ const DashboardTable = ({ dataArray, headers, Buttons, onclick }: DashboardTable
                           <td>
                             <div className='flex gap-1'>
                               {
-                                (length === 0) ? console.log("0") :
+                                (length === 0 || typeof length === undefined) ? console.log("0") :
                                   array[j]?.map((Index: any) => {
                                     return Index
                                   })

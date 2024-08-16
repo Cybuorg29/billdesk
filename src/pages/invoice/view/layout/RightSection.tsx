@@ -8,7 +8,7 @@ const RightSection = ({ printOne }: Props) => {
     <>
       <div className='h-[90%] w-full overflow-auto'></div>
       <div className='h-[10%] w-full  border-t flex flex-col  items-center  place-content-center'>
-        <SolidButton color='black' innerText='Download Original' onClick={() => { ; printOne() }} key={'btn1'} />
+        <SolidButton color='black' innerText='Download' onClick={() => { ; printOne() }} key={'btn1'} />
       </div>
     </>
   )

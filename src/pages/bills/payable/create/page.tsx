@@ -31,7 +31,7 @@ const CreateBillsPayable = (props: Props) => {
     const [addProductScale, setAddProductScale] = useState<boolean>(false);
     const navigate = useNavigate();
 
-    const [data, setData] = useState({
+    const [data, setData] = useState<IcreateBillsPayable>({
         billed_From: {
             adress: '',
             gstin: '',
@@ -46,7 +46,8 @@ const CreateBillsPayable = (props: Props) => {
             id: ''
         },
         products: [],
-        total: 0
+        total: 0,
+        no: '',
     });
 
 
@@ -142,7 +143,7 @@ const CreateBillsPayable = (props: Props) => {
     return (
         <div className='w-full h-full  flex flex-col gap-4 rounded-xl  p-4 bg-component'>
             {/* <SelectProducts po={data.po} scale={addProductScale} setInvoice={setData} setMinStock={() => { }} setScale={setAddProductScale} key={keys.selectProduct} /> */}
-            <div className=' flex h-[8%]   gap-5  place-content-center'>
+            <div className=' flex h-[8%]   gap-3  place-content-center'>
                 <Selector connectionsArray={connectionsArray} data={data} setData={setData} key={keys.selector} />
             </div>
             <div className='h-[60%] border'>
@@ -153,6 +154,7 @@ const CreateBillsPayable = (props: Props) => {
             </div>
             <div className=''>
                 <SolidButton color='black' innerText='Insert' onClick={() => { console.log('data', data); submit() }} key={'addButotn'} />
+                {/* <SolidButton color='black' innerText='view' onClick={() => { console.log('data', data) }} key={'addButotn'} /> */}
 
             </div>
 

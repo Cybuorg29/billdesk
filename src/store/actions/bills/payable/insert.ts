@@ -29,26 +29,28 @@ export async function insertBillsPayable(payable: IcreateBillsPayable) {
             }
             const { product, po } = store.getState()
             const { products } = product
-            if (!product.isProducts) await getProducts();
-            let newArray: any = []
-            payable.products.map((index) => {
-                return products.map((product) => {
-                    let temp = { ...product };
-                    if (index.name === product.name) {
-                        temp.stock = parseInt(`${temp.stock}`) + parseInt(`${index.qty}`);
-                    }
-                    newArray.push(temp);
+            if (!product.isProducts) await getProducts(true);
+            else {
+                let newArray: any = []
+                payable.products.map((index) => {
+                    return products.map((product) => {
+                        let temp = { ...product };
+                        if (index.name === product.name) {
+                            temp.stock = parseInt(`${temp.stock}`) + parseInt(`${index.qty}`);
+                        }
+                        newArray.push(temp);
+                    })
                 })
-            })
-            const InventoryPayload: actionPayload = {
-                data: newArray,
-                type: ProductOperations.set
+                const InventoryPayload: actionPayload = {
+                    data: newArray,
+                    type: ProductOperations.set
+                }
+
+                store.dispatch(setProducts(InventoryPayload))
             }
 
 
-
             store.dispatch(changePayables(payload));
-            store.dispatch(setProducts(InventoryPayload))
 
         }
     } catch (err: any) {

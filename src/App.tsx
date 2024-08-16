@@ -51,6 +51,13 @@ import ViewPurchaseOrder from './pages/purchaseOrder/view/Page';
 import CreateSalesOrders from './pages/salesOrders/create/Page';
 import SalesOrderDashboard from './pages/salesOrders/dashboard/Page';
 import ViewSalesOrder from './pages/salesOrders/view/Page'
+import { lazy } from 'react';
+import LedgerDashboard from './pages/Ledger/view/Page'
+import CheckLedgerState from './pages/Ledger/CheckState'
+import CheckDebitNoteState from './pages/debitNote/CheckState'
+import CheckCreditNoteState from './pages/creditNote/CheckState'
+import DebitNoteDashboard from './pages/debitNote/dashboard/Page'
+import CreditNoteDashboard from './pages/creditNote/Dashboard/Page'
 
 registerLicense("Ngo9BigBOggjHTQxAR8/V1NGaF5cXmdCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdgWXhfeHVUQ2hfWUJ0VkE=");
 function App() {
@@ -126,6 +133,9 @@ function App() {
                 <Route path='/sales order/create' element={<CheckSalesOrderState children={<CreateSalesOrders />} />} />
                 <Route path='/dashboard/sales order' element={<CheckSalesOrderState children={<SalesOrderDashboard />} />} />
                 <Route path='/view/:_id/sales order' element={<CheckSalesOrderState children={<ViewSalesOrder />} />} />
+                <Route path='/dashboard/ledger' element={<CheckLedgerState children={<LedgerDashboard />} />} />
+                <Route path='/dashboard/debit note' element={<CheckDebitNoteState children={<DebitNoteDashboard />} />} />
+                <Route path='/dashboard/credit note' element={<CheckCreditNoteState children={<CreditNoteDashboard />} />} />
               </Route>
 
             </Routes>

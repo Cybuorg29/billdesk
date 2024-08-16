@@ -79,7 +79,7 @@ const CreateInvoice = (props: Props) => {
         isPaid: false,
         Eway_No: '',
         SO_NO: '',
-        challan_no: '',
+        challan_No: '',
         SO_Id: ''
     })
 

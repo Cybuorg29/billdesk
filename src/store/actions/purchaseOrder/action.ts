@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { ICREATE_PURCHASE_ORDER } from "../../../pages/purchaseOrder/model/model";
+import { ICREATE_PURCHASE_ORDER, IPURCHASE_ORDER } from "../../../pages/purchaseOrder/model/model";
 import { store } from "../../app/store";
 import { change } from "../../features/loader/loaderSlice";
 import { createPurchaseOrderApi, DeletePoApi, getPoData } from "../../../api/v2/purchaseOrder/api";
@@ -8,6 +8,7 @@ import { actionPayload } from "../../payload/payloadModel";
 import { poAction } from "../../reducers/Po/poReducer";
 import { setPoReducer } from "../../features/PO/poSlice";
 import { setPayablesAction } from "../bills/payable";
+import { IDebitNote } from "../../features/debitNote/model";
 
 
 export async function createPurchaseOrderAction(body: ICREATE_PURCHASE_ORDER) {
@@ -58,10 +59,7 @@ export async function initlisePurchaseOrder() {
         // getting bills payables 
 
         const payload: actionPayload = {
-            data: {
-                array: res.package,
-                invoice: payables.invoice
-            },
+            data: res.package,
             type: poAction.set
         }
         store.dispatch(setPoReducer(payload));
@@ -103,4 +101,32 @@ export async function DeletePurchaseOrder(_id: any, index: any) {
     }
 
     store.dispatch(change())
+}
+
+
+export function updatePoDeliveredThroughDebitNote(obj: IDebitNote) {
+    const { payables, po } = store.getState()
+    let newArray: IPURCHASE_ORDER[] = JSON.parse(JSON.stringify(po.purchase_Order));
+    console.log('obj', obj, 'purchase', newArray)
+    if (po.isLoaded && payables.isLoaded) {
+        const inv = payables.invoice.find((value) => value._id === obj.against_Invoice_Id);
+        const aa = po.purchase_Order.findIndex((value) => value.po_NO === inv?.po);
+        if (aa === -1) throw Error('cannot find Purchase Order Please try again')
+        obj.products.map((value) => {
+            console.log('aa', aa);
+            const findProduct = newArray[aa].product.findIndex((val) => val.name === value.name);
+            if (findProduct === -1) throw Error('cannot find Product');
+            newArray[aa].product[findProduct].delivered = newArray[aa].product[findProduct].delivered - value.qty
+        })
+
+        console.log("old", po.purchase_Order);
+        console.log("new", newArray);
+
+
+        store.dispatch(setPoReducer({
+            type: 'set',
+            data: newArray
+        }))
+    }
+
 }
