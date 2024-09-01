@@ -8,7 +8,8 @@ import { baseUrl, v2Url } from "./Url/ProdUrl";
 
 
 export const signup = (user: registerArgs) => {
-  return axios.post(`${baseUrl}/api/user/signup`, { user });
+
+  return toast.promise(axios.post(`${baseUrl}/api/user/signup`, { user }), { pending: 'setting you up.....please wait' });
 };
 
 export const login = (username: string, password: string) => {
