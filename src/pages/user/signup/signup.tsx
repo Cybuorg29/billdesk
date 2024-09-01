@@ -16,6 +16,8 @@ import { registerArgs } from '../../../models/registerModels';
 import { signup } from '../../../api/userServices';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { store } from '../../../store/app/store';
+import { change } from '../../../store/features/loader/loaderSlice';
 
 function Copyright(props: any) {
   return (
@@ -45,6 +47,8 @@ export const SignUp = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    store.dispatch(change())
+
 
     try {
       console.log(user)
@@ -65,6 +69,9 @@ export const SignUp = () => {
     } catch (err: any) {
       toast.error(err?.message)
     }
+
+    store.dispatch(change())
+
 
 
   };
@@ -159,7 +166,7 @@ export const SignUp = () => {
             <Button
               type="submit"
               fullWidth
-              variant="contained"
+              variant="outlined"
               sx={{ mt: 3, mb: 2 }}
             >
               Sign Up
