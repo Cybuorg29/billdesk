@@ -62,22 +62,27 @@ const DownloadLedger = ({ account, dates, setDates, targetref, close, open, arra
                                             <div className='text-center'>{userData.adress}</div>
                                             <div className='text-center'>{userData.gstin}</div>
                                             <div className='text-center'>{convertIsoDate(dates.upper).split('at')[0]} To {convertIsoDate(dates.lower).split('at')[0]}</div>
-                                        </div> : <div style={{ minHeight: '10rem', border: '', display: 'flex' }}>
-                                            <div style={{ width: '50%', fontFamily: 'fantasy', placeContent: 'center', display: 'grid' }}>
-                                                <div className='text-start text-lg'>{userData.name}</div>
-                                                <div className='text-start'>{userData.adress}</div>
-                                                <div className='text-start'>{userData.gstin}</div>
-                                            </div>
-                                            <div style={{ width: '50%', fontFamily: 'fantasy', borderLeft: '2px solid black', paddingLeft: '2rem' }}>
-                                                <div className='text-start w-full text-lg'>{'Ledger Account :'}</div>
-                                                <div style={{ fontFamily: 'fantasy', placeContent: 'center', display: 'grid', }}>
-                                                    <div className='text-start text-lg'>{data?.name}</div>
-                                                    <div className='text-start'>{data?.adress}</div>
-                                                    <div className='text-start'>{data?.gstin}</div>
-                                                </div>
-                                            </div>
+                                        </div> :
+                                            <div style={{ paddingBottom: '5px' }}>
 
-                                        </div>
+                                                <div style={{ minHeight: '10rem', borderBottom: '2px solid black', display: 'flex', gridTemplateColumns: '2', }}>
+                                                    <div style={{ width: '50%', font: 'status-bar', fontSize: '1.2rem', placeContent: 'center', display: 'grid' }}>
+                                                        <div className='text-start text-lg'>{userData.name}</div>
+                                                        <div className='text-start'>{userData.adress}</div>
+                                                        <div className='text-start'>{userData.gstin}</div>
+                                                    </div>
+                                                    <div style={{ width: '50%', font: 'status-bar', fontSize: '1.2rem', borderLeft: '2px solid black', paddingLeft: '2rem' }}>
+                                                        <div className='text-start w-full text-lg'>{'Ledger Account :'}</div>
+                                                        <div style={{ placeContent: 'center', display: 'grid', }}>
+                                                            <div className='text-start text-lg'>{data?.name}</div>
+                                                            <div className='text-start'>{data?.adress}</div>
+                                                            <div className='text-start'>{data?.gstin}</div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div className='text-center' style={{ width: '100%' }}> from : {convertIsoDate(dates.upper).split('at')[0]} To {convertIsoDate(dates.lower).split('at')[0]}</div>
+                                            </div>
                                     }
                                 </div>
                                 <Table accountArray={array} account={account} dates={dates} setDates={setDates} targetref={'two'} />

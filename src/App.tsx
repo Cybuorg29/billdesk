@@ -58,7 +58,10 @@ import CheckDebitNoteState from './pages/debitNote/CheckState'
 import CheckCreditNoteState from './pages/creditNote/CheckState'
 import DebitNoteDashboard from './pages/debitNote/dashboard/Page'
 import CreditNoteDashboard from './pages/creditNote/Dashboard/Page'
-
+import MobileMainLayout from './mobile/MainLayout'
+import MobileLogin from './mobile/Login'
+import { Toaster } from 'react-hot-toast'
+import MobileDashboard from './mobile/MobileDashboard';
 registerLicense("Ngo9BigBOggjHTQxAR8/V1NGaF5cXmdCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdgWXhfeHVUQ2hfWUJ0VkE=");
 function App() {
 
@@ -67,14 +70,16 @@ function App() {
     return <>
 
       <ToastContainer />
+      <Toaster />
+
       <div className=" ">
         <BrowserRouter>
           <Routes>
-            <Route path='/' element={<MobileMain />}>
-              <Route path='/*' element={<NotFound />}></Route>
-              <Route path='/signup' element={<SignUp />} />
-              <Route path='/login' element={<Login />} />
-              <Route path='/tracker' element={<TrackerMobileDashboard />}></Route>
+            <Route path='/login' element={<MobileLogin />} />
+            <Route path='/*' element={<NotFound />}></Route>
+            <Route path='/' element={<MobileMainLayout />}>
+              <Route path='/' element={<MobileDashboard />} />
+              <Route path='/dashboard' element={<MobileDashboard />} />
 
             </Route>
 

@@ -163,7 +163,7 @@ const IncomeAndExpenceSelect = (props: Props) => {
         </select>
       </div> */}
       <DateChangeDialog lower={from} upper={to} isOpen={openDialog} close={() => setOpenDialog(false)} onChange={(e: React.ChangeEvent<any>) => { setDates((prev) => { return { ...prev, [e.target.name]: e.target.value } }) }} />
-      <div className=' flex place-content-center font-sans text-sm text-black gap-5'>
+      <div className=' lg:flex lg:scale-100 scale-50 place-content-center font-sans text-sm text-black gap-5'>
         <div>
           {/* <input type='date' name='dates' placeholder='date' value={from} className='px-2 rounded-md' /> */}
           <div className='flex gap-2'>
@@ -187,10 +187,10 @@ const IncomeAndExpenceSelect = (props: Props) => {
         </div>
 
 
+
         <div className='cursor-pointer border px-2 py-1 bg-black text-white rounded-md' onClick={() => { (!openDialog) ? setOpenDialog(true) : setOpenDialog(false) }}>
           change
         </div>
-
       </div>
     </div>
   )

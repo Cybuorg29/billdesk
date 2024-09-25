@@ -8,7 +8,8 @@ module.exports = {
         // 'navbar':'#011722',
         'whitesmoke': "#EEF2F6",
         'component': '#FFFFFF',
-        'grayFont': '#1B254B'
+        'grayFont': '#1B254B',
+        'mobileBackground': '#F7F7F8'
       },
       fontFamily: {
 

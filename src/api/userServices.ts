@@ -1,6 +1,6 @@
 import { registerArgs } from "./../models/registerModels";
 import axios from "axios";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import { useAppSelector } from "../store/app/hooks";
 import { userDetailSchema } from "../models/userModel";
 import { bankInterface } from "../store/features/bank/bankSlice";
@@ -12,7 +12,11 @@ export const signup = (user: registerArgs) => {
 };
 
 export const login = (username: string, password: string) => {
-  return axios.post(`${baseUrl}/api/user/login`, { username, password });
+  return toast.promise(axios.post(`${baseUrl}/api/user/login`, { username, password }), {
+    loading: 'Logging You In',
+    error: '',
+    success: ''
+  });
 };
 
 export const getUserData = (token: any) => {

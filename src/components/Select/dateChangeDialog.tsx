@@ -37,7 +37,7 @@ const DateChangeDialog = ({ isOpen, lower, upper, close, onChange }: Props) => {
 
     return (
         <Dialog open={isOpen} fullWidth  >
-            <div className='flex place-content-between '>
+            <div className='flex place-content-between  '>
                 <DialogTitle >Select Date </DialogTitle>
                 <div className='flex place-content-center items-center  p-5 hover:bg-gray-200 w-[1rem] h-[1rem] m-2 cursor-pointer rounded-full ' onClick={() => { close() }}>
                     <div>X</div>
@@ -53,9 +53,9 @@ const DateChangeDialog = ({ isOpen, lower, upper, close, onChange }: Props) => {
                 Click on the input to edit
             </DialogContentText>
 
-            <DialogContent className='pl-5'>
+            <DialogContent className='pl-5 '>
 
-                <div className='flex gap-5'>
+                <div className='lg:flex gap-5'>
                     <div>
                         <div>From</div>
                         {/* <StaticDatePicker /> */}
